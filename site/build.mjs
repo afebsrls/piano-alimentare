@@ -1,0 +1,148 @@
+// Genera il sito pubblico statico in site/dist/ a partire da keywords.mjs
+// e contenuti.mjs. Uso: node site/build.mjs
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { SITE, APP, PAGES, ARTICOLI } from './src/keywords.mjs';
+import { CONTENUTI, ARTICOLI_HTML } from './src/contenuti.mjs';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const OUT = path.join(__dirname, 'dist');
+fs.rmSync(OUT, { recursive: true, force: true });
+fs.mkdirSync(OUT, { recursive: true });
+
+const CSS = fs.readFileSync(path.join(__dirname, 'src/style.css'), 'utf8');
+const TOOLS_JS = fs.readFileSync(path.join(__dirname, 'src/tools.js'), 'utf8');
+
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const url = (slug) => slug ? `${SITE}/${slug}/` : `${SITE}/`;
+
+const LOGO = `<a class="logo" href="/" aria-label="Fitsy">f<span>i</span>tsy</a>`;
+const NAV = `
+<nav class="nav">
+  <a href="/menu-settimanale-famiglia/">Menu settimanale</a>
+  <a href="/lista-della-spesa-automatica/">Lista spesa</a>
+  <a href="/calcolo-fabbisogno-calorico/">Calcolatori</a>
+  <a href="/blog/">Guide</a>
+  <a href="/per-nutrizionisti/">Nutrizionisti</a>
+  <a class="cta" href="${APP}">Apri l’app</a>
+</nav>`;
+
+function layout({ title, description, slug, body, schema = [], type = 'website', datePublished }) {
+  const canonical = url(slug);
+  const ld = [
+    { '@context': 'https://schema.org', '@type': 'Organization', name: 'Fitsy', url: SITE, logo: `${SITE}/icon.svg` },
+    ...schema,
+  ];
+  return `<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(description)}">
+<link rel="canonical" href="${canonical}">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<meta property="og:type" content="${type}">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(description)}">
+<meta property="og:url" content="${canonical}">
+<meta property="og:site_name" content="Fitsy">
+<meta property="og:locale" content="it_IT">
+<meta property="og:image" content="${SITE}/og.png">
+<meta name="twitter:card" content="summary_large_image">
+${datePublished ? `<meta property="article:published_time" content="${datePublished}">` : ''}
+<meta name="theme-color" content="#15251C">
+<style>${CSS}</style>
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">${LOGO}${NAV}</div></header>
+<main class="wrap">
+${body}
+</main>
+<footer class="foot"><div class="wrap">
+  <div class="cols">
+    <div><strong>Fitsy</strong><br>Nutrizione intelligente per la famiglia.<br><a href="${APP}">Apri l’app</a> · gratis, senza pubblicità.</div>
+    <div><strong>Strumenti gratuiti</strong><br>
+      <a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a><br>
+      <a href="/peso-forma-calcolo/">Peso forma</a><br>
+      <a href="/quanta-acqua-bere-al-giorno/">Acqua al giorno</a></div>
+    <div><strong>Guide</strong><br>${ARTICOLI.map(a => `<a href="/${a.slug}/">${esc(a.title)}</a>`).join('<br>')}</div>
+    <div><strong>Info</strong><br><a href="/per-nutrizionisti/">Per nutrizionisti</a><br><a href="${APP}privacy.html">Privacy</a><br><a href="mailto:info@fitsy.it">info@fitsy.it</a></div>
+  </div>
+  <div class="fine">© ${new Date().getFullYear()} Fitsy · I calcolatori forniscono stime indicative e non sostituiscono il parere di un medico o di un nutrizionista.</div>
+</div></footer>
+</body>
+</html>`;
+}
+
+const faqSchema = (faq) => faq?.length ? [{
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a.replace(/<[^>]+>/g, '') } })),
+}] : [];
+
+const faqHtml = (faq) => faq?.length ? `<section class="faq"><h2>Domande frequenti</h2>${faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><div>${a}</div></details>`).join('')}</section>` : '';
+
+const ctaHtml = (testo = 'Prova Fitsy gratis') => `<div class="ctabox"><div><strong>${esc(testo)}</strong><br>Menu settimanale per tutta la famiglia, porzioni per ciascuno e lista della spesa automatica. Senza pubblicità, senza carta di credito.</div><a class="btn" href="${APP}">Apri l’app →</a></div>`;
+
+function writePage(slug, html) {
+  const dir = path.join(OUT, slug);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), html);
+}
+
+// ── Pagine principali ──
+for (const p of PAGES) {
+  const c = CONTENUTI[p.slug || 'home'];
+  if (!c) throw new Error('Contenuto mancante per ' + (p.slug || 'home'));
+  const schema = [...faqSchema(c.faq)];
+  if (p.tipo === 'home') schema.push({
+    '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Fitsy',
+    applicationCategory: 'HealthApplication', operatingSystem: 'Web, Android, iOS',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    description: p.description, url: APP, inLanguage: 'it',
+  });
+  if (p.tipo === 'tool') schema.push({
+    '@context': 'https://schema.org', '@type': 'WebApplication', name: p.title,
+    applicationCategory: 'HealthApplication', operatingSystem: 'Web', browserRequirements: 'Requires JavaScript',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, url: url(p.slug), inLanguage: 'it',
+  });
+  const body = `${c.body({ esc, APP, cta: ctaHtml })}${faqHtml(c.faq)}${p.tipo === 'tool' ? `<script>${TOOLS_JS}</script>` : ''}`;
+  writePage(p.slug, layout({ ...p, body, schema }));
+}
+
+// ── Blog: indice + articoli ──
+for (const a of ARTICOLI) {
+  const html = ARTICOLI_HTML[a.slug];
+  if (!html) throw new Error('Articolo mancante: ' + a.slug);
+  const schema = [{
+    '@context': 'https://schema.org', '@type': 'Article', headline: a.title, description: a.description,
+    datePublished: a.data, dateModified: a.data, inLanguage: 'it',
+    author: { '@type': 'Organization', name: 'Fitsy' }, publisher: { '@type': 'Organization', name: 'Fitsy' },
+    mainEntityOfPage: url(a.slug),
+  }];
+  const body = `<article class="art"><p class="crumb"><a href="/blog/">Guide</a> · ${new Date(a.data).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}</p>${html({ esc, APP, cta: ctaHtml })}</article>`;
+  writePage(a.slug, layout({ ...a, body, schema, type: 'article', datePublished: a.data }));
+}
+writePage('blog', layout({
+  title: 'Guide Fitsy: organizzare i pasti della famiglia',
+  description: 'Guide pratiche per organizzare il menu settimanale, le porzioni dei bambini e il piano alimentare di mantenimento.',
+  slug: 'blog',
+  body: `<h1>Guide per organizzare i pasti della famiglia</h1><p class="lead">Metodi concreti, senza mode. Ogni guida rimanda a uno strumento gratuito con cui provare subito.</p>
+  <div class="cards">${ARTICOLI.map(a => `<a class="card" href="/${a.slug}/"><h2>${esc(a.title)}</h2><p>${esc(a.description)}</p></a>`).join('')}</div>`,
+}));
+
+// ── File di servizio ──
+const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : '0.8', mod: '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.data }))];
+fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${tutte.map(u => `  <url><loc>${url(u.slug)}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority></url>`).join('\n')}
+</urlset>
+`);
+fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /app/\nSitemap: ${SITE}/sitemap.xml\n`);
+fs.copyFileSync(path.join(__dirname, 'src/htaccess-root'), path.join(OUT, '.htaccess'));
+fs.copyFileSync(path.join(__dirname, 'src/icon.svg'), path.join(OUT, 'icon.svg'));
+fs.copyFileSync(path.join(__dirname, 'src/og.png'), path.join(OUT, 'og.png'));
+
+console.log(`[site] generate ${tutte.length} pagine in site/dist/`);

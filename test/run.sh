@@ -97,6 +97,10 @@ node ./.t3.mjs || FAIL=1
 rm -f ./.t3.mjs
 
 echo ""
+echo "▸ TEST 4 — Sito pubblico: generazione + calcolatori (LARN, Grant, acqua)"
+node site/build.mjs >/dev/null && node test/test_sito.mjs || FAIL=1
+
+echo ""
 echo "▸ BUILD — verifica che il progetto compili"
 npm run build >/dev/null 2>&1 && echo "✓ build OK" || { echo "✗ build FALLITA"; FAIL=1; }
 

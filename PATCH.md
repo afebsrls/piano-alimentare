@@ -1,5 +1,10 @@
 # PATCH.md — Changelog cumulativo
 
+## v15 — 03/11/2026 · Admin solo admin + sito pubblico www.fitsy.it
+- **Admin solo admin**: dopo il login un account admin vede una shell dedicata (plancia + Esci), niente scheda, onboarding o piano. Verifica via `is_admin()` ascoltando direttamente l'auth. Tolto "copia nelle mie" dalla plancia (l'admin non ha ricette).
+- **Sito pubblico** (`site/`): generatore statico da registro parole chiave (`keywords.mjs`) → 11 pagine: home, menu settimanale famiglia, lista spesa automatica, 3 calcolatori (fabbisogno LARN, peso forma/Grant, acqua), per nutrizionisti, 3 guide. Schema.org (SoftwareApplication, WebApplication, FAQPage, Article), sitemap, robots, canonical, OG. Test 4 verifica build e calcolatori. Metodo in `docs/seo-metodo.md`.
+- Deploy: secondo job FTP nella root di Aruba (non tocca `/app/`).
+
 ## v14 — 03/11/2026 · Plancia admin + ricette pubbliche
 - **🛠️ Plancia admin** (`src/features/admin/AdminPage.jsx`, `src/db/admin.js`, `supabase/s12_plancia_admin.sql`): voce di menu visibile solo agli admin (tabella `admin_users`, verifica server-side `is_admin()`). Tre sezioni: Panoramica (utenti, famiglie attive 7/30 gg, ricette da validare…), Utenti (email, famiglia, ultima attività, login, ricette, misure, ricerca) e Ricette (vedi ingredienti, 📋 copia nelle proprie come privata/esclusa, ✅ valida, 🌍 pubblica, 🔒 ritira).
 - **Nessuna RLS allargata**: tutto passa da funzioni `security definer` (`admin_stats`, `admin_utenti`, `admin_ricette`, `admin_ricetta_azione`, `admin_copia_ricetta`).

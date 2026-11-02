@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "cap:sync": "npm run build && cap sync",
     "android": "npm run build && cap sync android && cap open android",
+    "site": "node site/build.mjs",
     "test": "bash test/run.sh"
   },
   "dependencies": {

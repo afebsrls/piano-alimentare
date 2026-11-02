@@ -1,5 +1,5 @@
 # Deploy automatico su Aruba (hosting Linux) via FTP a ogni push su main.
-# L'app va in /www.fitsy.it/app/ ; il sito pubblico (quando ci sarà) nella root.
+# L'app va in /www.fitsy.it/app/ ; il sito pubblico (site/dist) nella root.
 # Secrets da creare in GitHub → Settings → Secrets and variables → Actions:
 #   ARUBA_FTP_HOST      es. ftp.fitsy.it
 #   ARUBA_FTP_USER      es. 1234567@aruba.it
@@ -42,3 +42,27 @@ jobs:
           exclude: |
             **/.git*
             **/.git*/**
+
+  site-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: node site/build.mjs
+      - name: Upload FTP → root (non tocca /app/)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.ARUBA_FTP_HOST }}
+          username: ${{ secrets.ARUBA_FTP_USER }}
+          password: ${{ secrets.ARUBA_FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: site/dist/
+          server-dir: www.fitsy.it/
+          state-name: .ftp-deploy-sync-state-site.json
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            app/**

@@ -1,0 +1,26 @@
+# Fitsy — sito pubblico (root). L'app sta in /app/ con il suo .htaccess.
+DirectoryIndex index.html
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # un solo indirizzo canonico: https://www.fitsy.it
+  RewriteCond %{HTTP_HOST} ^fitsy\.it$ [NC]
+  RewriteRule ^(.*)$ https://www.fitsy.it/$1 [R=301,L]
+  RewriteCond %{HTTP:X-Forwarded-Proto} =http
+  RewriteRule ^(.*)$ https://www.fitsy.it/$1 [R=301,L]
+  # /pagina → /pagina/ (cartelle con index.html)
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^(.*)$ /$1/ [R=301,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(svg|png|jpg|webp|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+ErrorDocument 404 /index.html
