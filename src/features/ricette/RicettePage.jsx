@@ -8,6 +8,7 @@ import { caricaRicette, creaRicetta, aggiornaRicetta, eliminaRicetta,
          toggleEsclusaRicetta } from '@/db/ricetteCloud';
 import { logSync } from '@/db/synclog';
 import { toast } from '@/components/toast';
+import { catalogoPubblico } from '@/db/admin';
 
 const CAT = [
   { key: "colazione", label: "Colazione", icon: "🌅" },
@@ -466,6 +467,15 @@ export function RicettePage({ cloudStatus, onRicetteChange, onTorna }) {
   const [query, setQuery] = useState("");
   // Ricetta → ingrediente: prefill del modale calcolato dal batch
   const [daRicetta, setDaRicetta] = useState(null);
+  // 🌍 Ricette pubblicate dall'admin (validate): solo per ESPLORARE.
+  // Arrivano da una funzione dedicata, non dal pool del generatore: entrano
+  // nel piano solo se l'utente le duplica tra le proprie ricette.
+  const [community, setCommunity] = useState(null);
+  const [communityAperta, setCommunityAperta] = useState(false);
+  useEffect(() => {
+    if (tab !== "catalogo" || community !== null || !cloudStatus?.loggedIn) return;
+    catalogoPubblico().then(r => setCommunity(r || [])).catch(() => setCommunity([]));
+  }, [tab, community, cloudStatus?.loggedIn]);
   const comeIngrediente = (nome, quantita) => {
     const res = nutriPer100DaQuantita(quantita);
     if (!res) { toast("Quantità non disponibili per questa ricetta", "err"); return; }
@@ -658,6 +668,48 @@ export function RicettePage({ cloudStatus, onRicetteChange, onTorna }) {
             le scala automaticamente per il fabbisogno di ciascun membro.
             Duplica una ricetta per personalizzarla e aggiungerla alle ricette di famiglia.
           </div>
+          {/* 🌍 Dalla community */}
+          {community && community.length > 0 && (() => {
+            const rs = community.filter(r => !q || (r.titolo||"").toLowerCase().includes(q) ||
+              Object.keys(r.quantita||{}).some(id => (ING_MAP[id]?.nome||"").toLowerCase().includes(q)));
+            if (q && rs.length === 0) return null;
+            const aperta = q ? true : communityAperta;
+            return (
+              <div style={{ marginBottom:10 }}>
+                <button onClick={() => setCommunityAperta(a => !a)}
+                  style={{ width:"100%", display:"flex", alignItems:"center", justifyContent:"space-between",
+                           padding:"12px 14px", borderRadius:12, border:"1px solid #C7F23E",
+                           background:"#F7FDE8", cursor:"pointer", fontWeight:700, fontSize:14, color:"#15251C" }}>
+                  <span>🌍 Dalla community
+                    <span style={{ color:"#6E8576", fontWeight:600, fontSize:12 }}> · {rs.length} ricette validate</span>
+                  </span>
+                  <span style={{ color:"#C2D0C6", fontSize:11 }}>{aperta ? "▲" : "▼"}</span>
+                </button>
+                {aperta && (
+                  <div style={{ marginTop:8 }}>
+                    <div style={{ fontSize:12, color:"#6E8576", margin:"0 2px 8px", lineHeight:1.5 }}>
+                      Ricette create da altre famiglie e controllate da Fitsy. Non entrano nel tuo piano finché non le duplichi.
+                    </div>
+                    {rs.map(r => (
+                      <div key={r.id} style={{ background:"#fff", border:"1px solid #E7EDE2", borderRadius:12, padding:12, marginBottom:8 }}>
+                        <div style={{ fontWeight:700, color:"#15251C" }}>{r.titolo}</div>
+                        <div style={{ fontSize:12, color:"#9DB1A2", marginTop:2 }}>
+                          {r.categoria} · {Math.round(r.kcal||0)} kcal · P {Math.round(r.p||0)} C {Math.round(r.c||0)} G {Math.round(r.g||0)}{r.prep ? ` · ⏱ ${r.prep}'` : ""}{r.autore_nome ? ` · di ${r.autore_nome}` : ""}
+                        </div>
+                        {r.descrizione && <div style={{ fontSize:13, color:"#4A6152", marginTop:6, whiteSpace:"pre-wrap" }}>{r.descrizione}</div>}
+                        <div style={{ fontSize:12, color:"#4A6152", marginTop:6 }}>
+                          {Object.entries(r.quantita||{}).map(([id,v]) => `${ING_MAP[id]?.nome||id} ${v?.g ?? v?.uomo ?? ""}${v?.unit||"g"}`).join(" · ")}
+                        </div>
+                        <div style={{ display:"flex", gap:6, marginTop:8, flexWrap:"wrap" }}>
+                          <button onClick={() => duplica({ ...r, titolo: r.titolo }, r.categoria, r.quantita)} style={btnGhost}>📋 Duplica e personalizza</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
           {CAT.map(c => {
             const rs = (DB[c.key] || []).filter(matchCatalogo);
             if (q && rs.length === 0) return null;   // categoria senza risultati

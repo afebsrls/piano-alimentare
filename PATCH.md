@@ -1,5 +1,11 @@
 # PATCH.md — Changelog cumulativo
 
+## v14 — 03/11/2026 · Plancia admin + ricette pubbliche
+- **🛠️ Plancia admin** (`src/features/admin/AdminPage.jsx`, `src/db/admin.js`, `supabase/s12_plancia_admin.sql`): voce di menu visibile solo agli admin (tabella `admin_users`, verifica server-side `is_admin()`). Tre sezioni: Panoramica (utenti, famiglie attive 7/30 gg, ricette da validare…), Utenti (email, famiglia, ultima attività, login, ricette, misure, ricerca) e Ricette (vedi ingredienti, 📋 copia nelle proprie come privata/esclusa, ✅ valida, 🌍 pubblica, 🔒 ritira).
+- **Nessuna RLS allargata**: tutto passa da funzioni `security definer` (`admin_stats`, `admin_utenti`, `admin_ricette`, `admin_ricetta_azione`, `admin_copia_ricetta`).
+- **🌍 Dalla community** nella tab Catalogo: le ricette con `scope='pubblica'` arrivano da `catalogo_pubblico()` (funzione a parte), quindi NON entrano nel pool del generatore delle altre famiglie: si possono solo esplorare e duplicare. I piani esistenti restano stabili.
+- Colonne nuove su `ricette_utente`: `validata_at`, `validata_da`, `pubblicata_at`, `origine_id`; `scope` ammette anche `pubblica`.
+
 ## v13 — 03/11/2026 · Trasloco su www.fitsy.it
 - **Deploy su Aruba** (`.github/workflows/deploy-aruba.yml` + `deploy/htaccess-app`): a ogni push su main l'app va in `www.fitsy.it/app/` via FTP; GitHub Pages resta attivo in parallelo per gli utenti non ancora migrati.
 - **🚚 Trasloco utenti** (`src/features/trasloco/Trasloco.jsx`): su github.io compare un banner "Fitsy si è trasferita"; il bottone impacchetta tutto il localStorage (dati, impostazioni, sessione di login) nell'hash dell'URL e apre il nuovo sito, che lo importa prima di avviare l'app e ricarica. L'hash non raggiunge mai il server; i dati sul vecchio sito restano come backup. Test 2l (andata/ritorno con accenti, emoji, 300 giorni di piano).

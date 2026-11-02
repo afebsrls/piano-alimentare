@@ -19,6 +19,8 @@ import { Onboarding } from '@/features/onboarding/Onboarding';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { SyncTestPage } from '@/features/test/SyncTestPage';
 import { SyncLogPage } from '@/features/log/SyncLogPage';
+import { AdminPage } from '@/features/admin/AdminPage';
+import { isAdmin as checkIsAdmin, resetAdminCache } from '@/db/admin';
 import { cloudEnabled } from '@/db/cloud';
 import { MealCard, TotaleBar, WaterTracker } from '@/features/piano/MealParts';
 import { ShoppingPage } from '@/features/spesa/ShoppingPage';
@@ -122,6 +124,7 @@ export function App() {
   const [spesaChecks, setSpesaChecks] = useState({});   // { [seed]: { [itemId]: true } }
   const [cloudStatus, setCloudStatus] = useState({ loggedIn:false, inFamily:false });
   const [cloudMigrated, setCloudMigrated] = useState(true); // finché non sappiamo, niente wizard
+  const [isAdminUser, setIsAdminUser] = useState(false);   // plancia admin (verificata lato server)
   const [misureApp, setMisureApp]     = useState({});
   const [overrides, setOverrides]     = useState({}); // { "dayIdx-mealKey": ricettaObj }
   const [prefs, setPrefs]             = useState({ recipes:{}, contextSwaps:[] });
@@ -248,6 +251,14 @@ export function App() {
   },[]);
   // Auto-claim: se sul dispositivo c'è UNA sola persona, l'associazione
   // col profilo cloud avviene da sola, senza wizard
+  // Plancia admin: la verifica passa dal server (rpc is_admin) a ogni cambio di login
+  useEffect(()=>{
+    let vivo = true;
+    if (!cloudStatus.loggedIn) { resetAdminCache(); setIsAdminUser(false); return; }
+    checkIsAdmin().then(v => { if (vivo) setIsAdminUser(v); }).catch(()=>{});
+    return ()=>{ vivo = false; };
+  },[cloudStatus.loggedIn]);
+
   useEffect(()=>{
     if (cloudStatus.inFamily && !cloudMigrated && personas.length === 1) {
       autoClaimSingle(personas[0]).then(()=>setCloudMigrated(true)).catch(()=>{});
@@ -889,6 +900,10 @@ export function App() {
     {key:"ricette",     label:"Ricette",     icon:"📖", desc:"Le tue ricette e quelle di famiglia"},
     {key:"strumenti",   label:"Strumenti",   icon:"🧰", desc:"Convertitori e calcolatori"},
     {key:"opzioni",     label:"Opzioni",     icon:"⚙️", desc:"Notifiche, promemoria, dati e privacy"},
+    // Plancia admin: solo per gli amministratori (verifica server-side)
+    ...(isAdminUser ? [
+      {key:"admin",     label:"Plancia admin", icon:"🛠️", desc:"Utenti, attività e ricette da validare"},
+    ] : []),
     // Strumenti diagnostici: visibili solo in modalità sviluppatore
     ...(devMode ? [
       {key:"test-sync", label:"Test Sync",   icon:"🔬", desc:"Diagnostica sincronizzazione"},
@@ -897,7 +912,7 @@ export function App() {
   ];
   // Pagine "secondarie" per lo stato attivo della voce Menu: include anche
   // quelle raggiungibili senza voce dedicata (famiglia, diagnostica nascosta)
-  const PAGINE_SECONDARIE = new Set([...SUBMENU.map(x=>x.key), "famiglia", "privacy", "test-sync", "synclog"]);
+  const PAGINE_SECONDARIE = new Set([...SUBMENU.map(x=>x.key), "famiglia", "privacy", "test-sync", "synclog", "admin"]);
 
   // ── Primo accesso: nessuna persona → flusso di onboarding ──
   const completaOnboarding = async (p, session) => {
@@ -1306,6 +1321,7 @@ export function App() {
         {page==="ricette"&&<RicettePage cloudStatus={cloudStatus} onRicetteChange={handleRicetteChange} onTorna={()=>navigaA("piano")}/>}
         {page==="test-sync"&&<SyncTestPage/>}
         {page==="synclog"&&<SyncLogPage cloudStatus={cloudStatus}/>}
+        {page==="admin"&&(isAdminUser ? <AdminPage onTorna={()=>navigaA("opzioni")}/> : <div style={{padding:20,color:"#9DB1A2"}}>Pagina riservata agli amministratori.</div>)}
         {page==="privacy"&&<PrivacyPage onTorna={()=>navigaA("opzioni")}/>}
         {page==="opzioni"&&<OpzioniPage devMode={devMode} onToggleDev={toggleDevMode} consenso={consenso} onGoPrivacy={()=>navigaA("privacy")} onRevocaConsenso={handleRevocaConsenso} notifSettings={notifSettings} onNotifChange={handleNotifChange} plan={plan} personas={personas} myPersonaId={myPersonaId} currentSeed={seed} overrides={overrides} onApplySeed={handleApplySeed} history={history} onLoadHistory={(s)=>{ loadHistory(s); setPage("piano"); }}/>}
         {page==="misure"&&<MisurePage personas={personas} myPersonaId={myPersonaId} onMisureChange={handleMisureChange} mealsLog={mealsLog} inFamily={cloudStatus.inFamily} myUid={myUid}/>}
