@@ -1,6 +1,6 @@
 import React from 'react';
 const { useState, useEffect, useMemo, useCallback } = React;
-import { adminStats, adminUtenti, adminRicette, adminRicettaAzione, adminCopiaRicetta } from '@/db/admin';
+import { adminStats, adminUtenti, adminRicette, adminRicettaAzione } from '@/db/admin';
 import { ING_MAP } from '@/core';
 
 // ── 🛠️ Plancia admin ─────────────────────────────────────────────────
@@ -141,13 +141,8 @@ function Ricette({ ricette, onReload, flash, setErr }) {
   const azione = async (r, az) => {
     setBusy(r.id + az); setErr('');
     try {
-      if (az === 'copia') {
-        await adminCopiaRicetta(r.id);
-        flash(`📋 "${r.titolo}" copiata nelle tue ricette (privata, esclusa dal piano): la trovi in Ricette.`);
-      } else {
-        await adminRicettaAzione(r.id, az);
-        flash({ valida: '✅ Ricetta validata', annulla_validazione: '↩️ Validazione annullata', pubblica: '🌍 Ricetta pubblicata nel catalogo', ritira: '🔒 Ricetta ritirata dal catalogo' }[az]);
-      }
+      await adminRicettaAzione(r.id, az);
+      flash({ valida: '✅ Ricetta validata', annulla_validazione: '↩️ Validazione annullata', pubblica: '🌍 Ricetta pubblicata nel catalogo', ritira: '🔒 Ricetta ritirata dal catalogo' }[az]);
       await onReload();
     } catch (e) { setErr(e?.message || 'Errore'); }
     setBusy(null);
@@ -188,7 +183,6 @@ function Ricette({ ricette, onReload, flash, setErr }) {
                   <b>Ingredienti:</b> {ingList.length ? ingList.join(' · ') : '—'}
                 </div>
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                  <button disabled={!!busy} onClick={() => azione(r, 'copia')} style={btn(C.chiaro, C.verde)}>📋 Copia nelle mie</button>
                   {!r.validata_at && <button disabled={!!busy} onClick={() => azione(r, 'valida')} style={btn('#0891b2')}>✅ Valida</button>}
                   {r.validata_at && r.scope !== 'pubblica' && <button disabled={!!busy} onClick={() => azione(r, 'annulla_validazione')} style={btn(C.chiaro, C.ambra)}>↩️ Annulla validazione</button>}
                   {r.scope !== 'pubblica' && <button disabled={!!busy} onClick={() => azione(r, 'pubblica')} style={btn(C.verde)}>🌍 Pubblica nel catalogo</button>}

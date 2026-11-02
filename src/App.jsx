@@ -21,13 +21,12 @@ import { SyncTestPage } from '@/features/test/SyncTestPage';
 import { SyncLogPage } from '@/features/log/SyncLogPage';
 import { AdminPage } from '@/features/admin/AdminPage';
 import { isAdmin as checkIsAdmin, resetAdminCache } from '@/db/admin';
-import { cloudEnabled } from '@/db/cloud';
+import { cloudEnabled, getSession, onAuthChange, signOut } from '@/db/cloud';
 import { MealCard, TotaleBar, WaterTracker } from '@/features/piano/MealParts';
 import { ShoppingPage } from '@/features/spesa/ShoppingPage';
 import { ToastHost, toast } from '@/components/toast';
 import { PrivacyPage, ConsensoGate, PRIVACY_VERSIONE, serveConsenso } from '@/features/privacy/informativa';
 import { leggiConsensoCloud, salvaConsensoCloud } from '@/db/consenso';
-import { signOut } from '@/db/cloud';
 
 // Rimappa i colori-profilo legacy sul nuovo sistema verde:
 // il vecchio blu brand (#2563eb) diventa il verde brand (#2F6B3A).
@@ -251,13 +250,20 @@ export function App() {
   },[]);
   // Auto-claim: se sul dispositivo c'è UNA sola persona, l'associazione
   // col profilo cloud avviene da sola, senza wizard
-  // Plancia admin: la verifica passa dal server (rpc is_admin) a ogni cambio di login
+  // Plancia admin: la verifica passa dal server (rpc is_admin). Ascolta
+  // direttamente l'autenticazione (non il profilo): l'admin è SOLO admin,
+  // non ha una scheda Fitsy e non passa dall'onboarding.
   useEffect(()=>{
+    if (!cloudEnabled) return;
     let vivo = true;
-    if (!cloudStatus.loggedIn) { resetAdminCache(); setIsAdminUser(false); return; }
-    checkIsAdmin().then(v => { if (vivo) setIsAdminUser(v); }).catch(()=>{});
-    return ()=>{ vivo = false; };
-  },[cloudStatus.loggedIn]);
+    const verifica = (session) => {
+      if (!session) { resetAdminCache(); if (vivo) setIsAdminUser(false); return; }
+      checkIsAdmin().then(v => { if (vivo) setIsAdminUser(v); }).catch(()=>{});
+    };
+    getSession().then(verifica);
+    const off = onAuthChange(verifica);
+    return ()=>{ vivo = false; off(); };
+  },[]);
 
   useEffect(()=>{
     if (cloudStatus.inFamily && !cloudMigrated && personas.length === 1) {
@@ -900,10 +906,6 @@ export function App() {
     {key:"ricette",     label:"Ricette",     icon:"📖", desc:"Le tue ricette e quelle di famiglia"},
     {key:"strumenti",   label:"Strumenti",   icon:"🧰", desc:"Convertitori e calcolatori"},
     {key:"opzioni",     label:"Opzioni",     icon:"⚙️", desc:"Notifiche, promemoria, dati e privacy"},
-    // Plancia admin: solo per gli amministratori (verifica server-side)
-    ...(isAdminUser ? [
-      {key:"admin",     label:"Plancia admin", icon:"🛠️", desc:"Utenti, attività e ricette da validare"},
-    ] : []),
     // Strumenti diagnostici: visibili solo in modalità sviluppatore
     ...(devMode ? [
       {key:"test-sync", label:"Test Sync",   icon:"🔬", desc:"Diagnostica sincronizzazione"},
@@ -912,7 +914,7 @@ export function App() {
   ];
   // Pagine "secondarie" per lo stato attivo della voce Menu: include anche
   // quelle raggiungibili senza voce dedicata (famiglia, diagnostica nascosta)
-  const PAGINE_SECONDARIE = new Set([...SUBMENU.map(x=>x.key), "famiglia", "privacy", "test-sync", "synclog", "admin"]);
+  const PAGINE_SECONDARIE = new Set([...SUBMENU.map(x=>x.key), "famiglia", "privacy", "test-sync", "synclog"]);
 
   // ── Primo accesso: nessuna persona → flusso di onboarding ──
   const completaOnboarding = async (p, session) => {
@@ -950,6 +952,24 @@ export function App() {
     } catch {}
     setPage("oggi");
   };
+  // Account admin: niente scheda, niente piano. Solo la plancia.
+  if (isAdminUser) {
+    return (
+      <div style={{minHeight:"100vh",background:"#F4F7EF"}}>
+        <div style={{background:"linear-gradient(120deg,#15251C 0%,#1D3A28 100%)",padding:"13px 18px",paddingTop:"calc(13px + env(safe-area-inset-top,0px))"}}>
+          <div style={{maxWidth:720,margin:"0 auto",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+            <div style={{fontSize:32,fontWeight:800,color:"#F5F8F1",fontFamily:"'Outfit',sans-serif",lineHeight:1,letterSpacing:-1.2}}>f<span style={{color:"#C7F23E"}}>i</span>tsy <span style={{fontSize:13,color:"#9DB1A2",letterSpacing:0,fontWeight:700}}>ADMIN</span></div>
+            <button onClick={async()=>{ await signOut(); window.location.reload(); }}
+              style={{background:"transparent",color:"#C7F23E",border:"1px solid #C7F23E55",borderRadius:8,padding:"6px 12px",fontWeight:700,fontSize:12,cursor:"pointer"}}>Esci</button>
+          </div>
+        </div>
+        <ErrorBoundary onReset={()=>window.location.reload()}>
+          <AdminPage/>
+        </ErrorBoundary>
+      </div>
+    );
+  }
+
   if (booted && personas.length === 0) {
     return <Onboarding onComplete={completaOnboarding}/>;
   }
@@ -1321,7 +1341,6 @@ export function App() {
         {page==="ricette"&&<RicettePage cloudStatus={cloudStatus} onRicetteChange={handleRicetteChange} onTorna={()=>navigaA("piano")}/>}
         {page==="test-sync"&&<SyncTestPage/>}
         {page==="synclog"&&<SyncLogPage cloudStatus={cloudStatus}/>}
-        {page==="admin"&&(isAdminUser ? <AdminPage onTorna={()=>navigaA("opzioni")}/> : <div style={{padding:20,color:"#9DB1A2"}}>Pagina riservata agli amministratori.</div>)}
         {page==="privacy"&&<PrivacyPage onTorna={()=>navigaA("opzioni")}/>}
         {page==="opzioni"&&<OpzioniPage devMode={devMode} onToggleDev={toggleDevMode} consenso={consenso} onGoPrivacy={()=>navigaA("privacy")} onRevocaConsenso={handleRevocaConsenso} notifSettings={notifSettings} onNotifChange={handleNotifChange} plan={plan} personas={personas} myPersonaId={myPersonaId} currentSeed={seed} overrides={overrides} onApplySeed={handleApplySeed} history={history} onLoadHistory={(s)=>{ loadHistory(s); setPage("piano"); }}/>}
         {page==="misure"&&<MisurePage personas={personas} myPersonaId={myPersonaId} onMisureChange={handleMisureChange} mealsLog={mealsLog} inFamily={cloudStatus.inFamily} myUid={myUid}/>}
