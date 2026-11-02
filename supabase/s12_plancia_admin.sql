@@ -1,6 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════
 -- S12 — Plancia admin + ricette pubbliche
--- Da eseguire UNA volta nel SQL Editor di Supabase (idempotente).
+-- Da eseguire nel SQL Editor di Supabase (rieseguibile: le funzioni
+-- vengono ricreate da zero, così un vecchio tipo di ritorno non blocca).
 --
 -- Principio: nessuna RLS viene allargata. Tutto ciò che vede l'admin
 -- passa da funzioni `security definer` che controllano is_admin().
@@ -42,6 +43,7 @@ create index if not exists idx_ricette_utente_pubbliche
   on public.ricette_utente (pubblicata_at desc) where scope = 'pubblica';
 
 -- ─── 3. Statistiche ────────────────────────────────────────────────
+drop function if exists public.admin_stats();
 create or replace function public.admin_stats()
 returns json language plpgsql stable security definer set search_path = public as $$
 declare r json;
@@ -72,6 +74,7 @@ end $$;
 grant execute on function public.admin_stats() to authenticated;
 
 -- ─── 4. Elenco utenti/famiglie ──────────────────────────────────────
+drop function if exists public.admin_utenti();
 create or replace function public.admin_utenti()
 returns table (
   profilo_id uuid, user_id uuid, email text, nome text, sesso text,
@@ -109,6 +112,7 @@ end $$;
 grant execute on function public.admin_utenti() to authenticated;
 
 -- ─── 5. Elenco ricette utente (tutte le famiglie) ───────────────────
+drop function if exists public.admin_ricette();
 create or replace function public.admin_ricette()
 returns table (
   id uuid, titolo text, descrizione text, categoria text, prep int,
@@ -138,6 +142,7 @@ grant execute on function public.admin_ricette() to authenticated;
 
 -- ─── 6. Azioni admin su una ricetta ─────────────────────────────────
 -- azione: 'valida' | 'pubblica' | 'ritira' (torna a famiglia) | 'annulla_validazione'
+drop function if exists public.admin_ricetta_azione(uuid, text);
 create or replace function public.admin_ricetta_azione(p_id uuid, p_azione text)
 returns void language plpgsql security definer set search_path = public as $$
 begin
@@ -161,6 +166,7 @@ grant execute on function public.admin_ricetta_azione(uuid, text) to authenticat
 
 -- Copia una ricetta di un utente nel ricettario dell'admin (privata),
 -- così può correggerla con l'editor normale e poi pubblicarla.
+drop function if exists public.admin_copia_ricetta(uuid);
 create or replace function public.admin_copia_ricetta(p_id uuid)
 returns uuid language plpgsql security definer set search_path = public as $$
 declare v_new uuid; v_fam uuid;
@@ -182,6 +188,7 @@ grant execute on function public.admin_copia_ricetta(uuid) to authenticated;
 -- ─── 7. Catalogo pubblico (per tutti gli utenti loggati) ────────────
 -- Esposto come funzione e NON come policy: così il pool del generatore
 -- (select * from ricette_utente) resta quello di famiglia.
+drop function if exists public.catalogo_pubblico();
 create or replace function public.catalogo_pubblico()
 returns table (
   id uuid, titolo text, descrizione text, categoria text, prep int,
