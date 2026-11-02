@@ -15,6 +15,11 @@ import './db/storage.js';   // imposta window.storage PRIMA dell'app
 import './index.css';
 import { App } from '@/App';
 import { IntroSplash } from '@/features/intro/IntroSplash';
+import { importaTrasloco, isVecchioSito, BannerTrasloco } from '@/features/trasloco/Trasloco';
+
+// 🚚 Trasloco: se arrivo da github.io con i dati nell'URL, li importo e
+// ricarico PRIMA di avviare l'app (così parte già con tutto).
+const traslocoInCorso = importaTrasloco();
 
 // Splash introduttivo all'apertura. Per mostrarlo SOLO la primissima volta,
 // sostituisci useState(true) con:
@@ -25,11 +30,12 @@ function Root() {
     <>
       <App />
       {intro && <IntroSplash onDone={() => setIntro(false)} />}
+      {isVecchioSito() && <BannerTrasloco />}
     </>
   );
 }
 
-createRoot(document.getElementById('root')).render(<Root />);
+if (!traslocoInCorso) createRoot(document.getElementById('root')).render(<Root />);
 
 if ('serviceWorker' in navigator) {
   if (import.meta.env.PROD) {

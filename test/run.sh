@@ -85,6 +85,12 @@ node ./.tpc.mjs || FAIL=1
 rm -f ./.tpc.mjs
 
 echo ""
+echo "▸ TEST 2l — Trasloco github.io → fitsy.it (andata e ritorno dati)"
+"$EB" test/test_trasloco.mjs --bundle --format=esm --outfile=./.ttl.mjs "--alias:@=$ROOT/src" --loader:.jsx=jsx --loader:.json=json --packages=external --log-level=error
+node ./.ttl.mjs || FAIL=1
+rm -f ./.ttl.mjs
+
+echo ""
 echo "▸ TEST 3 — Due device + cloud (accoppiamento, propagazione, uscita)"
 "$EB" test/test_two_devices.mjs --bundle --format=esm --outfile=./.t3.mjs "--alias:@=$ROOT/src" --loader:.json=json --packages=external --log-level=error
 node ./.t3.mjs || FAIL=1

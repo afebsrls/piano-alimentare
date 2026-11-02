@@ -1,5 +1,10 @@
 # PATCH.md — Changelog cumulativo
 
+## v13 — 03/11/2026 · Trasloco su www.fitsy.it
+- **Deploy su Aruba** (`.github/workflows/deploy-aruba.yml` + `deploy/htaccess-app`): a ogni push su main l'app va in `www.fitsy.it/app/` via FTP; GitHub Pages resta attivo in parallelo per gli utenti non ancora migrati.
+- **🚚 Trasloco utenti** (`src/features/trasloco/Trasloco.jsx`): su github.io compare un banner "Fitsy si è trasferita"; il bottone impacchetta tutto il localStorage (dati, impostazioni, sessione di login) nell'hash dell'URL e apre il nuovo sito, che lo importa prima di avviare l'app e ricarica. L'hash non raggiunge mai il server; i dati sul vecchio sito restano come backup. Test 2l (andata/ritorno con accenti, emoji, 300 giorni di piano).
+- Supabase: Site URL e Redirect URL aggiornati a `https://www.fitsy.it/app/**` (github.io resta in lista fino a fine migrazione).
+
 ## v12 — 13/07/2026 · Fix Costituzione (virgola) + resilienza Strumenti
 - **Fix bug UI Costituzione**: gli input di Costituzione e Fabbisogno convertivano con l'unario `+`, che su decimali con la virgola italiana ("19,7") dà NaN → il risultato non appariva mai. Ora parsing tollerante (`num()`) come gli altri tool.
 - **ToolBoundary**: ogni sezione del flusso Strumenti ha il suo error boundary — un tool rotto degrada in una card d'errore locale col messaggio, senza abbattere la pagina.
