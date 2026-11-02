@@ -1,0 +1,19 @@
+# Fitsy — app in /app/ su Aruba
+DirectoryIndex index.html
+Options -Indexes
+
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType application/json .json
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Asset con hash nel nome: cache lunga
+  <FilesMatch "\.(js|css|woff2?|svg|png)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # File che devono aggiornarsi subito a ogni deploy
+  <FilesMatch "^(index\.html|sw\.js|manifest\.json)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
