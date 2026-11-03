@@ -1,3 +1,6 @@
 node_modules/
 dist/
 site/dist/
+
+# File dell'IDE (IntelliJ / Android Studio): locali, non vanno nel repo
+.idea/
