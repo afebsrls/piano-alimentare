@@ -25,23 +25,29 @@ const nomeBreve = (nome) => nome.replace(/\s*\([^)]*\)/g, '').trim();
 const RIC_PER_ING = {};
 for (const r of REC) for (const id of r.ingredients) (RIC_PER_ING[id] ||= []).push(r);
 
+const CAT_RIC = { colazione: 'Colazione', spuntino: 'Spuntino', pranzo: 'Pranzo', cena: 'Cena' };
+
 // Evita slug duplicati
 const used = new Map();
 const uniq = (s) => { const n = (used.get(s) || 0) + 1; used.set(s, n); return n === 1 ? s : `${s}-${n}`; };
-export const ALIMENTI = ING.filter(i => i.nutrizione && i.nutrizione.kcal != null && i.nome).map(i => ({ ...i, slug: uniq(slug(nomeBreve(i.nome))) }));
+export const ALIMENTI = ING.filter(i => i.nutrizione && i.nutrizione.kcal != null && i.nome).map(i => {
+  const base = slug(nomeBreve(i.nome)); const sl = uniq(base);
+  // Omonimi (es. "Noci" secche vs fresche): nome distinto preso dall'id
+  const nomeVis = sl === base ? nomeBreve(i.nome) : `${nomeBreve(i.nome)} (${i.id.replace(/^db_|^ing_/, '').replace(/_/g, ' ').replace(new RegExp('^' + base.replace(/-/g, ' ') + '\\s*'), '').trim() || 'variante'})`;
+  return { ...i, slug: sl, nomeVis };
+});
 const ALI_BY_ID = Object.fromEntries(ALIMENTI.map(a => [a.id, a]));
-export const RICETTE = REC.map(r => ({ ...r, slug: uniq(slug(r.nome)) }));
-const RIC_SLUG = Object.fromEntries(RICETTE.map(r => [r.id, r.slug]));
+export const RICETTE = REC.map(r => { const base = slug(r.nome); const sl = uniq(base); return { ...r, slug: sl, nomeVis: sl === base ? r.nome : `${r.nome} (versione ${CAT_RIC[r.categoria] || r.categoria})` }; });
+const RIC_BY_ID = Object.fromEntries(RICETTE.map(r => [r.id, r]));
 
-const CAT_RIC = { colazione: 'Colazione', spuntino: 'Spuntino', pranzo: 'Pranzo', cena: 'Cena' };
 
 // ── Pagina alimento ──────────────────────────────────────────────────
 export function paginaAlimento(a, { APP, cta }) {
-  const nome = nomeBreve(a.nome), nz = a.nutrizione, cat = CAT_LABEL(a.cat);
+  const nome = a.nomeVis, nz = a.nutrizione, cat = CAT_LABEL(a.cat);
   const pezzo = a.pesoPezzoG ? Math.round(a.pesoPezzoG) : null;
   const kcalPezzo = pezzo ? Math.round(nz.kcal * pezzo / 100) : null;
   const stag = Array.isArray(a.stagioni) && a.stagioni.length ? a.stagioni.map(m => MESI[m]).join(', ') : null;
-  const ricette = (RIC_PER_ING[a.id] || []).slice(0, 8);
+  const ricette = (RIC_PER_ING[a.id] || []).map(r => RIC_BY_ID[r.id]).filter(Boolean).slice(0, 8);
   const simili = ALIMENTI.filter(x => x.cat === a.cat && x.id !== a.id).sort(() => 0.5).slice(0, 8);
   const kcalPer = (g) => Math.round(nz.kcal * g / 100);
   const faq = [
@@ -69,11 +75,11 @@ ${nz.f != null ? `<tr><td>Fibre</td><td>${n1(nz.f)} g</td>${pezzo ? `<td>${n1(nz
 ${[30, 50, 80, 100, 150, 200].map(g => `<tr><td>${g} g</td><td>${kcalPer(g)} kcal</td><td>${n1(nz.p * g / 100)} g</td><td>${n1(nz.c * g / 100)} g</td><td>${n1(nz.g * g / 100)} g</td></tr>`).join('')}
 </table></div>
 ${stag ? `<h2>Quando è di stagione</h2><p>${esc(nome)} è di stagione in: <strong>${stag}</strong>. Fitsy lo propone nel menu in quei mesi, quando costa meno e ha più sapore.</p>` : ''}
-${ricette.length ? `<h2>Ricette con ${esc(nome.toLowerCase())}</h2><ul>${ricette.map(r => `<li><a href="/ricette/${r.slug}/">${esc(r.nome)}</a> <span class="note">(${CAT_RIC[r.categoria] || r.categoria}, ${n0(r.donna?.kcal)} kcal porzione donna)</span></li>`).join('')}</ul>` : ''}
+${ricette.length ? `<h2>Ricette con ${esc(nome.toLowerCase())}</h2><ul>${ricette.map(r => `<li><a href="/ricette/${r.slug}/">${esc(r.nomeVis)}</a> <span class="note">(${CAT_RIC[r.categoria] || r.categoria}, ${n0(r.donna?.kcal)} kcal porzione donna)</span></li>`).join('')}</ul>` : ''}
 ${cta(`Quanto ${nome.toLowerCase()} per te? Fitsy calcola la porzione giusta`)}
 <p>Fitsy inserisce ${esc(nome.toLowerCase())} nel <a href="/menu-settimanale-famiglia/">menu settimanale della famiglia</a> con la grammatura adatta a ciascuno, e lo aggiunge alla <a href="/lista-della-spesa-automatica/">lista della spesa</a> nella quantità esatta.</p>
 <h2>Altri alimenti: ${esc(cat)}</h2>
-<p>${simili.map(x => `<a href="/alimenti/${x.slug}/">${esc(nomeBreve(x.nome))}</a>`).join(' · ')} · <a href="/alimenti/">tutti gli alimenti</a></p>`;
+<p>${simili.map(x => `<a href="/alimenti/${x.slug}/">${esc(x.nomeVis)}</a>`).join(' · ')} · <a href="/alimenti/">tutti gli alimenti</a></p>`;
   return {
     slug: `alimenti/${a.slug}`,
     title: `Calorie ${nome}: valori nutrizionali per 100 g e per porzione`,
@@ -90,7 +96,7 @@ export function indiceAlimenti({ cta }) {
   for (const a of ALIMENTI) (cats[a.cat] ||= []).push(a);
   const body = `<h1>Calorie e valori nutrizionali degli alimenti</h1>
 <p class="lead">${ALIMENTI.length} alimenti con calorie, proteine, carboidrati e grassi per 100 g e per porzione: le stesse tabelle che Fitsy usa per calcolare il menu della famiglia. Scegli una categoria.</p>
-${Object.entries(cats).sort((x, y) => y[1].length - x[1].length).map(([c, L]) => `<h2>${esc(c)} <span class="note">(${L.length})</span></h2><p>${L.sort((x, y) => x.nome.localeCompare(y.nome, 'it')).map(a => `<a href="/alimenti/${a.slug}/">${esc(nomeBreve(a.nome))}</a>`).join(' · ')}</p>`).join('')}
+${Object.entries(cats).sort((x, y) => y[1].length - x[1].length).map(([c, L]) => `<h2>${esc(c)} <span class="note">(${L.length})</span></h2><p>${L.sort((x, y) => x.nome.localeCompare(y.nome, 'it')).map(a => `<a href="/alimenti/${a.slug}/">${esc(a.nomeVis)}</a>`).join(' · ')}</p>`).join('')}
 ${cta('Le porzioni giuste per la tua famiglia, in automatico')}`;
   return { slug: 'alimenti', title: 'Calorie e valori nutrizionali di 700+ alimenti – Fitsy', description: `Tabella calorie di ${ALIMENTI.length} alimenti con proteine, carboidrati e grassi per 100 g e per porzione, divisi per categoria. Dati usati dal motore di Fitsy.`, body };
 }
@@ -108,7 +114,7 @@ export function paginaRicetta(r, { APP, cta }) {
   ];
   const body = `
 <p class="crumb"><a href="/ricette/">Ricette</a> · ${esc(cat)}</p>
-<h1>${esc(r.nome)}: calorie e porzioni per uomo, donna e bambino</h1>
+<h1>${esc(r.nomeVis)}: calorie e porzioni per uomo, donna e bambino</h1>
 <p class="lead">${esc(r.nome)} è una ricetta da ${esc(cat.toLowerCase())}${r.prep ? ` pronta in circa ${r.prep} minuti` : ''}: <strong>${n0(r.donna?.kcal)} kcal</strong> nella porzione per una donna, ${n0(r.uomo?.kcal)} per un uomo, ${n0(r.bimbo?.kcal)} per un bambino. Stessi ingredienti, grammature diverse: è così che Fitsy cucina una volta sola per tutta la famiglia.</p>
 <h2>Ingredienti e quantità per persona</h2>
 <div class="scroll"><table class="tabella"><tr><th>Ingrediente</th><th>👨 Uomo</th><th>👩 Donna</th><th>🧒 Bambino</th></tr>
@@ -123,10 +129,10 @@ ${r.porzioni?.donna ? `<p class="note">In breve, porzione donna: ${esc(r.porzion
 ${cta(`Metti ${r.nome} nel menu della tua famiglia`)}
 <p>Apri <a href="${APP}">Fitsy</a>: la ricetta entra nel <a href="/menu-settimanale-famiglia/">menu settimanale</a> con le porzioni di ciascuno e gli ingredienti finiscono nella <a href="/lista-della-spesa-automatica/">lista della spesa</a>.</p>
 <h2>Altre ricette da ${esc(cat.toLowerCase())}</h2>
-<p>${RICETTE.filter(x => x.categoria === r.categoria && x.id !== r.id).sort(() => 0.5).slice(0, 8).map(x => `<a href="/ricette/${x.slug}/">${esc(x.nome)}</a>`).join(' · ')} · <a href="/ricette/">tutte le ricette</a></p>`;
+<p>${RICETTE.filter(x => x.categoria === r.categoria && x.id !== r.id).sort(() => 0.5).slice(0, 8).map(x => `<a href="/ricette/${x.slug}/">${esc(x.nomeVis)}</a>`).join(' · ')} · <a href="/ricette/">tutte le ricette</a></p>`;
   return {
     slug: `ricette/${r.slug}`,
-    title: `${r.nome}: calorie e porzioni per uomo, donna e bambino`,
+    title: `${r.nomeVis}: calorie e porzioni per uomo, donna e bambino`,
     description: `${r.nome} (${cat.toLowerCase()}${r.prep ? `, ${r.prep} min` : ''}): ${n0(r.donna?.kcal)} kcal porzione donna, ${n0(r.uomo?.kcal)} uomo, ${n0(r.bimbo?.kcal)} bambino. Ingredienti con grammature e valori nutrizionali.`,
     body, faq,
     schema: [{
@@ -144,7 +150,7 @@ export function indiceRicette({ cta }) {
   const cats = ['colazione', 'spuntino', 'pranzo', 'cena'];
   const body = `<h1>Ricette con calorie e porzioni per tutta la famiglia</h1>
 <p class="lead">${RICETTE.length} ricette del menu Fitsy, ognuna con ingredienti, grammature e valori nutrizionali per uomo, donna e bambino. Sono quelle che il generatore usa per comporre la settimana.</p>
-${cats.map(c => { const L = RICETTE.filter(r => r.categoria === c); return `<h2>${CAT_RIC[c]} <span class="note">(${L.length})</span></h2><div class="cards">${L.sort((x, y) => x.nome.localeCompare(y.nome, 'it')).map(r => `<a class="card" href="/ricette/${r.slug}/"><h2>${esc(r.nome)}</h2><p>${n0(r.donna?.kcal)} kcal porzione donna${r.prep ? ` · ${r.prep} min` : ''}</p></a>`).join('')}</div>`; }).join('')}
+${cats.map(c => { const L = RICETTE.filter(r => r.categoria === c); return `<h2>${CAT_RIC[c]} <span class="note">(${L.length})</span></h2><div class="cards">${L.sort((x, y) => x.nome.localeCompare(y.nome, 'it')).map(r => `<a class="card" href="/ricette/${r.slug}/"><h2>${esc(r.nomeVis)}</h2><p>${n0(r.donna?.kcal)} kcal porzione donna${r.prep ? ` · ${r.prep} min` : ''}</p></a>`).join('')}</div>`; }).join('')}
 ${cta('Il menu si compone da solo con queste ricette')}`;
   return { slug: 'ricette', title: `${RICETTE.length} ricette con calorie e porzioni per la famiglia – Fitsy`, description: `Tutte le ricette del menu Fitsy con ingredienti, grammature e calorie per uomo, donna e bambino, divise per colazione, spuntino, pranzo e cena.`, body };
 }

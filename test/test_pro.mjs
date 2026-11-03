@@ -41,6 +41,15 @@ await mount(React.createElement(NutrizionistaPage, { pro: { nome: 'Dott. Verdi',
 await mount(React.createElement(NutrizionistaPage, { pro: { nome: 'Dott. Verdi', codice: 'NUT-ABC123', stato: 'attivo' }, myId: 'n1', onAggiornaPro: () => {} }), 'NutrizionistaPage (attivo, cloud assente)');
 await mount(React.createElement(AdminPage), 'AdminPage (cloud assente → messaggio di errore, non crash)');
 
+// Onboarding (prima apertura, nessun account) e App con storage vuoto
+const { Onboarding } = await import('@/features/onboarding/Onboarding');
+const h2 = await mount(React.createElement(Onboarding, { onComplete: () => {} }), 'Onboarding (senza account)');
+check(!h2.textContent.includes('Sei un nutrizionista'), 'nutrizionisti in pausa: il link non compare nell’onboarding');
+const { App } = await import('@/App');
+const h3 = await mount(React.createElement(App), 'App con storage vuoto');
+await act(async () => { await new Promise(r => setTimeout(r, 300)); });
+check(h3.textContent.length > 50 && !/Qualcosa è andato storto|Error/i.test(h3.textContent), 'App avviata senza schermata di errore');
+
 // Motore: il target del nutrizionista ha la precedenza
 const { calcTargetAdattivo } = await import('@/core');
 const t = calcTargetAdattivo({ nome: 'X', sesso: 'M', eta: 40, peso: 80, altezza: 178, lavoro: 'attivo', allenamenti: 3, obiettivo: 'mantenimento', targetNutrizionista: { kcal: 2100, p: 120 } }, []);
