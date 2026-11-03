@@ -51,6 +51,7 @@ export function NutrizionistaPage({ pro, myId, onAggiornaPro }) {
         <div>
           <div style={{ fontSize: 20, fontWeight: 800, color: C.scuro }}>🩺 {pro.nome}{pro.studio ? <span style={{ color: C.grigio, fontWeight: 600 }}> · {pro.studio}</span> : null}</div>
           <div style={{ fontSize: 12, color: C.grigio }}>Codice per i pazienti: <b style={{ fontFamily: 'ui-monospace, monospace', color: C.verde, fontSize: 14, letterSpacing: 1 }}>{pro.codice}</b> · lo inseriscono in Account → Il mio nutrizionista</div>
+          <button onClick={() => { const l = `https://www.fitsy.it/app/?nut=${pro.codice}`; navigator.clipboard?.writeText(l); alert('Link di invito copiato:\n' + l + '\n\nMandalo al paziente: aprendolo trova già il tuo codice.'); }} style={{ ...btn(C.chiaro, C.verde), marginTop: 6 }}>🔗 Copia link di invito</button>
         </div>
         <button onClick={carica} style={{ ...btn(C.chiaro, C.verde), marginLeft: 'auto' }}>↻ Aggiorna</button>
       </div>
@@ -113,20 +114,21 @@ export function RegistrazioneNutrizionista({ onFatto, onAnnulla }) {
 // ── Lato paziente: "Il mio nutrizionista" (in Account) ───────────────
 export function MioNutrizionista({ myId }) {
   const [n, setN] = useState(undefined);
-  const [codice, setCodice] = useState('');
+  const [codice, setCodice] = useState(() => { try { return localStorage.getItem('pa__nut-pending') || ''; } catch { return ''; } });
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
   const [chat, setChat] = useState(false);
+  const daLink = !!codice;   // arrivato da un link di invito
   const ricarica = useCallback(async () => { const { mioNutrizionista } = await import('@/db/nutrizionista'); setN(await mioNutrizionista()); }, []);
   useEffect(() => { ricarica(); }, [ricarica]);
   if (n === undefined) return null;
   if (!n) return (
     <div style={{ ...card, marginBottom: 0 }}>
       <div style={{ fontWeight: 800, color: C.scuro }}>🩺 Il mio nutrizionista</div>
-      <div style={{ fontSize: 13, color: '#4A6152', margin: '4px 0 8px', lineHeight: 1.5 }}>Se sei seguito da un nutrizionista che usa Fitsy, inserisci il suo codice: potrà vedere le tue misure e il tuo diario, impostare il tuo target e scriverti.</div>
+      <div style={{ fontSize: 13, color: '#4A6152', margin: '4px 0 8px', lineHeight: 1.5 }}>{daLink ? 'Il tuo nutrizionista ti ha invitato: conferma il collegamento. Potrà vedere le tue misure e il tuo diario, impostare il tuo target e scriverti. Puoi scollegarti quando vuoi.' : 'Se sei seguito da un nutrizionista che usa Fitsy, inserisci il suo codice: potrà vedere le tue misure e il tuo diario, impostare il tuo target e scriverti.'}</div>
       <div style={{ display: 'flex', gap: 6 }}>
         <input value={codice} onChange={e => setCodice(e.target.value.toUpperCase())} placeholder="NUT-XXXXXX" style={{ flex: 1, padding: 10, borderRadius: 10, border: `1.5px solid ${C.bordo}`, fontSize: 15, fontFamily: 'ui-monospace, monospace' }} />
-        <button disabled={busy || codice.trim().length < 6} onClick={async () => { setBusy(true); setErr(''); try { const { collegaNutrizionista } = await import('@/db/nutrizionista'); await collegaNutrizionista(codice); await ricarica(); } catch (e) { setErr(e.message); } setBusy(false); }} style={btn(C.verde)}>Collega</button>
+        <button disabled={busy || codice.trim().length < 6} onClick={async () => { setBusy(true); setErr(''); try { const { collegaNutrizionista } = await import('@/db/nutrizionista'); await collegaNutrizionista(codice); try { localStorage.removeItem('pa__nut-pending'); } catch {} await ricarica(); } catch (e) { setErr(e.message); } setBusy(false); }} style={btn(C.verde)}>Collega</button>
       </div>
       {err && <div style={{ color: C.rosso, fontSize: 12, marginTop: 6 }}>{err}</div>}
     </div>

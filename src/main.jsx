@@ -21,6 +21,16 @@ import { importaTrasloco, isVecchioSito, BannerTrasloco } from '@/features/trasl
 // ricarico PRIMA di avviare l'app (così parte già con tutto).
 const traslocoInCorso = importaTrasloco();
 
+// 🩺 Link di invito del nutrizionista (?nut=NUT-XXXXXX): il codice viene
+// memorizzato e proposto in Account → Il mio nutrizionista dopo il login.
+try {
+  const nut = new URLSearchParams(window.location.search).get('nut');
+  if (nut && /^NUT-[A-Z0-9]{4,8}$/i.test(nut)) {
+    localStorage.setItem('pa__nut-pending', nut.toUpperCase());
+    window.history.replaceState(null, '', window.location.pathname);
+  }
+} catch {}
+
 // Splash introduttivo all'apertura. Per mostrarlo SOLO la primissima volta,
 // sostituisci useState(true) con:
 //   useState(() => { const v = !localStorage.getItem('fitsy-intro-done'); if (v) localStorage.setItem('fitsy-intro-done','1'); return v; })

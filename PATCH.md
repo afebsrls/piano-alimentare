@@ -1,5 +1,9 @@
 # PATCH.md — Changelog cumulativo
 
+## v16.2 — 03/11/2026 · Link di invito nutrizionista + strategia
+- **Link di invito** `www.fitsy.it/app/?nut=NUT-XXXXXX`: il codice viene memorizzato (`pa__nut-pending`) e proposto già compilato in Account → Il mio nutrizionista dopo il login. Bottone "Copia link di invito" nell'area Pro.
+- `docs/strategia-crescita.md`: evoluzione del profilo nutrizionista (onboarding dal sito, esclusioni/pasti fissi, ricettario studio, notifiche, Stripe, report visita, prezzi), elenco pagine da creare (alimenti ×828, ricette, stagionalità ×12, pagine famiglia, pagine nutrizionisti) e piano organico a 3 mesi con metriche.
+
 ## v16.1 — 03/11/2026 · Dati societari
 - Titolare del trattamento e dati societari aggiornati ovunque (informativa app, privacy.html, privacy/cookie del sito, footer con denominazione/sede/P.IVA/REA/capitale, schema.org Organization, registro trattamenti, procedura data breach, README): **AF&B S.r.l.s.**, Via Mario Ugo Guattari 48, 00173 Roma, P.IVA 13698751008, REA RM-1466364. Contatto: info@fitsy.it.
 
