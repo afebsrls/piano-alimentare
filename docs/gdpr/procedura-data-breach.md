@@ -15,7 +15,7 @@ Compilare: dati coinvolti (⚠️ salute = art. 9 → rischio alto quasi sempre)
 Esito: **rischio nullo/basso** → solo registro interno · **rischio** → notifica Garante · **rischio elevato** → anche comunicazione agli interessati.
 
 ## 4. Notifica al Garante (entro 72h dalla scoperta — art. 33)
-Portale: https://servizi.gpdp.it → "Notifica violazione". Contenuto minimo: natura della violazione, categorie e n. approssimativo di interessati e record, conseguenze probabili, misure adottate, contatto (aurelianoprocacci@gmail.com). Se oltre 72h: motivare il ritardo.
+Portale: https://servizi.gpdp.it → "Notifica violazione". Contenuto minimo: natura della violazione, categorie e n. approssimativo di interessati e record, conseguenze probabili, misure adottate, contatto (info@fitsy.it). Se oltre 72h: motivare il ritardo.
 
 ## 5. Comunicazione agli interessati (art. 34, se rischio elevato)
 Email diretta agli account coinvolti, linguaggio semplice: cosa è successo, quali dati, cosa è stato fatto, cosa può fare l'utente (cambio password, revoca consenso, cancellazione). I dati salute coinvolti rendono la comunicazione quasi sempre dovuta.
