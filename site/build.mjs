@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { SITE, APP, PAGES, ARTICOLI } from './src/keywords.mjs';
 import { CONTENUTI, ARTICOLI_HTML, LEGALI } from './src/contenuti.mjs';
 import * as MOCK from './src/mockups.mjs';
+import { ALIMENTI, RICETTE, paginaAlimento, indiceAlimenti, paginaRicetta, indiceRicette } from './src/generati.mjs';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const OUT = path.join(__dirname, 'dist');
@@ -13,6 +14,12 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 
 const CSS = fs.readFileSync(path.join(__dirname, 'src/style.css'), 'utf8');
+// Chiave anon di Supabase (pubblica per natura: è la stessa nel bundle dell'app).
+const cfg = fs.readFileSync(path.join(__dirname, '../src/db/supabaseConfig.js'), 'utf8');
+const SB_URL = (cfg.match(/SUPABASE_URL\s*=\s*["']([^"']+)/) || [])[1] || '';
+const SB_KEY = (cfg.match(/SUPABASE_ANON_KEY\s*=\s*["']([^"']+)/) || [])[1] || '';
+if (!SB_URL || !SB_KEY) console.warn('[site] Supabase non configurato: il modulo lista d\'attesa non funzionerà');
+const WAITLIST_JS = fs.readFileSync(path.join(__dirname, 'src/waitlist.js'), 'utf8').replace('__SB_URL__', SB_URL).replace('__SB_KEY__', SB_KEY);
 const TOOLS_JS = fs.readFileSync(path.join(__dirname, 'src/tools.js'), 'utf8');
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
@@ -25,6 +32,8 @@ const NAV = `
   <a href="/menu-settimanale-famiglia/">Menu settimanale</a>
   <a href="/lista-della-spesa-automatica/">Lista spesa</a>
   <a href="/calcolo-fabbisogno-calorico/">Calcolatori</a>
+  <a href="/ricette/">Ricette</a>
+  <a href="/alimenti/">Alimenti</a>
   <a href="/blog/">Guide</a>
   <a href="/per-nutrizionisti/">Nutrizionisti</a>
   <a class="cta" href="${APP}">Apri l’app</a>
@@ -115,7 +124,7 @@ for (const p of PAGES) {
     applicationCategory: 'HealthApplication', operatingSystem: 'Web', browserRequirements: 'Requires JavaScript',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, url: url(p.slug), inLanguage: 'it',
   });
-  const body = `${c.body({ esc, APP, cta: ctaHtml, phone })}${faqHtml(c.faq)}${p.tipo === 'tool' ? `<script>${TOOLS_JS}</script>` : ''}`;
+  const body = `${c.body({ esc, APP, cta: ctaHtml, phone })}${faqHtml(c.faq)}${p.tipo === 'tool' ? `<script>${TOOLS_JS}</script>` : ''}${p.tipo === 'nutrizionisti' ? `<script>${WAITLIST_JS}</script>` : ''}`;
   writePage(p.slug, layout({ ...p, body, schema }));
 }
 
@@ -145,16 +154,34 @@ writePage('blog', layout({
   <div class="cards">${ARTICOLI.map(a => `<a class="card" href="/${a.slug}/"><h2>${esc(a.title)}</h2><p>${esc(a.description)}</p></a>`).join('')}</div>`,
 }));
 
+// ── Pagine generate: alimenti e ricette ──
+const gen = [];
+const ctx = { esc, APP, cta: ctaHtml };
+for (const a of ALIMENTI) { const pg = paginaAlimento(a, ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema] })); gen.push(pg.slug); }
+for (const r of RICETTE) { const pg = paginaRicetta(r, ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema] })); gen.push(pg.slug); }
+{ const pg = indiceAlimenti(ctx); writePage(pg.slug, layout(pg)); }
+{ const pg = indiceRicette(ctx); writePage(pg.slug, layout(pg)); }
+const OGGI = new Date().toISOString().slice(0, 10);
+fs.writeFileSync(path.join(OUT, 'sitemap-alimenti.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['alimenti', ...gen.filter(g => g.startsWith('alimenti/'))].map(g => `  <url><loc>${url(g)}</loc><lastmod>${OGGI}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+fs.writeFileSync(path.join(OUT, 'sitemap-ricette.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['ricette', ...gen.filter(g => g.startsWith('ricette/'))].map(g => `  <url><loc>${url(g)}</loc><lastmod>${OGGI}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+
 // ── File di servizio ──
 const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : '0.8', mod: '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...Object.keys(LEGALI).map(slug => ({ slug, pri: '0.3', mod: '2026-11-03' })), ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.data }))];
-fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+fs.writeFileSync(path.join(OUT, 'sitemap-pagine.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${tutte.map(u => `  <url><loc>${url(u.slug)}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority></url>`).join('\n')}
 </urlset>
+`);
+fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap><loc>${SITE}/sitemap-pagine.xml</loc></sitemap>
+  <sitemap><loc>${SITE}/sitemap-ricette.xml</loc></sitemap>
+  <sitemap><loc>${SITE}/sitemap-alimenti.xml</loc></sitemap>
+</sitemapindex>
 `);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /app/\nSitemap: ${SITE}/sitemap.xml\n`);
 fs.copyFileSync(path.join(__dirname, 'src/htaccess-root'), path.join(OUT, '.htaccess'));
 fs.copyFileSync(path.join(__dirname, 'src/icon.svg'), path.join(OUT, 'icon.svg'));
 fs.copyFileSync(path.join(__dirname, 'src/og.png'), path.join(OUT, 'og.png'));
 
-console.log(`[site] generate ${tutte.length} pagine in site/dist/`);
+console.log(`[site] generate ${tutte.length + gen.length + 2} pagine in site/dist/ (${gen.length} alimenti+ricette)`);

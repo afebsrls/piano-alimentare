@@ -1,5 +1,10 @@
 # PATCH.md — Changelog cumulativo
 
+## v17 — 03/11/2026 · Nutrizionisti in pausa + lista d'attesa + 922 pagine generate
+- **Nutrizionisti in pausa** (`src/core/flags.js`, `NUTRIZIONISTI_ATTIVI=false`): l'app non mostra "Sei un nutrizionista?" né "Il mio nutrizionista". Il codice e il DB restano pronti; per riaprire basta il flag.
+- **Lista d'attesa** (`supabase/s14_lista_attesa.sql`): tabella con insert anonimo (RLS insert-only, honeypot e consenso nel modulo), lettura solo admin. Modulo nella pagina /per-nutrizionisti/ del sito (che ora spiega i benefici senza CTA di registrazione); tab **📬 Lista d'attesa** nella plancia con stati nuova/contattata/attivata/scartata ed export CSV. Privacy del sito aggiornata.
+- **Pagine generate** (`site/src/generati.mjs`): 725 pagine alimento (/alimenti/<slug>/: kcal e macro per 100 g e per pezzo, porzioni comuni, stagione, ricette che lo usano, FAQ) e 197 pagine ricetta (/ricette/<slug>/: ingredienti con grammature uomo/donna/bambino, macro per porzione, schema.org Recipe con NutritionInformation). Indici /alimenti/ e /ricette/, sitemap index con 3 sitemap. Voci di menu Ricette e Alimenti.
+
 ## v16.2 — 03/11/2026 · Link di invito nutrizionista + strategia
 - **Link di invito** `www.fitsy.it/app/?nut=NUT-XXXXXX`: il codice viene memorizzato (`pa__nut-pending`) e proposto già compilato in Account → Il mio nutrizionista dopo il login. Bottone "Copia link di invito" nell'area Pro.
 - `docs/strategia-crescita.md`: evoluzione del profilo nutrizionista (onboarding dal sito, esclusioni/pasti fissi, ricettario studio, notifiche, Stripe, report visita, prezzi), elenco pagine da creare (alimenti ×828, ricette, stagionalità ×12, pagine famiglia, pagine nutrizionisti) e piano organico a 3 mesi con metriche.

@@ -1,6 +1,6 @@
 import React from 'react';
 const { useState, useEffect, useCallback } = React;
-import { adminStats, adminUtenti, adminRicette, adminRicettaAzione, adminFamiglie, adminFamigliaDettaglio, adminDettaglioProfilo, adminNutrizionisti, adminNutrizionistaStato } from '@/db/admin';
+import { adminStats, adminUtenti, adminRicette, adminRicettaAzione, adminFamiglie, adminFamigliaDettaglio, adminDettaglioProfilo, adminNutrizionisti, adminNutrizionistaStato, adminListaAttesa, adminListaAttesaStato } from '@/db/admin';
 import { ING_MAP } from '@/core';
 import { SchedaPersona, C, card, btn, fmtData, Pill } from '@/features/pro/SchedaPersona';
 
@@ -20,6 +20,7 @@ export function AdminPage() {
   const [famiglie, setFamiglie] = useState(null);
   const [ricette, setRicette] = useState(null);
   const [nutr, setNutr] = useState(null);
+  const [attesa, setAttesa] = useState(null);
   const [err, setErr] = useState('');
   const [msg, setMsg] = useState('');
   const [stack, setStack] = useState([]);     // navigazione a pila: [{tipo:'profilo'|'famiglia', id}]
@@ -32,6 +33,7 @@ export function AdminPage() {
     try {
       const [s, u, f, r, n] = await Promise.all([adminStats(), adminUtenti(), adminFamiglie(), adminRicette(), adminNutrizionisti()]);
       setStats(s); setUtenti(u || []); setFamiglie(f || []); setRicette(r || []); setNutr(n || []);
+      try { setAttesa(await adminListaAttesa()); } catch { setAttesa([]); }
     } catch (e) { setErr(e?.message || 'Errore di caricamento'); }
   }, []);
   useEffect(() => { carica(); }, [carica]);
@@ -50,7 +52,7 @@ export function AdminPage() {
   const vai = (t, filtro) => { setStack([]); setDett(null); setTab(t); if (t === 'ricette' && filtro) setFiltroRicette(filtro); if (t === 'utenti') setFiltroUtenti(filtro || ''); };
 
   const top = stack[stack.length - 1];
-  const TABS = [['panoramica', '📊 Panoramica'], ['utenti', '👥 Utenti'], ['famiglie', '👨‍👩‍👧 Famiglie'], ['ricette', '📖 Ricette'], ['nutrizionisti', '🩺 Nutrizionisti']];
+  const TABS = [['panoramica', '📊 Panoramica'], ['utenti', '👥 Utenti'], ['famiglie', '👨‍👩‍👧 Famiglie'], ['ricette', '📖 Ricette'], ['nutrizionisti', '🩺 Nutrizionisti'], ['attesa', '📬 Lista d’attesa']];
 
   return (
     <div style={{ padding: '12px 14px 60px', maxWidth: 980, margin: '0 auto' }}>
@@ -64,7 +66,7 @@ export function AdminPage() {
 
       <div style={{ display: 'flex', gap: 6, marginBottom: 12, flexWrap: 'wrap' }}>
         {TABS.map(([k, l]) => {
-          const badge = k === 'ricette' && stats?.ricette_da_validare ? stats.ricette_da_validare : k === 'nutrizionisti' && stats?.nutrizionisti_attesa ? stats.nutrizionisti_attesa : 0;
+          const badge = k === 'ricette' && stats?.ricette_da_validare ? stats.ricette_da_validare : k === 'nutrizionisti' && stats?.nutrizionisti_attesa ? stats.nutrizionisti_attesa : k === 'attesa' && attesa ? attesa.filter(a => a.stato === 'nuova').length : 0;
           return <button key={k} onClick={() => vai(k)} style={{ ...btn(tab === k ? C.verde : C.chiaro, tab === k ? '#fff' : C.verde), flex: '1 1 auto' }}>{l}{badge ? ` (${badge})` : ''}</button>;
         })}
       </div>
@@ -84,16 +86,17 @@ export function AdminPage() {
         </div>
       )}
 
-      {!top && tab === 'panoramica' && <Panoramica stats={stats} vai={vai} />}
+      {!top && tab === 'panoramica' && <Panoramica stats={stats} vai={vai} attesaNuove={attesa ? attesa.filter(a => a.stato === 'nuova').length : 0} />}
       {!top && tab === 'utenti' && <Utenti utenti={utenti} filtro={filtroUtenti} setFiltro={setFiltroUtenti} onApri={(id) => apri('profilo', id)} onApriFamiglia={(id) => apri('famiglia', id)} />}
       {!top && tab === 'famiglie' && <Famiglie famiglie={famiglie} onApri={(id) => apri('famiglia', id)} />}
       {!top && tab === 'ricette' && <Ricette ricette={ricette} filtro={filtroRicette} setFiltro={setFiltroRicette} onReload={carica} flash={flash} setErr={setErr} onApriAutore={(uid) => { const u = (utenti || []).find(x => x.user_id === uid); if (u) apri('profilo', u.profilo_id); }} />}
       {!top && tab === 'nutrizionisti' && <Nutrizionisti lista={nutr} onReload={carica} flash={flash} setErr={setErr} />}
+      {!top && tab === 'attesa' && <ListaAttesa lista={attesa} onReload={carica} flash={flash} setErr={setErr} />}
     </div>
   );
 }
 
-function Panoramica({ stats, vai }) {
+function Panoramica({ stats, vai, attesaNuove }) {
   if (!stats) return <div style={{ color: C.grigio, fontSize: 13 }}>Carico…</div>;
   const voci = [
     ['👤 Utenti registrati', stats.utenti, () => vai('utenti')],
@@ -110,6 +113,7 @@ function Panoramica({ stats, vai }) {
     ['⏳ Nutrizionisti da attivare', stats.nutrizionisti_attesa, () => vai('nutrizionisti')],
     ['🔗 Pazienti collegati', stats.pazienti_collegati, () => vai('nutrizionisti')],
     ['💬 Messaggi (7 gg)', stats.messaggi_7g, () => vai('nutrizionisti')],
+    ['📬 Lista d’attesa (nuove)', attesaNuove, () => vai('attesa')],
   ];
   return (
     <>
@@ -300,6 +304,51 @@ function Nutrizionisti({ lista, onReload, flash, setErr }) {
           <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
             {n.stato !== 'attivo' && <button disabled={busy === n.user_id} onClick={() => cambia(n, 'attivo')} style={btn(C.verde)}>✅ Attiva</button>}
             {n.stato === 'attivo' && <button disabled={busy === n.user_id} onClick={() => cambia(n, 'sospeso')} style={btn(C.chiaro, C.rosso)}>⏸️ Sospendi</button>}
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+function ListaAttesa({ lista, onReload, flash, setErr }) {
+  const [filtro, setFiltro] = useState('nuova');
+  const [busy, setBusy] = useState(null);
+  if (!lista) return <div style={{ color: C.grigio, fontSize: 13 }}>Carico…</div>;
+  const L = lista.filter(a => filtro === 'tutte' || a.stato === filtro);
+  const cambia = async (a, stato) => {
+    setBusy(a.id); setErr('');
+    try { await adminListaAttesaStato(a.id, stato); flash(`${a.nome}: ${stato}`); await onReload(); } catch (e) { setErr(e.message); }
+    setBusy(null);
+  };
+  const colore = { nuova: [C.ambra, '#FDF0D5'], contattata: [C.blu, '#E0F2FE'], attivata: ['#fff', C.verde], scartata: [C.grigio, '#F1F5F1'] };
+  const csv = () => {
+    const righe = [['data', 'tipo', 'nome', 'email', 'citta', 'note', 'stato'], ...lista.map(a => [a.created_at, a.tipo, a.nome, a.email, a.citta || '', (a.note || '').replace(/\n/g, ' '), a.stato])];
+    const blob = new Blob([righe.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(';')).join('\n')], { type: 'text/csv' });
+    const u = URL.createObjectURL(blob); const el = document.createElement('a'); el.href = u; el.download = 'lista-attesa-fitsy.csv'; el.click(); URL.revokeObjectURL(u);
+  };
+  return (
+    <>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+        {[['nuova', '🆕 Nuove'], ['contattata', '📞 Contattate'], ['attivata', '✅ Attivate'], ['scartata', 'Scartate'], ['tutte', 'Tutte']].map(([k, l]) => (
+          <button key={k} onClick={() => setFiltro(k)} style={btn(filtro === k ? C.scuro : C.chiaro, filtro === k ? '#fff' : C.verde)}>{l}</button>
+        ))}
+        <button onClick={csv} style={{ ...btn(C.chiaro, C.verde), marginLeft: 'auto' }}>⬇️ CSV</button>
+      </div>
+      <div style={{ fontSize: 12, color: C.grigio, marginBottom: 8 }}>{L.length} richieste · dal modulo "Sei un nutrizionista?" del sito. Se è vuoto e dà errore: eseguire <code>s14_lista_attesa.sql</code>.</div>
+      {L.length === 0 && <div style={{ ...card, fontSize: 13, color: C.grigio }}>Nessuna richiesta in questa sezione.</div>}
+      {L.map(a => (
+        <div key={a.id} style={card}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'baseline', flexWrap: 'wrap' }}>
+            <div style={{ fontWeight: 800, color: C.scuro }}>{a.tipo === 'nutrizionista' ? '🩺' : '👨‍👩‍👧'} {a.nome} <span style={{ color: C.grigio, fontWeight: 600 }}>· {a.citta || '—'}</span></div>
+            <Pill color={colore[a.stato][0]} bg={colore[a.stato][1]}>{a.stato}</Pill>
+          </div>
+          <div style={{ fontSize: 12, color: C.grigio, wordBreak: 'break-all' }}><a href={`mailto:${a.email}`} style={{ color: C.verde }}>{a.email}</a> · {fmtData(a.created_at)}{a.origine ? ` · da ${a.origine}` : ''}</div>
+          {a.note && <div style={{ fontSize: 13, color: '#4A6152', marginTop: 6, whiteSpace: 'pre-wrap' }}>{a.note}</div>}
+          <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
+            {a.stato !== 'contattata' && <button disabled={busy === a.id} onClick={() => cambia(a, 'contattata')} style={btn(C.blu)}>📞 Contattata</button>}
+            {a.stato !== 'attivata' && <button disabled={busy === a.id} onClick={() => cambia(a, 'attivata')} style={btn(C.verde)}>✅ Attivata</button>}
+            {a.stato !== 'scartata' && <button disabled={busy === a.id} onClick={() => cambia(a, 'scartata')} style={btn(C.chiaro, C.grigio)}>Scarta</button>}
           </div>
         </div>
       ))}

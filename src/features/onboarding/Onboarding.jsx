@@ -7,6 +7,7 @@ import { PersonaForm } from '@/features/famiglia/FamigliaPage';
 // persona salvata: 1) login (saltabile) → 2) compila la scheda
 // utente con target calcolato live → l'utente è creato.
 import { RegistrazioneNutrizionista } from '@/features/pro/NutrizionistaPage';
+import { NUTRIZIONISTI_ATTIVI } from '@/core/flags';
 
 export function Onboarding({ onComplete }) {
   const [session, setSession] = useState(null);
@@ -58,7 +59,7 @@ export function Onboarding({ onComplete }) {
             <RegistrazioneNutrizionista onAnnulla={()=>setPro(false)} onFatto={()=>window.location.reload()}/>
           ) : (
           <div>
-            {session && (
+            {session && NUTRIZIONISTI_ATTIVI && (
               <div style={{textAlign:"right",marginBottom:8}}>
                 <button onClick={()=>setPro(true)} style={{border:"none",background:"transparent",color:"#2F6B3A",fontSize:12,fontWeight:800,cursor:"pointer",textDecoration:"underline"}}>🩺 Sei un nutrizionista?</button>
               </div>

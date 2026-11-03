@@ -109,7 +109,7 @@ ${cta('Inizia oggi, è gratis')}
 <div class="grid">
   <div class="box"><h3>📖 Le tue ricette</h3><p>Aggiungi i piatti di casa: Fitsy calcola le calorie dagli ingredienti e li inserisce nel menu. Le migliori, validate, finiscono nel catalogo della community.</p></div>
   <div class="box"><h3>🧰 Strumenti gratuiti</h3><p><a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a>, <a href="/peso-forma-calcolo/">peso forma</a>, <a href="/quanta-acqua-bere-al-giorno/">acqua al giorno</a>, equivalenze e misure casalinghe.</p></div>
-  <div class="box"><h3>🩺 Sei un nutrizionista?</h3><p>Segui i tuoi pazienti dentro l’app: misure, diario e messaggi in tempo reale, target impostato da te. <a href="/per-nutrizionisti/">Scopri Fitsy Pro</a>.</p></div>
+  <div class="box"><h3>🩺 Sei un nutrizionista?</h3><p>Segui i tuoi pazienti dentro l’app: misure, diario e messaggi in tempo reale, target impostato da te. <a href="/per-nutrizionisti/">Scopri Fitsy Pro ed entra in lista d’attesa</a>.</p></div>
 </div>
 
 <h2>Perché è gratuita</h2>
@@ -282,38 +282,53 @@ ${cta('Tieni il conto dei bicchieri senza pensarci')}
   <div>
     <h1>Fitsy per nutrizionisti: i tuoi pazienti in un’app italiana, in tempo reale</h1>
     <p class="lead">Un software per nutrizionisti serve a una cosa sola: far seguire davvero il piano al paziente tra una visita e l’altra. Con Fitsy Pro vedi <strong>misure, diario dei pasti e andamenti</strong> dei tuoi pazienti mentre li inseriscono, imposti il loro target calorico e gli scrivi dall’app. Loro usano Fitsy gratis, tutti i giorni, per decidere cosa cucinare.</p>
-    <div class="btns"><a class="btn" href="${APP}">Registra il profilo professionale →</a></div>
-    <p class="note">Dall’app: accedi con Google, poi "🩺 Sei un nutrizionista?". L’attivazione è manuale e ti viene confermata via mail.</p>
+    <div class="btns"><a class="btn" href="#lista-attesa">Entra nella lista d’attesa →</a></div>
+    <p class="note">Il profilo professionale è in apertura a un numero limitato di studi. Nessun costo per iscriversi alla lista.</p>
   </div>
   <div class="phones">${phone('NUTR')}</div>
 </section>
 
-<h2>Come funziona</h2>
-<ol class="passi">
-  <li><strong>Ti registri</strong> dall’app con il tuo account Google e ricevi un codice professionale (es. NUT-7K2P1A).</li>
-  <li><strong>Il paziente inserisce il tuo codice</strong> in Account → Il mio nutrizionista. Da quel momento vedi i suoi dati; può scollegarsi quando vuole.</li>
-  <li><strong>Segui e intervieni.</strong> Grafici di peso e circonferenze, pasti consumati e saltati, acqua, ricette che crea. Imposti kcal e macro: il suo piano si rigenera su quel target.</li>
-  <li><strong>Gli scrivi.</strong> Messaggistica dentro l’app, con notifica dei non letti, senza WhatsApp e senza numero di telefono.</li>
-</ol>
-
+<h2>Cosa cambia per te e per il paziente</h2>
 <div class="grid">
   <div class="box"><h3>📈 Andamenti, non solo numeri</h3><p>Peso, vita, fianchi e tutte le circonferenze con grafico; stima del fabbisogno adattivo dai dati reali; target calcolato con le tabelle LARN, come fai tu.</p></div>
   <div class="box"><h3>🎯 Target tuo, piano suo</h3><p>Decidi calorie e ripartizione dei macronutrienti: il paziente non legge un PDF, vede ogni giorno cosa mangiare con grammature e ricette, e la lista della spesa pronta.</p></div>
+  <div class="box"><h3>🍽️ Il diario che si compila da solo</h3><p>Un tocco per segnare il pasto consumato o saltato, l’acqua a bicchieri. Tu vedi l’aderenza reale, non quella raccontata in visita.</p></div>
+  <div class="box"><h3>💬 Messaggi dentro l’app</h3><p>Niente WhatsApp, niente numero personale: la conversazione sta con i dati del paziente, con le notifiche dei non letti.</p></div>
   <div class="box"><h3>👨‍👩‍👧 Non isola il paziente a tavola</h3><p>Molti pazienti cucinano per altri. Fitsy scala lo stesso piatto per ogni membro della famiglia: il piano si segue perché si mangia tutti insieme.</p></div>
-  <div class="box"><h3>🔒 Dati in UE, consenso esplicito</h3><p>Il paziente sceglie di collegarsi e può revocare in un tocco. Registro dei trattamenti e procedura data breach documentati; nessun dato ceduto a terzi.</p></div>
+  <div class="box"><h3>🔒 Dati in UE, consenso esplicito</h3><p>Il paziente sceglie di collegarsi con un codice e può revocare in un tocco. Registro dei trattamenti e procedura data breach documentati; nessun dato ceduto a terzi.</p></div>
 </div>
+
+<h2>Come funzionerà</h2>
+<ol class="passi">
+  <li><strong>Ricevi il tuo codice professionale</strong> (es. NUT-7K2P1A) e un link di invito da mandare ai pazienti.</li>
+  <li><strong>Il paziente apre il link</strong> o inserisce il codice nell’app: da quel momento vedi i suoi dati; può scollegarsi quando vuole.</li>
+  <li><strong>Segui e intervieni.</strong> Grafici, diario, ricette che crea. Imposti kcal e macro con una nota: il suo piano si rigenera su quel target.</li>
+  <li><strong>Gli scrivi</strong> quando serve, e lui a te.</li>
+</ol>
 
 <h2>Perché non è "l’ennesimo gestionale"</h2>
 <p>Le piattaforme come Nutrium o MetaDieta sono ottime per la parte clinica e amministrativa dello studio. Fitsy non le sostituisce: lavora sull’altra metà del problema, i 29 giorni al mese in cui il paziente è a casa e deve decidere cosa mettere in pentola. Se il tuo piano oggi finisce in un cassetto, è lì che Fitsy aiuta.</p>
 
-<h2>Quanto costa</h2>
-<p>Gratis per i pazienti, sempre. Per il professionista un canone mensile in base ai pazienti attivi, comunicato all’attivazione; i primi iscritti hanno il primo anno a condizioni riservate. Scrivi a <a href="mailto:info@fitsy.it?subject=Fitsy%20Pro">info@fitsy.it</a> per qualsiasi domanda.</p>
-${cta('Registra il profilo professionale')}`,
+<h2 id="lista-attesa">Lista d’attesa</h2>
+<p>Lasciaci i tuoi dati: ti ricontattiamo noi per spiegarti come funziona, raccogliere le tue esigenze e, quando apriamo, darti l’accesso. I primi studi iscritti avranno il primo anno a condizioni riservate. Gratis per i pazienti, sempre.</p>
+<form class="waitlist" novalidate>
+  <input type="hidden" name="tipo" value="nutrizionista">
+  <label for="wl-nome">Nome e cognome</label><input id="wl-nome" name="nome" required autocomplete="name" placeholder="es. Maria Rossi">
+  <label for="wl-email">Email</label><input id="wl-email" name="email" type="email" required autocomplete="email" placeholder="es. maria@studio.it">
+  <label for="wl-citta">Città dello studio</label><input id="wl-citta" name="citta" autocomplete="address-level2" placeholder="es. Roma">
+  <label for="wl-note">Cosa ti interessa di più? (facoltativo)</label><textarea id="wl-note" name="note" placeholder="es. Seguo circa 30 pazienti, mi interessa il diario e la lista della spesa"></textarea>
+  <div class="hp"><label>Sito web</label><input name="website" tabindex="-1" autocomplete="off"></div>
+  <label class="consenso"><input type="checkbox" name="consenso"> Acconsento a essere ricontattato da AF&amp;B S.r.l.s. per informazioni su Fitsy Pro. I dati sono usati solo per questo e cancellati su richiesta (<a href="/privacy/">privacy</a>).</label>
+  <button class="btn" type="submit">Iscrivimi alla lista d’attesa</button>
+  <div class="wl-msg"></div>
+</form>
+<p>Preferisci scrivere? <a href="mailto:info@fitsy.it?subject=Fitsy%20Pro">info@fitsy.it</a>. Vuoi intanto vedere l’app dal lato del paziente? <a href="${APP}">Aprila gratis</a>.</p>`,
     faq: [
+      ['Quando apre il servizio?', 'Stiamo attivando i primi studi uno alla volta, per fare bene. Chi è in lista viene contattato nell’ordine di iscrizione.'],
       ['Devo avere anche io una scheda Fitsy?', 'No. L’account professionale è separato: dopo il login vedi solo l’area nutrizionista con i tuoi pazienti, i loro dati e i messaggi.'],
       ['Il paziente deve pagare qualcosa?', 'No, Fitsy è e resta gratuita per i pazienti e le loro famiglie.'],
-      ['Posso modificare il piano del paziente piatto per piatto?', 'Oggi imposti il target (kcal e macro) e una nota, e il piano si rigenera su quelle basi; il paziente può aggiungere le tue ricette nel suo ricettario. L’assegnazione del singolo piatto è in sviluppo.'],
-      ['I dati dei pazienti dove stanno?', 'Su server in Unione Europea. Il paziente vede chi lo segue e può scollegarsi in qualsiasi momento; scollegandosi il target torna al calcolo automatico.'],
+      ['Quanto costerà?', 'Un canone mensile in base ai pazienti attivi, inferiore ai gestionali di studio perché Fitsy li affianca, non li sostituisce. I primi studi iscritti hanno condizioni riservate per il primo anno.'],
+      ['I dati dei pazienti dove stanno?', 'Su server in Unione Europea. Il paziente vede chi lo segue e può scollegarsi in qualsiasi momento.'],
     ],
   },
 };
@@ -331,6 +346,7 @@ export const LEGALI = {
 <h2>2. Quali dati tratta il sito</h2>
 <p><strong>Il sito non raccoglie dati personali durante la navigazione.</strong> Non usa cookie di profilazione, strumenti di analisi del traffico (es. Google Analytics), pixel o pulsanti social. Le pagine sono statiche. I calcolatori (fabbisogno calorico, peso forma, acqua) funzionano interamente nel tuo browser: i valori che inserisci non vengono inviati a nessun server.</p>
 <p><strong>Log del server.</strong> Il fornitore di hosting (Aruba S.p.A., Italia) registra automaticamente, per esigenze tecniche e di sicurezza, l’indirizzo IP, data e ora della richiesta, la pagina richiesta, il browser utilizzato. Questi log sono conservati dal fornitore per i tempi previsti dalla sua policy e non sono usati dal Titolare per identificare i visitatori.</p>
+<p><strong>Lista d’attesa (pagina Per nutrizionisti).</strong> Se compili il modulo, trattiamo nome, email, città e le note che inserisci per ricontattarti riguardo al servizio Fitsy Pro. Base giuridica: consenso (casella da spuntare). I dati sono conservati su Supabase (server in UE) fino alla tua richiesta di cancellazione o per 24 mesi dall’ultimo contatto. Non vengono usati per altre finalità né ceduti.</p>
 <p><strong>Email.</strong> Se ci scrivi (info@fitsy.it, mailto nella pagina nutrizionisti), trattiamo il tuo indirizzo e il contenuto del messaggio per risponderti. Base giuridica: esecuzione di misure precontrattuali o legittimo interesse a rispondere. Conservazione: il tempo necessario a gestire la richiesta, al massimo 24 mesi.</p>
 <h2>3. Link verso l’app</h2>
 <p>I pulsanti "Apri l’app" portano a ${APP}, dove si applica l’<a href="${APP}privacy.html">informativa dell’app</a>: lì, se scegli di creare un account, vengono trattati i dati che inserisci (profili, misure, pasti), con consenso esplicito e possibilità di cancellare tutto in un’unica operazione.</p>

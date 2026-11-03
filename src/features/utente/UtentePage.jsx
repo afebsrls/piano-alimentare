@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { emojiBySesso } from '@/core';
 import { cloudEnabled, getMyFamily, getSession, onAuthChange, signInWithGoogle, signOut } from '@/db/cloud';
 import { MioNutrizionista } from '@/features/pro/NutrizionistaPage';
+import { NUTRIZIONISTI_ATTIVI } from '@/core/flags';
 import { IntensitaDieta, PersonaForm, PesoTargetPicker } from '@/features/famiglia/FamigliaPage';
 import { calcTargetAdattivo } from '@/core';
 
@@ -88,7 +89,7 @@ export function UtentePage({ personas, myPersonaId, onSetMyPersona, onGoFamiglia
       )}
 
       {/* ── Il mio nutrizionista (solo con account) ── */}
-      {cloudEnabled && session && (
+      {cloudEnabled && session && NUTRIZIONISTI_ATTIVI && (
         <div style={{marginBottom:14}}><MioNutrizionista myId={session.user.id}/></div>
       )}
 

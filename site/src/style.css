@@ -80,3 +80,13 @@ p{margin:0 0 1em}
 .passi li{background:#fff;border:1px solid var(--bordo);border-radius:14px;padding:16px 16px 16px 54px;position:relative}
 .passi li::before{counter-increment:p;content:counter(p);position:absolute;left:16px;top:14px;width:28px;height:28px;border-radius:50%;background:var(--lime);color:var(--ink);font-weight:800;display:flex;align-items:center;justify-content:center}
 @media (max-width:760px){.hero-grid,.feat{grid-template-columns:1fr}.feat.rev .phone-wrap{order:0}.hero-grid .phones .phone:nth-child(2){display:none}.hero-grid .phones{margin-top:10px}}
+
+.waitlist{background:#fff;border:1.5px solid var(--verde);border-radius:18px;padding:20px;margin:18px 0;max-width:620px}
+.waitlist label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:10px 0 4px;text-transform:uppercase;letter-spacing:.4px}
+.waitlist input,.waitlist textarea{width:100%;padding:11px 12px;border:1.5px solid var(--bordo);border-radius:10px;font-size:16px;font-family:inherit}
+.waitlist textarea{min-height:80px}
+.waitlist .consenso{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--muted);margin:12px 0;text-transform:none;letter-spacing:0;font-weight:500}
+.waitlist .consenso input{width:auto;margin-top:3px}
+.waitlist .wl-msg{font-size:13px;color:var(--muted);margin-top:8px}
+.waitlist .wl-ok{font-size:17px;color:var(--verde);font-weight:700;margin:0}
+.hp{position:absolute;left:-9999px}
