@@ -39,15 +39,18 @@ export function nuovoConsenso() {
 }
 
 // ─── Contenuto dell'informativa ──────────────────────────────────────
-const TITOLARE_NOME  = "Aureliano Procacci";
-const TITOLARE_EMAIL = "aurelianoprocacci@gmail.com";
+const TITOLARE_NOME  = "AF&B S.r.l.s.";
+const TITOLARE_SEDE  = "Via Mario Ugo Guattari 48, 00173 Roma (RM)";
+const TITOLARE_PIVA  = "13698751008";
+const TITOLARE_REA   = "RM-1466364";
+const TITOLARE_EMAIL = "info@fitsy.it";
 const RETENTION_INATTIVITA = "48 mesi";
 
 const SEZIONI = [
   {
     t: "1. Titolare del trattamento",
     c: [
-      `Il Titolare del trattamento è ${TITOLARE_NOME}, persona fisica, contattabile all'indirizzo email ${TITOLARE_EMAIL}.`,
+      `Il Titolare del trattamento è ${TITOLARE_NOME}, con sede in ${TITOLARE_SEDE}, P.IVA ${TITOLARE_PIVA}, REA ${TITOLARE_REA}, contattabile all'indirizzo email ${TITOLARE_EMAIL}.`,
       "Per qualsiasi richiesta relativa ai tuoi dati personali o all'esercizio dei tuoi diritti puoi scrivere a questo indirizzo.",
     ],
   },

@@ -1,5 +1,7 @@
 # Fitsy — Nutrizione intelligente
 
+Fitsy è un servizio di **AF&B S.r.l.s.** · Via Mario Ugo Guattari 48, 00173 Roma (RM) · P.IVA 13698751008 · REA RM-1466364 · Capitale sociale € 2.700,00 i.v.
+
 App di nutrizione familiare (ex *Piano Alimentare*). Progetto **Vite + React**
 modulare, pronto a diventare app Android/iPhone con Capacitor.
 

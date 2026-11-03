@@ -327,7 +327,7 @@ export const LEGALI = {
 <h1>Privacy policy del sito www.fitsy.it</h1>
 <p class="lead">Informativa ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR) per chi consulta il sito www.fitsy.it. L’informativa dell’<strong>app</strong> Fitsy (account, dati di famiglia, misure) è separata e si trova <a href="${APP}privacy.html">qui</a>.</p>
 <h2>1. Titolare del trattamento</h2>
-<p>Aureliano Procacci, persona fisica, email <a href="mailto:aurelianoprocacci@gmail.com">aurelianoprocacci@gmail.com</a>. Per domande sul sito: <a href="mailto:info@fitsy.it">info@fitsy.it</a>.</p>
+<p>AF&amp;B S.r.l.s., Via Mario Ugo Guattari 48, 00173 Roma (RM), P.IVA 13698751008, REA RM-1466364, capitale sociale € 2.700,00 i.v.. Email: <a href="mailto:info@fitsy.it">info@fitsy.it</a>.</p>
 <h2>2. Quali dati tratta il sito</h2>
 <p><strong>Il sito non raccoglie dati personali durante la navigazione.</strong> Non usa cookie di profilazione, strumenti di analisi del traffico (es. Google Analytics), pixel o pulsanti social. Le pagine sono statiche. I calcolatori (fabbisogno calorico, peso forma, acqua) funzionano interamente nel tuo browser: i valori che inserisci non vengono inviati a nessun server.</p>
 <p><strong>Log del server.</strong> Il fornitore di hosting (Aruba S.p.A., Italia) registra automaticamente, per esigenze tecniche e di sicurezza, l’indirizzo IP, data e ora della richiesta, la pagina richiesta, il browser utilizzato. Questi log sono conservati dal fornitore per i tempi previsti dalla sua policy e non sono usati dal Titolare per identificare i visitatori.</p>
@@ -337,7 +337,7 @@ export const LEGALI = {
 <h2>4. Destinatari e trasferimenti</h2>
 <p>Hosting: Aruba S.p.A. (server in Italia), in qualità di responsabile del trattamento per i log tecnici. Nessun altro destinatario. Nessun trasferimento verso Paesi extra-UE.</p>
 <h2>5. I tuoi diritti</h2>
-<p>Hai diritto di accesso, rettifica, cancellazione, limitazione, opposizione e portabilità (artt. 15–22 GDPR) e di proporre reclamo al Garante per la protezione dei dati personali (www.garanteprivacy.it). Per esercitarli scrivi a <a href="mailto:aurelianoprocacci@gmail.com">aurelianoprocacci@gmail.com</a>.</p>
+<p>Hai diritto di accesso, rettifica, cancellazione, limitazione, opposizione e portabilità (artt. 15–22 GDPR) e di proporre reclamo al Garante per la protezione dei dati personali (www.garanteprivacy.it). Per esercitarli scrivi a <a href="mailto:info@fitsy.it">info@fitsy.it</a>.</p>
 <h2>6. Minori</h2>
 <p>Il sito non è rivolto a minori di 14 anni e non raccoglie consapevolmente dati di minori. Nell’app i profili dei bambini sono creati e gestiti dal genitore.</p>
 <h2>7. Aggiornamenti</h2>

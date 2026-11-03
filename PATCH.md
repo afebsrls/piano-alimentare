@@ -1,5 +1,8 @@
 # PATCH.md — Changelog cumulativo
 
+## v16.1 — 03/11/2026 · Dati societari
+- Titolare del trattamento e dati societari aggiornati ovunque (informativa app, privacy.html, privacy/cookie del sito, footer con denominazione/sede/P.IVA/REA/capitale, schema.org Organization, registro trattamenti, procedura data breach, README): **AF&B S.r.l.s.**, Via Mario Ugo Guattari 48, 00173 Roma, P.IVA 13698751008, REA RM-1466364. Contatto: info@fitsy.it.
+
 ## v16 — 03/11/2026 · Nutrizionisti (Fitsy Pro), plancia esplorabile, sito GDPR + mockup
 - **🩺 Fitsy Pro** (`supabase/s13_nutrizionisti.sql`, `src/db/nutrizionista.js`, `src/features/pro/`): il professionista si registra dall'onboarding ("Sei un nutrizionista?"), riceve un codice NUT-XXXXXX, l'admin lo attiva dalla plancia. Il paziente inserisce il codice in Account → Il mio nutrizionista (consenso, revocabile). Il nutrizionista ha una shell dedicata: lista pazienti (non letti, ultimo peso, attività), scheda completa (anagrafica, target, grafici di tutte le misure, diario pasti, ricette, dati grezzi), **target imposto** (kcal + macro + nota) che il motore usa al posto del calcolo (`targetNutrizionista` in `calcTargetAdattivo`), **messaggistica** realtime (tabella `messaggi`, RLS a due parti).
 - **Plancia admin esplorabile**: ogni numero della panoramica apre la lista; utenti → scheda completa (stessa `SchedaPersona`); famiglie → membri, stato piano/spesa, ricette; ricette → autore cliccabile; nuovo tab Nutrizionisti con attiva/sospendi. Navigazione a pila con Indietro.

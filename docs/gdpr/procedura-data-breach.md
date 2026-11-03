@@ -1,5 +1,5 @@
 # Procedura di gestione data breach — Fitsy
-*Artt. 33–34 GDPR · Titolare: Aureliano Procacci · Ultimo aggiornamento: 11/07/2026*
+*Artt. 33–34 GDPR · Titolare: AF&B S.r.l.s. (Via Mario Ugo Guattari 48, 00173 Roma (RM), P.IVA 13698751008) · Ultimo aggiornamento: 11/07/2026*
 
 ## 1. Rilevazione
 Fonti possibili: notifica di Supabase (status/security advisory), anomalie nel SyncLog, segnalazione utente via email, alert RLS (query negate anomale nei log Supabase).

@@ -33,7 +33,7 @@ const NAV = `
 function layout({ title, description, slug, body, schema = [], type = 'website', datePublished }) {
   const canonical = url(slug);
   const ld = [
-    { '@context': 'https://schema.org', '@type': 'Organization', name: 'Fitsy', url: SITE, logo: `${SITE}/icon.svg` },
+    { '@context': 'https://schema.org', '@type': 'Organization', name: 'Fitsy', legalName: 'AF&B S.r.l.s.', url: SITE, logo: `${SITE}/icon.svg`, email: 'info@fitsy.it', vatID: 'IT13698751008', address: { '@type': 'PostalAddress', streetAddress: 'Via Mario Ugo Guattari 48', postalCode: '00173', addressLocality: 'Roma', addressRegion: 'RM', addressCountry: 'IT' } },
     ...schema,
   ];
   return `<!doctype html>
@@ -73,7 +73,7 @@ ${body}
     <div><strong>Guide</strong><br>${ARTICOLI.map(a => `<a href="/${a.slug}/">${esc(a.title)}</a>`).join('<br>')}</div>
     <div><strong>Info</strong><br><a href="/per-nutrizionisti/">Per nutrizionisti</a><br><a href="/privacy/">Privacy policy</a><br><a href="/cookie/">Cookie policy</a><br><a href="${APP}privacy.html">Privacy dell’app</a><br><a href="mailto:info@fitsy.it">info@fitsy.it</a></div>
   </div>
-  <div class="fine">© ${new Date().getFullYear()} Fitsy · I calcolatori forniscono stime indicative e non sostituiscono il parere di un medico o di un nutrizionista.</div>
+  <div class="fine">Fitsy è un servizio di AF&amp;B S.r.l.s. · Via Mario Ugo Guattari 48, 00173 Roma (RM) · P.IVA 13698751008 · REA RM-1466364 · Capitale sociale € 2.700,00 i.v.<br>© ${new Date().getFullYear()} AF&amp;B S.r.l.s. · I calcolatori forniscono stime indicative e non sostituiscono il parere di un medico o di un nutrizionista.</div>
 </div></footer>
 <div id="cn" class="cn" role="region" aria-label="Informativa cookie" hidden>
   <div>Questo sito <strong>non usa cookie di profilazione</strong> né strumenti di tracciamento: nessun dato viene raccolto mentre lo consulti. I calcolatori funzionano nel tuo browser e non inviano nulla. <a href="/cookie/">Cookie policy</a> · <a href="/privacy/">Privacy</a></div>

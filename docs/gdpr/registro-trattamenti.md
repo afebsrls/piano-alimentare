@@ -1,5 +1,5 @@
 # Registro delle attività di trattamento — Fitsy
-*Art. 30 GDPR · Titolare: Aureliano Procacci (persona fisica) · aurelianoprocacci@gmail.com · Ultimo aggiornamento: 11/07/2026*
+*Art. 30 GDPR · Titolare: AF&B S.r.l.s., Via Mario Ugo Guattari 48, 00173 Roma (RM), P.IVA 13698751008, REA RM-1466364 · info@fitsy.it · Ultimo aggiornamento: 11/07/2026*
 
 ## 1. Trattamento: gestione account e famiglia
 - **Finalità**: autenticazione, associazione dei membri a una famiglia, sincronizzazione multi-dispositivo
