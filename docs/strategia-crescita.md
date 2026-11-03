@@ -1,4 +1,4 @@
-# Fitsy — strategia di crescita (bozza del 3/11/2026)
+# MenuDieta — strategia di crescita (bozza del 3/11/2026)
 
 Tre parti: (1) come funziona e come deve evolvere il profilo nutrizionista, (2) quali pagine creare per portare traffico, (3) come fare volumi senza pubblicità. Ogni voce ha una stima di sforzo: **S** = poche ore, **M** = 1–2 giorni, **L** = una settimana.
 
@@ -9,7 +9,7 @@ Tre parti: (1) come funziona e come deve evolvere il profilo nutrizionista, (2) 
 ### Com'è oggi (v16)
 - Il nutrizionista accede con Google → "Sei un nutrizionista?" → riceve un codice `NUT-XXXXXX`, stato *attesa*.
 - L'admin lo attiva dalla plancia (è il punto in cui si aggancerà il pagamento).
-- Il paziente inserisce il codice in Account → Il mio nutrizionista, oppure apre il **link di invito** `fitsy.it/app/?nut=NUT-XXXXXX` (nuovo: il codice è già compilato, basta confermare).
+- Il paziente inserisce il codice in Account → Il mio nutrizionista, oppure apre il **link di invito** `menudieta.it/app/?nut=NUT-XXXXXX` (nuovo: il codice è già compilato, basta confermare).
 - Il nutrizionista vede scheda, misure con grafici, diario pasti, ricette; imposta il **target** (kcal + macro + nota) che il motore usa al posto del calcolo; **messaggi** in tempo reale.
 - Il paziente può scollegarsi in un tocco; il target torna automatico.
 
@@ -25,7 +25,7 @@ Il consenso GDPR è esplicito e revocabile; nessuna email del paziente passa per
 6. **Report di visita** (S). Un PDF con grafici e diario delle ultime 4 settimane, da stampare o inviare: è ciò che il nutrizionista mostra al paziente in studio e giustifica il canone.
 
 ### Prezzo: come ragionarlo
-Nutrium parte da 25 €/mese per 10 pazienti; Coachway 25 € per 25 pazienti. Fitsy non sostituisce il gestionale, lo affianca: il prezzo deve stare **sotto** (es. 9 €/mese fino a 10 pazienti, 19 € fino a 40, 39 € illimitati) e il messaggio è "i tuoi pazienti seguono il piano perché cucinano con Fitsy tutti i giorni". Primo anno gratis ai primi 20 in cambio di feedback e di una recensione.
+Nutrium parte da 25 €/mese per 10 pazienti; Coachway 25 € per 25 pazienti. MenuDieta non sostituisce il gestionale, lo affianca: il prezzo deve stare **sotto** (es. 9 €/mese fino a 10 pazienti, 19 € fino a 40, 39 € illimitati) e il messaggio è "i tuoi pazienti seguono il piano perché cucinano con MenuDieta tutti i giorni". Primo anno gratis ai primi 20 in cambio di feedback e di una recensione.
 
 ---
 
@@ -61,7 +61,7 @@ Il sito ha 13 pagine. Per fare volumi servono **molte pagine lunghe e specifiche
 | /fitsy-vs-nutrium/ (confronto onesto) | "nutrium alternative", "nutrium prezzi" |
 
 ### Regola per ogni pagina
-Parola chiave esatta nel title e nell'H1; risposta nelle prime 2 righe; una tabella o uno strumento; FAQ reali; 2–3 link verso altre pagine Fitsy; bottone verso l'app con un motivo concreto ("genera il tuo menu con questi ingredienti"). Tutto resta generato da `keywords.mjs` + `contenuti.mjs`: le pagine alimento/ricetta/stagione saranno generate dai JSON con un template.
+Parola chiave esatta nel title e nell'H1; risposta nelle prime 2 righe; una tabella o uno strumento; FAQ reali; 2–3 link verso altre pagine MenuDieta; bottone verso l'app con un motivo concreto ("genera il tuo menu con questi ingredienti"). Tutto resta generato da `keywords.mjs` + `contenuti.mjs`: le pagine alimento/ricetta/stagione saranno generate dai JSON con un template.
 
 ---
 
@@ -72,13 +72,13 @@ Ordine cronologico. Nessuna pubblicità a pagamento finché il prodotto non conv
 ### Mese 1 — Fondamenta (da fare subito)
 - [x] Sito, calcolatori, Search Console, sitemap.
 - [ ] **Pagine alimenti e ricette generate** (gruppo A): sono 1.000+ URL indicizzabili in una settimana di lavoro. È la singola cosa più efficace.
-- [ ] **Profilo Google Business** per AF&B/Fitsy (gratis): dà credibilità e un riquadro nei risultati.
+- [ ] **Profilo Google Business** per AF&B/MenuDieta (gratis): dà credibilità e un riquadro nei risultati.
 - [ ] **Schede sugli store senza app nativa**: non ancora. La PWA basta; Capacitor più avanti quando c'è volume.
 
 ### Mese 2–3 — Autorità (link e menzioni)
-- [ ] **5 nutrizionisti partner** (gratis a vita) che usano Fitsy con i pazienti e la citano sul proprio sito/profilo: 5 link veri da siti del settore valgono più di 500 directory.
+- [ ] **5 nutrizionisti partner** (gratis a vita) che usano MenuDieta con i pazienti e la citano sul proprio sito/profilo: 5 link veri da siti del settore valgono più di 500 directory.
 - [ ] **Directory e confronti**: Capterra, GetApp, Trustpilot (gratis), AlternativeTo, Product Hunt (un lancio ben fatto porta link e 1–2 giorni di traffico).
-- [ ] **Università e associazioni**: ANDID (dietisti), ASAND, corsi di laurea in dietistica: Fitsy gratis per gli studenti → link `.edu/.it` istituzionali.
+- [ ] **Università e associazioni**: ANDID (dietisti), ASAND, corsi di laurea in dietistica: MenuDieta gratis per gli studenti → link `.edu/.it` istituzionali.
 - [ ] **Stampa locale e di settore**: un comunicato "startup romana lancia l'app gratuita per il menu di famiglia" a testate come StartupItalia, Wired Italia, Il Fatto Alimentare, ANSA Lifestyle. Gancio: gratis, senza pubblicità, dati in UE, tabelle LARN.
 
 ### Mese 2 in poi — Ricorrenza (contenuti che tornano ogni mese)

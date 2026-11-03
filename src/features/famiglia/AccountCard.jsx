@@ -68,7 +68,7 @@ export function AccountCard({ myPersona, onGoUtente }) {
   };
 
   const condividi = async () => {
-    const testo = `Unisciti alla nostra famiglia su Fitsy! Codice: ${famiglia.invite_code}`;
+    const testo = `Unisciti alla nostra famiglia su MenuDieta! Codice: ${famiglia.invite_code}`;
     if (navigator.share) { try { await navigator.share({ text: testo }); } catch {} }
     else {
       try { await navigator.clipboard.writeText(famiglia.invite_code); setCopiato(true); setTimeout(()=>setCopiato(false), 1500); } catch {}

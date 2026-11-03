@@ -5,7 +5,7 @@ import { SchedaPersona, Chat, C, card, btn, fmtData, Pill } from './SchedaPerson
 
 // ── Area nutrizionista ───────────────────────────────────────────────
 // Shell dedicata (come l'admin): l'account professionale non ha scheda
-// Fitsy. `pro` = { nome, studio, codice, stato } da is_nutrizionista().
+// MenuDieta. `pro` = { nome, studio, codice, stato } da is_nutrizionista().
 export function NutrizionistaPage({ pro, myId, onAggiornaPro }) {
   const [lista, setLista] = useState(null);
   const [sel, setSel] = useState(null);         // paziente selezionato (riga lista)
@@ -35,7 +35,7 @@ export function NutrizionistaPage({ pro, myId, onAggiornaPro }) {
           <div style={{ fontSize: 18, fontWeight: 800, color: C.scuro }}>🩺 {pro?.nome}{pro?.studio ? ` · ${pro.studio}` : ''}</div>
           <div style={{ marginTop: 8, fontSize: 14, lineHeight: 1.5 }}>
             {pro?.stato === 'sospeso'
-              ? 'Il tuo profilo professionale è sospeso. Scrivi a info@fitsy.it.'
+              ? 'Il tuo profilo professionale è sospeso. Scrivi a info@menudieta.it.'
               : <>Grazie per esserti registrato. Il profilo professionale viene <b>attivato manualmente</b> entro pochi giorni: riceverai una mail. Nel frattempo questo è il tuo codice, da dare ai pazienti quando sarai attivo:</>}
           </div>
           {pro?.stato !== 'sospeso' && <div style={{ marginTop: 10, fontFamily: 'ui-monospace, monospace', fontSize: 26, fontWeight: 800, color: C.verde, letterSpacing: 2 }}>{pro?.codice}</div>}
@@ -51,7 +51,7 @@ export function NutrizionistaPage({ pro, myId, onAggiornaPro }) {
         <div>
           <div style={{ fontSize: 20, fontWeight: 800, color: C.scuro }}>🩺 {pro.nome}{pro.studio ? <span style={{ color: C.grigio, fontWeight: 600 }}> · {pro.studio}</span> : null}</div>
           <div style={{ fontSize: 12, color: C.grigio }}>Codice per i pazienti: <b style={{ fontFamily: 'ui-monospace, monospace', color: C.verde, fontSize: 14, letterSpacing: 1 }}>{pro.codice}</b> · lo inseriscono in Account → Il mio nutrizionista</div>
-          <button onClick={() => { const l = `https://www.fitsy.it/app/?nut=${pro.codice}`; navigator.clipboard?.writeText(l); alert('Link di invito copiato:\n' + l + '\n\nMandalo al paziente: aprendolo trova già il tuo codice.'); }} style={{ ...btn(C.chiaro, C.verde), marginTop: 6 }}>🔗 Copia link di invito</button>
+          <button onClick={() => { const l = `https://www.menudieta.it/app/?nut=${pro.codice}`; navigator.clipboard?.writeText(l); alert('Link di invito copiato:\n' + l + '\n\nMandalo al paziente: aprendolo trova già il tuo codice.'); }} style={{ ...btn(C.chiaro, C.verde), marginTop: 6 }}>🔗 Copia link di invito</button>
         </div>
         <button onClick={carica} style={{ ...btn(C.chiaro, C.verde), marginLeft: 'auto' }}>↻ Aggiorna</button>
       </div>
@@ -125,7 +125,7 @@ export function MioNutrizionista({ myId }) {
   if (!n) return (
     <div style={{ ...card, marginBottom: 0 }}>
       <div style={{ fontWeight: 800, color: C.scuro }}>🩺 Il mio nutrizionista</div>
-      <div style={{ fontSize: 13, color: '#4A6152', margin: '4px 0 8px', lineHeight: 1.5 }}>{daLink ? 'Il tuo nutrizionista ti ha invitato: conferma il collegamento. Potrà vedere le tue misure e il tuo diario, impostare il tuo target e scriverti. Puoi scollegarti quando vuoi.' : 'Se sei seguito da un nutrizionista che usa Fitsy, inserisci il suo codice: potrà vedere le tue misure e il tuo diario, impostare il tuo target e scriverti.'}</div>
+      <div style={{ fontSize: 13, color: '#4A6152', margin: '4px 0 8px', lineHeight: 1.5 }}>{daLink ? 'Il tuo nutrizionista ti ha invitato: conferma il collegamento. Potrà vedere le tue misure e il tuo diario, impostare il tuo target e scriverti. Puoi scollegarti quando vuoi.' : 'Se sei seguito da un nutrizionista che usa MenuDieta, inserisci il suo codice: potrà vedere le tue misure e il tuo diario, impostare il tuo target e scriverti.'}</div>
       <div style={{ display: 'flex', gap: 6 }}>
         <input value={codice} onChange={e => setCodice(e.target.value.toUpperCase())} placeholder="NUT-XXXXXX" style={{ flex: 1, padding: 10, borderRadius: 10, border: `1.5px solid ${C.bordo}`, fontSize: 15, fontFamily: 'ui-monospace, monospace' }} />
         <button disabled={busy || codice.trim().length < 6} onClick={async () => { setBusy(true); setErr(''); try { const { collegaNutrizionista } = await import('@/db/nutrizionista'); await collegaNutrizionista(codice); try { localStorage.removeItem('pa__nut-pending'); } catch {} await ricarica(); } catch (e) { setErr(e.message); } setBusy(false); }} style={btn(C.verde)}>Collega</button>

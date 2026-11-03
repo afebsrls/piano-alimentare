@@ -26,7 +26,8 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 const url = (slug) => slug ? `${SITE}/${slug}/` : `${SITE}/`;
 
 const phone = (name, cls = '') => `<div class="phone ${cls}">${MOCK[name]}</div>`;
-const LOGO = `<a class="logo" href="/" aria-label="Fitsy">f<span>i</span>tsy</a>`;
+const ICONA = `<svg viewBox="0 0 176 176" width="34" height="34" aria-hidden="true"><circle cx="88" cy="88" r="88" fill="#F5F8F1"/><circle cx="88" cy="88" r="72" fill="none" stroke="#DDE5D8" stroke-width="3"/><circle cx="66" cy="82" r="30" fill="#2F6B3A"/><circle cx="114" cy="70" r="20" fill="#C7F23E"/><circle cx="110" cy="114" r="13" fill="#15251C"/></svg>`;
+const LOGO = `<a class="logo" href="/" aria-label="MenuDieta">${ICONA}menu<span>dieta</span></a>`;
 const NAV = `
 <nav class="nav">
   <a href="/menu-settimanale-famiglia/">Menu settimanale</a>
@@ -42,7 +43,7 @@ const NAV = `
 function layout({ title, description, slug, body, schema = [], type = 'website', datePublished }) {
   const canonical = url(slug);
   const ld = [
-    { '@context': 'https://schema.org', '@type': 'Organization', name: 'Fitsy', legalName: 'AF&B S.r.l.s.', url: SITE, logo: `${SITE}/icon.svg`, email: 'info@fitsy.it', vatID: 'IT13698751008', address: { '@type': 'PostalAddress', streetAddress: 'Via Mario Ugo Guattari 48', postalCode: '00173', addressLocality: 'Roma', addressRegion: 'RM', addressCountry: 'IT' } },
+    { '@context': 'https://schema.org', '@type': 'Organization', name: 'MenuDieta', legalName: 'AF&B S.r.l.s.', url: SITE, logo: `${SITE}/icon.svg`, email: 'info@menudieta.it', vatID: 'IT13698751008', address: { '@type': 'PostalAddress', streetAddress: 'Via Mario Ugo Guattari 48', postalCode: '00173', addressLocality: 'Roma', addressRegion: 'RM', addressCountry: 'IT' } },
     ...schema,
   ];
   return `<!doctype html>
@@ -58,7 +59,7 @@ function layout({ title, description, slug, body, schema = [], type = 'website',
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${canonical}">
-<meta property="og:site_name" content="Fitsy">
+<meta property="og:site_name" content="MenuDieta">
 <meta property="og:locale" content="it_IT">
 <meta property="og:image" content="${SITE}/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -74,15 +75,15 @@ ${body}
 </main>
 <footer class="foot"><div class="wrap">
   <div class="cols">
-    <div><strong>Fitsy</strong><br>Nutrizione intelligente per la famiglia.<br><a href="${APP}">Apri l’app</a> · gratis, senza pubblicità.</div>
+    <div><strong>MenuDieta</strong><br>Nutrizione intelligente per la famiglia.<br><a href="${APP}">Apri l’app</a> · gratis, senza pubblicità.</div>
     <div><strong>Strumenti gratuiti</strong><br>
       <a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a><br>
       <a href="/peso-forma-calcolo/">Peso forma</a><br>
       <a href="/quanta-acqua-bere-al-giorno/">Acqua al giorno</a></div>
     <div><strong>Guide</strong><br>${ARTICOLI.map(a => `<a href="/${a.slug}/">${esc(a.title)}</a>`).join('<br>')}</div>
-    <div><strong>Info</strong><br><a href="/per-nutrizionisti/">Per nutrizionisti</a><br><a href="/privacy/">Privacy policy</a><br><a href="/cookie/">Cookie policy</a><br><a href="${APP}privacy.html">Privacy dell’app</a><br><a href="mailto:info@fitsy.it">info@fitsy.it</a></div>
+    <div><strong>Info</strong><br><a href="/per-nutrizionisti/">Per nutrizionisti</a><br><a href="/privacy/">Privacy policy</a><br><a href="/cookie/">Cookie policy</a><br><a href="${APP}privacy.html">Privacy dell’app</a><br><a href="mailto:info@menudieta.it">info@menudieta.it</a></div>
   </div>
-  <div class="fine">Fitsy è un servizio di AF&amp;B S.r.l.s. · Via Mario Ugo Guattari 48, 00173 Roma (RM) · P.IVA 13698751008 · REA RM-1466364 · Capitale sociale € 2.700,00 i.v.<br>© ${new Date().getFullYear()} AF&amp;B S.r.l.s. · I calcolatori forniscono stime indicative e non sostituiscono il parere di un medico o di un nutrizionista.</div>
+  <div class="fine">MenuDieta è un servizio di AF&amp;B S.r.l.s. · Via Mario Ugo Guattari 48, 00173 Roma (RM) · P.IVA 13698751008 · REA RM-1466364 · Capitale sociale € 2.700,00 i.v.<br>© ${new Date().getFullYear()} AF&amp;B S.r.l.s. · I calcolatori forniscono stime indicative e non sostituiscono il parere di un medico o di un nutrizionista.</div>
 </div></footer>
 <div id="cn" class="cn" role="region" aria-label="Informativa cookie" hidden>
   <div>Questo sito <strong>non usa cookie di profilazione</strong> né strumenti di tracciamento: nessun dato viene raccolto mentre lo consulti. I calcolatori funzionano nel tuo browser e non inviano nulla. <a href="/cookie/">Cookie policy</a> · <a href="/privacy/">Privacy</a></div>
@@ -100,7 +101,7 @@ const faqSchema = (faq) => faq?.length ? [{
 
 const faqHtml = (faq) => faq?.length ? `<section class="faq"><h2>Domande frequenti</h2>${faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><div>${a}</div></details>`).join('')}</section>` : '';
 
-const ctaHtml = (testo = 'Prova Fitsy gratis') => `<div class="ctabox"><div><strong>${esc(testo)}</strong><br>Menu settimanale per tutta la famiglia, porzioni per ciascuno e lista della spesa automatica. Senza pubblicità, senza carta di credito.</div><a class="btn" href="${APP}">Apri l’app →</a></div>`;
+const ctaHtml = (testo = 'Prova MenuDieta gratis') => `<div class="ctabox"><div><strong>${esc(testo)}</strong><br>Menu settimanale per tutta la famiglia, porzioni per ciascuno e lista della spesa automatica. Senza pubblicità, senza carta di credito.</div><a class="btn" href="${APP}">Apri l’app →</a></div>`;
 
 function writePage(slug, html) {
   const dir = path.join(OUT, slug);
@@ -114,7 +115,7 @@ for (const p of PAGES) {
   if (!c) throw new Error('Contenuto mancante per ' + (p.slug || 'home'));
   const schema = [...faqSchema(c.faq)];
   if (p.tipo === 'home') schema.push({
-    '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Fitsy',
+    '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'MenuDieta',
     applicationCategory: 'HealthApplication', operatingSystem: 'Web, Android, iOS',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
     description: p.description, url: APP, inLanguage: 'it',
@@ -140,14 +141,14 @@ for (const a of ARTICOLI) {
   const schema = [{
     '@context': 'https://schema.org', '@type': 'Article', headline: a.title, description: a.description,
     datePublished: a.data, dateModified: a.data, inLanguage: 'it',
-    author: { '@type': 'Organization', name: 'Fitsy' }, publisher: { '@type': 'Organization', name: 'Fitsy' },
+    author: { '@type': 'Organization', name: 'MenuDieta' }, publisher: { '@type': 'Organization', name: 'MenuDieta' },
     mainEntityOfPage: url(a.slug),
   }];
   const body = `<article class="art"><p class="crumb"><a href="/blog/">Guide</a> · ${new Date(a.data).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}</p>${html({ esc, APP, cta: ctaHtml, phone })}</article>`;
   writePage(a.slug, layout({ ...a, body, schema, type: 'article', datePublished: a.data }));
 }
 writePage('blog', layout({
-  title: 'Guide Fitsy: organizzare i pasti della famiglia',
+  title: 'Guide MenuDieta: organizzare i pasti della famiglia',
   description: 'Guide pratiche per organizzare il menu settimanale, le porzioni dei bambini e il piano alimentare di mantenimento.',
   slug: 'blog',
   body: `<h1>Guide per organizzare i pasti della famiglia</h1><p class="lead">Metodi concreti, senza mode. Ogni guida rimanda a uno strumento gratuito con cui provare subito.</p>

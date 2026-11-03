@@ -1,4 +1,4 @@
-// TEST 2l — Trasloco github.io → fitsy.it: i dati locali fanno il giro
+// TEST 2l — Trasloco github.io → menudieta.it: i dati locali fanno il giro
 // completo (impacchettamento nell'hash → importazione) senza perdite.
 import { JSDOM, VirtualConsole } from 'jsdom';
 
@@ -34,8 +34,8 @@ const hash = '#trasloco=' + toB64(JSON.stringify(dati));
 check(!/[+/=]/.test(hash.slice(10)), "l'hash è URL-safe (niente + / =)");
 
 // ── 2. Nuovo sito: importazione ──
-const w2 = makeWin('https://www.fitsy.it/app/' + hash);
-check(!T.isVecchioSito(), 'fitsy.it NON è il vecchio sito (niente banner)');
+const w2 = makeWin('https://www.menudieta.it/app/' + hash);
+check(!T.isVecchioSito(), 'menudieta.it NON è il vecchio sito (niente banner)');
 const importato = T.importaTrasloco();
 check(importato === true, 'importa (e chiede il reload)');
 for (const [k, v] of Object.entries(campione)) check(w2.localStorage.getItem(k) === v, `chiave ${k} identica dopo il giro`);
@@ -43,7 +43,7 @@ check(w2.localStorage.getItem('pa__trasloco-fatto') === null, 'il flag di traslo
 check(!w2.location.hash, "l'URL è stato ripulito dai dati");
 
 // ── 3. Nuovo sito senza hash: non fa nulla ──
-const w3 = makeWin('https://www.fitsy.it/app/');
+const w3 = makeWin('https://www.menudieta.it/app/');
 check(T.importaTrasloco() === false, 'senza hash non importa nulla');
 
 if (!ok) { console.log('✗ TEST 2l FALLITO'); process.exit(1); }

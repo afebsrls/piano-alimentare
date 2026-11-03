@@ -11,8 +11,8 @@
 // promosse a pagina dedicata se hanno volume.
 // ═══════════════════════════════════════════════════════════════════
 
-export const SITE = 'https://www.fitsy.it';
-export const APP  = 'https://www.fitsy.it/app/';
+export const SITE = 'https://www.menudieta.it';
+export const APP  = 'https://www.menudieta.it/app/';
 
 export const PAGES = [
   {
@@ -21,8 +21,8 @@ export const PAGES = [
     varianti: ['app menu settimanale famiglia', 'pianificare i pasti della settimana', 'piano alimentare famiglia gratis'],
     intento: 'cercano uno strumento gratuito che decida cosa cucinare per tutta la famiglia',
     concorrenti: 'raccolte di app (aranzulla, trend-online), schede App Store di app straniere',
-    title: 'Fitsy – App gratuita per il piano alimentare settimanale della famiglia',
-    description: 'Fitsy genera il menu settimanale per tutta la famiglia con porzioni per ciascuno, lista della spesa automatica e ricette di stagione. Gratis, senza pubblicità.',
+    title: 'MenuDieta – App gratuita per il piano alimentare settimanale della famiglia',
+    description: 'MenuDieta genera il menu settimanale per tutta la famiglia con porzioni per ciascuno, lista della spesa automatica e ricette di stagione. Gratis, senza pubblicità.',
     tipo: 'home',
   },
   {
@@ -41,8 +41,8 @@ export const PAGES = [
     varianti: ['lista della spesa dal menu settimanale', 'app lista della spesa condivisa famiglia', 'lista spesa intelligente'],
     intento: 'vogliono smettere di scrivere la lista a mano e condividerla con il partner',
     concorrenti: 'app di sole liste (La lista spesa, Bring), Paprika',
-    title: 'Lista della spesa automatica dal menu settimanale – Fitsy',
-    description: 'Fitsy crea la lista della spesa in automatico dal piano della settimana, con quantità esatte per la tua famiglia e spunte condivise in tempo reale.',
+    title: 'Lista della spesa automatica dal menu settimanale – MenuDieta',
+    description: 'MenuDieta crea la lista della spesa in automatico dal piano della settimana, con quantità esatte per la tua famiglia e spunte condivise in tempo reale.',
     tipo: 'landing',
   },
   {
@@ -81,8 +81,8 @@ export const PAGES = [
     varianti: ['app per nutrizionisti', 'gestione pazienti nutrizionista', 'app per i clienti del nutrizionista', 'piano alimentare da inviare ai pazienti'],
     intento: 'professionisti che vogliono consegnare piani ai clienti in un\'app italiana e seguirli',
     concorrenti: 'Nutrium, EvolutionFit, Coachway, MetaDieta',
-    title: 'Fitsy per nutrizionisti: i piani dei tuoi pazienti in un\'app italiana',
-    description: 'Carica i dati dei tuoi pazienti, assegna il piano alimentare e seguili dall\'app Fitsy, gratuita per le famiglie. Lista di attesa per i professionisti.',
+    title: 'MenuDieta per nutrizionisti: i piani dei tuoi pazienti in un\'app italiana',
+    description: 'Carica i dati dei tuoi pazienti, assegna il piano alimentare e seguili dall\'app MenuDieta, gratuita per le famiglie. Lista di attesa per i professionisti.',
     tipo: 'nutrizionisti',
   },
 ];

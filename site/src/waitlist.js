@@ -19,7 +19,7 @@
         if (!r.ok) throw new Error('HTTP ' + r.status);
         f.innerHTML = '<p class="wl-ok">✅ Grazie, sei in lista. Ti scriviamo noi, a breve, all’indirizzo indicato.</p>';
       } catch (err) {
-        btn.disabled = false; msg.textContent = 'Non sono riuscito a inviare. Scrivici a info@fitsy.it.';
+        btn.disabled = false; msg.textContent = 'Non sono riuscito a inviare. Scrivici a info@menudieta.it.';
       }
     });
   });

@@ -68,16 +68,16 @@ ${nz.z != null ? `<tr><td>di cui zuccheri</td><td>${n1(nz.z)} g</td>${pezzo ? `<
 <tr><td>Grassi</td><td>${n1(nz.g)} g</td>${pezzo ? `<td>${n1(nz.g * pezzo / 100)} g</td>` : ''}</tr>
 ${nz.f != null ? `<tr><td>Fibre</td><td>${n1(nz.f)} g</td>${pezzo ? `<td>${n1(nz.f * pezzo / 100)} g</td>` : ''}</tr>` : ''}
 </table></div>
-<p class="note">Fonte: tabelle di composizione degli alimenti usate nel motore di Fitsy${nz.fonte && nz.fonte !== a.nome ? ` (voce: ${esc(nz.fonte)})` : ''}. I valori sono medi e possono variare per varietà, marca e cottura.</p>
+<p class="note">Fonte: tabelle di composizione degli alimenti usate nel motore di MenuDieta${nz.fonte && nz.fonte !== a.nome ? ` (voce: ${esc(nz.fonte)})` : ''}. I valori sono medi e possono variare per varietà, marca e cottura.</p>
 
 <h2>Porzioni comuni di ${esc(nome.toLowerCase())}</h2>
 <div class="scroll"><table class="tabella"><tr><th>Quantità</th><th>Calorie</th><th>Proteine</th><th>Carboidrati</th><th>Grassi</th></tr>
 ${[30, 50, 80, 100, 150, 200].map(g => `<tr><td>${g} g</td><td>${kcalPer(g)} kcal</td><td>${n1(nz.p * g / 100)} g</td><td>${n1(nz.c * g / 100)} g</td><td>${n1(nz.g * g / 100)} g</td></tr>`).join('')}
 </table></div>
-${stag ? `<h2>Quando è di stagione</h2><p>${esc(nome)} è di stagione in: <strong>${stag}</strong>. Fitsy lo propone nel menu in quei mesi, quando costa meno e ha più sapore.</p>` : ''}
+${stag ? `<h2>Quando è di stagione</h2><p>${esc(nome)} è di stagione in: <strong>${stag}</strong>. MenuDieta lo propone nel menu in quei mesi, quando costa meno e ha più sapore.</p>` : ''}
 ${ricette.length ? `<h2>Ricette con ${esc(nome.toLowerCase())}</h2><ul>${ricette.map(r => `<li><a href="/ricette/${r.slug}/">${esc(r.nomeVis)}</a> <span class="note">(${CAT_RIC[r.categoria] || r.categoria}, ${n0(r.donna?.kcal)} kcal porzione donna)</span></li>`).join('')}</ul>` : ''}
-${cta(`Quanto ${nome.toLowerCase()} per te? Fitsy calcola la porzione giusta`)}
-<p>Fitsy inserisce ${esc(nome.toLowerCase())} nel <a href="/menu-settimanale-famiglia/">menu settimanale della famiglia</a> con la grammatura adatta a ciascuno, e lo aggiunge alla <a href="/lista-della-spesa-automatica/">lista della spesa</a> nella quantità esatta.</p>
+${cta(`Quanto ${nome.toLowerCase()} per te? MenuDieta calcola la porzione giusta`)}
+<p>MenuDieta inserisce ${esc(nome.toLowerCase())} nel <a href="/menu-settimanale-famiglia/">menu settimanale della famiglia</a> con la grammatura adatta a ciascuno, e lo aggiunge alla <a href="/lista-della-spesa-automatica/">lista della spesa</a> nella quantità esatta.</p>
 <h2>Altri alimenti: ${esc(cat)}</h2>
 <p>${simili.map(x => `<a href="/alimenti/${x.slug}/">${esc(x.nomeVis)}</a>`).join(' · ')} · <a href="/alimenti/">tutti gli alimenti</a></p>`;
   return {
@@ -86,8 +86,8 @@ ${cta(`Quanto ${nome.toLowerCase()} per te? Fitsy calcola la porzione giusta`)}
     description: `${nome}: ${n0(nz.kcal)} kcal per 100 g, ${n1(nz.p)} g proteine, ${n1(nz.c)} g carboidrati, ${n1(nz.g)} g grassi.${pezzo ? ` Un pezzo (${pezzo} g): ${kcalPezzo} kcal.` : ''} Porzioni, stagione e ricette.`,
     body, faq,
     schema: [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Alimenti', item: 'https://www.fitsy.it/alimenti/' },
-      { '@type': 'ListItem', position: 2, name: nome, item: `https://www.fitsy.it/alimenti/${a.slug}/` }] }],
+      { '@type': 'ListItem', position: 1, name: 'Alimenti', item: 'https://www.menudieta.it/alimenti/' },
+      { '@type': 'ListItem', position: 2, name: nome, item: `https://www.menudieta.it/alimenti/${a.slug}/` }] }],
   };
 }
 
@@ -95,10 +95,10 @@ export function indiceAlimenti({ cta }) {
   const cats = {};
   for (const a of ALIMENTI) (cats[a.cat] ||= []).push(a);
   const body = `<h1>Calorie e valori nutrizionali degli alimenti</h1>
-<p class="lead">${ALIMENTI.length} alimenti con calorie, proteine, carboidrati e grassi per 100 g e per porzione: le stesse tabelle che Fitsy usa per calcolare il menu della famiglia. Scegli una categoria.</p>
+<p class="lead">${ALIMENTI.length} alimenti con calorie, proteine, carboidrati e grassi per 100 g e per porzione: le stesse tabelle che MenuDieta usa per calcolare il menu della famiglia. Scegli una categoria.</p>
 ${Object.entries(cats).sort((x, y) => y[1].length - x[1].length).map(([c, L]) => `<h2>${esc(c)} <span class="note">(${L.length})</span></h2><p>${L.sort((x, y) => x.nome.localeCompare(y.nome, 'it')).map(a => `<a href="/alimenti/${a.slug}/">${esc(a.nomeVis)}</a>`).join(' · ')}</p>`).join('')}
 ${cta('Le porzioni giuste per la tua famiglia, in automatico')}`;
-  return { slug: 'alimenti', title: 'Calorie e valori nutrizionali di 700+ alimenti – Fitsy', description: `Tabella calorie di ${ALIMENTI.length} alimenti con proteine, carboidrati e grassi per 100 g e per porzione, divisi per categoria. Dati usati dal motore di Fitsy.`, body };
+  return { slug: 'alimenti', title: 'Calorie e valori nutrizionali di 700+ alimenti – MenuDieta', description: `Tabella calorie di ${ALIMENTI.length} alimenti con proteine, carboidrati e grassi per 100 g e per porzione, divisi per categoria. Dati usati dal motore di MenuDieta.`, body };
 }
 
 // ── Pagina ricetta ───────────────────────────────────────────────────
@@ -108,14 +108,14 @@ export function paginaRicetta(r, { APP, cta }) {
   const riga = (p) => `<td>${n0(r[p]?.kcal)} kcal</td><td>${n0(r[p]?.p)} g</td><td>${n0(r[p]?.c)} g</td><td>${n0(r[p]?.g)} g</td>`;
   const tot = (r.uomo?.kcal || 0);
   const faq = [
-    [`Quante calorie ha ${r.nome}?`, `Dipende dalla porzione: ${n0(r.donna?.kcal)} kcal nella porzione per una donna, ${n0(r.uomo?.kcal)} per un uomo, ${n0(r.bimbo?.kcal)} per un bambino. Nel piano Fitsy ogni membro della famiglia ha la sua grammatura.`],
+    [`Quante calorie ha ${r.nome}?`, `Dipende dalla porzione: ${n0(r.donna?.kcal)} kcal nella porzione per una donna, ${n0(r.uomo?.kcal)} per un uomo, ${n0(r.bimbo?.kcal)} per un bambino. Nel piano MenuDieta ogni membro della famiglia ha la sua grammatura.`],
     [`${r.nome} va bene per i bambini?`, `Sì: è la stessa ricetta della famiglia, con la porzione ridotta (${esc(r.porzioni?.bimbo || 'porzione bambino')}).`],
-    ['Posso sostituire un ingrediente?', 'Sì. In Fitsy ogni ingrediente ha equivalenti con lo stesso ruolo nutrizionale; cambiandolo il piano ricalcola calorie e lista della spesa.'],
+    ['Posso sostituire un ingrediente?', 'Sì. In MenuDieta ogni ingrediente ha equivalenti con lo stesso ruolo nutrizionale; cambiandolo il piano ricalcola calorie e lista della spesa.'],
   ];
   const body = `
 <p class="crumb"><a href="/ricette/">Ricette</a> · ${esc(cat)}</p>
 <h1>${esc(r.nomeVis)}: calorie e porzioni per uomo, donna e bambino</h1>
-<p class="lead">${esc(r.nome)} è una ricetta da ${esc(cat.toLowerCase())}${r.prep ? ` pronta in circa ${r.prep} minuti` : ''}: <strong>${n0(r.donna?.kcal)} kcal</strong> nella porzione per una donna, ${n0(r.uomo?.kcal)} per un uomo, ${n0(r.bimbo?.kcal)} per un bambino. Stessi ingredienti, grammature diverse: è così che Fitsy cucina una volta sola per tutta la famiglia.</p>
+<p class="lead">${esc(r.nome)} è una ricetta da ${esc(cat.toLowerCase())}${r.prep ? ` pronta in circa ${r.prep} minuti` : ''}: <strong>${n0(r.donna?.kcal)} kcal</strong> nella porzione per una donna, ${n0(r.uomo?.kcal)} per un uomo, ${n0(r.bimbo?.kcal)} per un bambino. Stessi ingredienti, grammature diverse: è così che MenuDieta cucina una volta sola per tutta la famiglia.</p>
 <h2>Ingredienti e quantità per persona</h2>
 <div class="scroll"><table class="tabella"><tr><th>Ingrediente</th><th>👨 Uomo</th><th>👩 Donna</th><th>🧒 Bambino</th></tr>
 ${ingr.map(({ a, q, id }) => `<tr><td>${a ? (ALI_BY_ID[id] ? `<a href="/alimenti/${ALI_BY_ID[id].slug}/">${esc(nomeBreve(a.nome))}</a>` : esc(nomeBreve(a.nome))) : esc(id)}</td><td>${q ? `${q.uomo} ${q.unit || 'g'}` : '—'}</td><td>${q ? `${q.donna} ${q.unit || 'g'}` : '—'}</td><td>${q ? `${q.bimbo} ${q.unit || 'g'}` : '—'}</td></tr>`).join('')}
@@ -127,7 +127,7 @@ ${r.porzioni?.donna ? `<p class="note">In breve, porzione donna: ${esc(r.porzion
 </table></div>
 <p class="note">Le tre porzioni sono riferimenti medi. Nell’app la grammatura è calcolata sul fabbisogno reale di ogni persona (età, peso, attività, obiettivo), non su tre taglie fisse.</p>
 ${cta(`Metti ${r.nome} nel menu della tua famiglia`)}
-<p>Apri <a href="${APP}">Fitsy</a>: la ricetta entra nel <a href="/menu-settimanale-famiglia/">menu settimanale</a> con le porzioni di ciascuno e gli ingredienti finiscono nella <a href="/lista-della-spesa-automatica/">lista della spesa</a>.</p>
+<p>Apri <a href="${APP}">MenuDieta</a>: la ricetta entra nel <a href="/menu-settimanale-famiglia/">menu settimanale</a> con le porzioni di ciascuno e gli ingredienti finiscono nella <a href="/lista-della-spesa-automatica/">lista della spesa</a>.</p>
 <h2>Altre ricette da ${esc(cat.toLowerCase())}</h2>
 <p>${RICETTE.filter(x => x.categoria === r.categoria && x.id !== r.id).sort(() => 0.5).slice(0, 8).map(x => `<a href="/ricette/${x.slug}/">${esc(x.nomeVis)}</a>`).join(' · ')} · <a href="/ricette/">tutte le ricette</a></p>`;
   return {
@@ -137,7 +137,7 @@ ${cta(`Metti ${r.nome} nel menu della tua famiglia`)}
     body, faq,
     schema: [{
       '@context': 'https://schema.org', '@type': 'Recipe', name: r.nome, recipeCategory: cat, recipeCuisine: 'Italiana', inLanguage: 'it',
-      author: { '@type': 'Organization', name: 'Fitsy' }, recipeYield: '1 porzione',
+      author: { '@type': 'Organization', name: 'MenuDieta' }, recipeYield: '1 porzione',
       ...(r.prep ? { totalTime: `PT${r.prep}M` } : {}),
       recipeIngredient: ingr.map(({ a, q, id }) => `${q ? `${q.donna} ${q.unit || 'g'} ` : ''}${a ? nomeBreve(a.nome) : id}`),
       nutrition: { '@type': 'NutritionInformation', calories: `${n0(r.donna?.kcal)} kcal`, proteinContent: `${n0(r.donna?.p)} g`, carbohydrateContent: `${n0(r.donna?.c)} g`, fatContent: `${n0(r.donna?.g)} g` },
@@ -149,8 +149,8 @@ ${cta(`Metti ${r.nome} nel menu della tua famiglia`)}
 export function indiceRicette({ cta }) {
   const cats = ['colazione', 'spuntino', 'pranzo', 'cena'];
   const body = `<h1>Ricette con calorie e porzioni per tutta la famiglia</h1>
-<p class="lead">${RICETTE.length} ricette del menu Fitsy, ognuna con ingredienti, grammature e valori nutrizionali per uomo, donna e bambino. Sono quelle che il generatore usa per comporre la settimana.</p>
+<p class="lead">${RICETTE.length} ricette del menu MenuDieta, ognuna con ingredienti, grammature e valori nutrizionali per uomo, donna e bambino. Sono quelle che il generatore usa per comporre la settimana.</p>
 ${cats.map(c => { const L = RICETTE.filter(r => r.categoria === c); return `<h2>${CAT_RIC[c]} <span class="note">(${L.length})</span></h2><div class="cards">${L.sort((x, y) => x.nome.localeCompare(y.nome, 'it')).map(r => `<a class="card" href="/ricette/${r.slug}/"><h2>${esc(r.nomeVis)}</h2><p>${n0(r.donna?.kcal)} kcal porzione donna${r.prep ? ` · ${r.prep} min` : ''}</p></a>`).join('')}</div>`; }).join('')}
 ${cta('Il menu si compone da solo con queste ricette')}`;
-  return { slug: 'ricette', title: `${RICETTE.length} ricette con calorie e porzioni per la famiglia – Fitsy`, description: `Tutte le ricette del menu Fitsy con ingredienti, grammature e calorie per uomo, donna e bambino, divise per colazione, spuntino, pranzo e cena.`, body };
+  return { slug: 'ricette', title: `${RICETTE.length} ricette con calorie e porzioni per la famiglia – MenuDieta`, description: `Tutte le ricette del menu MenuDieta con ingredienti, grammature e calorie per uomo, donna e bambino, divise per colazione, spuntino, pranzo e cena.`, body };
 }

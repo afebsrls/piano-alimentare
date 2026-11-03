@@ -1,0 +1,10 @@
+# www.fitsy.it → www.menudieta.it (cambio di nome, novembre 2026)
+# Tutto il sito viene reindirizzato pagina per pagina con 301, così Google
+# trasferisce il posizionamento. L'app in /app/ resta servita dal suo
+# .htaccess e porta gli utenti sul nuovo dominio con i dati (trasloco).
+DirectoryIndex index.html
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_URI} !^/app/
+  RewriteRule ^(.*)$ https://www.menudieta.it/$1 [R=301,L]
+</IfModule>

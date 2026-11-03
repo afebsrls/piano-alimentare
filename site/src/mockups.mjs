@@ -1,4 +1,4 @@
-// Mockup SVG delle schermate dell'app, nello stile grafico reale di Fitsy
+// Mockup SVG delle schermate dell'app, nello stile grafico reale di MenuDieta
 // (colori, header scuro con il logo, card bianche, bottom nav).
 // Non sono screenshot: sono illustrazioni leggere (inline, niente immagini
 // esterne) che anticipano cosa vedrà l'utente. Sostituibili con screenshot
@@ -12,7 +12,7 @@ const frame = (inner, w = 300, h = 600) => `<svg xmlns="http://www.w3.org/2000/s
 <clipPath id="c"><rect x="8" y="8" width="${w - 16}" height="${h - 16}" rx="28"/></clipPath>
 <g clip-path="url(#c)">
 <rect x="8" y="8" width="${w - 16}" height="86" fill="${ink}"/>
-<text x="26" y="64" font-family="system-ui,Arial" font-size="30" font-weight="800" fill="#F5F8F1" letter-spacing="-1.2">f<tspan fill="${lime}">i</tspan>tsy</text>
+<text x="26" y="64" font-family="system-ui,Arial" font-size="30" font-weight="800" fill="#F5F8F1" letter-spacing="-1.2">menu<tspan fill="${lime}">dieta</tspan></text>
 ${inner}
 <rect x="8" y="${h - 62}" width="${w - 16}" height="54" fill="#fff"/><line x1="8" y1="${h - 62}" x2="${w - 8}" y2="${h - 62}" stroke="${bordo}"/>
 ${['🏠', '📋', '🛒', '📏', '☰'].map((e, i) => `<text x="${8 + (w - 16) / 5 * (i + .5)}" y="${h - 28}" text-anchor="middle" font-size="18">${e}</text>`).join('')}

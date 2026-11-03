@@ -97,7 +97,7 @@ export function SyncLogPage({ cloudStatus }) {
 
   const fullText = useMemo(() => {
     const header = [
-      "Fitsy — Log sincronizzazione",
+      "MenuDieta — Log sincronizzazione",
       `Generato: ${new Date().toLocaleString("it-IT")}`,
       `Stato: collegato=${cloudStatus?.loggedIn ? "sì" : "no"}  in famiglia=${cloudStatus?.inFamily ? "sì" : "no"}`,
       me ? `Profilo: ${me.profiloId}` : null,

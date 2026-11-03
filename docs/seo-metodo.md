@@ -1,4 +1,4 @@
-# Sito pubblico www.fitsy.it — metodo SEO
+# Sito pubblico www.menudieta.it — metodo SEO
 
 ## Come è fatto
 - `site/src/keywords.mjs` — **la fonte unica**: una riga per ogni ricerca da vincere (parola chiave, varianti, intento, concorrenti, title, description).
@@ -15,7 +15,7 @@
 | software/app per nutrizionisti | Nutrium, EvolutionFit, Coachway | posizionamento "l'app del paziente", lista d'attesa |
 
 ## Misurare (ogni mese)
-1. **Google Search Console** → aggiungi proprietà `https://www.fitsy.it`, verifica, invia `sitemap.xml`.
+1. **Google Search Console** → aggiungi proprietà `https://www.menudieta.it`, verifica, invia `sitemap.xml`.
 2. Rendimento → Query: le query che portano clic ma non hanno una pagina dedicata → nuova voce in `keywords.mjs` + contenuto.
 3. Pagine con impressioni alte e CTR basso → riscrivere title/description.
 4. Posizione 4–10 → arricchire la pagina (esempio, tabella, FAQ) e linkarla dalle altre.

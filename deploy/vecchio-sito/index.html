@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Fitsy si è trasferita su www.fitsy.it</title>
+<title>Fitsy ora si chiama MenuDieta</title>
 <style>body{margin:0;font-family:system-ui,sans-serif;background:#15251C;color:#ECF1E2;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center;padding:24px}
 a{display:inline-block;margin-top:18px;background:#C7F23E;color:#15251C;font-weight:800;padding:14px 20px;border-radius:12px;text-decoration:none}</style></head>
-<body><div><h1>🚚 Fitsy si è trasferita</h1><p id="m">Sto portando i tuoi dati su www.fitsy.it…</p><a id="go" href="https://www.fitsy.it/app/">Vai a www.fitsy.it →</a></div>
+<body><div><h1>🚚 Fitsy ora si chiama MenuDieta</h1><p id="m">Sto portando i tuoi dati su www.menudieta.it…</p><a id="go" href="https://www.menudieta.it/app/">Vai su www.menudieta.it →</a></div>
 <script>
 // Vecchio indirizzo tarzanhello.github.io/piano-alimentare/: stessa origine
 // del vecchio localStorage → lo impacchetta nell'hash (mai inviato al server)
@@ -12,7 +12,7 @@ a{display:inline-block;margin-top:18px;background:#C7F23E;color:#15251C;font-wei
   try{
     var out={},n=0;
     for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k!=='pa__trasloco-fatto'){out[k]=localStorage.getItem(k);n++;}}
-    var url='https://www.fitsy.it/app/';
+    var url='https://www.menudieta.it/app/';
     if(n>0){
       var b=new TextEncoder().encode(JSON.stringify(out)),bin='';
       for(var j=0;j<b.length;j+=0x8000)bin+=String.fromCharCode.apply(null,b.subarray(j,j+0x8000));

@@ -1,4 +1,4 @@
-/* Calcolatori Fitsy — stesse formule del motore dell'app (src/core/engine.js) */
+/* Calcolatori MenuDieta — stesse formule del motore dell'app (src/core/engine.js) */
 (function () {
   var num = function (v) { var n = parseFloat(String(v || '').replace(',', '.')); return isFinite(n) ? n : 0; };
   var MB = { F: [[29, 14.7, 496], [59, 8.7, 829], [74, 9.2, 688], [999, 9.8, 624]], M: [[29, 15.3, 679], [59, 11.6, 879], [74, 11.9, 700], [999, 8.4, 819]] };

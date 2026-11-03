@@ -48,7 +48,7 @@ export function OpzioniPage({ devMode, onToggleDev, consenso, onGoPrivacy, onRev
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       const oggi = new Date().toISOString().slice(0, 10);
-      a.href = url; a.download = `fitsy-dati-${oggi}.json`;
+      a.href = url; a.download = `menudieta-dati-${oggi}.json`;
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(url);
       setExpOk(true);
@@ -164,7 +164,7 @@ export function OpzioniPage({ devMode, onToggleDev, consenso, onGoPrivacy, onRev
         {/* Info tecnica spostata qui dal Piano (era rumore per l'utente finale) */}
         <div style={{marginTop:4}}>Ricettario base: {DB.colazione.length} colazioni · {DB.pranzo.length} pranzi · {DB.cena.length} cene · {DB.spuntino.length} spuntini</div>
         <div onClick={handleDevTap} style={{marginTop:6,userSelect:"none",WebkitUserSelect:"none",cursor:"default"}}>
-          Fitsy{devMode ? " · 🔬 diagnostica attiva" : ""}
+          MenuDieta{devMode ? " · 🔬 diagnostica attiva" : ""}
         </div>
       </div>
     </div>

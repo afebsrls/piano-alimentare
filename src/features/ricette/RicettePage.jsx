@@ -688,7 +688,7 @@ export function RicettePage({ cloudStatus, onRicetteChange, onTorna }) {
                 {aperta && (
                   <div style={{ marginTop:8 }}>
                     <div style={{ fontSize:12, color:"#6E8576", margin:"0 2px 8px", lineHeight:1.5 }}>
-                      Ricette create da altre famiglie e controllate da Fitsy. Non entrano nel tuo piano finché non le duplichi.
+                      Ricette create da altre famiglie e controllate da MenuDieta. Non entrano nel tuo piano finché non le duplichi.
                     </div>
                     {rs.map(r => (
                       <div key={r.id} style={{ background:"#fff", border:"1px solid #E7EDE2", borderRadius:12, padding:12, marginBottom:8 }}>

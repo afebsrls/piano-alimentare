@@ -256,7 +256,7 @@ export function App() {
   // col profilo cloud avviene da sola, senza wizard
   // Plancia admin: la verifica passa dal server (rpc is_admin). Ascolta
   // direttamente l'autenticazione (non il profilo): l'admin è SOLO admin,
-  // non ha una scheda Fitsy e non passa dall'onboarding.
+  // non ha una scheda MenuDieta e non passa dall'onboarding.
   useEffect(()=>{
     if (!cloudEnabled) return;
     let vivo = true;
@@ -964,7 +964,7 @@ export function App() {
       <div style={{minHeight:"100vh",background:"#F4F7EF"}}>
         <div style={{background:"linear-gradient(120deg,#15251C 0%,#1D3A28 100%)",padding:"13px 18px",paddingTop:"calc(13px + env(safe-area-inset-top,0px))"}}>
           <div style={{maxWidth:720,margin:"0 auto",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-            <div style={{fontSize:32,fontWeight:800,color:"#F5F8F1",fontFamily:"'Outfit',sans-serif",lineHeight:1,letterSpacing:-1.2}}>f<span style={{color:"#C7F23E"}}>i</span>tsy <span style={{fontSize:13,color:"#9DB1A2",letterSpacing:0,fontWeight:700}}>ADMIN</span></div>
+            <div style={{fontSize:32,fontWeight:800,color:"#F5F8F1",fontFamily:"'Outfit',sans-serif",lineHeight:1,letterSpacing:-1.2}}>menu<span style={{color:"#C7F23E"}}>dieta</span> <span style={{fontSize:13,color:"#9DB1A2",letterSpacing:0,fontWeight:700}}>ADMIN</span></div>
             <button onClick={async()=>{ await signOut(); window.location.reload(); }}
               style={{background:"transparent",color:"#C7F23E",border:"1px solid #C7F23E55",borderRadius:8,padding:"6px 12px",fontWeight:700,fontSize:12,cursor:"pointer"}}>Esci</button>
           </div>
@@ -982,7 +982,7 @@ export function App() {
       <div style={{minHeight:"100vh",background:"#F4F7EF"}}>
         <div style={{background:"linear-gradient(120deg,#15251C 0%,#1D3A28 100%)",padding:"13px 18px",paddingTop:"calc(13px + env(safe-area-inset-top,0px))"}}>
           <div style={{maxWidth:980,margin:"0 auto",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-            <div style={{fontSize:32,fontWeight:800,color:"#F5F8F1",fontFamily:"'Outfit',sans-serif",lineHeight:1,letterSpacing:-1.2}}>f<span style={{color:"#C7F23E"}}>i</span>tsy <span style={{fontSize:13,color:"#9DB1A2",letterSpacing:0,fontWeight:700}}>PRO</span></div>
+            <div style={{fontSize:32,fontWeight:800,color:"#F5F8F1",fontFamily:"'Outfit',sans-serif",lineHeight:1,letterSpacing:-1.2}}>menu<span style={{color:"#C7F23E"}}>dieta</span> <span style={{fontSize:13,color:"#9DB1A2",letterSpacing:0,fontWeight:700}}>PRO</span></div>
             <button onClick={async()=>{ await signOut(); window.location.reload(); }}
               style={{background:"transparent",color:"#C7F23E",border:"1px solid #C7F23E55",borderRadius:8,padding:"6px 12px",fontWeight:700,fontSize:12,cursor:"pointer"}}>Esci</button>
           </div>
@@ -1040,7 +1040,7 @@ export function App() {
               <svg width="24" height="24" viewBox="0 0 24 24" style={{transform:"rotate(-90deg)",display:"block"}}><circle cx="12" cy="12" r="9" fill="none" stroke="#28412f" strokeWidth="3.4"/><circle cx="12" cy="12" r="9" fill="none" stroke="#C7F23E" strokeWidth="3.4" strokeLinecap="round" strokeDasharray="56.5" strokeDashoffset="16"/></svg>
               <div style={{position:"absolute",left:"50%",top:4,transform:"translateX(-50%)",width:3.4,height:3.4,borderRadius:"50%",background:"#C7F23E"}}/>
             </div>
-            <div style={{fontSize:40,fontWeight:800,color:"#F5F8F1",fontFamily:"'Outfit',sans-serif",lineHeight:1,letterSpacing:-1.6}}>f<span style={{color:"#C7F23E"}}>i</span>tsy</div>
+            <div style={{fontSize:40,fontWeight:800,color:"#F5F8F1",fontFamily:"'Outfit',sans-serif",lineHeight:1,letterSpacing:-1.6}}>menu<span style={{color:"#C7F23E"}}>dieta</span></div>
           </div>
           <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",lineHeight:1.15,minWidth:0}}>
             <div style={{fontFamily:"'Outfit',sans-serif",fontWeight:800,fontSize:16,letterSpacing:-0.3,color:"#F4F7EF",whiteSpace:"nowrap"}}>{headerSaluto}, {oggiPersona?.nome}</div>

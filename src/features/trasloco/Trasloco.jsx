@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-// ── 🚚 Trasloco: da tarzanhello.github.io a www.fitsy.it ────────
+// ── 🚚 Trasloco: da tarzanhello.github.io a www.menudieta.it ────────
 // Il browser tiene i dati locali (localStorage) separati per indirizzo:
 // chi apre il nuovo sito partirebbe da zero. Questo modulo:
-//  1. sul VECCHIO sito mostra un banner "Fitsy si è trasferita" con un
+//  1. sul VECCHIO sito mostra un banner "MenuDieta si è trasferita" con un
 //     bottone che impacchetta tutto il localStorage (dati, impostazioni e
 //     sessione di login) e apre il nuovo sito passandoglielo nell'hash
 //     dell'URL (#trasloco=…). L'hash non viene mai inviato al server.
@@ -11,8 +11,10 @@ import React, { useState } from 'react';
 //     in localStorage, pulisce l'URL e ricarica. Vedi importaTrasloco().
 // I dati sul vecchio sito NON vengono cancellati: restano come backup.
 
-export const NUOVO_SITO = 'https://www.fitsy.it/app/';
-const VECCHI_HOST = ['tarzanhello.github.io', 'afebsrls.github.io'];
+export const NUOVO_SITO = 'https://www.menudieta.it/app/';
+const VECCHI_HOST = ['tarzanhello.github.io', 'afebsrls.github.io', 'www.fitsy.it', 'fitsy.it'];
+// Su fitsy.it (cambio di nome) il trasloco parte da solo, senza clic.
+const AUTOMATICO = ['www.fitsy.it', 'fitsy.it'];
 const KEY_FATTO = 'pa__trasloco-fatto';
 
 export const isVecchioSito = () =>
@@ -79,6 +81,12 @@ const S = {
 export function BannerTrasloco() {
   const [fatto, setFatto] = useState(() => { try { return localStorage.getItem(KEY_FATTO) === '1'; } catch { return false; } });
   const [err, setErr] = useState('');
+  // Trasloco automatico (fitsy.it → menudieta.it): parte una volta sola.
+  React.useEffect(() => {
+    if (fatto || !AUTOMATICO.includes(window.location.hostname)) return;
+    const t = setTimeout(vai, 800);
+    return () => clearTimeout(t);
+  }, []);
 
   const vai = () => {
     try {
@@ -93,23 +101,23 @@ export function BannerTrasloco() {
   };
 
   return (
-    <div style={S.wrap} role="dialog" aria-label="Fitsy si è trasferita">
+    <div style={S.wrap} role="dialog" aria-label="MenuDieta si è trasferita">
       <div style={S.inner}>
-        <p style={S.title}>🚚 Fitsy si è trasferita su www.fitsy.it</p>
+        <p style={S.title}>🚚 Fitsy ora si chiama MenuDieta</p>
         {fatto ? (
           <p style={S.text}>
-            I tuoi dati sono già stati portati sul nuovo sito. Da ora usa{' '}
-            <a href={NUOVO_SITO} style={S.link}>www.fitsy.it/app</a> e, se l’hai installata, reinstalla l’app da lì.
+            I tuoi dati sono già stati portati sul nuovo indirizzo. Da ora usa{' '}
+            <a href={NUOVO_SITO} style={S.link}>www.menudieta.it/app</a> e, se l’hai installata, reinstalla l’app da lì.
             Questa vecchia versione non riceverà più aggiornamenti.
           </p>
         ) : (
           <p style={S.text}>
-            Premi il bottone: porto con te piani, misure, spesa e accesso. Qui non viene cancellato nulla.
+            Stesso servizio, stessa squadra, nuovo nome e nuovo indirizzo. Porto con te piani, misure, spesa e accesso: qui non viene cancellato nulla.
           </p>
         )}
         {err && <p style={{ ...S.text, color: '#FFB4A2' }}>{err}</p>}
         <button style={S.btn} onClick={vai}>
-          {fatto ? 'Vai al nuovo sito →' : 'Porta i miei dati su fitsy.it →'}
+          {fatto ? 'Vai al nuovo sito →' : 'Porta i miei dati su menudieta.it →'}
         </button>
       </div>
     </div>

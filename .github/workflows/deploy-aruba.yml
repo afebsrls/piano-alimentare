@@ -1,9 +1,8 @@
-# Deploy automatico su Aruba (hosting Linux) via FTP a ogni push su main.
-# L'app va in /www.fitsy.it/app/ ; il sito pubblico (site/dist) nella root.
-# Secrets da creare in GitHub → Settings → Secrets and variables → Actions:
-#   ARUBA_FTP_HOST      es. ftp.fitsy.it
-#   ARUBA_FTP_USER      es. 1234567@aruba.it
-#   ARUBA_FTP_PASSWORD
+# Deploy automatico su Aruba via FTP a ogni push su main.
+#   www.menudieta.it/app/  ← app (dist)          [secrets MENUDIETA_FTP_*]
+#   www.menudieta.it/      ← sito pubblico (site/dist)
+#   www.fitsy.it/app/      ← app con trasloco automatico verso menudieta  [secrets ARUBA_FTP_*, vecchio hosting]
+#   www.fitsy.it/          ← solo .htaccess con redirect 301 pagina→pagina verso menudieta.it
 name: Deploy su Aruba
 
 on:
@@ -16,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -27,42 +26,78 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
-      - name: Copia .htaccess dell'app nel build
-        run: cp deploy/htaccess-app dist/.htaccess
-      - name: Upload FTP → /app/
+      - run: cp deploy/htaccess-app dist/.htaccess
+      - run: node site/build.mjs
+      - uses: actions/upload-artifact@v4
+        with: { name: app, path: dist/, include-hidden-files: true, retention-days: 1 }
+      - uses: actions/upload-artifact@v4
+        with: { name: site, path: site/dist/, include-hidden-files: true, retention-days: 1 }
+
+  app-menudieta:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: app, path: dist/ }
+      - name: Upload FTP → menudieta.it/app/
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.ARUBA_FTP_HOST }}
-          username: ${{ secrets.ARUBA_FTP_USER }}
-          password: ${{ secrets.ARUBA_FTP_PASSWORD }}
-          protocol: ftp          # se Aruba lo supporta sul tuo piano, meglio "ftps"
+          server: ${{ secrets.MENUDIETA_FTP_HOST }}
+          username: ${{ secrets.MENUDIETA_FTP_USER }}
+          password: ${{ secrets.MENUDIETA_FTP_PASSWORD }}
+          protocol: ftp
           local-dir: dist/
-          server-dir: www.fitsy.it/app/
+          server-dir: www.menudieta.it/app/
+          dangerous-clean-slate: false
+
+  site-menudieta:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: site, path: site/dist/ }
+      - name: Upload FTP → menudieta.it/ (non tocca /app/)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.MENUDIETA_FTP_HOST }}
+          username: ${{ secrets.MENUDIETA_FTP_USER }}
+          password: ${{ secrets.MENUDIETA_FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: site/dist/
+          server-dir: www.menudieta.it/
+          state-name: .ftp-deploy-sync-state-site.json
           dangerous-clean-slate: false
           exclude: |
-            **/.git*
-            **/.git*/**
+            app/**
 
-  site-deploy:
+  # Vecchio dominio: l'app resta (con trasloco automatico), il sito diventa un redirect.
+  fitsy-vecchio:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 22
-      - run: node site/build.mjs
-      - name: Upload FTP → root (non tocca /app/)
+      - uses: actions/download-artifact@v4
+        with: { name: app, path: dist/ }
+      - name: Upload FTP → fitsy.it/app/
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.ARUBA_FTP_HOST }}
           username: ${{ secrets.ARUBA_FTP_USER }}
           password: ${{ secrets.ARUBA_FTP_PASSWORD }}
           protocol: ftp
-          local-dir: site/dist/
+          local-dir: dist/
+          server-dir: www.fitsy.it/app/
+          dangerous-clean-slate: false
+      - name: Upload FTP → fitsy.it/ (.htaccess di redirect)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.ARUBA_FTP_HOST }}
+          username: ${{ secrets.ARUBA_FTP_USER }}
+          password: ${{ secrets.ARUBA_FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: deploy/fitsy-redirect/
           server-dir: www.fitsy.it/
           state-name: .ftp-deploy-sync-state-site.json
           dangerous-clean-slate: false
           exclude: |
-            **/.git*
-            **/.git*/**
             app/**

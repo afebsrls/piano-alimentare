@@ -43,7 +43,7 @@ const TITOLARE_NOME  = "AF&B S.r.l.s.";
 const TITOLARE_SEDE  = "Via Mario Ugo Guattari 48, 00173 Roma (RM)";
 const TITOLARE_PIVA  = "13698751008";
 const TITOLARE_REA   = "RM-1466364";
-const TITOLARE_EMAIL = "info@fitsy.it";
+const TITOLARE_EMAIL = "info@menudieta.it";
 const RETENTION_INATTIVITA = "48 mesi";
 
 const SEZIONI = [
@@ -104,7 +104,7 @@ const SEZIONI = [
       "L'App non usa cookie di profilazione, pubblicitari o di analisi: per questo non è mostrato alcun banner cookie.",
       "L'App usa esclusivamente archiviazione tecnica, strettamente necessaria al funzionamento: (a) il token di sessione Supabase (chiavi \u201csb-…\u201d nel localStorage) per mantenerti collegato; (b) i dati applicativi locali (chiavi \u201cpa__…\u201d) per il funzionamento offline: piano, log pasti, preferenze, impostazioni; (c) la cache del service worker con i file dell'App per l'uso senza connessione.",
       "Il login con Google può impostare cookie sui domini di Google durante il flusso di autenticazione: sono gestiti da Google secondo la loro informativa.",
-      "I caratteri tipografici sono ospitati insieme all'App: aprendo Fitsy nessuna richiesta viene inviata a server di terze parti.",
+      "I caratteri tipografici sono ospitati insieme all'App: aprendo MenuDieta nessuna richiesta viene inviata a server di terze parti.",
     ],
   },
   {
@@ -148,10 +148,10 @@ export function PrivacyPage({ onTorna }) {
         </button>
       )}
       <h1 style={{fontSize:22,fontWeight:800,color:"#15251C",margin:"0 0 4px"}}>Informativa sulla privacy</h1>
-      <div style={{fontSize:11,color:"#9DB1A2",marginBottom:6}}>Fitsy · versione {PRIVACY_VERSIONE}</div>
+      <div style={{fontSize:11,color:"#9DB1A2",marginBottom:6}}>MenuDieta · versione {PRIVACY_VERSIONE}</div>
       <p style={{fontSize:13,color:"#3C5145",lineHeight:1.65,marginBottom:18}}>
         Questa informativa descrive come vengono trattati i dati personali degli utenti
-        dell'applicazione <b>Fitsy</b> — pianificazione dei pasti, tracciamento nutrizionale
+        dell'applicazione <b>MenuDieta</b> — pianificazione dei pasti, tracciamento nutrizionale
         e monitoraggio delle misurazioni corporee — ai sensi del Regolamento (UE) 2016/679 ("GDPR").
       </p>
       {SEZIONI.map(sec => (
@@ -191,7 +191,7 @@ export function ConsensoGate({ onAccetta, onRifiuta, onLeggiInformativa }) {
         <div style={{fontSize:26,marginBottom:6}}>🔒</div>
         <h2 style={{fontSize:19,fontWeight:800,color:"#15251C",margin:"0 0 6px"}}>La tua privacy, prima di tutto</h2>
         <p style={{fontSize:12.5,color:"#3C5145",lineHeight:1.6,margin:"0 0 14px"}}>
-          Fitsy tratta dati sul tuo corpo e sulla tua alimentazione — anche dati
+          MenuDieta tratta dati sul tuo corpo e sulla tua alimentazione — anche dati
           relativi alla salute, che il GDPR protegge in modo rafforzato. Per usare
           le funzioni cloud serve il tuo consenso esplicito. Niente pubblicità,
           niente analytics, niente vendita di dati: solo il funzionamento dell'app.

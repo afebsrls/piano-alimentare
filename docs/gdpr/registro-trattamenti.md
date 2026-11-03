@@ -1,5 +1,5 @@
-# Registro delle attività di trattamento — Fitsy
-*Art. 30 GDPR · Titolare: AF&B S.r.l.s., Via Mario Ugo Guattari 48, 00173 Roma (RM), P.IVA 13698751008, REA RM-1466364 · info@fitsy.it · Ultimo aggiornamento: 11/07/2026*
+# Registro delle attività di trattamento — MenuDieta
+*Art. 30 GDPR · Titolare: AF&B S.r.l.s., Via Mario Ugo Guattari 48, 00173 Roma (RM), P.IVA 13698751008, REA RM-1466364 · info@menudieta.it · Ultimo aggiornamento: 11/07/2026*
 
 ## 1. Trattamento: gestione account e famiglia
 - **Finalità**: autenticazione, associazione dei membri a una famiglia, sincronizzazione multi-dispositivo
@@ -41,6 +41,6 @@
 ## Aggiunta 2026-11-03 — Nutrizionista collegato
 - **Trattamento**: condivisione dei dati del paziente (profilo, misure, diario pasti, ricette, messaggi) con il nutrizionista scelto dall'interessato tramite codice.
 - **Base giuridica**: consenso (collegamento volontario, revocabile con lo scollegamento).
-- **Ruoli**: il nutrizionista è titolare autonomo per la propria attività professionale; Fitsy fornisce la piattaforma (responsabile per conto del nutrizionista per i soli dati condivisi).
+- **Ruoli**: il nutrizionista è titolare autonomo per la propria attività professionale; MenuDieta fornisce la piattaforma (responsabile per conto del nutrizionista per i soli dati condivisi).
 - **Tabelle**: `nutrizionisti`, `nutrizionista_pazienti`, `messaggi`, colonna `profili.target_nutrizionista`. Accesso via RLS e funzioni `security definer` (S13).
 - **Conservazione**: fino allo scollegamento (link e target rimossi); i messaggi restano alle parti; cancellazione account → cascata.

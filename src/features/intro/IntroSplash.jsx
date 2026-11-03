@@ -1,7 +1,7 @@
 import React from 'react';
 const { useEffect, useState } = React;
 
-// Splash introduttivo Fitsy — animazione ~2s mostrata all'apertura dell'app.
+// Splash introduttivo MenuDieta — animazione ~2s mostrata all'apertura dell'app.
 // Grafica inversa (fondo Ink) + logo ad anello animato.
 // Per mostrarlo SOLO alla primissima apertura, vedi la nota in main.jsx.
 export function IntroSplash({ onDone }) {
@@ -51,7 +51,7 @@ export function IntroSplash({ onDone }) {
             <div className="fy-dot" style={{ width: "3.8vmin", height: "3.8vmin", borderRadius: "50%", background: "#C7F23E", boxShadow: "0 0 4vmin 0.6vmin rgba(199,242,62,0.5)" }} />
           </div>
         </div>
-        <div className="fy-wm" style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "21vmin", letterSpacing: "-0.05em", lineHeight: 1, color: "#F4F7EF" }}>f<span style={{ color: "#C7F23E" }}>i</span>tsy</div>
+        <div className="fy-wm" style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "21vmin", letterSpacing: "-0.05em", lineHeight: 1, color: "#F4F7EF" }}>menu<span style={{ color: "#C7F23E" }}>dieta</span></div>
         <div className="fy-tag" style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 500, fontSize: "4.3vmin", letterSpacing: "0.02em", color: "#7FA890", marginTop: "-2vmin" }}>Nutrizione intelligente</div>
       </div>
     </div>

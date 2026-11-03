@@ -256,7 +256,7 @@ export async function exportMyData() {
 
     const dump = {
       _meta: {
-        app: 'Fitsy / piano-alimentare',
+        app: 'MenuDieta / piano-alimentare',
         descrizione: 'Esportazione dati personali (GDPR art. 20)',
         esportato_il: new Date().toISOString(),
         utente: { id: uid, email: session.user.email || null },

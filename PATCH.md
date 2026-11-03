@@ -1,5 +1,11 @@
 # PATCH.md — Changelog cumulativo
 
+## v18 — 03/11/2026 · Cambio nome: Fitsy → MenuDieta (www.menudieta.it)
+- Nuovo marchio **MenuDieta – Nutrizione intelligente** (studio B: piatto con tre porzioni). Icone PNG/SVG in `public/`, logo e OG nel sito, file per deposito UIBM in `docs/marchio/`.
+- Nome, domini ed email sostituiti ovunque (app, manifest, sito, informative, docs, workflow). Le chiavi localStorage `fitsy-*` restano invariate per compatibilità.
+- **Deploy a 4 job**: build unico → app e sito su menudieta.it (secrets `MENUDIETA_FTP_*`); app con **trasloco automatico** (senza clic) su fitsy.it/app; `.htaccess` di redirect 301 pagina→pagina su fitsy.it (secrets `ARUBA_FTP_*`).
+- `Trasloco.jsx`: fitsy.it aggiunto ai vecchi host; su fitsy.it il trasferimento dei dati parte da solo dopo 0,8 s.
+
 ## v17 — 03/11/2026 · Nutrizionisti in pausa + lista d'attesa + 922 pagine generate
 - **Nutrizionisti in pausa** (`src/core/flags.js`, `NUTRIZIONISTI_ATTIVI=false`): l'app non mostra "Sei un nutrizionista?" né "Il mio nutrizionista". Il codice e il DB restano pronti; per riaprire basta il flag.
 - **Lista d'attesa** (`supabase/s14_lista_attesa.sql`): tabella con insert anonimo (RLS insert-only, honeypot e consenso nel modulo), lettura solo admin. Modulo nella pagina /per-nutrizionisti/ del sito (che ora spiega i benefici senza CTA di registrazione); tab **📬 Lista d'attesa** nella plancia con stati nuova/contattata/attivata/scartata ed export CSV. Privacy del sito aggiornata.

@@ -34,7 +34,7 @@ export function Onboarding({ onComplete }) {
             <svg width="38" height="38" viewBox="0 0 38 38" style={{transform:"rotate(-90deg)",display:"block"}}><circle cx="19" cy="19" r="14" fill="none" stroke="#28412f" strokeWidth="5.5"/><circle cx="19" cy="19" r="14" fill="none" stroke="#C7F23E" strokeWidth="5.5" strokeLinecap="round" strokeDasharray="88" strokeDashoffset="24"/></svg>
             <div style={{position:"absolute",left:"50%",top:6,transform:"translateX(-50%)",width:5.5,height:5.5,borderRadius:"50%",background:"#C7F23E"}}/>
           </div>
-          <div style={{fontSize:30,fontWeight:800,color:"#15251C",fontFamily:"'Outfit',sans-serif",letterSpacing:-1}}>f<span style={{color:"#2F6B3A"}}>i</span>tsy</div>
+          <div style={{fontSize:30,fontWeight:800,color:"#15251C",fontFamily:"'Outfit',sans-serif",letterSpacing:-1}}>menu<span style={{color:"#2F6B3A"}}>dieta</span></div>
           <div style={{fontSize:12,color:"#6E8576",fontWeight:600,marginTop:6}}>
             {step === 1 ? "Benvenuto! Iniziamo dal tuo account." : "Raccontami di te: calcolo subito il tuo fabbisogno."}
           </div>

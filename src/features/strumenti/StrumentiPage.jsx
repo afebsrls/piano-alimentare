@@ -59,7 +59,7 @@ function TaraturaModal({ ing, onDone, onClose }) {
       <div onClick={e => e.stopPropagation()} style={{ background: "#fff", borderRadius: 18, padding: 20, width: "100%", maxWidth: 380, boxShadow: "0 20px 60px rgba(0,0,0,0.3)" }}>
         <div style={{ fontSize: 15, fontWeight: 800, color: "#15251C" }}>🎯 Tara i tuoi {ing.nome.toLowerCase()}</div>
         <div style={{ fontSize: 12, color: "#6E8576", lineHeight: 1.5, margin: "6px 0 14px" }}>
-          Il calibro cambia da partita a partita{info?.range ? ` (da ${info.range[0]} a ${info.range[1]}g al pezzo!)` : ""}. Pesa qualche pezzo con la bilancia da cucina e Fitsy sarà preciso al grammo con quelli che compri tu.
+          Il calibro cambia da partita a partita{info?.range ? ` (da ${info.range[0]} a ${info.range[1]}g al pezzo!)` : ""}. Pesa qualche pezzo con la bilancia da cucina e MenuDieta sarà preciso al grammo con quelli che compri tu.
         </div>
         <div style={{ fontSize: 10.5, fontWeight: 800, color: "#8AA192", textTransform: "uppercase", letterSpacing: 0.6, marginBottom: 5 }}>Quanti pezzi hai sulla bilancia?</div>
         <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
@@ -392,7 +392,7 @@ function FabbisognoTool({ personas }) {
             ))}
           </div>
           <div style={{ fontSize: 10.5, color: "#8AA192", marginTop: 8 }}>
-            Proteine: {(res.p / num(f.peso)).toFixed(1)} g/kg di peso. Stessi metodi del piano Fitsy; qui non viene salvato nulla.
+            Proteine: {(res.p / num(f.peso)).toFixed(1)} g/kg di peso. Stessi metodi del piano MenuDieta; qui non viene salvato nulla.
           </div>
         </div>
       )}

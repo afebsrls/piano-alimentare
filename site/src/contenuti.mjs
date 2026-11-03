@@ -46,7 +46,7 @@ const menuEsempio = () => `
   <div><b>Sabato</b>Pranzo: pizza fatta in casa<br>Cena: vellutata e crostini</div>
   <div><b>Domenica</b>Pranzo: lasagne di verdure<br>Cena: uova, verdure, pane</div>
 </div>
-<p class="note">Colazione e spuntini variano per persona (yogurt, frutta, pane e marmellata, frutta secca). Le quantità in grammi dipendono dal fabbisogno di ciascuno: è il motivo per cui un menu "uguale per tutti" non funziona, e il motivo per cui esiste Fitsy.</p>`;
+<p class="note">Colazione e spuntini variano per persona (yogurt, frutta, pane e marmellata, frutta secca). Le quantità in grammi dipendono dal fabbisogno di ciascuno: è il motivo per cui un menu "uguale per tutti" non funziona, e il motivo per cui esiste MenuDieta.</p>`;
 
 export const CONTENUTI = {
   home: {
@@ -54,8 +54,8 @@ export const CONTENUTI = {
 <section class="hero hero-grid">
   <div>
     <h1>L’app gratuita per il piano alimentare settimanale della famiglia</h1>
-    <p class="lead">Fitsy decide cosa si mangia questa settimana: un menu equilibrato per tutta la famiglia, con le porzioni giuste per ogni persona, la lista della spesa pronta e le ricette di stagione. Nessuna pubblicità, nessun abbonamento.</p>
-    <div class="btns"><a class="btn" href="${APP}">Apri Fitsy gratis →</a><a class="btn secondario" href="/menu-settimanale-famiglia/">Vedi un menu di esempio</a></div>
+    <p class="lead">MenuDieta decide cosa si mangia questa settimana: un menu equilibrato per tutta la famiglia, con le porzioni giuste per ogni persona, la lista della spesa pronta e le ricette di stagione. Nessuna pubblicità, nessun abbonamento.</p>
+    <div class="btns"><a class="btn" href="${APP}">Apri MenuDieta gratis →</a><a class="btn secondario" href="/menu-settimanale-famiglia/">Vedi un menu di esempio</a></div>
     <p class="note">Funziona sul telefono e sul computer, si installa come un’app. I dati restano tuoi.</p>
   </div>
   <div class="phones">${phone('OGGI')}${phone('PIANO')}</div>
@@ -68,7 +68,7 @@ export const CONTENUTI = {
   <div class="phone-wrap">${phone('PIANO')}</div>
   <div>
     <h2>Un solo menu, porzioni diverse per ciascuno</h2>
-    <p>I menu settimanali che trovi in giro sono "per una persona": poi tocca a te moltiplicare, togliere, adattare ai bambini. Fitsy parte dal <strong>fabbisogno di ogni membro della famiglia</strong> (tabelle LARN italiane) e scala ogni piatto: stessa pasta e ceci per tutti, 90 g per papà, 70 g per mamma, 50 g per il bambino.</p>
+    <p>I menu settimanali che trovi in giro sono "per una persona": poi tocca a te moltiplicare, togliere, adattare ai bambini. MenuDieta parte dal <strong>fabbisogno di ogni membro della famiglia</strong> (tabelle LARN italiane) e scala ogni piatto: stessa pasta e ceci per tutti, 90 g per papà, 70 g per mamma, 50 g per il bambino.</p>
     <ul><li>7 giorni, colazione, pranzo, cena e spuntini</li><li>Ricette di stagione, mese per mese</li><li>Non ti piace un piatto? Lo cambi con un tocco, il resto resta stabile</li></ul>
   </div>
 </section>
@@ -93,33 +93,33 @@ export const CONTENUTI = {
   <div class="phone-wrap">${phone('MISURE')}</div>
   <div>
     <h2>Misure e progressi che hanno senso</h2>
-    <p>Peso, circonferenze, peso forma in base alla costituzione e un fabbisogno che si <strong>adatta ai tuoi dati reali</strong>: dopo qualche settimana Fitsy sa quante calorie consumi davvero, non solo quante ne stima la formula.</p>
+    <p>Peso, circonferenze, peso forma in base alla costituzione e un fabbisogno che si <strong>adatta ai tuoi dati reali</strong>: dopo qualche settimana MenuDieta sa quante calorie consumi davvero, non solo quante ne stima la formula.</p>
   </div>
 </section>
 
 <h2>Come funziona, in tre passi</h2>
 <ol class="passi">
-  <li><strong>Racconti chi siete.</strong> Età, peso, altezza, lavoro e allenamenti di ogni persona: Fitsy calcola subito il fabbisogno di ciascuno.</li>
-  <li><strong>Fitsy prepara la settimana.</strong> Un menu equilibrato e di stagione, con le quantità per ogni membro. Puoi escludere ingredienti che non piacciono.</li>
+  <li><strong>Racconti chi siete.</strong> Età, peso, altezza, lavoro e allenamenti di ogni persona: MenuDieta calcola subito il fabbisogno di ciascuno.</li>
+  <li><strong>MenuDieta prepara la settimana.</strong> Un menu equilibrato e di stagione, con le quantità per ogni membro. Puoi escludere ingredienti che non piacciono.</li>
   <li><strong>Fai la spesa e cucini.</strong> La lista è già pronta e condivisa. Ogni giorno vedi cosa c’è da preparare e segni cosa è stato mangiato.</li>
 </ol>
 
 ${cta('Inizia oggi, è gratis')}
 
 <div class="grid">
-  <div class="box"><h3>📖 Le tue ricette</h3><p>Aggiungi i piatti di casa: Fitsy calcola le calorie dagli ingredienti e li inserisce nel menu. Le migliori, validate, finiscono nel catalogo della community.</p></div>
+  <div class="box"><h3>📖 Le tue ricette</h3><p>Aggiungi i piatti di casa: MenuDieta calcola le calorie dagli ingredienti e li inserisce nel menu. Le migliori, validate, finiscono nel catalogo della community.</p></div>
   <div class="box"><h3>🧰 Strumenti gratuiti</h3><p><a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a>, <a href="/peso-forma-calcolo/">peso forma</a>, <a href="/quanta-acqua-bere-al-giorno/">acqua al giorno</a>, equivalenze e misure casalinghe.</p></div>
-  <div class="box"><h3>🩺 Sei un nutrizionista?</h3><p>Segui i tuoi pazienti dentro l’app: misure, diario e messaggi in tempo reale, target impostato da te. <a href="/per-nutrizionisti/">Scopri Fitsy Pro ed entra in lista d’attesa</a>.</p></div>
+  <div class="box"><h3>🩺 Sei un nutrizionista?</h3><p>Segui i tuoi pazienti dentro l’app: misure, diario e messaggi in tempo reale, target impostato da te. <a href="/per-nutrizionisti/">Scopri MenuDieta Pro ed entra in lista d’attesa</a>.</p></div>
 </div>
 
 <h2>Perché è gratuita</h2>
-<p>Fitsy resta gratuita per le famiglie. Il progetto si sostiene con il servizio per i <a href="/per-nutrizionisti/">nutrizionisti</a> che seguono i propri pazienti dentro l’app. Niente pubblicità, niente vendita di dati: la <a href="/privacy/">privacy</a> è spiegata in italiano chiaro e i dati stanno su server in Unione Europea.</p>`,
+<p>MenuDieta resta gratuita per le famiglie. Il progetto si sostiene con il servizio per i <a href="/per-nutrizionisti/">nutrizionisti</a> che seguono i propri pazienti dentro l’app. Niente pubblicità, niente vendita di dati: la <a href="/privacy/">privacy</a> è spiegata in italiano chiaro e i dati stanno su server in Unione Europea.</p>`,
     faq: [
-      ['Fitsy è davvero gratuita?', 'Sì, per le famiglie è gratuita e senza pubblicità. Il servizio per nutrizionisti è a pagamento e sostiene il progetto.'],
+      ['MenuDieta è davvero gratuita?', 'Sì, per le famiglie è gratuita e senza pubblicità. Il servizio per nutrizionisti è a pagamento e sostiene il progetto.'],
       ['Devo installare qualcosa?', 'No. Si usa dal browser del telefono o del computer e, se vuoi, si aggiunge alla schermata home come un’app normale. Funziona anche offline.'],
       ['Va bene anche per i bambini?', 'Sì: ogni persona ha il suo profilo e il piano calcola porzioni adatte all’età. I piatti sono gli stessi della famiglia, cambiano le quantità.'],
-      ['Posso usare le mie ricette?', 'Sì. Inserisci gli ingredienti e Fitsy calcola calorie e macronutrienti; la ricetta entra nel menu della famiglia.'],
-      ['Sostituisce un nutrizionista?', 'No. Fitsy aiuta a organizzare pasti equilibrati con criteri standard (LARN). Per esigenze mediche o diete particolari serve un professionista, che può usare Fitsy per seguirti.'],
+      ['Posso usare le mie ricette?', 'Sì. Inserisci gli ingredienti e MenuDieta calcola calorie e macronutrienti; la ricetta entra nel menu della famiglia.'],
+      ['Sostituisce un nutrizionista?', 'No. MenuDieta aiuta a organizzare pasti equilibrati con criteri standard (LARN). Per esigenze mediche o diete particolari serve un professionista, che può usare MenuDieta per seguirti.'],
     ],
   },
 
@@ -136,16 +136,16 @@ ${menuEsempio()}
 <div class="grid">
   <div class="box"><h3>1. Si cucina una volta sola</h3><p>Lo stesso piatto per tutti. Cambiano solo le quantità nel piatto: è il modo per non trasformare la cucina in un ristorante.</p></div>
   <div class="box"><h3>2. Ogni settimana ha un ritmo</h3><p>Legumi 3 volte, pesce 2, carne bianca 2, uova 2, cereali vari (pasta, riso, farro, orzo). Il ritmo evita la monotonia e copre i nutrienti senza fare calcoli.</p></div>
-  <div class="box"><h3>3. Di stagione</h3><p>Frutta e verdura del mese: costano meno e hanno più sapore. Fitsy cambia le proposte mese per mese.</p></div>
+  <div class="box"><h3>3. Di stagione</h3><p>Frutta e verdura del mese: costano meno e hanno più sapore. MenuDieta cambia le proposte mese per mese.</p></div>
   <div class="box"><h3>4. Flessibile</h3><p>Un imprevisto non deve far saltare la settimana: cambi il singolo pasto e il resto resta fermo, lista della spesa compresa.</p></div>
 </div>
 
 <h2>Menu settimanale con bambini: cosa cambia</h2>
-<p>Niente, nei piatti. Cambia la porzione: un bambino di 6 anni ha bisogno di circa 1.400–1.600 kcal al giorno, un adulto sedentario di 1.900–2.400. Fitsy calcola il fabbisogno di ciascuno e scala le quantità, così il menu con bambini è lo stesso della famiglia. Approfondimento: <a href="/blog/menu-settimanale-bambini/">menu settimanale per bambini</a>.</p>
+<p>Niente, nei piatti. Cambia la porzione: un bambino di 6 anni ha bisogno di circa 1.400–1.600 kcal al giorno, un adulto sedentario di 1.900–2.400. MenuDieta calcola il fabbisogno di ciascuno e scala le quantità, così il menu con bambini è lo stesso della famiglia. Approfondimento: <a href="/blog/menu-settimanale-bambini/">menu settimanale per bambini</a>.</p>
 
 <h2>Come farsi generare il menu in 5 minuti</h2>
 <ol>
-  <li>Apri <a href="${APP}">Fitsy</a> e inserisci le persone di casa (bastano età, peso, altezza, attività).</li>
+  <li>Apri <a href="${APP}">MenuDieta</a> e inserisci le persone di casa (bastano età, peso, altezza, attività).</li>
   <li>Escludi quello che non va (allergie, cose che non piacciono).</li>
   <li>Guarda la settimana, cambia i piatti che vuoi, poi apri la lista della spesa: è già fatta.</li>
 </ol>
@@ -153,15 +153,15 @@ ${cta('Il tuo menu settimanale, pronto adesso')}
 <p>Vuoi capire il metodo prima di usare lo strumento? Leggi <a href="/blog/come-organizzare-menu-settimanale-famiglia/">come organizzare il menu settimanale della famiglia in 30 minuti</a>.</p>`,
     faq: [
       ['Quante calorie deve avere un menu settimanale per la famiglia?', 'Non esiste un numero unico: dipende da ogni persona. Un adulto sedentario sta tra 1.900 e 2.400 kcal al giorno, un bambino di 6–10 anni tra 1.400 e 1.900. Il menu è lo stesso, cambiano le porzioni. Puoi calcolare il fabbisogno di ciascuno con il <a href="/calcolo-fabbisogno-calorico/">calcolatore gratuito</a>.'],
-      ['Posso stampare il menu?', 'Sì, Fitsy mostra la settimana in una vista compatta che puoi stampare o condividere; ma il vantaggio è averla sul telefono di tutti, aggiornata.'],
-      ['Quante volte a settimana carne, pesce, legumi?', 'Un riferimento equilibrato: legumi 3–4 volte, pesce 2–3, carne bianca 1–2, carne rossa al massimo 1, uova 2, formaggi 2. Fitsy applica un ritmo simile in automatico.'],
+      ['Posso stampare il menu?', 'Sì, MenuDieta mostra la settimana in una vista compatta che puoi stampare o condividere; ma il vantaggio è averla sul telefono di tutti, aggiornata.'],
+      ['Quante volte a settimana carne, pesce, legumi?', 'Un riferimento equilibrato: legumi 3–4 volte, pesce 2–3, carne bianca 1–2, carne rossa al massimo 1, uova 2, formaggi 2. MenuDieta applica un ritmo simile in automatico.'],
     ],
   },
 
   'lista-della-spesa-automatica': {
     body: ({ APP, cta }) => `
 <h1>Lista della spesa automatica dal menu settimanale</h1>
-<p class="lead">Una lista della spesa automatica nasce dal menu, non dalla memoria: Fitsy somma gli ingredienti dei pasti della settimana, calcola le quantità per la tua famiglia e le raggruppa per reparto. Tu la apri al supermercato e spunti.</p>
+<p class="lead">Una lista della spesa automatica nasce dal menu, non dalla memoria: MenuDieta somma gli ingredienti dei pasti della settimana, calcola le quantità per la tua famiglia e le raggruppa per reparto. Tu la apri al supermercato e spunti.</p>
 <div style="margin:14px 0"><a class="btn" href="${APP}">Prova la lista automatica →</a></div>
 
 <h2>Cosa fa di diverso rispetto a un’app di sole liste</h2>
@@ -177,14 +177,14 @@ ${cta('Il tuo menu settimanale, pronto adesso')}
 
 <h2>Come si usa</h2>
 <ol>
-  <li>Fitsy genera il <a href="/menu-settimanale-famiglia/">menu settimanale</a> in base alla tua famiglia.</li>
+  <li>MenuDieta genera il <a href="/menu-settimanale-famiglia/">menu settimanale</a> in base alla tua famiglia.</li>
   <li>Apri la sezione Spesa: trovi gli articoli per reparto con le quantità.</li>
   <li>Spunta mentre compri. Se ne hai già in dispensa, spunta e basta.</li>
 </ol>
 ${cta('Smetti di scrivere la lista a mano')}`,
     faq: [
       ['Posso aggiungere cose che non sono nel menu?', 'Sì, la lista accetta anche articoli liberi (detersivo, carta igienica) accanto a quelli calcolati dal menu.'],
-      ['Le quantità sono in grammi o in pezzi?', 'In quello che ha senso al supermercato: grammi per pasta e carne, pezzi per uova e frutta, con la conversione fatta da Fitsy (sa quanto pesa una mela media).'],
+      ['Le quantità sono in grammi o in pezzi?', 'In quello che ha senso al supermercato: grammi per pasta e carne, pezzi per uova e frutta, con la conversione fatta da MenuDieta (sa quanto pesa una mela media).'],
       ['Funziona offline?', 'Sì. La lista resta sul telefono e si allinea quando torni online.'],
     ],
   },
@@ -212,7 +212,7 @@ ${toolCalorie()}
 <p>La maggior parte dei calcolatori online usa Harris-Benedict o Mifflin-St Jeor, formule americane. Le tabelle LARN (Livelli di Assunzione di Riferimento di Nutrienti, della SINU) sono tarate sulla popolazione italiana e sono il riferimento usato dai professionisti in Italia. Per i minori di 18 anni, non coperti dalle tabelle, questo calcolatore passa a Mifflin-St Jeor.</p>
 
 ${cta('Trasforma il numero in un menu')}
-<p>Il numero da solo serve a poco. Fitsy usa questo stesso calcolo per ogni membro della famiglia e costruisce un <a href="/menu-settimanale-famiglia/">menu settimanale</a> con le porzioni giuste per ciascuno. Vedi anche: <a href="/peso-forma-calcolo/">calcolo del peso forma</a> e <a href="/quanta-acqua-bere-al-giorno/">quanta acqua bere al giorno</a>.</p>`,
+<p>Il numero da solo serve a poco. MenuDieta usa questo stesso calcolo per ogni membro della famiglia e costruisce un <a href="/menu-settimanale-famiglia/">menu settimanale</a> con le porzioni giuste per ciascuno. Vedi anche: <a href="/peso-forma-calcolo/">calcolo del peso forma</a> e <a href="/quanta-acqua-bere-al-giorno/">quanta acqua bere al giorno</a>.</p>`,
     faq: [
       ['Cos’è il metabolismo basale?', 'L’energia che il corpo consuma a riposo completo nelle 24 ore. In un adulto rappresenta il 60–70% del fabbisogno totale.'],
       ['Il calcolo vale anche per i bambini?', 'Le tabelle LARN per adulti partono dai 18 anni. Sotto, il calcolatore usa la formula Mifflin-St Jeor, un’approssimazione ragionevole; per i bambini piccoli conta più la crescita regolare che il numero di calorie.'],
@@ -240,9 +240,9 @@ ${toolPeso()}
 <p>A parità di altezza le soglie dell’indice di Grant sono diverse perché la struttura ossea femminile è mediamente più sottile. Per questo i calcolatori che usano una sola formula per tutti sbagliano in una direzione per gli uomini e nell’altra per le donne.</p>
 
 <h2>E la massa muscolare?</h2>
-<p>Il peso forma è un riferimento per chi non fa sport agonistico. Chi ha molta massa muscolare può pesare più del "suo" intervallo ed essere in ottima forma: in quel caso conta la composizione corporea (massa grassa stimata da vita, collo e fianchi), che Fitsy calcola nella sezione Misure.</p>
+<p>Il peso forma è un riferimento per chi non fa sport agonistico. Chi ha molta massa muscolare può pesare più del "suo" intervallo ed essere in ottima forma: in quel caso conta la composizione corporea (massa grassa stimata da vita, collo e fianchi), che MenuDieta calcola nella sezione Misure.</p>
 ${cta('Dal peso forma al piano per raggiungerlo')}
-<p>Fitsy usa questo calcolo per proporre a ogni persona un obiettivo realistico e un <a href="/menu-settimanale-famiglia/">menu settimanale</a> per arrivarci con calma. Vedi anche il <a href="/calcolo-fabbisogno-calorico/">calcolo del fabbisogno calorico</a>.</p>`,
+<p>MenuDieta usa questo calcolo per proporre a ogni persona un obiettivo realistico e un <a href="/menu-settimanale-famiglia/">menu settimanale</a> per arrivarci con calma. Vedi anche il <a href="/calcolo-fabbisogno-calorico/">calcolo del fabbisogno calorico</a>.</p>`,
     faq: [
       ['Qual è il peso forma per 170 cm?', 'Con costituzione normale circa 61–66 kg; esile 56–61; robusta 65–71. Usa il calcolatore con il tuo polso per il valore preciso.'],
       ['Il peso forma cambia con l’età?', 'Le formule non cambiano, ma dopo i 65 anni un BMI leggermente più alto (fino a 27) è considerato protettivo. L’intervallo qui calcolato resta un buon riferimento.'],
@@ -268,7 +268,7 @@ ${toolAcqua()}
   <li>Fame "finta": spesso è sete.</li>
 </ul>
 ${cta('Tieni il conto dei bicchieri senza pensarci')}
-<p>Fitsy calcola il fabbisogno di ogni persona della famiglia e nella pagina Oggi ha un contatore di bicchieri con promemoria. Vedi anche il <a href="/calcolo-fabbisogno-calorico/">fabbisogno calorico</a>.</p>`,
+<p>MenuDieta calcola il fabbisogno di ogni persona della famiglia e nella pagina Oggi ha un contatore di bicchieri con promemoria. Vedi anche il <a href="/calcolo-fabbisogno-calorico/">fabbisogno calorico</a>.</p>`,
     faq: [
       ['Il caffè e il tè contano?', 'Sì, contano come liquidi: l’effetto diuretico della caffeina a dosi normali è minimo. Meglio comunque che la maggior parte sia acqua.'],
       ['Si può bere troppa acqua?', 'Sì, ma serve molto (oltre 1 litro all’ora per diverse ore). Per una persona sana che beve quando ha sete non è un rischio reale.'],
@@ -280,8 +280,8 @@ ${cta('Tieni il conto dei bicchieri senza pensarci')}
     body: ({ APP, cta, phone }) => `
 <section class="hero hero-grid">
   <div>
-    <h1>Fitsy per nutrizionisti: i tuoi pazienti in un’app italiana, in tempo reale</h1>
-    <p class="lead">Un software per nutrizionisti serve a una cosa sola: far seguire davvero il piano al paziente tra una visita e l’altra. Con Fitsy Pro vedi <strong>misure, diario dei pasti e andamenti</strong> dei tuoi pazienti mentre li inseriscono, imposti il loro target calorico e gli scrivi dall’app. Loro usano Fitsy gratis, tutti i giorni, per decidere cosa cucinare.</p>
+    <h1>MenuDieta per nutrizionisti: i tuoi pazienti in un’app italiana, in tempo reale</h1>
+    <p class="lead">Un software per nutrizionisti serve a una cosa sola: far seguire davvero il piano al paziente tra una visita e l’altra. Con MenuDieta Pro vedi <strong>misure, diario dei pasti e andamenti</strong> dei tuoi pazienti mentre li inseriscono, imposti il loro target calorico e gli scrivi dall’app. Loro usano MenuDieta gratis, tutti i giorni, per decidere cosa cucinare.</p>
     <div class="btns"><a class="btn" href="#lista-attesa">Entra nella lista d’attesa →</a></div>
     <p class="note">Il profilo professionale è in apertura a un numero limitato di studi. Nessun costo per iscriversi alla lista.</p>
   </div>
@@ -294,7 +294,7 @@ ${cta('Tieni il conto dei bicchieri senza pensarci')}
   <div class="box"><h3>🎯 Target tuo, piano suo</h3><p>Decidi calorie e ripartizione dei macronutrienti: il paziente non legge un PDF, vede ogni giorno cosa mangiare con grammature e ricette, e la lista della spesa pronta.</p></div>
   <div class="box"><h3>🍽️ Il diario che si compila da solo</h3><p>Un tocco per segnare il pasto consumato o saltato, l’acqua a bicchieri. Tu vedi l’aderenza reale, non quella raccontata in visita.</p></div>
   <div class="box"><h3>💬 Messaggi dentro l’app</h3><p>Niente WhatsApp, niente numero personale: la conversazione sta con i dati del paziente, con le notifiche dei non letti.</p></div>
-  <div class="box"><h3>👨‍👩‍👧 Non isola il paziente a tavola</h3><p>Molti pazienti cucinano per altri. Fitsy scala lo stesso piatto per ogni membro della famiglia: il piano si segue perché si mangia tutti insieme.</p></div>
+  <div class="box"><h3>👨‍👩‍👧 Non isola il paziente a tavola</h3><p>Molti pazienti cucinano per altri. MenuDieta scala lo stesso piatto per ogni membro della famiglia: il piano si segue perché si mangia tutti insieme.</p></div>
   <div class="box"><h3>🔒 Dati in UE, consenso esplicito</h3><p>Il paziente sceglie di collegarsi con un codice e può revocare in un tocco. Registro dei trattamenti e procedura data breach documentati; nessun dato ceduto a terzi.</p></div>
 </div>
 
@@ -307,7 +307,7 @@ ${cta('Tieni il conto dei bicchieri senza pensarci')}
 </ol>
 
 <h2>Perché non è "l’ennesimo gestionale"</h2>
-<p>Le piattaforme come Nutrium o MetaDieta sono ottime per la parte clinica e amministrativa dello studio. Fitsy non le sostituisce: lavora sull’altra metà del problema, i 29 giorni al mese in cui il paziente è a casa e deve decidere cosa mettere in pentola. Se il tuo piano oggi finisce in un cassetto, è lì che Fitsy aiuta.</p>
+<p>Le piattaforme come Nutrium o MetaDieta sono ottime per la parte clinica e amministrativa dello studio. MenuDieta non le sostituisce: lavora sull’altra metà del problema, i 29 giorni al mese in cui il paziente è a casa e deve decidere cosa mettere in pentola. Se il tuo piano oggi finisce in un cassetto, è lì che MenuDieta aiuta.</p>
 
 <h2 id="lista-attesa">Lista d’attesa</h2>
 <p>Lasciaci i tuoi dati: ti ricontattiamo noi per spiegarti come funziona, raccogliere le tue esigenze e, quando apriamo, darti l’accesso. I primi studi iscritti avranno il primo anno a condizioni riservate. Gratis per i pazienti, sempre.</p>
@@ -318,16 +318,16 @@ ${cta('Tieni il conto dei bicchieri senza pensarci')}
   <label for="wl-citta">Città dello studio</label><input id="wl-citta" name="citta" autocomplete="address-level2" placeholder="es. Roma">
   <label for="wl-note">Cosa ti interessa di più? (facoltativo)</label><textarea id="wl-note" name="note" placeholder="es. Seguo circa 30 pazienti, mi interessa il diario e la lista della spesa"></textarea>
   <div class="hp"><label>Sito web</label><input name="website" tabindex="-1" autocomplete="off"></div>
-  <label class="consenso"><input type="checkbox" name="consenso"> Acconsento a essere ricontattato da AF&amp;B S.r.l.s. per informazioni su Fitsy Pro. I dati sono usati solo per questo e cancellati su richiesta (<a href="/privacy/">privacy</a>).</label>
+  <label class="consenso"><input type="checkbox" name="consenso"> Acconsento a essere ricontattato da AF&amp;B S.r.l.s. per informazioni su MenuDieta Pro. I dati sono usati solo per questo e cancellati su richiesta (<a href="/privacy/">privacy</a>).</label>
   <button class="btn" type="submit">Iscrivimi alla lista d’attesa</button>
   <div class="wl-msg"></div>
 </form>
-<p>Preferisci scrivere? <a href="mailto:info@fitsy.it?subject=Fitsy%20Pro">info@fitsy.it</a>. Vuoi intanto vedere l’app dal lato del paziente? <a href="${APP}">Aprila gratis</a>.</p>`,
+<p>Preferisci scrivere? <a href="mailto:info@menudieta.it?subject=MenuDieta%20Pro">info@menudieta.it</a>. Vuoi intanto vedere l’app dal lato del paziente? <a href="${APP}">Aprila gratis</a>.</p>`,
     faq: [
       ['Quando apre il servizio?', 'Stiamo attivando i primi studi uno alla volta, per fare bene. Chi è in lista viene contattato nell’ordine di iscrizione.'],
-      ['Devo avere anche io una scheda Fitsy?', 'No. L’account professionale è separato: dopo il login vedi solo l’area nutrizionista con i tuoi pazienti, i loro dati e i messaggi.'],
-      ['Il paziente deve pagare qualcosa?', 'No, Fitsy è e resta gratuita per i pazienti e le loro famiglie.'],
-      ['Quanto costerà?', 'Un canone mensile in base ai pazienti attivi, inferiore ai gestionali di studio perché Fitsy li affianca, non li sostituisce. I primi studi iscritti hanno condizioni riservate per il primo anno.'],
+      ['Devo avere anche io una scheda MenuDieta?', 'No. L’account professionale è separato: dopo il login vedi solo l’area nutrizionista con i tuoi pazienti, i loro dati e i messaggi.'],
+      ['Il paziente deve pagare qualcosa?', 'No, MenuDieta è e resta gratuita per i pazienti e le loro famiglie.'],
+      ['Quanto costerà?', 'Un canone mensile in base ai pazienti attivi, inferiore ai gestionali di studio perché MenuDieta li affianca, non li sostituisce. I primi studi iscritti hanno condizioni riservate per il primo anno.'],
       ['I dati dei pazienti dove stanno?', 'Su server in Unione Europea. Il paziente vede chi lo segue e può scollegarsi in qualsiasi momento.'],
     ],
   },
@@ -336,24 +336,24 @@ ${cta('Tieni il conto dei bicchieri senza pensarci')}
 // ── Pagine legali del sito (il sito è statico: nessun cookie, nessun tracker) ──
 export const LEGALI = {
   privacy: {
-    title: 'Privacy policy del sito www.fitsy.it',
-    description: 'Informativa privacy del sito www.fitsy.it: quali dati vengono trattati navigando il sito, da chi e per quanto. Nessun cookie di profilazione, nessun tracker.',
+    title: 'Privacy policy del sito www.menudieta.it',
+    description: 'Informativa privacy del sito www.menudieta.it: quali dati vengono trattati navigando il sito, da chi e per quanto. Nessun cookie di profilazione, nessun tracker.',
     body: ({ APP }) => `<article class="legal">
-<h1>Privacy policy del sito www.fitsy.it</h1>
-<p class="lead">Informativa ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR) per chi consulta il sito www.fitsy.it. L’informativa dell’<strong>app</strong> Fitsy (account, dati di famiglia, misure) è separata e si trova <a href="${APP}privacy.html">qui</a>.</p>
+<h1>Privacy policy del sito www.menudieta.it</h1>
+<p class="lead">Informativa ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR) per chi consulta il sito www.menudieta.it. L’informativa dell’<strong>app</strong> MenuDieta (account, dati di famiglia, misure) è separata e si trova <a href="${APP}privacy.html">qui</a>.</p>
 <h2>1. Titolare del trattamento</h2>
-<p>AF&amp;B S.r.l.s., Via Mario Ugo Guattari 48, 00173 Roma (RM), P.IVA 13698751008, REA RM-1466364, capitale sociale € 2.700,00 i.v.. Email: <a href="mailto:info@fitsy.it">info@fitsy.it</a>.</p>
+<p>AF&amp;B S.r.l.s., Via Mario Ugo Guattari 48, 00173 Roma (RM), P.IVA 13698751008, REA RM-1466364, capitale sociale € 2.700,00 i.v.. Email: <a href="mailto:info@menudieta.it">info@menudieta.it</a>.</p>
 <h2>2. Quali dati tratta il sito</h2>
 <p><strong>Il sito non raccoglie dati personali durante la navigazione.</strong> Non usa cookie di profilazione, strumenti di analisi del traffico (es. Google Analytics), pixel o pulsanti social. Le pagine sono statiche. I calcolatori (fabbisogno calorico, peso forma, acqua) funzionano interamente nel tuo browser: i valori che inserisci non vengono inviati a nessun server.</p>
 <p><strong>Log del server.</strong> Il fornitore di hosting (Aruba S.p.A., Italia) registra automaticamente, per esigenze tecniche e di sicurezza, l’indirizzo IP, data e ora della richiesta, la pagina richiesta, il browser utilizzato. Questi log sono conservati dal fornitore per i tempi previsti dalla sua policy e non sono usati dal Titolare per identificare i visitatori.</p>
-<p><strong>Lista d’attesa (pagina Per nutrizionisti).</strong> Se compili il modulo, trattiamo nome, email, città e le note che inserisci per ricontattarti riguardo al servizio Fitsy Pro. Base giuridica: consenso (casella da spuntare). I dati sono conservati su Supabase (server in UE) fino alla tua richiesta di cancellazione o per 24 mesi dall’ultimo contatto. Non vengono usati per altre finalità né ceduti.</p>
-<p><strong>Email.</strong> Se ci scrivi (info@fitsy.it, mailto nella pagina nutrizionisti), trattiamo il tuo indirizzo e il contenuto del messaggio per risponderti. Base giuridica: esecuzione di misure precontrattuali o legittimo interesse a rispondere. Conservazione: il tempo necessario a gestire la richiesta, al massimo 24 mesi.</p>
+<p><strong>Lista d’attesa (pagina Per nutrizionisti).</strong> Se compili il modulo, trattiamo nome, email, città e le note che inserisci per ricontattarti riguardo al servizio MenuDieta Pro. Base giuridica: consenso (casella da spuntare). I dati sono conservati su Supabase (server in UE) fino alla tua richiesta di cancellazione o per 24 mesi dall’ultimo contatto. Non vengono usati per altre finalità né ceduti.</p>
+<p><strong>Email.</strong> Se ci scrivi (info@menudieta.it, mailto nella pagina nutrizionisti), trattiamo il tuo indirizzo e il contenuto del messaggio per risponderti. Base giuridica: esecuzione di misure precontrattuali o legittimo interesse a rispondere. Conservazione: il tempo necessario a gestire la richiesta, al massimo 24 mesi.</p>
 <h2>3. Link verso l’app</h2>
 <p>I pulsanti "Apri l’app" portano a ${APP}, dove si applica l’<a href="${APP}privacy.html">informativa dell’app</a>: lì, se scegli di creare un account, vengono trattati i dati che inserisci (profili, misure, pasti), con consenso esplicito e possibilità di cancellare tutto in un’unica operazione.</p>
 <h2>4. Destinatari e trasferimenti</h2>
 <p>Hosting: Aruba S.p.A. (server in Italia), in qualità di responsabile del trattamento per i log tecnici. Nessun altro destinatario. Nessun trasferimento verso Paesi extra-UE.</p>
 <h2>5. I tuoi diritti</h2>
-<p>Hai diritto di accesso, rettifica, cancellazione, limitazione, opposizione e portabilità (artt. 15–22 GDPR) e di proporre reclamo al Garante per la protezione dei dati personali (www.garanteprivacy.it). Per esercitarli scrivi a <a href="mailto:info@fitsy.it">info@fitsy.it</a>.</p>
+<p>Hai diritto di accesso, rettifica, cancellazione, limitazione, opposizione e portabilità (artt. 15–22 GDPR) e di proporre reclamo al Garante per la protezione dei dati personali (www.garanteprivacy.it). Per esercitarli scrivi a <a href="mailto:info@menudieta.it">info@menudieta.it</a>.</p>
 <h2>6. Minori</h2>
 <p>Il sito non è rivolto a minori di 14 anni e non raccoglie consapevolmente dati di minori. Nell’app i profili dei bambini sono creati e gestiti dal genitore.</p>
 <h2>7. Aggiornamenti</h2>
@@ -361,10 +361,10 @@ export const LEGALI = {
 </article>`,
   },
   cookie: {
-    title: 'Cookie policy di www.fitsy.it',
-    description: 'Il sito www.fitsy.it non usa cookie di profilazione né di terze parti. Elenco completo di ciò che viene memorizzato nel browser e perché.',
+    title: 'Cookie policy di www.menudieta.it',
+    description: 'Il sito www.menudieta.it non usa cookie di profilazione né di terze parti. Elenco completo di ciò che viene memorizzato nel browser e perché.',
     body: ({ APP }) => `<article class="legal">
-<h1>Cookie policy di www.fitsy.it</h1>
+<h1>Cookie policy di www.menudieta.it</h1>
 <p class="lead">Informativa resa ai sensi del provvedimento del Garante privacy del 10 giugno 2021 sulle "Linee guida cookie e altri strumenti di tracciamento".</p>
 <h2>Cookie usati dal sito</h2>
 <p><strong>Nessuno.</strong> Il sito non installa cookie, né propri né di terze parti, né tecnici né di profilazione. Non ci sono servizi di analisi del traffico, mappe incorporate, video esterni, pulsanti social o pubblicità.</p>
@@ -394,7 +394,7 @@ export const ARTICOLI_HTML = {
 <h2>4. Porzioni diverse, piatto uguale</h2>
 <p>Cucina lo stesso piatto per tutti e adatta le quantità nel piatto. Un adulto sedentario ha bisogno di 1.900–2.400 kcal, un bambino di 6–10 anni di 1.400–1.900: sono circa 80 g di pasta contro 55. Qui sta la differenza tra una dieta "per uno" e un menu di famiglia. Se vuoi i numeri per ciascuno: <a href="/calcolo-fabbisogno-calorico/">calcolo del fabbisogno calorico</a>.</p>
 <h2>5. La lista della spesa nasce dal menu</h2>
-<p>Scrivi gli ingredienti piatto per piatto, somma, togli ciò che hai. È la parte più noiosa, e quella che un’app fa in zero secondi: Fitsy la genera dal menu con le quantità per la tua famiglia. Vedi <a href="/lista-della-spesa-automatica/">lista della spesa automatica</a>.</p>
+<p>Scrivi gli ingredienti piatto per piatto, somma, togli ciò che hai. È la parte più noiosa, e quella che un’app fa in zero secondi: MenuDieta la genera dal menu con le quantità per la tua famiglia. Vedi <a href="/lista-della-spesa-automatica/">lista della spesa automatica</a>.</p>
 <h2>Esempio di settimana organizzata così</h2>
 ${menuEsempio()}
 <h2>Gli errori da evitare</h2>
@@ -403,8 +403,8 @@ ${menuEsempio()}
   <li><strong>Menu rigido.</strong> Se salta una cena, sposti, non ricominci. Il menu è un piano, non un contratto.</li>
   <li><strong>Dimenticare colazione e spuntini.</strong> Sono il 25–30% delle calorie: vanno pianificati, anche se sono sempre gli stessi.</li>
 </ul>
-${cta('Lascia fare i cinque passi a Fitsy')}
-<p>Fitsy fa esattamente questo ogni settimana: ritmo delle proteine, stagione, porzioni per persona, lista della spesa. A te resta scegliere cosa cambiare. <a href="${APP}">Provalo gratis</a>.</p>`,
+${cta('Lascia fare i cinque passi a MenuDieta')}
+<p>MenuDieta fa esattamente questo ogni settimana: ritmo delle proteine, stagione, porzioni per persona, lista della spesa. A te resta scegliere cosa cambiare. <a href="${APP}">Provalo gratis</a>.</p>`,
 
   'blog/menu-settimanale-bambini': ({ APP, cta }) => `
 <h1>Menu settimanale per bambini: porzioni giuste e piatti che piacciono</h1>
@@ -431,7 +431,7 @@ ${menuEsempio()}
 <h2>Cosa limitare, senza drammi</h2>
 <p>Zuccheri aggiunti (succhi, merendine, cereali zuccherati), salumi oltre una volta a settimana, sale aggiunto. Non serve vietare: serve che la settimana sia piena di altro. La pizza del sabato è parte del menu, non uno strappo.</p>
 ${cta('Porzioni calcolate per ogni figlio, in automatico')}
-<p>In Fitsy ogni bambino ha il suo profilo: età, peso, altezza, attività. Il menu è quello della famiglia, le grammature sono le sue. <a href="${APP}">Prova gratis</a>. Per il metodo completo: <a href="/blog/come-organizzare-menu-settimanale-famiglia/">come organizzare il menu settimanale della famiglia</a>.</p>`,
+<p>In MenuDieta ogni bambino ha il suo profilo: età, peso, altezza, attività. Il menu è quello della famiglia, le grammature sono le sue. <a href="${APP}">Prova gratis</a>. Per il metodo completo: <a href="/blog/come-organizzare-menu-settimanale-famiglia/">come organizzare il menu settimanale della famiglia</a>.</p>`,
 
   'blog/piano-alimentare-mantenimento': ({ APP, cta }) => `
 <h1>Piano alimentare di mantenimento: come mangiare per restare al tuo peso</h1>
@@ -454,5 +454,5 @@ ${cta('Porzioni calcolate per ogni figlio, in automatico')}
   <li><strong>Mangiare diverso dalla famiglia.</strong> È la causa più comune di abbandono. Il piano va condiviso: stessi piatti, porzione tua.</li>
 </ol>
 ${cta('Il mantenimento, settimana dopo settimana, senza contare')}
-<p>Fitsy calcola le tue calorie di mantenimento, genera il menu con le grammature giuste e tiene il grafico del peso: se la media sale, lo vedi prima che diventi un problema. <a href="${APP}">Prova gratis</a>. Utile anche: <a href="/peso-forma-calcolo/">calcolo del peso forma</a>.</p>`,
+<p>MenuDieta calcola le tue calorie di mantenimento, genera il menu con le grammature giuste e tiene il grafico del peso: se la media sale, lo vedi prima che diventi un problema. <a href="${APP}">Prova gratis</a>. Utile anche: <a href="/peso-forma-calcolo/">calcolo del peso forma</a>.</p>`,
 };

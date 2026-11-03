@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" width="900" height="260">
+<rect width="900" height="260" fill="#FFFFFF"/><g transform="translate(130,130) scale(1)">
+  <circle r="88" fill="#F5F8F1"/><circle r="72" fill="none" stroke="#E7EDE2" stroke-width="3"/>
+  <circle cx="-22" cy="-6" r="30" fill="#2F6B3A"/><circle cx="26" cy="-18" r="20" fill="#C7F23E"/><circle cx="22" cy="26" r="13" fill="#15251C"/></g>
+<text x="250" y="152" font-family="Outfit Thin, Outfit, Arial" font-weight="800" font-size="96" fill="#15251C" letter-spacing="-3">menu<tspan fill="#2F6B3A">dieta</tspan></text><text x="256" y="200" font-family="Outfit Thin, Outfit, Arial" font-weight="800" font-size="22" fill="#6E8576" letter-spacing="2">NUTRIZIONE INTELLIGENTE</text></svg>

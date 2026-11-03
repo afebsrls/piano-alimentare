@@ -59,7 +59,7 @@ export function AdminPage() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
         <div>
           <div style={{ fontSize: 20, fontWeight: 800, color: C.scuro }}>🛠️ Plancia admin</div>
-          <div style={{ fontSize: 12, color: C.grigio }}>Tutto quello che succede su Fitsy, esplorabile</div>
+          <div style={{ fontSize: 12, color: C.grigio }}>Tutto quello che succede su MenuDieta, esplorabile</div>
         </div>
         <button onClick={carica} style={{ ...btn(C.chiaro, C.verde), marginLeft: 'auto' }}>↻ Aggiorna</button>
       </div>
@@ -325,7 +325,7 @@ function ListaAttesa({ lista, onReload, flash, setErr }) {
   const csv = () => {
     const righe = [['data', 'tipo', 'nome', 'email', 'citta', 'note', 'stato'], ...lista.map(a => [a.created_at, a.tipo, a.nome, a.email, a.citta || '', (a.note || '').replace(/\n/g, ' '), a.stato])];
     const blob = new Blob([righe.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(';')).join('\n')], { type: 'text/csv' });
-    const u = URL.createObjectURL(blob); const el = document.createElement('a'); el.href = u; el.download = 'lista-attesa-fitsy.csv'; el.click(); URL.revokeObjectURL(u);
+    const u = URL.createObjectURL(blob); const el = document.createElement('a'); el.href = u; el.download = 'lista-attesa-menudieta.csv'; el.click(); URL.revokeObjectURL(u);
   };
   return (
     <>

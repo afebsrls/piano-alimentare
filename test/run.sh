@@ -85,7 +85,7 @@ node ./.tpc.mjs || FAIL=1
 rm -f ./.tpc.mjs
 
 echo ""
-echo "▸ TEST 2l — Trasloco github.io → fitsy.it (andata e ritorno dati)"
+echo "▸ TEST 2l — Trasloco github.io → menudieta.it (andata e ritorno dati)"
 "$EB" test/test_trasloco.mjs --bundle --format=esm --outfile=./.ttl.mjs "--alias:@=$ROOT/src" --loader:.jsx=jsx --loader:.json=json --packages=external --log-level=error
 node ./.ttl.mjs || FAIL=1
 rm -f ./.ttl.mjs
