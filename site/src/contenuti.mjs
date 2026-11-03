@@ -53,8 +53,8 @@ export const CONTENUTI = {
     body: ({ APP, cta, phone }) => `
 <section class="hero hero-grid">
   <div>
-    <h1>L’app gratuita per il piano alimentare settimanale della famiglia</h1>
-    <p class="lead">MenuDieta decide cosa si mangia questa settimana: un menu equilibrato per tutta la famiglia, con le porzioni giuste per ogni persona, la lista della spesa pronta e le ricette di stagione. Nessuna pubblicità, nessun abbonamento.</p>
+    <h1>MenuDieta, l’app gratuita per il piano alimentare settimanale della famiglia</h1>
+    <p class="lead">MenuDieta è un’app web gratuita che decide cosa si mangia questa settimana: un menu equilibrato per tutta la famiglia, con le porzioni giuste per ogni persona, la lista della spesa pronta e le ricette di stagione. Nessuna pubblicità, nessun abbonamento.</p>
     <div class="btns"><a class="btn" href="${APP}">Apri MenuDieta gratis →</a><a class="btn secondario" href="/menu-settimanale-famiglia/">Vedi un menu di esempio</a></div>
     <p class="note">Funziona sul telefono e sul computer, si installa come un’app. I dati restano tuoi.</p>
   </div>
