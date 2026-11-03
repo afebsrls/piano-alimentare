@@ -21,6 +21,8 @@ import { SyncTestPage } from '@/features/test/SyncTestPage';
 import { SyncLogPage } from '@/features/log/SyncLogPage';
 import { AdminPage } from '@/features/admin/AdminPage';
 import { isAdmin as checkIsAdmin, resetAdminCache } from '@/db/admin';
+import { isNutrizionista } from '@/db/nutrizionista';
+import { NutrizionistaPage } from '@/features/pro/NutrizionistaPage';
 import { cloudEnabled, getSession, onAuthChange, signOut } from '@/db/cloud';
 import { MealCard, TotaleBar, WaterTracker } from '@/features/piano/MealParts';
 import { ShoppingPage } from '@/features/spesa/ShoppingPage';
@@ -124,6 +126,8 @@ export function App() {
   const [cloudStatus, setCloudStatus] = useState({ loggedIn:false, inFamily:false });
   const [cloudMigrated, setCloudMigrated] = useState(true); // finché non sappiamo, niente wizard
   const [isAdminUser, setIsAdminUser] = useState(false);   // plancia admin (verificata lato server)
+  const [proNutr, setProNutr] = useState(null);            // profilo nutrizionista {nome,studio,codice,stato} | null
+  const [myAuthId, setMyAuthId] = useState(null);
   const [misureApp, setMisureApp]     = useState({});
   const [overrides, setOverrides]     = useState({}); // { "dayIdx-mealKey": ricettaObj }
   const [prefs, setPrefs]             = useState({ recipes:{}, contextSwaps:[] });
@@ -257,8 +261,10 @@ export function App() {
     if (!cloudEnabled) return;
     let vivo = true;
     const verifica = (session) => {
-      if (!session) { resetAdminCache(); if (vivo) setIsAdminUser(false); return; }
+      if (vivo) setMyAuthId(session?.user?.id || null);
+      if (!session) { resetAdminCache(); if (vivo) { setIsAdminUser(false); setProNutr(null); } return; }
       checkIsAdmin().then(v => { if (vivo) setIsAdminUser(v); }).catch(()=>{});
+      isNutrizionista().then(v => { if (vivo) setProNutr(v); }).catch(()=>{});
     };
     getSession().then(verifica);
     const off = onAuthChange(verifica);
@@ -965,6 +971,24 @@ export function App() {
         </div>
         <ErrorBoundary onReset={()=>window.location.reload()}>
           <AdminPage/>
+        </ErrorBoundary>
+      </div>
+    );
+  }
+
+  // Account nutrizionista: shell professionale (pazienti, schede, messaggi).
+  if (proNutr && !isAdminUser) {
+    return (
+      <div style={{minHeight:"100vh",background:"#F4F7EF"}}>
+        <div style={{background:"linear-gradient(120deg,#15251C 0%,#1D3A28 100%)",padding:"13px 18px",paddingTop:"calc(13px + env(safe-area-inset-top,0px))"}}>
+          <div style={{maxWidth:980,margin:"0 auto",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+            <div style={{fontSize:32,fontWeight:800,color:"#F5F8F1",fontFamily:"'Outfit',sans-serif",lineHeight:1,letterSpacing:-1.2}}>f<span style={{color:"#C7F23E"}}>i</span>tsy <span style={{fontSize:13,color:"#9DB1A2",letterSpacing:0,fontWeight:700}}>PRO</span></div>
+            <button onClick={async()=>{ await signOut(); window.location.reload(); }}
+              style={{background:"transparent",color:"#C7F23E",border:"1px solid #C7F23E55",borderRadius:8,padding:"6px 12px",fontWeight:700,fontSize:12,cursor:"pointer"}}>Esci</button>
+          </div>
+        </div>
+        <ErrorBoundary onReset={()=>window.location.reload()}>
+          <NutrizionistaPage pro={proNutr} myId={myAuthId} onAggiornaPro={()=>isNutrizionista().then(setProNutr)}/>
         </ErrorBoundary>
       </div>
     );

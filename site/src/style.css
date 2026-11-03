@@ -61,3 +61,22 @@ p{margin:0 0 1em}
 .menu-ex div{background:#fff;border:1px solid var(--bordo);border-radius:12px;padding:10px}
 .menu-ex b{display:block;color:var(--ink);margin-bottom:4px}
 @media (max-width:600px){body{font-size:16px}.nav{font-size:13px;gap:4px 12px}.logo{font-size:30px}}
+
+.phone{display:inline-block;width:min(300px,78vw);filter:drop-shadow(0 18px 40px rgba(21,37,28,.28))}
+.phone svg{width:100%;height:auto;display:block}
+.hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:center}
+.hero-grid .phones{display:flex;justify-content:center;gap:12px}
+.hero-grid .phones .phone:nth-child(2){margin-top:60px}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin:34px 0}
+.feat.rev .phone-wrap{order:2}
+.feat .phone-wrap{text-align:center}
+.feat h2{margin-top:0}
+.feat ul{padding-left:20px}
+.cn{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;background:#15251C;color:#ECF1E2;border-radius:14px;padding:14px 16px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:960px;margin:0 auto}
+.cn a{color:#C7F23E}
+.cn button{background:#C7F23E;color:#15251C;border:none;border-radius:10px;padding:10px 16px;font-weight:800;cursor:pointer}
+.legal h2{font-size:20px}.legal{max-width:760px}
+.passi{counter-reset:p;list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.passi li{background:#fff;border:1px solid var(--bordo);border-radius:14px;padding:16px 16px 16px 54px;position:relative}
+.passi li::before{counter-increment:p;content:counter(p);position:absolute;left:16px;top:14px;width:28px;height:28px;border-radius:50%;background:var(--lime);color:var(--ink);font-weight:800;display:flex;align-items:center;justify-content:center}
+@media (max-width:760px){.hero-grid,.feat{grid-template-columns:1fr}.feat.rev .phone-wrap{order:0}.hero-grid .phones .phone:nth-child(2){display:none}.hero-grid .phones{margin-top:10px}}

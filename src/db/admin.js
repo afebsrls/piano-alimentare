@@ -33,5 +33,11 @@ export const adminRicette = () => rpc('admin_ricette');
 export const adminRicettaAzione = (id, azione) => rpc('admin_ricetta_azione', { p_id: id, p_azione: azione });
 export const adminCopiaRicetta  = (id) => rpc('admin_copia_ricetta', { p_id: id });
 
+export const adminFamiglie = () => rpc('admin_famiglie');
+export const adminFamigliaDettaglio = (id) => rpc('admin_famiglia_dettaglio', { p_id: id });
+export const adminDettaglioProfilo = (id) => rpc('dettaglio_profilo', { p_profilo_id: id });
+export const adminNutrizionisti = () => rpc('admin_nutrizionisti');
+export const adminNutrizionistaStato = (userId, stato) => rpc('admin_nutrizionista_stato', { p_user_id: userId, p_stato: stato });
+
 // Catalogo pubblico: per tutti gli utenti loggati (tab Catalogo).
 export const catalogoPubblico = () => rpc('catalogo_pubblico');

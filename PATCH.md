@@ -1,5 +1,12 @@
 # PATCH.md — Changelog cumulativo
 
+## v16 — 03/11/2026 · Nutrizionisti (Fitsy Pro), plancia esplorabile, sito GDPR + mockup
+- **🩺 Fitsy Pro** (`supabase/s13_nutrizionisti.sql`, `src/db/nutrizionista.js`, `src/features/pro/`): il professionista si registra dall'onboarding ("Sei un nutrizionista?"), riceve un codice NUT-XXXXXX, l'admin lo attiva dalla plancia. Il paziente inserisce il codice in Account → Il mio nutrizionista (consenso, revocabile). Il nutrizionista ha una shell dedicata: lista pazienti (non letti, ultimo peso, attività), scheda completa (anagrafica, target, grafici di tutte le misure, diario pasti, ricette, dati grezzi), **target imposto** (kcal + macro + nota) che il motore usa al posto del calcolo (`targetNutrizionista` in `calcTargetAdattivo`), **messaggistica** realtime (tabella `messaggi`, RLS a due parti).
+- **Plancia admin esplorabile**: ogni numero della panoramica apre la lista; utenti → scheda completa (stessa `SchedaPersona`); famiglie → membri, stato piano/spesa, ricette; ricette → autore cliccabile; nuovo tab Nutrizionisti con attiva/sospendi. Navigazione a pila con Indietro.
+- **Sito**: privacy policy e cookie policy dedicate (`/privacy/`, `/cookie/`), avviso informativo (nessun cookie: non serve consenso, solo flag tecnico `fitsy-cn`), mockup SVG delle schermate (Oggi, Piano, Spesa, Misure, Area nutrizionista) in home e nella pagina nutrizionisti aggiornata con il flusso reale.
+- **GDPR app**: informativa versione 2026-11-03 (nuova sezione "Nutrizionista collegato") → gli utenti rinnovano il consenso alla prossima apertura; registro dei trattamenti aggiornato.
+- Test 5 (montaggio scheda/pro/admin + precedenza del target imposto).
+
 ## v15 — 03/11/2026 · Admin solo admin + sito pubblico www.fitsy.it
 - **Admin solo admin**: dopo il login un account admin vede una shell dedicata (plancia + Esci), niente scheda, onboarding o piano. Verifica via `is_admin()` ascoltando direttamente l'auth. Tolto "copia nelle mie" dalla plancia (l'admin non ha ricette).
 - **Sito pubblico** (`site/`): generatore statico da registro parole chiave (`keywords.mjs`) → 11 pagine: home, menu settimanale famiglia, lista spesa automatica, 3 calcolatori (fabbisogno LARN, peso forma/Grant, acqua), per nutrizionisti, 3 guide. Schema.org (SoftwareApplication, WebApplication, FAQPage, Article), sitemap, robots, canonical, OG. Test 4 verifica build e calcolatori. Metodo in `docs/seo-metodo.md`.

@@ -92,6 +92,7 @@ function profiloToPersona(p) {
     lavoro:p.lavoro||"sedentario",allenamenti:p.allenamenti??3,obiettivo:p.obiettivo||"mantenimento",
     dietaIntensita:p.dieta_intensita??null,
     pesoTarget:p.peso_target!=null?+p.peso_target:null,
+    targetNutrizionista:p.target_nutrizionista||null,
     color:p.color||"#2F6B3A",_uid:p.user_id||null,_gestito:!p.user_id,_gestitoDa:p.gestito_da||null};
 }
 function personaToProfilo(p) {

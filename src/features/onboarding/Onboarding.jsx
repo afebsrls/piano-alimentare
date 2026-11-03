@@ -6,8 +6,11 @@ import { PersonaForm } from '@/features/famiglia/FamigliaPage';
 // Schermata a tutto schermo mostrata quando l'app non ha nessuna
 // persona salvata: 1) login (saltabile) → 2) compila la scheda
 // utente con target calcolato live → l'utente è creato.
+import { RegistrazioneNutrizionista } from '@/features/pro/NutrizionistaPage';
+
 export function Onboarding({ onComplete }) {
   const [session, setSession] = useState(null);
+  const [pro, setPro] = useState(false);   // registrazione nutrizionista
   const [step, setStep]       = useState(cloudEnabled ? 1 : 2);
   const [busy, setBusy]       = useState(false);
 
@@ -51,7 +54,15 @@ export function Onboarding({ onComplete }) {
             </button>
           </div>
         ) : (
+          pro ? (
+            <RegistrazioneNutrizionista onAnnulla={()=>setPro(false)} onFatto={()=>window.location.reload()}/>
+          ) : (
           <div>
+            {session && (
+              <div style={{textAlign:"right",marginBottom:8}}>
+                <button onClick={()=>setPro(true)} style={{border:"none",background:"transparent",color:"#2F6B3A",fontSize:12,fontWeight:800,cursor:"pointer",textDecoration:"underline"}}>🩺 Sei un nutrizionista?</button>
+              </div>
+            )}
             <PersonaForm persona={nuova} isNew={true}
               onSave={(p)=>onComplete(p, session)}
               onCancel={null}/>
@@ -63,6 +74,7 @@ export function Onboarding({ onComplete }) {
               </div>
             )}
           </div>
+          )
         )}
       </div>
     </div>

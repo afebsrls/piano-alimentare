@@ -50,28 +50,55 @@ const menuEsempio = () => `
 
 export const CONTENUTI = {
   home: {
-    body: ({ APP, cta }) => `
-<section class="hero">
-  <h1>L’app gratuita per il piano alimentare settimanale della famiglia</h1>
-  <p class="lead">Fitsy decide cosa si mangia questa settimana: un menu equilibrato per tutta la famiglia, con le porzioni giuste per ogni persona, la lista della spesa pronta e le ricette di stagione. Nessuna pubblicità, nessun abbonamento.</p>
-  <div class="btns"><a class="btn" href="${APP}">Apri Fitsy gratis →</a><a class="btn secondario" href="/menu-settimanale-famiglia/">Vedi un menu di esempio</a></div>
-  <p class="note">Funziona sul telefono e sul computer, si installa come un’app. I dati restano tuoi.</p>
+    body: ({ APP, cta, phone }) => `
+<section class="hero hero-grid">
+  <div>
+    <h1>L’app gratuita per il piano alimentare settimanale della famiglia</h1>
+    <p class="lead">Fitsy decide cosa si mangia questa settimana: un menu equilibrato per tutta la famiglia, con le porzioni giuste per ogni persona, la lista della spesa pronta e le ricette di stagione. Nessuna pubblicità, nessun abbonamento.</p>
+    <div class="btns"><a class="btn" href="${APP}">Apri Fitsy gratis →</a><a class="btn secondario" href="/menu-settimanale-famiglia/">Vedi un menu di esempio</a></div>
+    <p class="note">Funziona sul telefono e sul computer, si installa come un’app. I dati restano tuoi.</p>
+  </div>
+  <div class="phones">${phone('OGGI')}${phone('PIANO')}</div>
 </section>
 
-<h2>Un solo menu, porzioni diverse per ciascuno</h2>
-<p>Il problema dei menu settimanali che trovi in giro è che sono "per una persona": poi tocca a te moltiplicare, togliere, adattare ai bambini. Fitsy parte dal <strong>fabbisogno di ogni membro della famiglia</strong> (calcolato con le tabelle LARN italiane) e scala automaticamente ogni piatto: stessa pasta e ceci per tutti, 90 g per il papà, 70 g per la mamma, 50 g per il bambino.</p>
+<h2 style="text-align:center">Cosa vedrai ogni giorno</h2>
+<p class="lead" style="text-align:center;margin:0 auto 10px">Quattro schermate, zero menu nascosti. Ecco come si presenta l’app.</p>
 
-<div class="grid">
-  <div class="box"><h3>📅 Menu della settimana</h3><p>Colazione, pranzo, cena e spuntini per 7 giorni, con ricette di stagione. Non ti piace un piatto? Lo cambi con un tocco e il resto del piano resta stabile.</p></div>
-  <div class="box"><h3>🛒 Lista della spesa automatica</h3><p>Quantità esatte per la tua famiglia, raggruppate per reparto, con le spunte condivise con chi fa la spesa. <a href="/lista-della-spesa-automatica/">Come funziona</a>.</p></div>
-  <div class="box"><h3>👨‍👩‍👧 Tutta la famiglia</h3><p>Ogni persona ha il suo profilo e il suo obiettivo (mantenimento, dimagrimento, crescita). I piani si vedono da tutti i telefoni di casa.</p></div>
-  <div class="box"><h3>📏 Misure e progressi</h3><p>Peso, circonferenze, idratazione: grafici semplici per capire se la strada è quella giusta.</p></div>
-  <div class="box"><h3>📖 Le tue ricette</h3><p>Aggiungi i piatti di casa: Fitsy calcola le calorie dagli ingredienti e li inserisce nel menu.</p></div>
-  <div class="box"><h3>🧰 Strumenti gratuiti</h3><p><a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a>, <a href="/peso-forma-calcolo/">peso forma</a>, <a href="/quanta-acqua-bere-al-giorno/">acqua al giorno</a>, equivalenze e misure casalinghe.</p></div>
-</div>
+<section class="feat">
+  <div class="phone-wrap">${phone('PIANO')}</div>
+  <div>
+    <h2>Un solo menu, porzioni diverse per ciascuno</h2>
+    <p>I menu settimanali che trovi in giro sono "per una persona": poi tocca a te moltiplicare, togliere, adattare ai bambini. Fitsy parte dal <strong>fabbisogno di ogni membro della famiglia</strong> (tabelle LARN italiane) e scala ogni piatto: stessa pasta e ceci per tutti, 90 g per papà, 70 g per mamma, 50 g per il bambino.</p>
+    <ul><li>7 giorni, colazione, pranzo, cena e spuntini</li><li>Ricette di stagione, mese per mese</li><li>Non ti piace un piatto? Lo cambi con un tocco, il resto resta stabile</li></ul>
+  </div>
+</section>
+
+<section class="feat rev">
+  <div class="phone-wrap">${phone('SPESA')}</div>
+  <div>
+    <h2>La lista della spesa si scrive da sola</h2>
+    <p>Quantità esatte per la tua famiglia, raggruppate per reparto, con le spunte condivise con chi è al supermercato. Mostra solo i prossimi giorni: compri più fresco, butti meno. <a href="/lista-della-spesa-automatica/">Come funziona</a>.</p>
+  </div>
+</section>
+
+<section class="feat">
+  <div class="phone-wrap">${phone('OGGI')}</div>
+  <div>
+    <h2>Oggi: cosa mangiare, cosa hai mangiato</h2>
+    <p>Un tocco per segnare un pasto come consumato, il conto delle calorie e dei macro si aggiorna, l’acqua si conta a bicchieri. Se salti un pasto il piano se ne accorge e non te lo ripropone.</p>
+  </div>
+</section>
+
+<section class="feat rev">
+  <div class="phone-wrap">${phone('MISURE')}</div>
+  <div>
+    <h2>Misure e progressi che hanno senso</h2>
+    <p>Peso, circonferenze, peso forma in base alla costituzione e un fabbisogno che si <strong>adatta ai tuoi dati reali</strong>: dopo qualche settimana Fitsy sa quante calorie consumi davvero, non solo quante ne stima la formula.</p>
+  </div>
+</section>
 
 <h2>Come funziona, in tre passi</h2>
-<ol>
+<ol class="passi">
   <li><strong>Racconti chi siete.</strong> Età, peso, altezza, lavoro e allenamenti di ogni persona: Fitsy calcola subito il fabbisogno di ciascuno.</li>
   <li><strong>Fitsy prepara la settimana.</strong> Un menu equilibrato e di stagione, con le quantità per ogni membro. Puoi escludere ingredienti che non piacciono.</li>
   <li><strong>Fai la spesa e cucini.</strong> La lista è già pronta e condivisa. Ogni giorno vedi cosa c’è da preparare e segni cosa è stato mangiato.</li>
@@ -79,8 +106,14 @@ export const CONTENUTI = {
 
 ${cta('Inizia oggi, è gratis')}
 
+<div class="grid">
+  <div class="box"><h3>📖 Le tue ricette</h3><p>Aggiungi i piatti di casa: Fitsy calcola le calorie dagli ingredienti e li inserisce nel menu. Le migliori, validate, finiscono nel catalogo della community.</p></div>
+  <div class="box"><h3>🧰 Strumenti gratuiti</h3><p><a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a>, <a href="/peso-forma-calcolo/">peso forma</a>, <a href="/quanta-acqua-bere-al-giorno/">acqua al giorno</a>, equivalenze e misure casalinghe.</p></div>
+  <div class="box"><h3>🩺 Sei un nutrizionista?</h3><p>Segui i tuoi pazienti dentro l’app: misure, diario e messaggi in tempo reale, target impostato da te. <a href="/per-nutrizionisti/">Scopri Fitsy Pro</a>.</p></div>
+</div>
+
 <h2>Perché è gratuita</h2>
-<p>Fitsy resta gratuita per le famiglie. Il progetto si sostiene con un servizio a pagamento per i <a href="/per-nutrizionisti/">nutrizionisti</a> che vogliono consegnare i piani ai propri pazienti dentro l’app. Niente pubblicità, niente vendita di dati: la <a href="${APP}privacy.html">privacy</a> è spiegata in italiano chiaro.</p>`,
+<p>Fitsy resta gratuita per le famiglie. Il progetto si sostiene con il servizio per i <a href="/per-nutrizionisti/">nutrizionisti</a> che seguono i propri pazienti dentro l’app. Niente pubblicità, niente vendita di dati: la <a href="/privacy/">privacy</a> è spiegata in italiano chiaro e i dati stanno su server in Unione Europea.</p>`,
     faq: [
       ['Fitsy è davvero gratuita?', 'Sì, per le famiglie è gratuita e senza pubblicità. Il servizio per nutrizionisti è a pagamento e sostiene il progetto.'],
       ['Devo installare qualcosa?', 'No. Si usa dal browser del telefono o del computer e, se vuoi, si aggiunge alla schermata home come un’app normale. Funziona anche offline.'],
@@ -244,35 +277,91 @@ ${cta('Tieni il conto dei bicchieri senza pensarci')}
   },
 
   'per-nutrizionisti': {
-    body: ({ APP, cta }) => `
-<h1>Fitsy per nutrizionisti: i piani dei tuoi pazienti in un’app italiana</h1>
-<p class="lead">Un software per nutrizionisti serve a una cosa sola: far seguire davvero il piano al paziente, tra una visita e l’altra. Fitsy è l’app che le famiglie usano ogni giorno per decidere cosa cucinare; con il profilo professionale carichi i tuoi pazienti, assegni il piano e vedi cosa succede.</p>
-<div class="box" style="margin:18px 0"><h3>Lista d’attesa professionisti</h3><p>Il servizio per nutrizionisti è in apertura. Scrivi a <a href="mailto:info@fitsy.it?subject=Fitsy%20per%20nutrizionisti">info@fitsy.it</a> con il tuo nome e la tua città: i primi iscritti avranno il primo anno a condizioni riservate e un confronto diretto sulle funzioni.</p></div>
+    body: ({ APP, cta, phone }) => `
+<section class="hero hero-grid">
+  <div>
+    <h1>Fitsy per nutrizionisti: i tuoi pazienti in un’app italiana, in tempo reale</h1>
+    <p class="lead">Un software per nutrizionisti serve a una cosa sola: far seguire davvero il piano al paziente tra una visita e l’altra. Con Fitsy Pro vedi <strong>misure, diario dei pasti e andamenti</strong> dei tuoi pazienti mentre li inseriscono, imposti il loro target calorico e gli scrivi dall’app. Loro usano Fitsy gratis, tutti i giorni, per decidere cosa cucinare.</p>
+    <div class="btns"><a class="btn" href="${APP}">Registra il profilo professionale →</a></div>
+    <p class="note">Dall’app: accedi con Google, poi "🩺 Sei un nutrizionista?". L’attivazione è manuale e ti viene confermata via mail.</p>
+  </div>
+  <div class="phones">${phone('NUTR')}</div>
+</section>
 
-<h2>Cosa fa oggi</h2>
+<h2>Come funziona</h2>
+<ol class="passi">
+  <li><strong>Ti registri</strong> dall’app con il tuo account Google e ricevi un codice professionale (es. NUT-7K2P1A).</li>
+  <li><strong>Il paziente inserisce il tuo codice</strong> in Account → Il mio nutrizionista. Da quel momento vedi i suoi dati; può scollegarsi quando vuole.</li>
+  <li><strong>Segui e intervieni.</strong> Grafici di peso e circonferenze, pasti consumati e saltati, acqua, ricette che crea. Imposti kcal e macro: il suo piano si rigenera su quel target.</li>
+  <li><strong>Gli scrivi.</strong> Messaggistica dentro l’app, con notifica dei non letti, senza WhatsApp e senza numero di telefono.</li>
+</ol>
+
 <div class="grid">
-  <div class="box"><h3>Calcolo LARN integrato</h3><p>Fabbisogno, LAF, peso forma per costituzione e stima della massa grassa con le tabelle italiane: gli stessi criteri che usi tu, già nell’app del paziente.</p></div>
-  <div class="box"><h3>Il piano diventa un menu</h3><p>Il paziente non legge un PDF: vede ogni giorno cosa mangiare, con grammature e ricette, e la lista della spesa pronta. L’aderenza sale perché la fatica scende.</p></div>
-  <div class="box"><h3>Tutta la famiglia</h3><p>Molti tuoi pazienti cucinano per altri. Fitsy scala lo stesso piatto per ogni membro, così il piano non isola la persona a tavola.</p></div>
-  <div class="box"><h3>Misure e diario</h3><p>Peso, circonferenze, pasti consumati e idratazione registrati dal paziente, visibili a te prima della visita successiva.</p></div>
+  <div class="box"><h3>📈 Andamenti, non solo numeri</h3><p>Peso, vita, fianchi e tutte le circonferenze con grafico; stima del fabbisogno adattivo dai dati reali; target calcolato con le tabelle LARN, come fai tu.</p></div>
+  <div class="box"><h3>🎯 Target tuo, piano suo</h3><p>Decidi calorie e ripartizione dei macronutrienti: il paziente non legge un PDF, vede ogni giorno cosa mangiare con grammature e ricette, e la lista della spesa pronta.</p></div>
+  <div class="box"><h3>👨‍👩‍👧 Non isola il paziente a tavola</h3><p>Molti pazienti cucinano per altri. Fitsy scala lo stesso piatto per ogni membro della famiglia: il piano si segue perché si mangia tutti insieme.</p></div>
+  <div class="box"><h3>🔒 Dati in UE, consenso esplicito</h3><p>Il paziente sceglie di collegarsi e può revocare in un tocco. Registro dei trattamenti e procedura data breach documentati; nessun dato ceduto a terzi.</p></div>
 </div>
-
-<h2>Cosa arriva con il profilo professionale</h2>
-<ul>
-  <li>Elenco pazienti con stato di aderenza e ultime misure.</li>
-  <li>Assegnazione del piano: calorie e ripartizione dei macronutrienti decise da te, menu generato da Fitsy o ricette tue.</li>
-  <li>Ricettario dello studio condiviso con i pazienti.</li>
-  <li>Gratis per i tuoi pazienti, un canone mensile per te in base al numero di pazienti attivi.</li>
-</ul>
 
 <h2>Perché non è "l’ennesimo gestionale"</h2>
 <p>Le piattaforme come Nutrium o MetaDieta sono ottime per la parte clinica e amministrativa dello studio. Fitsy non le sostituisce: lavora sull’altra metà del problema, i 29 giorni al mese in cui il paziente è a casa e deve decidere cosa mettere in pentola. Se il tuo piano oggi finisce in un cassetto, è lì che Fitsy aiuta.</p>
-${cta('Vuoi vedere l’app dal lato del paziente?')}`,
+
+<h2>Quanto costa</h2>
+<p>Gratis per i pazienti, sempre. Per il professionista un canone mensile in base ai pazienti attivi, comunicato all’attivazione; i primi iscritti hanno il primo anno a condizioni riservate. Scrivi a <a href="mailto:info@fitsy.it?subject=Fitsy%20Pro">info@fitsy.it</a> per qualsiasi domanda.</p>
+${cta('Registra il profilo professionale')}`,
     faq: [
-      ['Quanto costa per il nutrizionista?', 'Un canone mensile in base ai pazienti attivi; i prezzi definitivi saranno comunicati agli iscritti alla lista d’attesa. Per i pazienti resta gratuita.'],
-      ['I dati dei pazienti dove stanno?', 'Su server in Unione Europea, con registro dei trattamenti e procedura data breach documentati. L’informativa è pubblica nell’app.'],
-      ['Posso inserire le mie ricette e i miei alimenti?', 'Sì: ingredienti personalizzati con valori nutrizionali e ricette con calcolo automatico delle calorie.'],
+      ['Devo avere anche io una scheda Fitsy?', 'No. L’account professionale è separato: dopo il login vedi solo l’area nutrizionista con i tuoi pazienti, i loro dati e i messaggi.'],
+      ['Il paziente deve pagare qualcosa?', 'No, Fitsy è e resta gratuita per i pazienti e le loro famiglie.'],
+      ['Posso modificare il piano del paziente piatto per piatto?', 'Oggi imposti il target (kcal e macro) e una nota, e il piano si rigenera su quelle basi; il paziente può aggiungere le tue ricette nel suo ricettario. L’assegnazione del singolo piatto è in sviluppo.'],
+      ['I dati dei pazienti dove stanno?', 'Su server in Unione Europea. Il paziente vede chi lo segue e può scollegarsi in qualsiasi momento; scollegandosi il target torna al calcolo automatico.'],
     ],
+  },
+};
+
+// ── Pagine legali del sito (il sito è statico: nessun cookie, nessun tracker) ──
+export const LEGALI = {
+  privacy: {
+    title: 'Privacy policy del sito www.fitsy.it',
+    description: 'Informativa privacy del sito www.fitsy.it: quali dati vengono trattati navigando il sito, da chi e per quanto. Nessun cookie di profilazione, nessun tracker.',
+    body: ({ APP }) => `<article class="legal">
+<h1>Privacy policy del sito www.fitsy.it</h1>
+<p class="lead">Informativa ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR) per chi consulta il sito www.fitsy.it. L’informativa dell’<strong>app</strong> Fitsy (account, dati di famiglia, misure) è separata e si trova <a href="${APP}privacy.html">qui</a>.</p>
+<h2>1. Titolare del trattamento</h2>
+<p>Aureliano Procacci, persona fisica, email <a href="mailto:aurelianoprocacci@gmail.com">aurelianoprocacci@gmail.com</a>. Per domande sul sito: <a href="mailto:info@fitsy.it">info@fitsy.it</a>.</p>
+<h2>2. Quali dati tratta il sito</h2>
+<p><strong>Il sito non raccoglie dati personali durante la navigazione.</strong> Non usa cookie di profilazione, strumenti di analisi del traffico (es. Google Analytics), pixel o pulsanti social. Le pagine sono statiche. I calcolatori (fabbisogno calorico, peso forma, acqua) funzionano interamente nel tuo browser: i valori che inserisci non vengono inviati a nessun server.</p>
+<p><strong>Log del server.</strong> Il fornitore di hosting (Aruba S.p.A., Italia) registra automaticamente, per esigenze tecniche e di sicurezza, l’indirizzo IP, data e ora della richiesta, la pagina richiesta, il browser utilizzato. Questi log sono conservati dal fornitore per i tempi previsti dalla sua policy e non sono usati dal Titolare per identificare i visitatori.</p>
+<p><strong>Email.</strong> Se ci scrivi (info@fitsy.it, mailto nella pagina nutrizionisti), trattiamo il tuo indirizzo e il contenuto del messaggio per risponderti. Base giuridica: esecuzione di misure precontrattuali o legittimo interesse a rispondere. Conservazione: il tempo necessario a gestire la richiesta, al massimo 24 mesi.</p>
+<h2>3. Link verso l’app</h2>
+<p>I pulsanti "Apri l’app" portano a ${APP}, dove si applica l’<a href="${APP}privacy.html">informativa dell’app</a>: lì, se scegli di creare un account, vengono trattati i dati che inserisci (profili, misure, pasti), con consenso esplicito e possibilità di cancellare tutto in un’unica operazione.</p>
+<h2>4. Destinatari e trasferimenti</h2>
+<p>Hosting: Aruba S.p.A. (server in Italia), in qualità di responsabile del trattamento per i log tecnici. Nessun altro destinatario. Nessun trasferimento verso Paesi extra-UE.</p>
+<h2>5. I tuoi diritti</h2>
+<p>Hai diritto di accesso, rettifica, cancellazione, limitazione, opposizione e portabilità (artt. 15–22 GDPR) e di proporre reclamo al Garante per la protezione dei dati personali (www.garanteprivacy.it). Per esercitarli scrivi a <a href="mailto:aurelianoprocacci@gmail.com">aurelianoprocacci@gmail.com</a>.</p>
+<h2>6. Minori</h2>
+<p>Il sito non è rivolto a minori di 14 anni e non raccoglie consapevolmente dati di minori. Nell’app i profili dei bambini sono creati e gestiti dal genitore.</p>
+<h2>7. Aggiornamenti</h2>
+<p>Ultimo aggiornamento: 3 novembre 2026. Le modifiche vengono pubblicate su questa pagina.</p>
+</article>`,
+  },
+  cookie: {
+    title: 'Cookie policy di www.fitsy.it',
+    description: 'Il sito www.fitsy.it non usa cookie di profilazione né di terze parti. Elenco completo di ciò che viene memorizzato nel browser e perché.',
+    body: ({ APP }) => `<article class="legal">
+<h1>Cookie policy di www.fitsy.it</h1>
+<p class="lead">Informativa resa ai sensi del provvedimento del Garante privacy del 10 giugno 2021 sulle "Linee guida cookie e altri strumenti di tracciamento".</p>
+<h2>Cookie usati dal sito</h2>
+<p><strong>Nessuno.</strong> Il sito non installa cookie, né propri né di terze parti, né tecnici né di profilazione. Non ci sono servizi di analisi del traffico, mappe incorporate, video esterni, pulsanti social o pubblicità.</p>
+<h2>Cosa viene memorizzato nel browser</h2>
+<table class="tabella"><tr><th>Nome</th><th>Tipo</th><th>Scopo</th><th>Durata</th></tr>
+<tr><td><code>fitsy-cn</code></td><td>localStorage (tecnico)</td><td>Ricorda che hai chiuso l’avviso informativo in fondo alla pagina, per non mostrarlo di nuovo.</td><td>Fino a cancellazione manuale</td></tr></table>
+<p>Si tratta di un dato tecnico, memorizzato solo sul tuo dispositivo, non trasmesso al server e non riconducibile a te. Per questo non è richiesto il consenso (art. 122 Codice privacy). Puoi cancellarlo dalle impostazioni del browser.</p>
+<h2>E l’app?</h2>
+<p>L’app su ${APP} memorizza nel browser i tuoi dati di piano, spesa e misure per funzionare anche offline, e la sessione di accesso se scegli di collegare l’account Google. Tutto è descritto nell’<a href="${APP}privacy.html">informativa dell’app</a>, che chiede il consenso esplicito prima di trattare qualsiasi dato personale sul cloud.</p>
+<h2>Se in futuro cambierà</h2>
+<p>Se il sito dovesse adottare strumenti di misurazione del traffico, questa pagina verrà aggiornata e, ove richiesto, verrà chiesto il consenso preventivo con un banner conforme (rifiuto facile quanto l’accettazione, nessun cookie non tecnico prima della scelta).</p>
+<p>Ultimo aggiornamento: 3 novembre 2026.</p>
+</article>`,
   },
 };
 

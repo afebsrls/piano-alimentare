@@ -97,6 +97,12 @@ node ./.t3.mjs || FAIL=1
 rm -f ./.t3.mjs
 
 echo ""
+echo "▸ TEST 5 — Nutrizionista, scheda persona, plancia admin (montaggio + target imposto)"
+"$EB" test/test_pro.mjs --bundle --format=esm --outfile=./.tpro.mjs "--alias:@=$ROOT/src" --loader:.jsx=jsx --loader:.json=json --packages=external --log-level=error
+node ./.tpro.mjs || FAIL=1
+rm -f ./.tpro.mjs
+
+echo ""
 echo "▸ TEST 4 — Sito pubblico: generazione + calcolatori (LARN, Grant, acqua)"
 node site/build.mjs >/dev/null && node test/test_sito.mjs || FAIL=1
 

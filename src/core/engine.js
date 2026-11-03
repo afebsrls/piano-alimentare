@@ -1623,6 +1623,18 @@ export function calcTargetAdattivo(p, misurePersona) {
     });
   } catch {}
 
+  // Target imposto dal nutrizionista: ha la precedenza su tutto il calcolo.
+  // (p.targetNutrizionista = {kcal,p,c,g,nota} scritto via RPC dal professionista)
+  const tn = p.targetNutrizionista;
+  if (tn && +tn.kcal > 0) {
+    const k = Math.round(+tn.kcal);
+    const pr = +tn.p > 0 ? Math.round(+tn.p) : prot;
+    const gr = +tn.g > 0 ? Math.round(+tn.g) : Math.round((k * 0.28) / 9);
+    const ca = +tn.c > 0 ? Math.round(+tn.c) : Math.max(50, Math.round((k - pr * 4 - gr * 9) / 4));
+    return { kcal: k, p: pr, c: ca, g: gr, confidenza, tdeeMifflin, tdeeFinale, pctGrasso, usaTDEEAdattivo, usaKatchMcArdle, larnInfo, adattivoInfo,
+             noteObiettivo: "Impostato dal nutrizionista" + (tn.nota ? ": " + tn.nota : ""), nMisure: recs.length, daNutrizionista: true };
+  }
+
   return {
     kcal,
     p: prot,

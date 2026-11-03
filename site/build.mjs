@@ -4,7 +4,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE, APP, PAGES, ARTICOLI } from './src/keywords.mjs';
-import { CONTENUTI, ARTICOLI_HTML } from './src/contenuti.mjs';
+import { CONTENUTI, ARTICOLI_HTML, LEGALI } from './src/contenuti.mjs';
+import * as MOCK from './src/mockups.mjs';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const OUT = path.join(__dirname, 'dist');
@@ -17,6 +18,7 @@ const TOOLS_JS = fs.readFileSync(path.join(__dirname, 'src/tools.js'), 'utf8');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const url = (slug) => slug ? `${SITE}/${slug}/` : `${SITE}/`;
 
+const phone = (name, cls = '') => `<div class="phone ${cls}">${MOCK[name]}</div>`;
 const LOGO = `<a class="logo" href="/" aria-label="Fitsy">f<span>i</span>tsy</a>`;
 const NAV = `
 <nav class="nav">
@@ -69,10 +71,15 @@ ${body}
       <a href="/peso-forma-calcolo/">Peso forma</a><br>
       <a href="/quanta-acqua-bere-al-giorno/">Acqua al giorno</a></div>
     <div><strong>Guide</strong><br>${ARTICOLI.map(a => `<a href="/${a.slug}/">${esc(a.title)}</a>`).join('<br>')}</div>
-    <div><strong>Info</strong><br><a href="/per-nutrizionisti/">Per nutrizionisti</a><br><a href="${APP}privacy.html">Privacy</a><br><a href="mailto:info@fitsy.it">info@fitsy.it</a></div>
+    <div><strong>Info</strong><br><a href="/per-nutrizionisti/">Per nutrizionisti</a><br><a href="/privacy/">Privacy policy</a><br><a href="/cookie/">Cookie policy</a><br><a href="${APP}privacy.html">Privacy dell’app</a><br><a href="mailto:info@fitsy.it">info@fitsy.it</a></div>
   </div>
   <div class="fine">© ${new Date().getFullYear()} Fitsy · I calcolatori forniscono stime indicative e non sostituiscono il parere di un medico o di un nutrizionista.</div>
 </div></footer>
+<div id="cn" class="cn" role="region" aria-label="Informativa cookie" hidden>
+  <div>Questo sito <strong>non usa cookie di profilazione</strong> né strumenti di tracciamento: nessun dato viene raccolto mentre lo consulti. I calcolatori funzionano nel tuo browser e non inviano nulla. <a href="/cookie/">Cookie policy</a> · <a href="/privacy/">Privacy</a></div>
+  <button id="cn-ok" type="button">Ho capito</button>
+</div>
+<script>(function(){try{if(localStorage.getItem('fitsy-cn')==='1')return;}catch(e){}var b=document.getElementById('cn');if(!b)return;b.hidden=false;document.getElementById('cn-ok').onclick=function(){b.hidden=true;try{localStorage.setItem('fitsy-cn','1');}catch(e){}};})();</script>
 </body>
 </html>`;
 }
@@ -108,8 +115,13 @@ for (const p of PAGES) {
     applicationCategory: 'HealthApplication', operatingSystem: 'Web', browserRequirements: 'Requires JavaScript',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, url: url(p.slug), inLanguage: 'it',
   });
-  const body = `${c.body({ esc, APP, cta: ctaHtml })}${faqHtml(c.faq)}${p.tipo === 'tool' ? `<script>${TOOLS_JS}</script>` : ''}`;
+  const body = `${c.body({ esc, APP, cta: ctaHtml, phone })}${faqHtml(c.faq)}${p.tipo === 'tool' ? `<script>${TOOLS_JS}</script>` : ''}`;
   writePage(p.slug, layout({ ...p, body, schema }));
+}
+
+// ── Pagine legali ──
+for (const [slug, l] of Object.entries(LEGALI)) {
+  writePage(slug, layout({ title: l.title, description: l.description, slug, body: l.body({ esc, APP }) }));
 }
 
 // ── Blog: indice + articoli ──
@@ -122,7 +134,7 @@ for (const a of ARTICOLI) {
     author: { '@type': 'Organization', name: 'Fitsy' }, publisher: { '@type': 'Organization', name: 'Fitsy' },
     mainEntityOfPage: url(a.slug),
   }];
-  const body = `<article class="art"><p class="crumb"><a href="/blog/">Guide</a> · ${new Date(a.data).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}</p>${html({ esc, APP, cta: ctaHtml })}</article>`;
+  const body = `<article class="art"><p class="crumb"><a href="/blog/">Guide</a> · ${new Date(a.data).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}</p>${html({ esc, APP, cta: ctaHtml, phone })}</article>`;
   writePage(a.slug, layout({ ...a, body, schema, type: 'article', datePublished: a.data }));
 }
 writePage('blog', layout({
@@ -134,7 +146,7 @@ writePage('blog', layout({
 }));
 
 // ── File di servizio ──
-const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : '0.8', mod: '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.data }))];
+const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : '0.8', mod: '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...Object.keys(LEGALI).map(slug => ({ slug, pri: '0.3', mod: '2026-11-03' })), ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.data }))];
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${tutte.map(u => `  <url><loc>${url(u.slug)}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority></url>`).join('\n')}

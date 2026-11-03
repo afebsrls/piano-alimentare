@@ -15,7 +15,7 @@ const { useState } = React;
 
 // Versione dell'informativa: alzarla (nuova data) quando cambia la
 // SOSTANZA del trattamento → il gate richiede un nuovo consenso a tutti.
-export const PRIVACY_VERSIONE = "2026-07-04";
+export const PRIVACY_VERSIONE = "2026-11-03";
 
 // Helper PURO (testabile): serve mostrare il gate di consenso?
 // true se il record manca, è malformato, è stato revocato, o è di una
@@ -91,6 +91,7 @@ const SEZIONI = [
       "Supabase Inc. agisce come responsabile del trattamento (hosting del database in UE, accordo di trattamento dati sottoscritto).",
       "Google LLC interviene esclusivamente per l'autenticazione: quando scegli \u201cAccedi con Google\u201d, il flusso di login avviene sui sistemi di Google secondo la loro informativa.",
       "I membri della tua famiglia vedono i dati condivisi del nucleo (piano, spesa, ricette, profili) secondo il modello di accesso dell'App: ciascun membro può modificare solo i propri dati.",
+      "Nutrizionista collegato (facoltativo). Se inserisci il codice di un nutrizionista in Account → Il mio nutrizionista, quel professionista (titolare autonomo del trattamento per la propria attività) vede il tuo profilo, le misure, il diario dei pasti e le ricette, può impostare il tuo target calorico e scambiare messaggi con te nell'App. Base giuridica: il tuo consenso, espresso con il collegamento. Puoi scollegarti in qualsiasi momento: il nutrizionista perde l'accesso ai tuoi dati e il target torna al calcolo automatico. I messaggi restano visibili a entrambe le parti.",
       "Nessun altro soggetto riceve i tuoi dati. Nessun trasferimento extra-UE è effettuato dal Titolare.",
     ],
   },
