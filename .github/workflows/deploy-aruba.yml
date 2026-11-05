@@ -70,7 +70,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with: { name: site, path: site/dist/ }
       - name: Upload FTP → menudieta.it/ (non tocca /app/)
-        id: ftp1
+        id: ftp2
         continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -85,7 +85,7 @@ jobs:
           exclude: |
             app/**
       - name: Upload FTP → menudieta.it/ (non tocca /app/) (2° tentativo, se il primo è fallito per FTP instabile)
-        if: steps.ftp1.outcome == 'failure'
+        if: steps.ftp2.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.MENUDIETA_FTP_HOST }}
@@ -108,7 +108,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with: { name: app, path: dist/ }
       - name: Upload FTP → fitsy.it/app/
-        id: ftp1
+        id: ftp3
         continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -120,7 +120,7 @@ jobs:
           server-dir: www.fitsy.it/app/
           dangerous-clean-slate: false
       - name: Upload FTP → fitsy.it/app/ (2° tentativo, se il primo è fallito per FTP instabile)
-        if: steps.ftp1.outcome == 'failure'
+        if: steps.ftp3.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.ARUBA_FTP_HOST }}
@@ -131,7 +131,7 @@ jobs:
           server-dir: www.fitsy.it/app/
           dangerous-clean-slate: false
       - name: Upload FTP → fitsy.it/ (.htaccess di redirect)
-        id: ftp1
+        id: ftp4
         continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -146,7 +146,7 @@ jobs:
           exclude: |
             app/**
       - name: Upload FTP → fitsy.it/ (.htaccess di redirect) (2° tentativo, se il primo è fallito per FTP instabile)
-        if: steps.ftp1.outcome == 'failure'
+        if: steps.ftp4.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.ARUBA_FTP_HOST }}
