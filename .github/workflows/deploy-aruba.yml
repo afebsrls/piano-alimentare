@@ -40,6 +40,19 @@ jobs:
       - uses: actions/download-artifact@v4
         with: { name: app, path: dist/ }
       - name: Upload FTP → menudieta.it/app/
+        id: ftp1
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.MENUDIETA_FTP_HOST }}
+          username: ${{ secrets.MENUDIETA_FTP_USER }}
+          password: ${{ secrets.MENUDIETA_FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: dist/
+          server-dir: www.menudieta.it/app/
+          dangerous-clean-slate: false
+      - name: Upload FTP → menudieta.it/app/ (2° tentativo, se il primo è fallito per FTP instabile)
+        if: steps.ftp1.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.MENUDIETA_FTP_HOST }}
@@ -57,6 +70,22 @@ jobs:
       - uses: actions/download-artifact@v4
         with: { name: site, path: site/dist/ }
       - name: Upload FTP → menudieta.it/ (non tocca /app/)
+        id: ftp1
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.MENUDIETA_FTP_HOST }}
+          username: ${{ secrets.MENUDIETA_FTP_USER }}
+          password: ${{ secrets.MENUDIETA_FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: site/dist/
+          server-dir: www.menudieta.it/
+          state-name: .ftp-deploy-sync-state-site.json
+          dangerous-clean-slate: false
+          exclude: |
+            app/**
+      - name: Upload FTP → menudieta.it/ (non tocca /app/) (2° tentativo, se il primo è fallito per FTP instabile)
+        if: steps.ftp1.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.MENUDIETA_FTP_HOST }}
@@ -79,6 +108,19 @@ jobs:
       - uses: actions/download-artifact@v4
         with: { name: app, path: dist/ }
       - name: Upload FTP → fitsy.it/app/
+        id: ftp1
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.ARUBA_FTP_HOST }}
+          username: ${{ secrets.ARUBA_FTP_USER }}
+          password: ${{ secrets.ARUBA_FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: dist/
+          server-dir: www.fitsy.it/app/
+          dangerous-clean-slate: false
+      - name: Upload FTP → fitsy.it/app/ (2° tentativo, se il primo è fallito per FTP instabile)
+        if: steps.ftp1.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.ARUBA_FTP_HOST }}
@@ -89,6 +131,22 @@ jobs:
           server-dir: www.fitsy.it/app/
           dangerous-clean-slate: false
       - name: Upload FTP → fitsy.it/ (.htaccess di redirect)
+        id: ftp1
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.ARUBA_FTP_HOST }}
+          username: ${{ secrets.ARUBA_FTP_USER }}
+          password: ${{ secrets.ARUBA_FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: deploy/fitsy-redirect/
+          server-dir: www.fitsy.it/
+          state-name: .ftp-deploy-sync-state-site.json
+          dangerous-clean-slate: false
+          exclude: |
+            app/**
+      - name: Upload FTP → fitsy.it/ (.htaccess di redirect) (2° tentativo, se il primo è fallito per FTP instabile)
+        if: steps.ftp1.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.ARUBA_FTP_HOST }}
