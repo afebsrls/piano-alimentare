@@ -1,18 +1,28 @@
 # MenuDieta — sito pubblico (root). L'app sta in /app/ con il suo .htaccess.
 DirectoryIndex index.html
 Options -Indexes
+# La redirect "/pagina → /pagina/" la facciamo noi qui sotto con https esplicito:
+# quella automatica di Apache, dietro il proxy SSL di Aruba, rimandava a http://
+DirectorySlash Off
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  # un solo indirizzo canonico: https://www.menudieta.it
-  RewriteCond %{HTTP_HOST} ^fitsy\.it$ [NC]
+  # un solo indirizzo canonico: https://www.menudieta.it (niente http, niente senza www, niente fitsy)
+  RewriteCond %{HTTP_HOST} !^www\.menudieta\.it$ [NC]
   RewriteRule ^(.*)$ https://www.menudieta.it/$1 [R=301,L]
   RewriteCond %{HTTP:X-Forwarded-Proto} =http
   RewriteRule ^(.*)$ https://www.menudieta.it/$1 [R=301,L]
-  # /pagina → /pagina/ (cartelle con index.html)
+  # /pagina → /pagina/ (cartelle con index.html), in un solo salto e già su https
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteCond %{REQUEST_URI} !/$
-  RewriteRule ^(.*)$ /$1/ [R=301,L]
+  RewriteRule ^(.*)$ https://www.menudieta.it/$1/ [R=301,L]
+  # /pagina/index.html → /pagina/ (evita URL doppi)
+  RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+  RewriteRule ^(.*/)?index\.html$ https://www.menudieta.it/$1 [R=301,L]
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript application/json image/svg+xml
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -22,5 +32,7 @@ Options -Indexes
   <FilesMatch "\.(html|xml|txt)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
-ErrorDocument 404 /index.html
+ErrorDocument 404 /404.html

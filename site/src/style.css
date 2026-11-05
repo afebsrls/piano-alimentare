@@ -90,3 +90,7 @@ p{margin:0 0 1em}
 .waitlist .wl-msg{font-size:13px;color:var(--muted);margin-top:8px}
 .waitlist .wl-ok{font-size:17px;color:var(--verde);font-weight:700;margin:0}
 .hp{position:absolute;left:-9999px}
+
+.stagione{font-size:17px;line-height:1.9}
+.tabella td.si{color:var(--verde,#2F6B3A);text-align:center}
+.card.ora{border-color:#2F6B3A;box-shadow:0 0 0 2px #C7F23E inset}

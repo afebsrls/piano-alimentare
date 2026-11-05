@@ -22,7 +22,7 @@ export const PAGES = [
     intento: 'cercano uno strumento gratuito che decida cosa cucinare per tutta la famiglia',
     concorrenti: 'raccolte di app (aranzulla, trend-online), schede App Store di app straniere',
     title: 'MenuDieta – App gratuita per il piano alimentare settimanale della famiglia',
-    description: 'MenuDieta genera il menu settimanale per tutta la famiglia con porzioni per ciascuno, lista della spesa automatica e ricette di stagione. Gratis, senza pubblicità.',
+    description: 'MenuDieta crea il menu settimanale per tutta la famiglia con porzioni per ciascuno, lista della spesa automatica e ricette di stagione. Gratis, senza pubblicità.',
     tipo: 'home',
   },
   {

@@ -6,7 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { SITE, APP, PAGES, ARTICOLI } from './src/keywords.mjs';
 import { CONTENUTI, ARTICOLI_HTML, LEGALI } from './src/contenuti.mjs';
 import * as MOCK from './src/mockups.mjs';
-import { ALIMENTI, RICETTE, paginaAlimento, indiceAlimenti, paginaRicetta, indiceRicette } from './src/generati.mjs';
+import { ALIMENTI, RICETTE, DATA_MOD, paginaAlimento, indiceAlimenti, paginaRicetta, indiceRicette } from './src/generati.mjs';
+import { paginaMese, indiceStagioni } from './src/stagioni.mjs';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const OUT = path.join(__dirname, 'dist');
@@ -35,12 +36,13 @@ const NAV = `
   <a href="/calcolo-fabbisogno-calorico/">Calcolatori</a>
   <a href="/ricette/">Ricette</a>
   <a href="/alimenti/">Alimenti</a>
+  <a href="/frutta-verdura-di-stagione/">Di stagione</a>
   <a href="/blog/">Guide</a>
   <a href="/per-nutrizionisti/">Nutrizionisti</a>
   <a class="cta" href="${APP}">Apri l’app</a>
 </nav>`;
 
-function layout({ title, description, slug, body, schema = [], type = 'website', datePublished }) {
+function layout({ title, description, slug, body, schema = [], type = 'website', datePublished, noindex = false }) {
   const canonical = url(slug);
   const ld = [
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'MenuDieta', legalName: 'AF&B S.r.l.s.', url: SITE, logo: `${SITE}/icon.svg`, email: 'info@menudieta.it', vatID: 'IT13698751008', address: { '@type': 'PostalAddress', streetAddress: 'Via Mario Ugo Guattari 48', postalCode: '00173', addressLocality: 'Roma', addressRegion: 'RM', addressCountry: 'IT' } },
@@ -62,7 +64,10 @@ function layout({ title, description, slug, body, schema = [], type = 'website',
 <meta property="og:site_name" content="MenuDieta">
 <meta property="og:locale" content="it_IT">
 <meta property="og:image" content="${SITE}/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+${noindex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robots" content="index,follow,max-image-preview:large">'}
 ${datePublished ? `<meta property="article:published_time" content="${datePublished}">` : ''}
 <meta name="theme-color" content="#15251C">
 <style>${CSS}</style>
@@ -79,7 +84,10 @@ ${body}
     <div><strong>Strumenti gratuiti</strong><br>
       <a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a><br>
       <a href="/peso-forma-calcolo/">Peso forma</a><br>
-      <a href="/quanta-acqua-bere-al-giorno/">Acqua al giorno</a></div>
+      <a href="/quanta-acqua-bere-al-giorno/">Acqua al giorno</a><br>
+      <a href="/frutta-verdura-di-stagione/">Frutta e verdura di stagione</a><br>
+      <a href="/alimenti/">Calorie degli alimenti</a><br>
+      <a href="/ricette/">Ricette con porzioni</a></div>
     <div><strong>Guide</strong><br>${ARTICOLI.map(a => `<a href="/${a.slug}/">${esc(a.title)}</a>`).join('<br>')}</div>
     <div><strong>Info</strong><br><a href="/per-nutrizionisti/">Per nutrizionisti</a><br><a href="/privacy/">Privacy policy</a><br><a href="/cookie/">Cookie policy</a><br><a href="${APP}privacy.html">Privacy dell’app</a><br><a href="mailto:info@menudieta.it">info@menudieta.it</a></div>
   </div>
@@ -162,12 +170,24 @@ for (const a of ALIMENTI) { const pg = paginaAlimento(a, ctx); writePage(pg.slug
 for (const r of RICETTE) { const pg = paginaRicetta(r, ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema] })); gen.push(pg.slug); }
 { const pg = indiceAlimenti(ctx); writePage(pg.slug, layout(pg)); }
 { const pg = indiceRicette(ctx); writePage(pg.slug, layout(pg)); }
-const OGGI = new Date().toISOString().slice(0, 10);
+
+// ── Pagine stagionalità: 12 mesi + calendario ──
+const stag = [];
+for (let m = 1; m <= 12; m++) { const pg = paginaMese(m, { ...ctx, RICETTE }); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema] })); stag.push(pg.slug); }
+{ const pg = indiceStagioni(ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: faqSchema(pg.faq) })); }
+
+// ── Pagina 404 vera (status 404 dal server, vedi .htaccess) ──
+fs.writeFileSync(path.join(OUT, '404.html'), layout({
+  title: 'Pagina non trovata – MenuDieta', description: 'La pagina che cercavi non esiste o è stata spostata.', slug: '404', noindex: true,
+  body: `<h1>Pagina non trovata</h1><p class="lead">L’indirizzo non esiste o è cambiato. Prova da qui:</p>
+<ul><li><a href="/">Home di MenuDieta</a></li><li><a href="/menu-settimanale-famiglia/">Menu settimanale per la famiglia</a></li><li><a href="/ricette/">Ricette con calorie e porzioni</a></li><li><a href="/alimenti/">Calorie degli alimenti</a></li><li><a href="/frutta-verdura-di-stagione/">Frutta e verdura di stagione</a></li><li><a href="/calcolo-fabbisogno-calorico/">Calcolatori gratuiti</a></li></ul>${ctaHtml()}`,
+}));
+const OGGI = DATA_MOD; // data vera dell'ultima modifica dei dati, non del build
 fs.writeFileSync(path.join(OUT, 'sitemap-alimenti.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['alimenti', ...gen.filter(g => g.startsWith('alimenti/'))].map(g => `  <url><loc>${url(g)}</loc><lastmod>${OGGI}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 fs.writeFileSync(path.join(OUT, 'sitemap-ricette.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['ricette', ...gen.filter(g => g.startsWith('ricette/'))].map(g => `  <url><loc>${url(g)}</loc><lastmod>${OGGI}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 
 // ── File di servizio ──
-const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : '0.8', mod: '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...Object.keys(LEGALI).map(slug => ({ slug, pri: '0.3', mod: '2026-11-03' })), ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.data }))];
+const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : '0.8', mod: '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...Object.keys(LEGALI).map(slug => ({ slug, pri: '0.3', mod: '2026-11-03' })), ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.data })), { slug: 'frutta-verdura-di-stagione', pri: '0.8', mod: DATA_MOD }, ...stag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD }))];
 fs.writeFileSync(path.join(OUT, 'sitemap-pagine.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${tutte.map(u => `  <url><loc>${url(u.slug)}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority></url>`).join('\n')}
@@ -185,4 +205,4 @@ fs.copyFileSync(path.join(__dirname, 'src/htaccess-root'), path.join(OUT, '.htac
 fs.copyFileSync(path.join(__dirname, 'src/icon.svg'), path.join(OUT, 'icon.svg'));
 fs.copyFileSync(path.join(__dirname, 'src/og.png'), path.join(OUT, 'og.png'));
 
-console.log(`[site] generate ${tutte.length + gen.length + 2} pagine in site/dist/ (${gen.length} alimenti+ricette)`);
+console.log(`[site] generate ${tutte.length + gen.length + 3} pagine in site/dist/ (${gen.length} alimenti+ricette)`);
