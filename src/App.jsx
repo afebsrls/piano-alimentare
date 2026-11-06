@@ -88,6 +88,7 @@ function DayCarousel({ selOffset, onSelect, color }) {
 
 export function App() {
   const [page, setPage]               = useState("oggi");
+  const [kitPubblico, setKitPubblico] = useState(() => { try { return new URLSearchParams(window.location.search).get('kit') === '1'; } catch { return false; } });
   const [menuOpen, setMenuOpen]       = useState(false);  // bottom-sheet del menu secondario
   const [selOffset, setSelOffset]     = useState(0);   // giorno selezionato relativo a OGGI (−14…+14, 0 = oggi)
   const [selPersonaId, setSelPersonaId] = useState(null);
@@ -996,8 +997,26 @@ export function App() {
     );
   }
 
+  // Calcolatore di emergenza fuori dal login: /app/?kit=1 (o link dall'onboarding)
+  if (booted && personas.length === 0 && kitPubblico) {
+    return (
+      <div style={{minHeight:"100vh",background:"#F3F7F0"}}>
+        <div style={{background:"linear-gradient(120deg,#15251C 0%,#1D3A28 100%)",padding:"13px 18px",paddingTop:"calc(13px + env(safe-area-inset-top,0px))"}}>
+          <div style={{maxWidth:980,margin:"0 auto",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+            <div style={{fontSize:26,fontWeight:800,color:"#F5F8F1",fontFamily:"'Outfit',sans-serif",lineHeight:1,letterSpacing:-1}}>menu<span style={{color:"#C7F23E"}}>dieta</span> <span style={{fontSize:12,color:"#9DB1A2",letterSpacing:0,fontWeight:700}}>CALCOLATORE DI EMERGENZA</span></div>
+            <button onClick={()=>{ setKitPubblico(false); try { history.replaceState(null, "", window.location.pathname); } catch {} }}
+              style={{background:"transparent",color:"#C7F23E",border:"1px solid #C7F23E55",borderRadius:8,padding:"6px 12px",fontWeight:700,fontSize:12,cursor:"pointer"}}>Entra nell’app</button>
+          </div>
+        </div>
+        <div style={{maxWidth:980,margin:"0 auto"}}>
+          <ErrorBoundary onReset={()=>window.location.reload()}><KitEmergenzaPage personas={[]}/></ErrorBoundary>
+          <div style={{textAlign:"center",padding:"0 14px 40px",fontSize:12,color:"#6E8576",lineHeight:1.6}}>Nessun account richiesto. Nell’app completa, il kit parte già dai membri della tua famiglia e tiene a mente cosa hai comprato.</div>
+        </div>
+      </div>
+    );
+  }
   if (booted && personas.length === 0) {
-    return <Onboarding onComplete={completaOnboarding}/>;
+    return <Onboarding onComplete={completaOnboarding} onKit={()=>setKitPubblico(true)}/>;
   }
   if (!booted) {
     return <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#EFF3EC",fontSize:32}}>🥗</div>;

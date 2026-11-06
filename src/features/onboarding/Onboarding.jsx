@@ -9,7 +9,7 @@ import { PersonaForm } from '@/features/famiglia/FamigliaPage';
 import { RegistrazioneNutrizionista } from '@/features/pro/NutrizionistaPage';
 import { NUTRIZIONISTI_ATTIVI } from '@/core/flags';
 
-export function Onboarding({ onComplete }) {
+export function Onboarding({ onComplete, onKit }) {
   const [session, setSession] = useState(null);
   const [pro, setPro] = useState(false);   // registrazione nutrizionista
   const [step, setStep]       = useState(cloudEnabled ? 1 : 2);
@@ -53,6 +53,12 @@ export function Onboarding({ onComplete }) {
               style={{marginTop:12,border:"none",background:"transparent",color:"#9DB1A2",fontSize:12,fontWeight:700,cursor:"pointer",textDecoration:"underline"}}>
               Continua senza account
             </button>
+            {onKit && (
+              <button onClick={onKit}
+                style={{marginTop:14,width:"100%",padding:"11px",borderRadius:12,border:"1.5px solid #E7EDE2",background:"#F8FAF6",color:"#15251C",fontSize:12.5,fontWeight:800,cursor:"pointer"}}>
+                🎒 Calcolatore di emergenza · senza account
+              </button>
+            )}
           </div>
         ) : (
           pro ? (
