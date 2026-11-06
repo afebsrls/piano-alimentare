@@ -42,6 +42,7 @@ const NAV = `
   <a href="/alimenti/">Alimenti</a>
   <a href="/frutta-verdura-di-stagione/">Di stagione</a>
   <a href="/blog/">Guide</a>
+  <a href="/kit-di-emergenza/">🎒 Kit emergenza</a>
   <a href="/per-nutrizionisti/">Nutrizionisti</a>
   <a class="cta" href="${APP}">Apri l’app</a>
 </nav>`;

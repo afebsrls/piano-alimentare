@@ -88,6 +88,7 @@ function DayCarousel({ selOffset, onSelect, color }) {
 
 export function App() {
   const [page, setPage]               = useState("oggi");
+  const [kitCardChiusa, setKitCardChiusa] = useState(() => { try { return localStorage.getItem("kit_card_chiusa") === "1"; } catch { return false; } });
   const [kitPubblico, setKitPubblico] = useState(() => { try { return new URLSearchParams(window.location.search).get('kit') === '1'; } catch { return false; } });
   const [menuOpen, setMenuOpen]       = useState(false);  // bottom-sheet del menu secondario
   const [selOffset, setSelOffset]     = useState(0);   // giorno selezionato relativo a OGGI (−14…+14, 0 = oggi)
@@ -1077,6 +1078,18 @@ export function App() {
         {/* PIANO */}
         {cloudStatus.inFamily && !cloudMigrated && personas.length>1 && (
           <MigrationWizard personas={personas} onDone={()=>setCloudMigrated(true)}/>
+        )}
+        {page==="oggi"&&!kitCardChiusa&&(
+          <div style={{maxWidth:980,margin:"12px auto 0",padding:"0 14px"}}>
+            <div style={{display:"flex",alignItems:"center",gap:10,background:"#15251C",borderRadius:14,padding:"11px 12px"}}>
+              <span style={{fontSize:24}}>🎒</span>
+              <button onClick={()=>setPage("kit")} style={{flex:1,textAlign:"left",border:"none",background:"none",color:"#F4F7EF",cursor:"pointer",padding:0}}>
+                <div style={{fontWeight:800,fontSize:13.5,color:"#C7F23E"}}>Kit di emergenza 72 ore</div>
+                <div style={{fontSize:11.5,opacity:.85}}>Acqua, cibo e luce per la tua famiglia: genera la lista →</div>
+              </button>
+              <button aria-label="Chiudi" onClick={()=>{ setKitCardChiusa(true); try { localStorage.setItem("kit_card_chiusa","1"); } catch {} }} style={{border:"none",background:"none",color:"#9DB1A2",fontSize:18,cursor:"pointer"}}>×</button>
+            </div>
+          </div>
         )}
         {page==="oggi"&&(
           <OggiPage

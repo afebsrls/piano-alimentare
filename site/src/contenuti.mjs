@@ -52,6 +52,7 @@ const menuEsempio = () => `
 export const CONTENUTI = {
   home: {
     body: ({ APP, cta, phone }) => `
+<a class="avviso-kit" href="/kit-di-emergenza/"><span>🎒</span><span><strong>Nuovo: calcolatore del kit di emergenza 72 ore.</strong> Acqua, cibo, luce e farmaci con le quantità giuste per la tua famiglia, gratis e senza account →</span></a>
 <section class="hero hero-grid">
   <div>
     <h1>MenuDieta, l’app gratuita per il piano alimentare settimanale della famiglia</h1>
@@ -61,7 +62,6 @@ export const CONTENUTI = {
   </div>
   <div class="phones">${phone('OGGI')}${phone('PIANO')}</div>
 </section>
-<a class="avviso-kit" href="/kit-di-emergenza/"><span>🎒</span><span><strong>Nuovo: calcolatore del kit di emergenza 72 ore.</strong> Acqua, cibo, luce e farmaci con le quantità giuste per la tua famiglia, gratis e senza account →</span></a>
 
 <h2 style="text-align:center">Cosa vedrai ogni giorno</h2>
 <p class="lead" style="text-align:center;margin:0 auto 10px">Quattro schermate, zero menu nascosti. Ecco come si presenta l’app.</p>
