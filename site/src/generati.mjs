@@ -23,7 +23,7 @@ const nomeBreve = (nome) => nome.replace(/\s*\([^)]*\)/g, '').trim();
 // "Bowl di ceci + spinaci + feta" → "Bowl di ceci, spinaci e feta" (title, H1, schema)
 export const bello = (nome) => { const p = String(nome).split(/\s*\+\s*/); return p.length > 1 ? p.slice(0, -1).join(', ') + ' e ' + p[p.length - 1] : p[0]; };
 // Data dell'ultima modifica dei dati (aggiornare quando cambiano ingredients.json / recipes.json)
-export const DATA_MOD = '2026-11-05';
+export const DATA_MOD = '2026-11-06';
 
 // Ricette che usano un alimento
 const RIC_PER_ING = {};

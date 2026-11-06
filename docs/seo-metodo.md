@@ -12,6 +12,7 @@
 | piano alimentare / menu settimanale famiglia | raccolte di app (Aranzulla), PDF Migros, articoli generici | pagina dedicata + esempio + generatore vero |
 | lista della spesa automatica | app di sole liste | lista che nasce dal menu, quantità per famiglia |
 | calcolo fabbisogno calorico / peso forma / quanta acqua | calcolatori generici con formule USA | calcolatori con tabelle LARN italiane, spiegati |
+| kit di emergenza 72 ore / kit di sopravvivenza UE / zaino di emergenza / kit blackout | articoli di giornale (lista generica, nessuna quantità) | calcolatore con quantità per la famiglia + 7 liste pronte (4 persone, coppia, single, neonato, 7 giorni, blackout, zaino terremoto), lista anche in HTML statico, ItemList schema |
 | software/app per nutrizionisti | Nutrium, EvolutionFit, Coachway | posizionamento "l'app del paziente", lista d'attesa |
 
 ## Misurare (ogni mese)

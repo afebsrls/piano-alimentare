@@ -8,6 +8,8 @@ import { CONTENUTI, ARTICOLI_HTML, LEGALI } from './src/contenuti.mjs';
 import * as MOCK from './src/mockups.mjs';
 import { ALIMENTI, RICETTE, DATA_MOD, paginaAlimento, indiceAlimenti, paginaRicetta, indiceRicette } from './src/generati.mjs';
 import { paginaMese, indiceStagioni } from './src/stagioni.mjs';
+import { VARIANTI, paginaVariante, itemListSchema } from './src/kitPagine.mjs';
+import { calcolaKit, KIT_DEFAULT } from '../src/core/kitEmergenza.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const OUT = path.join(__dirname, 'dist');
@@ -44,7 +46,7 @@ const NAV = `
   <a class="cta" href="${APP}">Apri l’app</a>
 </nav>`;
 
-function layout({ title, description, slug, body, schema = [], type = 'website', datePublished, noindex = false }) {
+function layout({ title, description, slug, body, schema = [], type = 'website', datePublished, noindex = false, ogImage }) {
   const canonical = url(slug);
   const ld = [
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'MenuDieta', legalName: 'AF&B S.r.l.s.', url: SITE, logo: `${SITE}/icon.svg`, email: 'info@menudieta.it', vatID: 'IT13698751008', address: { '@type': 'PostalAddress', streetAddress: 'Via Mario Ugo Guattari 48', postalCode: '00173', addressLocality: 'Roma', addressRegion: 'RM', addressCountry: 'IT' } },
@@ -65,7 +67,7 @@ function layout({ title, description, slug, body, schema = [], type = 'website',
 <meta property="og:url" content="${canonical}">
 <meta property="og:site_name" content="MenuDieta">
 <meta property="og:locale" content="it_IT">
-<meta property="og:image" content="${SITE}/og.png">
+<meta property="og:image" content="${ogImage || SITE + '/og.png'}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -131,6 +133,7 @@ for (const p of PAGES) {
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
     description: p.description, url: APP, inLanguage: 'it',
   });
+  if (p.tipo === 'kit') { p.ogImage = `${SITE}/og-kit.png`; schema.push(itemListSchema(calcolaKit({ ...KIT_DEFAULT, A: 2, B: 0, G: 3, F: 1 }), 'Kit di emergenza per 2 adulti, 72 ore'), { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` }, { '@type': 'ListItem', position: 2, name: 'Kit di emergenza', item: `${SITE}/kit-di-emergenza/` }] }); }
   if (p.tipo === 'tool' || p.tipo === 'kit') schema.push({
     '@context': 'https://schema.org', '@type': 'WebApplication', name: p.title,
     applicationCategory: 'HealthApplication', operatingSystem: 'Web', browserRequirements: 'Requires JavaScript',
@@ -179,6 +182,10 @@ const stag = [];
 for (let m = 1; m <= 12; m++) { const pg = paginaMese(m, { ...ctx, RICETTE }); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema] })); stag.push(pg.slug); }
 { const pg = indiceStagioni(ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: faqSchema(pg.faq) })); }
 
+// ── Kit di emergenza: liste pronte (long tail) ──
+const kitPag = [];
+for (const v of VARIANTI) { const pg = paginaVariante(v, ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}<script>(function(){${KIT_JS}})();</script>`, schema: [...faqSchema(pg.faq), ...pg.schema] })); kitPag.push(pg.slug); }
+
 // ── Pagina 404 vera (status 404 dal server, vedi .htaccess) ──
 fs.writeFileSync(path.join(OUT, '404.html'), layout({
   title: 'Pagina non trovata – MenuDieta', description: 'La pagina che cercavi non esiste o è stata spostata.', slug: '404', noindex: true,
@@ -190,7 +197,7 @@ fs.writeFileSync(path.join(OUT, 'sitemap-alimenti.xml'), `<?xml version="1.0" en
 fs.writeFileSync(path.join(OUT, 'sitemap-ricette.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['ricette', ...gen.filter(g => g.startsWith('ricette/'))].map(g => `  <url><loc>${url(g)}</loc><lastmod>${OGGI}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 
 // ── File di servizio ──
-const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : '0.8', mod: '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...Object.keys(LEGALI).map(slug => ({ slug, pri: '0.3', mod: '2026-11-03' })), ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.data })), { slug: 'frutta-verdura-di-stagione', pri: '0.8', mod: DATA_MOD }, ...stag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD }))];
+const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : '0.8', mod: '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...Object.keys(LEGALI).map(slug => ({ slug, pri: '0.3', mod: '2026-11-03' })), ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.data })), { slug: 'frutta-verdura-di-stagione', pri: '0.8', mod: DATA_MOD }, ...stag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD })), ...kitPag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD }))];
 fs.writeFileSync(path.join(OUT, 'sitemap-pagine.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${tutte.map(u => `  <url><loc>${url(u.slug)}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority></url>`).join('\n')}
@@ -207,5 +214,6 @@ fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nDisallo
 fs.copyFileSync(path.join(__dirname, 'src/htaccess-root'), path.join(OUT, '.htaccess'));
 fs.copyFileSync(path.join(__dirname, 'src/icon.svg'), path.join(OUT, 'icon.svg'));
 fs.copyFileSync(path.join(__dirname, 'src/og.png'), path.join(OUT, 'og.png'));
+fs.copyFileSync(path.join(__dirname, 'src/og-kit.png'), path.join(OUT, 'og-kit.png'));
 
 console.log(`[site] generate ${tutte.length + gen.length + 3} pagine in site/dist/ (${gen.length} alimenti+ricette)`);

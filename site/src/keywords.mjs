@@ -77,12 +77,12 @@ export const PAGES = [
   },
   {
     slug: 'kit-di-emergenza',
-    kw: 'kit di emergenza per la famiglia',
-    varianti: ['kit di sopravvivenza casa', 'cosa tenere in casa in caso di emergenza', 'scorte di emergenza blackout', 'lista kit emergenza protezione civile', 'zaino di emergenza famiglia'],
+    kw: 'kit di emergenza 72 ore',
+    varianti: ['kit di emergenza famiglia', 'kit di sopravvivenza 72 ore', 'kit di sopravvivenza UE', 'kit di sopravvivenza casa', 'cosa tenere in casa in caso di emergenza', 'scorte di emergenza blackout', 'lista kit emergenza protezione civile', 'zaino di emergenza famiglia'],
     intento: 'vogliono una lista concreta, con le quantità per la propria famiglia, da spuntare',
     concorrenti: 'Protezione Civile (lista generica senza quantità), blog di prepping, siti di ferramenta',
-    title: 'Kit di emergenza per la famiglia: lista con quantità calcolate',
-    description: 'Lista del kit di emergenza per la tua famiglia con le quantità già calcolate: acqua, cibo, luce, caldo, igiene, farmaci e bambini. Scegli persone e giorni, genera e stampa.',
+    title: 'Kit di emergenza 72 ore: lista e calcolatore per la famiglia',
+    description: 'Kit di emergenza e di sopravvivenza 72 ore (raccomandazione UE) con le quantità calcolate per la tua famiglia: acqua, cibo, luce, igiene, farmaci. Stampabile.',
     tipo: 'kit',
   },
   {

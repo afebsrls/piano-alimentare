@@ -13,4 +13,18 @@ for (const [slug, fill, expect] of [
   const ok = expect.test(txt); console.log('  ' + (ok?'✓':'✗') + ' ' + slug + ' → ' + txt.slice(0,60)); if (!ok) process.exitCode = 1;
 }
 
+// Kit: lista statica leggibile senza JS, precompilazione da link, zaino filtrato
+{
+  const raw = fs.readFileSync('site/dist/kit-di-emergenza/famiglia-4-persone/index.html','utf8');
+  const ok1 = /Acqua potabile[\s\S]{0,80}48 litri/.test(raw.replace(/<script[\s\S]*?<\/script>/g,''));
+  console.log('  ' + (ok1?'✓':'✗') + ' lista statica nell’HTML (48 litri per 4 persone)'); if (!ok1) process.exitCode = 1;
+  const dom = new JSDOM(fs.readFileSync('site/dist/kit-di-emergenza/index.html','utf8'), { url: 'https://www.menudieta.it/kit-di-emergenza/?A=2&B=1&G=3', runScripts: 'dangerously', virtualConsole: new VirtualConsole() });
+  const ok2 = /39 litri/.test(dom.window.document.querySelector('.risultato').textContent);
+  console.log('  ' + (ok2?'✓':'✗') + ' precompilazione da link ?A=2&B=1 → 39 litri'); if (!ok2) process.exitCode = 1;
+  const dz = new JSDOM(fs.readFileSync('site/dist/kit-di-emergenza/zaino-terremoto/index.html','utf8'), { runScripts: 'dangerously', virtualConsole: new VirtualConsole() });
+  const tz = dz.window.document.querySelector('.risultato').textContent;
+  const ok3 = /Torce frontali/.test(tz) && !/Sacchi a pelo|Lettiera|Scatolame/.test(tz);
+  console.log('  ' + (ok3?'✓':'✗') + ' zaino: solo le voci da portare via'); if (!ok3) process.exitCode = 1;
+}
+
 console.log(process.exitCode ? '✗ TEST SITO FALLITO' : '✓ TEST SITO OK');

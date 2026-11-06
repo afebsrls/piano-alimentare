@@ -31,7 +31,8 @@ function Contatore({ label, value, min = 0, max = 20, onChange, nota }) {
 }
 
 export function KitEmergenzaPage({ personas = [] }) {
-  const [p, setP] = useState(() => kitDaFamiglia(personas));
+  const daLink = (() => { try { const q = new URLSearchParams(window.location.search); const o = {}; ['A','B','G','Bp','P','F','T','S','AUT'].forEach(k => { const v = parseInt(q.get(k), 10); if (!isNaN(v)) o[k] = v; }); return Object.keys(o).length ? o : null; } catch { return null; } })();
+  const [p, setP] = useState(() => ({ ...kitDaFamiglia(personas), ...(daLink || {}) }));
   const [generato, setGenerato] = useState(null);   // parametri con cui è stata generata la lista
   const [checks, setChecks] = useState({});
   const [dettagli, setDettagli] = useState(false);
@@ -43,7 +44,7 @@ export function KitEmergenzaPage({ personas = [] }) {
       try {
         const r = await window.storage.get(SK_KIT);
         const s = JSON.parse(r.value);
-        if (s && s.p) { setP({ ...KIT_DEFAULT, ...s.p }); setGenerato({ ...KIT_DEFAULT, ...s.p }); setChecks(s.checks || {}); }
+        if (s && s.p && !daLink) { setP({ ...KIT_DEFAULT, ...s.p }); setGenerato({ ...KIT_DEFAULT, ...s.p }); setChecks(s.checks || {}); }
       } catch {}
       setCaricato(true);
     })();

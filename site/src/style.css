@@ -103,3 +103,4 @@ p{margin:0 0 1em}
 .kit .risultato li.ok{opacity:.55;text-decoration:line-through}.kit .risultato .nota{display:block;font-size:13px;color:var(--muted);text-decoration:none}
 .kit .azioni{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.kit .azioni button{padding:10px 14px;border-radius:10px;border:1.5px solid var(--verde);background:#fff;color:var(--verde);font-weight:700;cursor:pointer}
 @media print{.top,.foot,.nav,.ctabox,.cn,.tool .row,.kit-dett,.azioni,.faq{display:none!important}.tool{border:none;padding:0}.risultato{display:block!important}}
+.avviso-kit{display:flex;gap:12px;align-items:center;background:var(--ink);color:#F4F7EF;border-radius:16px;padding:14px 18px;margin:8px 0 24px;text-decoration:none;font-size:16px}.avviso-kit strong{color:var(--lime)}.avviso-kit span:first-child{font-size:28px}

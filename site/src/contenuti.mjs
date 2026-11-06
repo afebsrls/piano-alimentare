@@ -2,6 +2,7 @@
 // Regole SEO applicate: parola chiave esatta nell'H1 e nel primo paragrafo,
 // varianti negli H2, risposta diretta nelle prime 2 righe, FAQ reali.
 
+import { toolKit, tabellaPersone, linkVarianti } from './kitPagine.mjs';
 const toolCalorie = () => `
 <div class="tool" data-tool="calorie">
   <div class="row">
@@ -60,6 +61,7 @@ export const CONTENUTI = {
   </div>
   <div class="phones">${phone('OGGI')}${phone('PIANO')}</div>
 </section>
+<a class="avviso-kit" href="/kit-di-emergenza/"><span>🎒</span><span><strong>Nuovo: calcolatore del kit di emergenza 72 ore.</strong> Acqua, cibo, luce e farmaci con le quantità giuste per la tua famiglia, gratis e senza account →</span></a>
 
 <h2 style="text-align:center">Cosa vedrai ogni giorno</h2>
 <p class="lead" style="text-align:center;margin:0 auto 10px">Quattro schermate, zero menu nascosti. Ecco come si presenta l’app.</p>
@@ -278,50 +280,49 @@ ${cta('Tieni il conto dei bicchieri senza pensarci')}
 
   'kit-di-emergenza': {
     body: ({ APP, cta }) => `
-<h1>Kit di emergenza per la famiglia: la lista con le quantità giuste</h1>
-<p class="lead">Un kit di emergenza serve a passare qualche giorno in casa senza acqua corrente, luce e negozi aperti: blackout, alluvione, terremoto, neve. Le liste che trovi in giro dicono <em>cosa</em> serve ma non <em>quanto</em>. Qui scegli quante persone siete e per quanti giorni, premi Genera e ottieni la lista con le quantità già moltiplicate, da spuntare e stampare.</p>
-<div class="tool kit" data-tool="kit">
-  <div class="row">
-    <div><label>Adulti</label><input name="A" inputmode="numeric" value="2"></div>
-    <div><label>Bambini (sotto i 14 anni)</label><input name="B" inputmode="numeric" value="0"></div>
-    <div><label>Giorni di autonomia</label><div class="seg" data-k="G" data-value="3">${[3,5,7,14].map(n=>`<button${n===3?' class="on"':''} data-v="${n}">${n}</button>`).join('')}</div></div>
-  </div>
-  <details class="kit-dett"><summary>Altri dettagli (pannolini, donne, telefoni, stanze, batterie)</summary>
-  <div class="row">
-    <div><label>Bambini con il pannolino</label><input name="Bp" inputmode="numeric" value="0"></div>
-    <div><label>Pannolini al giorno per bambino</label><select name="P"><option value="10">Neonato (10)</option><option value="6" selected>1–2 anni (6)</option><option value="4">Più grande (4)</option></select></div>
-    <div><label>Donne in età fertile</label><input name="F" inputmode="numeric" value="1"></div>
-    <div><label>Smartphone</label><input name="T" inputmode="numeric" value="2"></div>
-    <div><label>Stanze usate di notte</label><input name="S" inputmode="numeric" value="2"></div>
-    <div><label>Ore di autonomia di un set di batterie</label><input name="AUT" inputmode="numeric" value="20"></div>
-  </div></details>
-  <button type="button" class="btn genera">Genera il kit →</button>
-  <div class="risultato"></div>
-</div>
+<p class="crumb"><a href="/">Home</a> · Kit di emergenza</p>
+<h1>Kit di emergenza per 72 ore: la lista calcolata per la tua famiglia</h1>
+<p class="lead">Il kit di emergenza (o kit di sopravvivenza) è la scorta che permette alla famiglia di restare <strong>72 ore senza acqua corrente, luce e negozi</strong>: blackout, alluvione, terremoto, neve. Le liste in giro dicono <em>cosa</em> serve ma non <em>quanto</em>. Qui scegli quante persone siete e per quanti giorni, premi <strong>Genera</strong> e ottieni la lista con le quantità già moltiplicate, da spuntare, stampare o mandare su WhatsApp. Sotto trovi già pronta quella per 2 adulti, 3 giorni.</p>
+${toolKit({ A: 2, B: 0, G: 3, F: 1, T: 2, S: 2 })}
+
+<h2>Liste pronte per ogni situazione</h2>
+<div class="cards">${linkVarianti()}</div>
+
+<h2>Quanto serve, persona per persona</h2>
+<p>La regola di base: <strong>5 litri d’acqua al giorno per adulto e 3 per bambino</strong>, due scatolette al giorno per adulto e una per bambino, una luce per ogni stanza usata di notte e una torcia frontale a testa. Ecco le voci principali per 3 giorni:</p>
+${tabellaPersone(3)}
+
+<h2>Kit di sopravvivenza UE: cosa raccomanda l’Europa</h2>
+<p>A marzo 2025 la Commissione europea ha presentato la <strong>Strategia per l’Unione della preparazione</strong>, che chiede a ogni famiglia di essere autonoma per almeno 72 ore in caso di crisi: il tempo che serve ai soccorsi per organizzarsi. Il kit indicato contiene acqua, cibo a lunga conservazione, farmaci, torcia e batterie, radio, power bank, contanti e copie dei documenti in una busta impermeabile. Il generatore qui sopra parte da queste voci e le traduce in quantità per la tua famiglia, aggiungendo quello che serve davvero in casa: caldo, igiene, bagno senza acqua, bambini.</p>
 
 <h2>Da dove vengono le quantità</h2>
-<p>Le formule seguono le indicazioni della Protezione Civile e delle principali organizzazioni di soccorso, adattate a una famiglia: <strong>5 litri d’acqua al giorno per adulto</strong> e 3 per bambino (bere, cucinare, lavarsi), due scatolette al giorno per adulto e una per bambino, cibo che si mangia anche freddo, luce per ogni stanza usata di notte e una torcia frontale a testa, un cambio di intimo al giorno (due per i bambini), salviette al posto della doccia e lettiera per il bagno senza acqua. Per i bambini e i pannolini c’è una scorta del 20–30% in più, perché in emergenza si consuma di più. I farmaci abituali vanno sempre tenuti per almeno una settimana, qualunque sia il numero di giorni scelto.</p>
+<p>Acqua: 5 litri al giorno per adulto e 3 per bambino tra bere, cucinare e lavarsi. Cibo: cose che si mangiano anche fredde, con una scatoletta di verdure in più a testa. Luce: lanterne per le stanze usate di notte più una per il bagno, una frontale a testa, batterie calcolate su 5 ore di uso al giorno. Telefoni: 4.000 mAh al giorno ciascuno, con il 35% di perdita di carica del power bank. Igiene: un cambio di intimo al giorno (due per i bambini), salviette al posto della doccia, lettiera per il WC senza acqua. Per pannolini e omogeneizzati c’è una scorta del 20–30%. I farmaci abituali vanno sempre tenuti per almeno una settimana.</p>
 
 <h2>Le sette cose che quasi tutti dimenticano</h2>
 <ul>
   <li><strong>L’apriscatole manuale.</strong> Senza, lo scatolame è inutile. Mettine due.</li>
   <li><strong>I contanti in banconote piccole.</strong> Senza corrente non funzionano POS e bancomat.</li>
   <li><strong>I numeri utili su carta.</strong> Parenti, medico, scuola, 112: sono tutti nel telefono, che sarà scarico.</li>
-  <li><strong>La radio a batterie.</strong> È l’unico modo per ricevere comunicazioni quando la rete mobile cade.</li>
+  <li><strong>La radio a batterie o a manovella.</strong> È l’unico modo per ricevere comunicazioni quando la rete mobile cade.</li>
   <li><strong>Il bagno.</strong> Senza acqua lo sciacquone non funziona: un secchio con un sacco e lettiera per gatti risolve.</li>
   <li><strong>Il peluche preferito.</strong> Per un bambino vale quanto l’acqua: se esiste un doppione, tienilo nel kit.</li>
   <li><strong>La vasca da bagno.</strong> Al primo avviso, riempila: è acqua per lavare e per il WC.</li>
 </ul>
 
+<h2>Kit da casa e zaino di emergenza: la differenza</h2>
+<p>Il kit di casa serve a restare: acqua, scatolame, coperte, lettiera, tutto quello che pesa. Lo <a href="/kit-di-emergenza/zaino-terremoto/">zaino di emergenza</a> serve a uscire in pochi secondi (terremoto, evacuazione): documenti, contanti, farmaci, torcia, power bank, coperta isotermica, un po’ d’acqua e snack. Servono entrambi; lo zaino sta vicino alla porta.</p>
+
 <h2>Dove tenerlo e come mantenerlo</h2>
-<p>In un armadio vicino all’ingresso o in garage, tutto insieme, in contenitori con il coperchio: se serve uscire di casa deve stare in macchina in un viaggio. Due volte l’anno (quando cambia l’ora, per ricordarsene) controlla le scadenze di acqua, cibo e farmaci, prova le torce e ricarica i power bank. Le scorte di cibo si usano e si ricomprano a rotazione, così non scadono mai.</p>
+<p>In un armadio vicino all’ingresso o in cantina raggiungibile senza ascensore, tutto insieme, in casse con il coperchio. Due volte l’anno, quando cambia l’ora, controlla le scadenze di acqua, cibo e farmaci, prova le torce e ricarica i power bank. Le scorte di cibo si usano e si ricomprano a rotazione, così non scadono mai.</p>
 ${cta('Il kit è anche nell’app, con le spunte che restano salvate')}
-<p>Nell’app MenuDieta il kit parte già dai membri della tua famiglia e tiene a mente cosa hai già comprato; se vuoi solo il calcolatore, senza account, aprilo qui: <a href="${APP}?kit=1">calcolatore di emergenza</a>. Serve anche il <a href="/menu-settimanale-famiglia/">menu settimanale</a> normale per i giorni normali, e la <a href="/lista-della-spesa-automatica/">lista della spesa</a> per non dimenticare niente.</p>`,
+<p>Nell’app MenuDieta il kit parte già dai membri della tua famiglia e tiene a mente cosa hai già comprato; se vuoi solo il calcolatore, senza account, aprilo qui: <a href="${APP}?kit=1">calcolatore di emergenza</a>. Per i giorni normali c’è il <a href="/menu-settimanale-famiglia/">menu settimanale</a> con la <a href="/lista-della-spesa-automatica/">lista della spesa</a>.</p>`,
     faq: [
-      ['Per quanti giorni deve bastare un kit di emergenza?', 'La raccomandazione minima è 72 ore (3 giorni), il tempo medio perché i soccorsi arrivino ovunque. Se abiti in zona isolata, in montagna o in un’area a rischio alluvione, prepara 7 giorni. Il generatore qui sopra calcola entrambi.'],
+      ['Cosa deve contenere un kit di emergenza?', 'Acqua (5 litri al giorno per adulto), cibo che non si cuoce, apriscatole, torce e lanterne con batterie, power bank, radio, coperte, intimo di ricambio, salviette e carta igienica, kit di pronto soccorso e farmaci abituali, contanti, copie dei documenti e numeri utili su carta. Il calcolatore dà le quantità per la tua famiglia.'],
+      ['Per quanti giorni deve bastare un kit di emergenza?', 'Almeno 72 ore (3 giorni), come raccomandano Unione europea e Protezione Civile: è il tempo che serve ai soccorsi per organizzarsi. In montagna, in zone isolate o a rischio alluvione è meglio prepararlo per 7 giorni.'],
       ['Quanta acqua per persona in caso di emergenza?', 'Circa 5 litri al giorno per un adulto e 3 per un bambino: 2 litri da bere, il resto per cucinare e lavarsi. Per 2 adulti e 1 bambino per 3 giorni servono 39 litri.'],
-      ['Cosa mangiare senza corrente e senza gas?', 'Scatolame (legumi, tonno, carne), cracker e gallette, frutta secca e barrette, latte UHT, cioccolato: tutto quello che si mangia senza cuocere. Un fornelletto da campeggio con 2–3 cartucce basta per scaldare l’acqua.'],
-      ['Il kit di emergenza va bene anche per il terremoto?', 'Sì, la lista è la stessa: cambia solo dove lo tieni. In zona sismica va vicino alla porta o in auto, perché potresti dover uscire in pochi secondi.'],
+      ['Cosa mangiare senza corrente e senza gas?', 'Scatolame (legumi, tonno, carne, verdure), cracker e gallette, frutta secca e barrette, latte UHT, cioccolato: tutto quello che si mangia senza cuocere. Un fornelletto da campeggio con 2–3 cartucce basta per scaldare acqua e latte.'],
+      ['Cos’è il kit di sopravvivenza dell’Unione europea?', 'È la scorta per 72 ore che la Commissione europea, con la Strategia per la preparazione di marzo 2025, chiede a ogni famiglia di avere in casa: acqua, cibo a lunga conservazione, farmaci, torcia, radio, batterie, contanti e documenti.'],
+      ['Si può scaricare la lista del kit in PDF?', 'Sì: genera la lista per la tua famiglia e premi “Stampa o salva in PDF”. Nella finestra di stampa scegli “Salva come PDF”.'],
     ],
   },
 
