@@ -276,6 +276,55 @@ ${cta('Tieni il conto dei bicchieri senza pensarci')}
     ],
   },
 
+  'kit-di-emergenza': {
+    body: ({ APP, cta }) => `
+<h1>Kit di emergenza per la famiglia: la lista con le quantità giuste</h1>
+<p class="lead">Un kit di emergenza serve a passare qualche giorno in casa senza acqua corrente, luce e negozi aperti: blackout, alluvione, terremoto, neve. Le liste che trovi in giro dicono <em>cosa</em> serve ma non <em>quanto</em>. Qui scegli quante persone siete e per quanti giorni, premi Genera e ottieni la lista con le quantità già moltiplicate, da spuntare e stampare.</p>
+<div class="tool kit" data-tool="kit">
+  <div class="row">
+    <div><label>Adulti</label><input name="A" inputmode="numeric" value="2"></div>
+    <div><label>Bambini (sotto i 14 anni)</label><input name="B" inputmode="numeric" value="0"></div>
+    <div><label>Giorni di autonomia</label><div class="seg" data-k="G" data-value="3">${[3,5,7,14].map(n=>`<button${n===3?' class="on"':''} data-v="${n}">${n}</button>`).join('')}</div></div>
+  </div>
+  <details class="kit-dett"><summary>Altri dettagli (pannolini, donne, telefoni, stanze, batterie)</summary>
+  <div class="row">
+    <div><label>Bambini con il pannolino</label><input name="Bp" inputmode="numeric" value="0"></div>
+    <div><label>Pannolini al giorno per bambino</label><select name="P"><option value="10">Neonato (10)</option><option value="6" selected>1–2 anni (6)</option><option value="4">Più grande (4)</option></select></div>
+    <div><label>Donne in età fertile</label><input name="F" inputmode="numeric" value="1"></div>
+    <div><label>Smartphone</label><input name="T" inputmode="numeric" value="2"></div>
+    <div><label>Stanze usate di notte</label><input name="S" inputmode="numeric" value="2"></div>
+    <div><label>Ore di autonomia di un set di batterie</label><input name="AUT" inputmode="numeric" value="20"></div>
+  </div></details>
+  <button type="button" class="btn genera">Genera il kit →</button>
+  <div class="risultato"></div>
+</div>
+
+<h2>Da dove vengono le quantità</h2>
+<p>Le formule seguono le indicazioni della Protezione Civile e delle principali organizzazioni di soccorso, adattate a una famiglia: <strong>5 litri d’acqua al giorno per adulto</strong> e 3 per bambino (bere, cucinare, lavarsi), due scatolette al giorno per adulto e una per bambino, cibo che si mangia anche freddo, luce per ogni stanza usata di notte e una torcia frontale a testa, un cambio di intimo al giorno (due per i bambini), salviette al posto della doccia e lettiera per il bagno senza acqua. Per i bambini e i pannolini c’è una scorta del 20–30% in più, perché in emergenza si consuma di più. I farmaci abituali vanno sempre tenuti per almeno una settimana, qualunque sia il numero di giorni scelto.</p>
+
+<h2>Le sette cose che quasi tutti dimenticano</h2>
+<ul>
+  <li><strong>L’apriscatole manuale.</strong> Senza, lo scatolame è inutile. Mettine due.</li>
+  <li><strong>I contanti in banconote piccole.</strong> Senza corrente non funzionano POS e bancomat.</li>
+  <li><strong>I numeri utili su carta.</strong> Parenti, medico, scuola, 112: sono tutti nel telefono, che sarà scarico.</li>
+  <li><strong>La radio a batterie.</strong> È l’unico modo per ricevere comunicazioni quando la rete mobile cade.</li>
+  <li><strong>Il bagno.</strong> Senza acqua lo sciacquone non funziona: un secchio con un sacco e lettiera per gatti risolve.</li>
+  <li><strong>Il peluche preferito.</strong> Per un bambino vale quanto l’acqua: se esiste un doppione, tienilo nel kit.</li>
+  <li><strong>La vasca da bagno.</strong> Al primo avviso, riempila: è acqua per lavare e per il WC.</li>
+</ul>
+
+<h2>Dove tenerlo e come mantenerlo</h2>
+<p>In un armadio vicino all’ingresso o in garage, tutto insieme, in contenitori con il coperchio: se serve uscire di casa deve stare in macchina in un viaggio. Due volte l’anno (quando cambia l’ora, per ricordarsene) controlla le scadenze di acqua, cibo e farmaci, prova le torce e ricarica i power bank. Le scorte di cibo si usano e si ricomprano a rotazione, così non scadono mai.</p>
+${cta('Il kit è anche nell’app, con le spunte che restano salvate')}
+<p>Nell’app MenuDieta il kit parte già dai membri della tua famiglia e tiene a mente cosa hai già comprato. Serve anche il <a href="/menu-settimanale-famiglia/">menu settimanale</a> normale per i giorni normali, e la <a href="/lista-della-spesa-automatica/">lista della spesa</a> per non dimenticare niente.</p>`,
+    faq: [
+      ['Per quanti giorni deve bastare un kit di emergenza?', 'La raccomandazione minima è 72 ore (3 giorni), il tempo medio perché i soccorsi arrivino ovunque. Se abiti in zona isolata, in montagna o in un’area a rischio alluvione, prepara 7 giorni. Il generatore qui sopra calcola entrambi.'],
+      ['Quanta acqua per persona in caso di emergenza?', 'Circa 5 litri al giorno per un adulto e 3 per un bambino: 2 litri da bere, il resto per cucinare e lavarsi. Per 2 adulti e 1 bambino per 3 giorni servono 39 litri.'],
+      ['Cosa mangiare senza corrente e senza gas?', 'Scatolame (legumi, tonno, carne), cracker e gallette, frutta secca e barrette, latte UHT, cioccolato: tutto quello che si mangia senza cuocere. Un fornelletto da campeggio con 2–3 cartucce basta per scaldare l’acqua.'],
+      ['Il kit di emergenza va bene anche per il terremoto?', 'Sì, la lista è la stessa: cambia solo dove lo tieni. In zona sismica va vicino alla porta o in auto, perché potresti dover uscire in pochi secondi.'],
+    ],
+  },
+
   'per-nutrizionisti': {
     body: ({ APP, cta, phone }) => `
 <section class="hero hero-grid">

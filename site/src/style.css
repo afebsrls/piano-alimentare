@@ -94,3 +94,12 @@ p{margin:0 0 1em}
 .stagione{font-size:17px;line-height:1.9}
 .tabella td.si{color:var(--verde,#2F6B3A);text-align:center}
 .card.ora{border-color:#2F6B3A;box-shadow:0 0 0 2px #C7F23E inset}
+
+.tool .btn.genera{display:block;width:100%;margin-top:14px;text-align:center;border:none;font-size:17px;cursor:pointer}
+.kit-dett{margin-top:12px}.kit-dett summary{cursor:pointer;color:var(--verde);font-weight:700}.kit-dett .row{margin-top:10px}
+.kit .risultato h3{margin:18px 0 6px;font-size:18px}.kit .risultato ul{list-style:none;padding:0;margin:0}
+.kit .risultato li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--bordo)}
+.kit .risultato li input{width:20px;height:20px;margin-top:2px;accent-color:var(--verde);flex-shrink:0}
+.kit .risultato li.ok{opacity:.55;text-decoration:line-through}.kit .risultato .nota{display:block;font-size:13px;color:var(--muted);text-decoration:none}
+.kit .azioni{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.kit .azioni button{padding:10px 14px;border-radius:10px;border:1.5px solid var(--verde);background:#fff;color:var(--verde);font-weight:700;cursor:pointer}
+@media print{.top,.foot,.nav,.ctabox,.cn,.tool .row,.kit-dett,.azioni,.faq{display:none!important}.tool{border:none;padding:0}.risultato{display:block!important}}

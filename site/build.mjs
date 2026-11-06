@@ -22,6 +22,8 @@ const SB_KEY = (cfg.match(/SUPABASE_ANON_KEY\s*=\s*["']([^"']+)/) || [])[1] || '
 if (!SB_URL || !SB_KEY) console.warn('[site] Supabase non configurato: il modulo lista d\'attesa non funzionerà');
 const WAITLIST_JS = fs.readFileSync(path.join(__dirname, 'src/waitlist.js'), 'utf8').replace('__SB_URL__', SB_URL).replace('__SB_KEY__', SB_KEY);
 const TOOLS_JS = fs.readFileSync(path.join(__dirname, 'src/tools.js'), 'utf8');
+// Motore del kit di emergenza: stesso file dell'app (src/core/kitEmergenza.js), reso script semplice
+const KIT_JS = fs.readFileSync(path.join(__dirname, '../src/core/kitEmergenza.js'), 'utf8').replace(/^export /gm, '') + '\n' + fs.readFileSync(path.join(__dirname, 'src/kit.js'), 'utf8');
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const url = (slug) => slug ? `${SITE}/${slug}/` : `${SITE}/`;
@@ -85,6 +87,7 @@ ${body}
       <a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a><br>
       <a href="/peso-forma-calcolo/">Peso forma</a><br>
       <a href="/quanta-acqua-bere-al-giorno/">Acqua al giorno</a><br>
+      <a href="/kit-di-emergenza/">Kit di emergenza</a><br>
       <a href="/frutta-verdura-di-stagione/">Frutta e verdura di stagione</a><br>
       <a href="/alimenti/">Calorie degli alimenti</a><br>
       <a href="/ricette/">Ricette con porzioni</a></div>
@@ -128,12 +131,12 @@ for (const p of PAGES) {
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
     description: p.description, url: APP, inLanguage: 'it',
   });
-  if (p.tipo === 'tool') schema.push({
+  if (p.tipo === 'tool' || p.tipo === 'kit') schema.push({
     '@context': 'https://schema.org', '@type': 'WebApplication', name: p.title,
     applicationCategory: 'HealthApplication', operatingSystem: 'Web', browserRequirements: 'Requires JavaScript',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, url: url(p.slug), inLanguage: 'it',
   });
-  const body = `${c.body({ esc, APP, cta: ctaHtml, phone })}${faqHtml(c.faq)}${p.tipo === 'tool' ? `<script>${TOOLS_JS}</script>` : ''}${p.tipo === 'nutrizionisti' ? `<script>${WAITLIST_JS}</script>` : ''}`;
+  const body = `${c.body({ esc, APP, cta: ctaHtml, phone })}${faqHtml(c.faq)}${p.tipo === 'tool' ? `<script>${TOOLS_JS}</script>` : ''}${p.tipo === 'nutrizionisti' ? `<script>${WAITLIST_JS}</script>` : ''}${p.tipo === 'kit' ? `<script>(function(){${KIT_JS}})();</script>` : ''}`;
   writePage(p.slug, layout({ ...p, body, schema }));
 }
 

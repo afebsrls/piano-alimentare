@@ -149,6 +149,16 @@ if (btnAdotta) {
   ok('dopo il click lo slot diventa Nel tuo piano', !/>Adotta</.test(document.body.innerHTML));
 }
 
+// menu → Kit di emergenza → Genera → lista con spunte
+await clickByText('Menu');
+await new Promise(r=>setTimeout(r,200));
+const wentKit = await clickByText('Kit di emergenza');
+await new Promise(r=>setTimeout(r,200));
+await clickByText('Genera il kit');
+await new Promise(r=>setTimeout(r,300));
+const hKit = document.body.innerHTML;
+ok('Kit di emergenza: genera la lista (acqua, cibo, luce)', wentKit && /Acqua potabile/.test(hKit) && /Lanterne/.test(hKit) && !hKit.includes('Qualcosa si è inceppato'));
+
 console.error = origErr;
 ok('nessun errore React durante la navigazione', reactErrors.length === 0);
 if (reactErrors.length) reactErrors.slice(0,3).forEach(e=>console.log('   react-err:', e));

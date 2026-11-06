@@ -10,6 +10,7 @@ import { MisurePage } from '@/features/misure/MisurePage';
 import { OpzioniPage } from '@/features/opzioni/OpzioniPage';
 import { OggiPage } from '@/features/oggi/OggiPage';
 import { StrumentiPage } from '@/features/strumenti/StrumentiPage';
+import { KitEmergenzaPage } from '@/features/strumenti/KitEmergenzaPage';
 import { MigrationWizard } from '@/features/famiglia/MigrationWizard';
 import { UtentePage } from '@/features/utente/UtentePage';
 import { startSync, autoClaimSingle, pushTargetGiornaliero } from '@/db/sync';
@@ -911,6 +912,7 @@ export function App() {
     {key:"gusti",       label:"Gusti",       icon:"❤️", desc:"Preferiti e non amati"},
     {key:"ricette",     label:"Ricette",     icon:"📖", desc:"Le tue ricette e quelle di famiglia"},
     {key:"strumenti",   label:"Strumenti",   icon:"🧰", desc:"Convertitori e calcolatori"},
+    {key:"kit",         label:"Kit di emergenza", icon:"🎒", desc:"Scorte per la famiglia: acqua, cibo, luce"},
     {key:"opzioni",     label:"Opzioni",     icon:"⚙️", desc:"Notifiche, promemoria, dati e privacy"},
     // Strumenti diagnostici: visibili solo in modalità sviluppatore
     ...(devMode ? [
@@ -1361,6 +1363,7 @@ export function App() {
         {page==="spesa"&&<ShoppingPage planState={{baseSeed:seed, frozen}} overrides={overrides} genArgs={{excludedIds:excluded, ricetteUtente, ricetteEscluseIds}} checks={spesaChecks[String(seed)]||{}} onToggle={handleToggleSpesa} onReset={handleResetSpesa} personas={personas} mealsLog={mealsLog} consumoAttivo={spesaConsumo} onToggleConsumo={toggleSpesaConsumo}/>}
         {page==="ingredienti"&&<IngredientiPage excluded={excluded} onToggle={toggleExcluded}/>}
         {page==="strumenti"&&<StrumentiPage personas={personas} misure={misureApp}/>}
+        {page==="kit"&&<KitEmergenzaPage personas={personas}/>}
         {page==="gusti"&&<GustiPage prefs={prefs} onToggleLike={handleToggleLike} onToggleDislike={handleToggleDislike} onResetPrefs={handleResetPrefs}/>}
         {page==="ricette"&&<RicettePage cloudStatus={cloudStatus} onRicetteChange={handleRicetteChange} onTorna={()=>navigaA("piano")}/>}
         {page==="test-sync"&&<SyncTestPage/>}

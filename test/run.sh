@@ -103,6 +103,10 @@ node ./.tpro.mjs || FAIL=1
 rm -f ./.tpro.mjs
 
 echo ""
+echo "▸ TEST 3k — Kit di emergenza (formule)"
+node test/test_kit.mjs || FAIL=1
+
+echo ""
 echo "▸ TEST 4 — Sito pubblico: generazione + calcolatori (LARN, Grant, acqua)"
 node site/build.mjs >/dev/null && node test/test_sito.mjs || FAIL=1
 

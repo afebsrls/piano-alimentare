@@ -76,6 +76,16 @@ export const PAGES = [
     tipo: 'tool', tool: 'acqua',
   },
   {
+    slug: 'kit-di-emergenza',
+    kw: 'kit di emergenza per la famiglia',
+    varianti: ['kit di sopravvivenza casa', 'cosa tenere in casa in caso di emergenza', 'scorte di emergenza blackout', 'lista kit emergenza protezione civile', 'zaino di emergenza famiglia'],
+    intento: 'vogliono una lista concreta, con le quantità per la propria famiglia, da spuntare',
+    concorrenti: 'Protezione Civile (lista generica senza quantità), blog di prepping, siti di ferramenta',
+    title: 'Kit di emergenza per la famiglia: lista con quantità calcolate',
+    description: 'Lista del kit di emergenza per la tua famiglia con le quantità già calcolate: acqua, cibo, luce, caldo, igiene, farmaci e bambini. Scegli persone e giorni, genera e stampa.',
+    tipo: 'kit',
+  },
+  {
     slug: 'per-nutrizionisti',
     kw: 'software per nutrizionisti',
     varianti: ['app per nutrizionisti', 'gestione pazienti nutrizionista', 'app per i clienti del nutrizionista', 'piano alimentare da inviare ai pazienti'],
