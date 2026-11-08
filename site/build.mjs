@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE, APP, PAGES, ARTICOLI } from './src/keywords.mjs';
-import { CONTENUTI, ARTICOLI_HTML, LEGALI } from './src/contenuti.mjs';
+import { CONTENUTI, ARTICOLI_HTML, ARTICOLI_FAQ, LEGALI } from './src/contenuti.mjs';
 import * as MOCK from './src/mockups.mjs';
 import { ALIMENTI, RICETTE, DATA_MOD, paginaAlimento, indiceAlimenti, paginaRicetta, indiceRicette } from './src/generati.mjs';
 import { paginaMese, indiceStagioni } from './src/stagioni.mjs';
@@ -90,12 +90,13 @@ ${body}
       <a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a><br>
       <a href="/peso-forma-calcolo/">Peso forma</a><br>
       <a href="/quanta-acqua-bere-al-giorno/">Acqua al giorno</a><br>
+      <a href="/porzioni-bambini-per-eta/">Porzioni per età</a><br>
       <a href="/kit-di-emergenza/">Kit di emergenza</a><br>
       <a href="/frutta-verdura-di-stagione/">Frutta e verdura di stagione</a><br>
       <a href="/alimenti/">Calorie degli alimenti</a><br>
       <a href="/ricette/">Ricette con porzioni</a></div>
     <div><strong>Guide</strong><br>${ARTICOLI.map(a => `<a href="/${a.slug}/">${esc(a.title)}</a>`).join('<br>')}</div>
-    <div><strong>Info</strong><br><a href="/per-nutrizionisti/">Per nutrizionisti</a><br><a href="/privacy/">Privacy policy</a><br><a href="/cookie/">Cookie policy</a><br><a href="${APP}privacy.html">Privacy dell’app</a><br><a href="mailto:info@menudieta.it">info@menudieta.it</a></div>
+    <div><strong>Info</strong><br><a href="/chi-siamo/">Chi siamo, metodo e fonti</a><br><a href="/per-nutrizionisti/">Per nutrizionisti</a><br><a href="/privacy/">Privacy policy</a><br><a href="/cookie/">Cookie policy</a><br><a href="${APP}privacy.html">Privacy dell’app</a><br><a href="mailto:info@menudieta.it">info@menudieta.it</a></div>
   </div>
   <div class="fine">MenuDieta è un servizio di AF&amp;B S.r.l.s. · Via Mario Ugo Guattari 48, 00173 Roma (RM) · P.IVA 13698751008 · REA RM-1466364 · Capitale sociale € 2.700,00 i.v.<br>© ${new Date().getFullYear()} AF&amp;B S.r.l.s. · I calcolatori forniscono stime indicative e non sostituiscono il parere di un medico o di un nutrizionista.</div>
 </div></footer>
@@ -135,7 +136,7 @@ for (const p of PAGES) {
     description: p.description, url: APP, inLanguage: 'it',
   });
   if (p.tipo === 'kit') { p.ogImage = `${SITE}/og-kit.png`; schema.push(itemListSchema(calcolaKit({ ...KIT_DEFAULT, A: 2, B: 0, G: 3, F: 1 }), 'Kit di emergenza per 2 adulti, 72 ore'), { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` }, { '@type': 'ListItem', position: 2, name: 'Kit di emergenza', item: `${SITE}/kit-di-emergenza/` }] }); }
-  if (p.tipo === 'tool' || p.tipo === 'kit') schema.push({
+  if (p.tipo === 'tool' || p.tipo === 'kit' || p.tipo === 'porzioni') schema.push({
     '@context': 'https://schema.org', '@type': 'WebApplication', name: p.title,
     applicationCategory: 'HealthApplication', operatingSystem: 'Web', browserRequirements: 'Requires JavaScript',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, url: url(p.slug), inLanguage: 'it',
@@ -155,11 +156,11 @@ for (const a of ARTICOLI) {
   if (!html) throw new Error('Articolo mancante: ' + a.slug);
   const schema = [{
     '@context': 'https://schema.org', '@type': 'Article', headline: a.title, description: a.description,
-    datePublished: a.data, dateModified: a.data, inLanguage: 'it',
-    author: { '@type': 'Organization', name: 'MenuDieta' }, publisher: { '@type': 'Organization', name: 'MenuDieta' },
+    datePublished: a.data, dateModified: a.mod || a.data, inLanguage: 'it',
+    author: { '@type': 'Organization', name: 'Redazione MenuDieta', url: url('chi-siamo') }, publisher: { '@type': 'Organization', name: 'MenuDieta', url: SITE, logo: { '@type': 'ImageObject', url: `${SITE}/icon.svg` } },
     mainEntityOfPage: url(a.slug),
-  }];
-  const body = `<article class="art"><p class="crumb"><a href="/blog/">Guide</a> · ${new Date(a.data).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}</p>${html({ esc, APP, cta: ctaHtml, phone })}</article>`;
+  }, ...faqSchema(ARTICOLI_FAQ[a.slug])];
+  const body = `<article class="art"><p class="crumb"><a href="/blog/">Guide</a> · ${new Date(a.data).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })} · <a href="/chi-siamo/">Redazione MenuDieta, metodo e fonti</a></p>${html({ esc, APP, cta: ctaHtml, phone })}${faqHtml(ARTICOLI_FAQ[a.slug])}</article>`;
   writePage(a.slug, layout({ ...a, body, schema, type: 'article', datePublished: a.data }));
 }
 writePage('blog', layout({
@@ -198,7 +199,7 @@ fs.writeFileSync(path.join(OUT, 'sitemap-alimenti.xml'), `<?xml version="1.0" en
 fs.writeFileSync(path.join(OUT, 'sitemap-ricette.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['ricette', ...gen.filter(g => g.startsWith('ricette/'))].map(g => `  <url><loc>${url(g)}</loc><lastmod>${OGGI}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 
 // ── File di servizio ──
-const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : '0.8', mod: '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...Object.keys(LEGALI).map(slug => ({ slug, pri: '0.3', mod: '2026-11-03' })), ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.data })), { slug: 'frutta-verdura-di-stagione', pri: '0.8', mod: DATA_MOD }, ...stag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD })), ...kitPag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD }))];
+const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : p.tipo === 'info' ? '0.4' : '0.8', mod: p.mod || '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...Object.keys(LEGALI).map(slug => ({ slug, pri: '0.3', mod: '2026-11-03' })), ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.mod || a.data })), { slug: 'frutta-verdura-di-stagione', pri: '0.8', mod: DATA_MOD }, ...stag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD })), ...kitPag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD }))];
 fs.writeFileSync(path.join(OUT, 'sitemap-pagine.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${tutte.map(u => `  <url><loc>${url(u.slug)}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority></url>`).join('\n')}

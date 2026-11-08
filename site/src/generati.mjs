@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ETA, PORZIONI, FONTE_PORZIONI, chiavePorzione } from './porzioni.mjs';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ING = JSON.parse(fs.readFileSync(path.join(__dirname, '../../src/data/ingredients.json'), 'utf8'));
@@ -45,6 +46,20 @@ export const RICETTE = REC.map(r => { const base = slug(r.nome); const sl = uniq
 const RIC_BY_ID = Object.fromEntries(RICETTE.map(r => [r.id, r]));
 
 
+// Porzione per età: rende ogni pagina alimento utile anche a chi cucina per i bambini
+function porzionePerEta(a, nome) {
+  const k = chiavePorzione(a); if (!k) return { html: '', faq: [] };
+  const P = PORZIONI[k], u = P.unita || 'g', kcal = +a.nutrizione.kcal || 0;
+  const cella = (g) => g == null ? '–' : `${g} ${u}${u === 'g' ? ` <span class="note">(${Math.round(kcal * g / 100)} kcal)</span>` : ''}`;
+  const html = `<h2>Porzione di ${esc(nome.toLowerCase())} per età</h2>
+<p>Porzione di riferimento per un pasto (${esc(P.nome.toLowerCase())}), peso a crudo${P.nota ? `; ${esc(P.nota)}` : ''}.</p>
+<div class="scroll"><table class="tabella"><tr>${ETA.map(e => `<th>${e.label}</th>`).join('')}</tr><tr>${P.g.map(cella).join('')}</tr></table></div>
+<p class="note">Fonte: <a href="${FONTE_PORZIONI}" rel="noopener">AUSL Modena, grammature di riferimento da CREA e LARN</a>. Tutte le porzioni per età nello strumento <a href="/porzioni-bambini-per-eta/">porzioni per bambini e adulti</a>.</p>`;
+  const [g46, g710] = [P.g[1], P.g[2]];
+  const faq = g46 != null && g710 != null ? [[`Qual è la porzione di ${nome.toLowerCase()} per un bambino?`, `Come riferimento per un pasto: circa ${g46} ${u} tra 4 e 6 anni e ${g710} ${u} tra 7 e 10 anni (peso a crudo). Un adulto ne mangia circa ${P.g[5]} ${u}.`]] : [];
+  return { html, faq };
+}
+
 // ── Pagina alimento ──────────────────────────────────────────────────
 export function paginaAlimento(a, { APP, cta }) {
   const nome = a.nomeVis, nz = a.nutrizione, cat = CAT_LABEL(a.cat);
@@ -55,10 +70,12 @@ export function paginaAlimento(a, { APP, cta }) {
   const stessaCat = ALIMENTI.filter(x => x.cat === a.cat); const pos = stessaCat.findIndex(x => x.id === a.id);
   const simili = stessaCat.length > 1 ? Array.from({ length: Math.min(8, stessaCat.length - 1) }, (_, k) => stessaCat[(pos + 1 + k) % stessaCat.length]) : [];
   const kcalPer = (g) => Math.round(nz.kcal * g / 100);
+  const perEta = porzionePerEta(a, nome);
   const faq = [
     [`Quante calorie ha 100 g di ${nome.toLowerCase()}?`, `${n0(nz.kcal)} kcal per 100 g, con ${n1(nz.p)} g di proteine, ${n1(nz.c)} g di carboidrati e ${n1(nz.g)} g di grassi.`],
     ...(pezzo ? [[`Quante calorie ha un ${nome.toLowerCase()}?`, `Un pezzo medio pesa circa ${pezzo} g e apporta circa ${kcalPezzo} kcal.`]] : []),
     [`${nome} fa ingrassare?`, `Nessun alimento fa ingrassare da solo: conta il totale della giornata. ${nz.kcal >= 300 ? `Con ${n0(nz.kcal)} kcal per 100 g è un alimento denso: la porzione va misurata.` : `Con ${n0(nz.kcal)} kcal per 100 g è un alimento a densità ${nz.kcal < 100 ? 'bassa' : 'media'}: le porzioni normali rientrano facilmente in un piano equilibrato.`} Il <a href="/calcolo-fabbisogno-calorico/">calcolatore del fabbisogno</a> ti dice quante calorie ti servono.`],
+    ...perEta.faq,
   ];
   const body = `
 <p class="crumb"><a href="/">Home</a> · <a href="/alimenti/">Alimenti</a> · ${esc(cat)}</p>
@@ -79,6 +96,7 @@ ${nz.f != null ? `<tr><td>Fibre</td><td>${n1(nz.f)} g</td>${pezzo ? `<td>${n1(nz
 <div class="scroll"><table class="tabella"><tr><th>Quantità</th><th>Calorie</th><th>Proteine</th><th>Carboidrati</th><th>Grassi</th></tr>
 ${[30, 50, 80, 100, 150, 200].map(g => `<tr><td>${g} g</td><td>${kcalPer(g)} kcal</td><td>${n1(nz.p * g / 100)} g</td><td>${n1(nz.c * g / 100)} g</td><td>${n1(nz.g * g / 100)} g</td></tr>`).join('')}
 </table></div>
+${perEta.html}
 ${stag ? `<h2>Quando è di stagione</h2><p>${esc(nome)} è di stagione in: <strong>${stag}</strong>. MenuDieta lo propone nel menu in quei mesi, quando costa meno e ha più sapore.</p>` : ''}
 ${ricette.length ? `<h2>Ricette con ${esc(nome.toLowerCase())}</h2><ul>${ricette.map(r => `<li><a href="/ricette/${r.slug}/">${esc(r.nomeVis)}</a> <span class="note">(${CAT_RIC[r.categoria] || r.categoria}, ${n0(r.donna?.kcal)} kcal porzione donna)</span></li>`).join('')}</ul>` : ''}
 ${cta(`Quanto ${nome.toLowerCase()} per te? MenuDieta calcola la porzione giusta`)}

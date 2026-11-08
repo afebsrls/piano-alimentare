@@ -3,6 +3,7 @@
 // varianti negli H2, risposta diretta nelle prime 2 righe, FAQ reali.
 
 import { toolKit, tabellaPersone, linkVarianti } from './kitPagine.mjs';
+import { ETA, PORZIONI, ORDINE, FONTE_PORZIONI } from './porzioni.mjs';
 const toolCalorie = () => `
 <div class="tool" data-tool="calorie">
   <div class="row">
@@ -294,6 +295,7 @@ ${tabellaPersone(3)}
 
 <h2>Kit di sopravvivenza UE: cosa raccomanda l’Europa</h2>
 <p>A marzo 2025 la Commissione europea ha presentato la <strong>Strategia per l’Unione della preparazione</strong>, che chiede a ogni famiglia di essere autonoma per almeno 72 ore in caso di crisi: il tempo che serve ai soccorsi per organizzarsi. Il kit indicato contiene acqua, cibo a lunga conservazione, farmaci, torcia e batterie, radio, power bank, contanti e copie dei documenti in una busta impermeabile. Il generatore qui sopra parte da queste voci e le traduce in quantità per la tua famiglia, aggiungendo quello che serve davvero in casa: caldo, igiene, bagno senza acqua, bambini.</p>
+<p><strong>Aggiornamento 3 novembre 2026.</strong> La Commissione europea ha presentato nuove linee guida che confermano l’obiettivo delle 72 ore: scorte di acqua potabile, cibo e medicinali, uno zaino pronto per l’evacuazione, un piano di emergenza di famiglia e qualche competenza pratica come il primo soccorso e il saper cucinare senza corrente. Le raccomandazioni non sono vincolanti; la Commissione propone anche una Giornata europea della preparazione ogni 23 ottobre, dal 2027 (<a href="https://www.adnkronos.com/internazionale/esteri/ue-kit-di-emergenza-e-autosufficienza-per-72-ore-le-nuove-raccomandazioni_5SG82DZEVH3Bn7gyB3Uw1Y" rel="noopener">fonte</a>).</p>
 
 <h2>Da dove vengono le quantità</h2>
 <p>Acqua: 5 litri al giorno per adulto e 3 per bambino tra bere, cucinare e lavarsi. Cibo: cose che si mangiano anche fredde, con una scatoletta di verdure in più a testa. Luce: lanterne per le stanze usate di notte più una per il bagno, una frontale a testa, batterie calcolate su 5 ore di uso al giorno. Telefoni: 4.000 mAh al giorno ciascuno, con il 35% di perdita di carica del power bank. Igiene: un cambio di intimo al giorno (due per i bambini), salviette al posto della doccia, lettiera per il WC senza acqua. Per pannolini e omogeneizzati c’è una scorta del 20–30%. I farmaci abituali vanno sempre tenuti per almeno una settimana.</p>
@@ -380,6 +382,78 @@ ${cta('Il kit è anche nell’app, con le spunte che restano salvate')}
       ['Quanto costerà?', 'Un canone mensile in base ai pazienti attivi, inferiore ai gestionali di studio perché MenuDieta li affianca, non li sostituisce. I primi studi iscritti hanno condizioni riservate per il primo anno.'],
       ['I dati dei pazienti dove stanno?', 'Su server in Unione Europea. Il paziente vede chi lo segue e può scollegarsi in qualsiasi momento.'],
     ],
+  },
+
+  'porzioni-bambini-per-eta': {
+    body: ({ esc, cta }) => `
+<p class="crumb"><a href="/">Home</a> · Porzioni per età</p>
+<h1>Porzioni per bambini e adulti: i grammi giusti per ogni età</h1>
+<p class="lead">Un bambino di 4–6 anni mangia circa <strong>50 g di pasta</strong> a pasto, uno di 7–10 anni <strong>70 g</strong>, un adulto <strong>80 g</strong>. Tra 11 e 17 anni si sale a <strong>100 g</strong>, più di un adulto. Scegli l’età per vedere tutte le porzioni, oppure scorri la tabella completa.</p>
+
+<div class="box" id="pz">
+  <label for="pz-eta"><strong>Età</strong></label>
+  <select id="pz-eta">${ETA.map((e, i) => `<option value="${i}"${i === 1 ? ' selected' : ''}>${e.label}</option>`).join('')}</select>
+  <div class="scroll"><table class="tabella" id="pz-out"><tr><th>Alimento</th><th>Porzione a pasto</th></tr>
+  ${ORDINE.map(k => `<tr data-k="${k}"><td>${esc(PORZIONI[k].nome)}</td><td>${PORZIONI[k].g[1] ?? '–'} ${PORZIONI[k].unita || 'g'}</td></tr>`).join('')}
+  </table></div>
+</div>
+
+<h2>Tabella completa delle porzioni per età</h2>
+<p>Pesi <strong>a crudo e al netto degli scarti</strong>, per un pasto principale.</p>
+<div class="scroll"><table class="tabella">
+<tr><th>Alimento</th>${ETA.map(e => `<th>${e.label}</th>`).join('')}</tr>
+${ORDINE.map(k => { const P = PORZIONI[k]; return `<tr><td>${esc(P.nome)}${P.nota ? ` <span class="note">(${esc(P.nota)})</span>` : ''}</td>${P.g.map(g => `<td>${g == null ? '–' : g + ' ' + (P.unita || 'g')}</td>`).join('')}</tr>`; }).join('\n')}
+</table></div>
+<p class="note">Fonte: <a href="${FONTE_PORZIONI}" rel="noopener">AUSL Modena, standard delle grammature di riferimento</a>, adattati dal dossier scientifico delle Linee guida CREA 2018 e dai LARN. Valori medi per la ristorazione scolastica: l’appetito del singolo bambino può essere diverso.</p>
+
+<h2>Perché le porzioni cambiano con l’età</h2>
+<p>I bambini hanno bisogno di meno energia in assoluto, ma di più energia per ogni chilo di peso, perché crescono. Per questo le porzioni salgono gradualmente fino all’adolescenza, quando superano quelle degli adulti per pasta, pesce e formaggi.</p>
+
+<h2>Tre regole pratiche</h2>
+<ul>
+  <li><strong>Si cucina una volta, si porziona diverso.</strong> Stesso piatto per tutta la famiglia, cambia solo la quantità. Vedi il <a href="/menu-settimanale-famiglia/">menu settimanale per la famiglia</a> e la guida al <a href="/blog/menu-settimanale-bambini/">menu settimanale per bambini</a>.</li>
+  <li><strong>La tabella è un riferimento, non un obbligo.</strong> Meglio servire poco e lasciare che il bambino chieda il bis, piuttosto che insistere perché finisca tutto.</li>
+  <li><strong>Sotto i 2 anni decide il pediatra.</strong> Nello svezzamento le quantità sono molto più piccole e cambiano mese per mese.</li>
+</ul>
+<p>Le porzioni per età sono anche in ogni scheda degli <a href="/alimenti/">alimenti</a>, con le calorie già calcolate.</p>
+${cta('Le porzioni di tutta la famiglia, calcolate in automatico')}
+<script>(function(){var s=document.getElementById('pz-eta'),t=document.getElementById('pz-out');if(!s||!t)return;var P=${JSON.stringify(Object.fromEntries(ORDINE.map(k => [k, [PORZIONI[k].g, PORZIONI[k].unita || 'g']])))};s.onchange=function(){var i=+s.value;t.querySelectorAll('tr[data-k]').forEach(function(r){var p=P[r.dataset.k],g=p[0][i];r.cells[1].textContent=(g==null?'–':g+' '+p[1]);});};})();</script>`,
+    faq: [
+      ['Quanta pasta deve mangiare un bambino di 5 anni?', 'Circa 50 g a crudo per un primo asciutto, 25 g se la pasta è in brodo.'],
+      ['Quanta carne può mangiare un bambino di 3 anni?', 'Circa 35 g a pasto: nei primi anni è facile eccedere con le proteine.'],
+      ['Perché un adolescente mangia più pasta di un adulto?', 'Perché cresce velocemente e spesso fa più attività fisica: il suo fabbisogno di energia è più alto. Le tabelle danno 100 g di pasta tra 11 e 17 anni contro 80 g per un adulto.'],
+      ['Il bambino deve finire tutto quello che ha nel piatto?', 'No, è meglio rispettare il suo senso di sazietà. Se mangia poco per molti giorni o non cresce come previsto, va sentito il pediatra.'],
+      ['I pesi sono a crudo o a cotto?', 'A crudo e al netto degli scarti (bucce, lische, ossa), come nelle tabelle CREA e LARN.'],
+    ],
+  },
+
+  'chi-siamo': {
+    body: ({ APP }) => `
+<p class="crumb"><a href="/">Home</a> · Chi siamo</p>
+<h1>Chi siamo, metodo e fonti</h1>
+<p class="lead">MenuDieta è un’app gratuita per organizzare i pasti della famiglia, sviluppata da AF&amp;B S.r.l.s., una piccola società di Roma. Questa pagina spiega su quali dati si basano menu, porzioni e calcolatori, e come li aggiorniamo.</p>
+
+<h2>Cosa facciamo</h2>
+<p>Crediamo che mangiare bene in famiglia sia soprattutto una questione di organizzazione: sapere cosa cucinare, quanto mettere nel piatto di ciascuno e cosa comprare. MenuDieta fa questi conti al posto tuo, gratis e senza pubblicità.</p>
+
+<h2>Le fonti che usiamo</h2>
+<ul>
+  <li><strong>LARN</strong> della Società Italiana di Nutrizione Umana (SINU): fabbisogni di energia e nutrienti per età e sesso.</li>
+  <li><strong>Linee guida per una sana alimentazione</strong> del CREA (revisione 2018): frequenze settimanali e porzioni standard.</li>
+  <li><strong>Grammature per età</strong> delle ASL, derivate da CREA e LARN, per le porzioni dei bambini.</li>
+  <li><strong>Tabelle di composizione degli alimenti</strong> per calorie e macronutrienti delle schede alimento e delle ricette.</li>
+  <li>Per il kit di emergenza: raccomandazioni della Commissione europea e della Protezione Civile sulle 72 ore.</li>
+</ul>
+
+<h2>Come scriviamo e aggiorniamo i contenuti</h2>
+<p>Ogni guida indica le fonti e la data di pubblicazione. Quando le linee guida cambiano o un lettore segnala un errore, correggiamo la pagina e ne aggiorniamo la data. Le segnalazioni sono benvenute a <a href="mailto:info@menudieta.it">info@menudieta.it</a>.</p>
+
+<h2>Cosa MenuDieta non è</h2>
+<p>MenuDieta non sostituisce il medico, il pediatra, il dietista o il nutrizionista. Calcolatori e menu danno indicazioni per persone in salute; in gravidanza, con patologie, allergie o disturbi alimentari serve un professionista. Sei un nutrizionista e vuoi collaborare alla revisione dei contenuti? <a href="/per-nutrizionisti/">Scrivici dalla pagina dedicata</a>.</p>
+
+<h2>Dati aziendali</h2>
+<p>AF&amp;B S.r.l.s. · Via Mario Ugo Guattari 48, 00173 Roma (RM) · P.IVA 13698751008 · REA RM-1466364 · <a href="mailto:info@menudieta.it">info@menudieta.it</a> · <a href="${APP}">Apri l’app</a></p>`,
+    faq: [],
   },
 };
 
@@ -505,4 +579,57 @@ ${cta('Porzioni calcolate per ogni figlio, in automatico')}
 </ol>
 ${cta('Il mantenimento, settimana dopo settimana, senza contare')}
 <p>MenuDieta calcola le tue calorie di mantenimento, genera il menu con le grammature giuste e tiene il grafico del peso: se la media sale, lo vedi prima che diventi un problema. <a href="${APP}">Prova gratis</a>. Utile anche: <a href="/peso-forma-calcolo/">calcolo del peso forma</a>.</p>`,
+  'blog/lista-della-spesa-settimanale': ({ APP, cta }) => `
+<h1>Lista della spesa settimanale sana: come farla e risparmiare</h1>
+<p class="lead">La lista della spesa settimanale si fa in 5 passi: prima il menu, poi le quantità, poi il controllo della dispensa. Fatta così si compra solo quello che serve, si spreca meno e si spende meno. In fondo trovi una lista tipo per una famiglia di 4 persone.</p>
+<h2>Il metodo in 5 passi</h2>
+<ol>
+  <li><strong>Scrivi il menu della settimana.</strong> Senza menu la lista è un elenco di desideri. Puoi partire dall’esempio di <a href="/menu-settimanale-famiglia/">menu settimanale per la famiglia</a>.</li>
+  <li><strong>Calcola le quantità.</strong> Per ogni piatto somma la porzione di ciascuno: le trovi nella tabella delle <a href="/porzioni-bambini-per-eta/">porzioni per età</a>.</li>
+  <li><strong>Controlla dispensa, frigo e congelatore.</strong> Cancella quello che hai già e metti in menu prima ciò che scade presto.</li>
+  <li><strong>Dividi la lista per reparti.</strong> Frutta e verdura, pesce e carne, latticini, dispensa: al supermercato passi da ogni reparto una volta sola.</li>
+  <li><strong>Spezza la spesa in due.</strong> Una spesa grande a inizio settimana e un piccolo rifornimento a metà per frutta, verdura e pesce fresco.</li>
+</ol>
+<h2>Lista della spesa tipo per 4 persone</h2>
+<p>Per 14 pasti (7 pranzi e 7 cene) di <strong>2 adulti e 2 bambini di 7–10 anni</strong>, con legumi 3 volte, carne 3, formaggi 3, pesce 2, uova 2 e salumi 1, come indicano le linee guida CREA. Quantità calcolate sulle porzioni di riferimento e arrotondate alla confezione.</p>
+<div class="scroll"><table class="tabella">
+<tr><th>Reparto</th><th>Cosa comprare</th><th>Per la settimana</th></tr>
+<tr><td>Frutta e verdura</td><td>Verdura di stagione da cuocere e insalate</td><td>8–10 kg</td></tr>
+<tr><td>Frutta e verdura</td><td>Frutta di stagione</td><td>7–10 kg</td></tr>
+<tr><td>Frutta e verdura</td><td>Patate</td><td>1 kg</td></tr>
+<tr><td>Pesce</td><td>Merluzzo (anche surgelato) e orata</td><td>circa 1 kg in tutto</td></tr>
+<tr><td>Carne</td><td>Petto di pollo, macinato di manzo, fesa di tacchino</td><td>400 g ciascuno</td></tr>
+<tr><td>Salumi</td><td>Prosciutto crudo</td><td>180 g</td></tr>
+<tr><td>Uova</td><td>Uova</td><td>10</td></tr>
+<tr><td>Latticini</td><td>Mozzarella e ricotta</td><td>700 g e 500 g</td></tr>
+<tr><td>Latticini</td><td>Latte e yogurt per colazioni e merende</td><td>4–5 L di latte, 8 yogurt</td></tr>
+<tr><td>Dispensa</td><td>Pasta e farro</td><td>1 kg e 300 g</td></tr>
+<tr><td>Dispensa</td><td>Lenticchie, ceci, fagioli secchi</td><td>500 g in tutto (o 6 lattine)</td></tr>
+<tr><td>Dispensa</td><td>Pane</td><td>1,5 kg</td></tr>
+<tr><td>Dispensa</td><td>Farina per pizza e torta salata, passata di pomodoro</td><td>1 kg, 2 bottiglie</td></tr>
+<tr><td>Dispensa</td><td>Olio extravergine d’oliva</td><td>750 ml ogni 1–2 settimane</td></tr>
+</table></div>
+<p>Con bambini più piccoli carne, pesce e formaggi scendono; con adolescenti salgono.</p>
+<h2>7 consigli per spendere meno</h2>
+<ul>
+  <li><strong>Frutta e verdura di stagione</strong>: costano meno e hanno più sapore. Guarda <a href="/frutta-verdura-di-stagione/">cosa è di stagione questo mese</a>.</li>
+  <li><strong>Legumi secchi</strong>: a parità di porzione costano meno di quelli in scatola; basta l’ammollo la sera prima.</li>
+  <li><strong>Pesce surgelato</strong>: nutriente come il fresco e non si butta.</li>
+  <li><strong>Prezzo al chilo</strong>, non prezzo della confezione.</li>
+  <li><strong>Marca del supermercato</strong> per pasta, legumi, passata e latte.</li>
+  <li><strong>Cucina una volta, mangia due</strong>: raddoppia legumi e sughi e congela una parte.</li>
+  <li><strong>Mai a stomaco vuoto</strong>: si compra di più e peggio.</li>
+</ul>
+<h2>La lista che si scrive da sola</h2>
+<p>Con MenuDieta non servono i conti: dal menu della settimana l’app crea la <a href="/lista-della-spesa-automatica/">lista della spesa automatica</a>, divisa per reparti, con le quantità sommate per tutta la famiglia e condivisa sui telefoni di casa.</p>
+${cta('La tua lista della spesa, già pronta')}`,
+};
+
+export const ARTICOLI_FAQ = {
+  'blog/lista-della-spesa-settimanale': [
+    ['Ogni quanto conviene fare la spesa?', 'Una spesa grande a settimana più un piccolo rifornimento a metà settimana per i freschi è il miglior compromesso tra tempo e sprechi.'],
+    ['Meglio legumi secchi o in scatola?', 'Sono equivalenti dal punto di vista nutrizionale. I secchi costano meno, quelli in scatola fanno risparmiare tempo: basta sciacquarli per togliere il sale.'],
+    ['Quanta verdura serve a settimana per 4 persone?', 'Con una porzione di verdura a ogni pasto, circa 8–10 kg a settimana.'],
+    ['Come evito di buttare il cibo?', 'Metti in menu per primi i freschi più deperibili, come pesce e verdure a foglia, e lascia a fine settimana legumi, uova e surgelati.'],
+  ],
 };

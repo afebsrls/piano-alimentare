@@ -27,4 +27,25 @@ for (const [slug, fill, expect] of [
   console.log('  ' + (ok3?'✓':'✗') + ' zaino: solo le voci da portare via'); if (!ok3) process.exitCode = 1;
 }
 
+// Porzioni per età: selettore interattivo, sezione nelle schede alimento, FAQ negli articoli
+{
+  const dp = new JSDOM(fs.readFileSync('site/dist/porzioni-bambini-per-eta/index.html','utf8'), { runScripts: 'dangerously', virtualConsole: new VirtualConsole() });
+  const d = dp.window.document, s = d.getElementById('pz-eta');
+  s.value = '2'; s.dispatchEvent(new dp.window.Event('change'));
+  const pasta = d.querySelector('#pz-out tr[data-k=pasta]').cells[1].textContent;
+  s.value = '5'; s.dispatchEvent(new dp.window.Event('change'));
+  const adulti = d.querySelector('#pz-out tr[data-k=pasta]').cells[1].textContent;
+  const ok1 = pasta === '70 g' && adulti === '80 g';
+  console.log('  ' + (ok1?'✓':'✗') + ' porzioni per età: pasta 7–10 anni ' + pasta + ', adulti ' + adulti); if (!ok1) process.exitCode = 1;
+  const mozz = fs.readFileSync('site/dist/alimenti/mozzarella/index.html','utf8');
+  const ok2 = /Porzione di mozzarella per età/.test(mozz) && /Qual è la porzione di mozzarella per un bambino/.test(mozz);
+  console.log('  ' + (ok2?'✓':'✗') + ' scheda alimento con porzione per età e FAQ bambini'); if (!ok2) process.exitCode = 1;
+  const olioPalma = fs.readFileSync('site/dist/alimenti/olio-di-palma/index.html','utf8');
+  const ok3 = !/per età<\/h2>/.test(olioPalma);
+  console.log('  ' + (ok3?'✓':'✗') + ' nessuna porzione EVO attribuita all’olio di palma'); if (!ok3) process.exitCode = 1;
+  const art = fs.readFileSync('site/dist/blog/lista-della-spesa-settimanale/index.html','utf8');
+  const ok4 = /"FAQPage"/.test(art) && /Redazione MenuDieta/.test(art);
+  console.log('  ' + (ok4?'✓':'✗') + ' articolo lista spesa con FAQ strutturate e autore'); if (!ok4) process.exitCode = 1;
+}
+
 console.log(process.exitCode ? '✗ TEST SITO FALLITO' : '✓ TEST SITO OK');
