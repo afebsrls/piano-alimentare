@@ -929,7 +929,19 @@ export function registraRicetteUtente(lista) {
   RICETTE_UTENTE_NOTE = new Map((lista || []).filter(r => r && r.id != null).map(r => [String(r.id), r]));
 }
 export const macroVuote = (meal) => !meal || ["uomo", "donna", "bimbo"].every(s => !(Number(meal[s]?.kcal) > 0));
+// Garantisce che le quantità del pasto siano registrate in ING_QTY: senza, la
+// lista della spesa mostra "q.b." e i grammi del pasto risultano 0. Succedeva
+// per le sostituzioni arrivate dal cloud (altro dispositivo/membro) e per le
+// ricette di famiglia escluse dal sorteggio ma scelte a mano.
+function assicuraQuantita(meal) {
+  if (!meal || typeof meal !== "object" || !meal.id || ING_QTY[meal.id]) return;
+  if (meal.isCustom && meal._ingredienti && Object.keys(meal._ingredienti).length) { restoreCustomING_QTY(meal); return; }
+  const cid = meal._cloudId ?? (typeof meal.id === "string" && meal.id.startsWith("usr_") ? meal.id.slice(4) : null);
+  const r = cid != null ? RICETTE_UTENTE_NOTE.get(String(cid)) : null;
+  if (r) { try { ricettaUtenteToMealObj(r); } catch { /* niente */ } }
+}
 export function riparaMacroPasto(meal) {
+  assicuraQuantita(meal);
   if (!meal || typeof meal !== "object" || !macroVuote(meal)) return meal;
   const cid = meal._cloudId ?? (typeof meal.id === "string" && /^(cloud|usr)_/.test(meal.id) ? meal.id.replace(/^(cloud|usr)_/, "") : null);
   const r = cid != null ? RICETTE_UTENTE_NOTE.get(String(cid)) : null;

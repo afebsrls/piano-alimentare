@@ -3,7 +3,7 @@
 // senza kcal sulla riga cloud, scelta dal Ricettario, entrava nel piano con
 // 0 kcal e senza ingredienti. Verifica la conversione corretta e la
 // riparazione dei pasti già salvati.
-import { ING_MAP, cloudRecipeToMeal, registraRicetteUtente, riparaMacroPasto, applyOverridesWeek, macroVuote } from '@/core';
+import { ING_MAP, ING_QTY, cloudRecipeToMeal, registraRicetteUtente, riparaMacroPasto, applyOverridesWeek, macroVuote, buildShoppingForDayObjects } from '@/core';
 
 let fail = 0;
 const ok = (cond, msg) => { console.log((cond ? '  ✓ ' : '  ✗ ') + msg); if (!cond) fail++; };
@@ -38,6 +38,16 @@ ok(applyOverridesWeek(settimana, {}, 5) === settimana, 'senza nulla da riparare 
 // Pasto personale con ingredienti nel pasto ma macro a zero
 const personale = { id: 'custom_1', isCustom: true, uomo: { kcal: 0 }, donna: { kcal: 0 }, bimbo: { kcal: 0 }, _ingredienti: { tst_trippa: { valore: 100, unit: 'g' } } };
 ok(riparaMacroPasto(personale).uomo.kcal === 100, 'ricetta personale: kcal dagli ingredienti salvati');
+
+// Sostituzione arrivata dal cloud (altro dispositivo): quantità non registrate → la spesa mostrava "q.b."
+const daCloud = cloudRecipeToMeal(riga, 'pra_02');
+delete ING_QTY[daCloud.id];
+const w2 = applyOverridesWeek([{}], { '5:0-pranzo': daCloud }, 5);
+const spesa = buildShoppingForDayObjects(w2);
+const voci = Object.values(spesa).flat();
+const trippa = voci.find(v => /Trippa test/.test(v.nome || v.name || JSON.stringify(v)));
+ok(!!ING_QTY[daCloud.id], 'quantità della ricetta registrate anche se il pasto arriva dal cloud');
+ok(trippa && !/q\.b\./.test(JSON.stringify(trippa)), `lista della spesa con quantità vera: ${trippa ? JSON.stringify(trippa).slice(0, 80) : 'voce assente'}`);
 
 console.log(fail ? `✗ ${fail} test falliti` : '✓ TEST KCAL ZERO OK');
 process.exit(fail ? 1 : 0);

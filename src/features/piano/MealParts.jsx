@@ -177,7 +177,7 @@ export function MealCard({ mealKey, dayIdx, meal, personaKey, color, onSwap, wee
         background: filled?accent : active?accent+"14" : "#F8FAF6",
         color: filled?"#fff" : active?accent : "#6E8576"}}>
       <span style={{fontSize:14,lineHeight:1,fontWeight:800,filter:(active||filled||!dimIcon)?"none":"grayscale(1) opacity(0.55)"}}>{icon}</span>
-      <span style={{fontSize:8.5,fontWeight:800,letterSpacing:0.3,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",maxWidth:"100%"}}>{label}</span>
+      <span style={{fontSize:8.5,fontWeight:800,letterSpacing:0,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",maxWidth:"100%"}}>{label}</span>
     </button>
   );
 
@@ -311,7 +311,7 @@ export function MealCard({ mealKey, dayIdx, meal, personaKey, color, onSwap, wee
           )}
           {onAdotta && (
             adottata
-              ? <div style={{flex:1.3,display:"flex",alignItems:"center",justifyContent:"center",gap:4,borderRadius:10,background:"#EDF7EF",border:"1.5px solid #2F6B3A30",color:"#2F6B3A",fontWeight:800,fontSize:10.5}}>✓ Nel tuo piano</div>
+              ? <div title="Questo piatto è già nel tuo piano" style={{flex:1,minWidth:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:2,padding:"5px 2px",borderRadius:10,background:"#EDF7EF",border:"1.5px solid #2F6B3A30",color:"#2F6B3A",fontWeight:800}}><span style={{fontSize:12,lineHeight:1}}>✓</span><span style={{fontSize:8.5,lineHeight:1.05,textAlign:"center"}}>Nel tuo piano</span></div>
               : <ActionBtn
                   onClick={e=>{ e.stopPropagation(); onAdotta(); }}
                   title="Imposta questa ricetta nello stesso pasto del TUO piano"

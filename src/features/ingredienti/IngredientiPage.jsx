@@ -3,6 +3,11 @@ const { useState, useEffect, useMemo } = React;
 import { DB, INGREDIENTS, depColor, meseCorrente } from '@/core';
 import { getCustomIngredients, addCustomIngredient, updateCustomIngredient, deleteCustomIngredient, pullCustomIngredients } from '@/db/customIngredients';
 import { cloudEnabled } from '@/db/cloud';
+import { getCloudMe } from '@/db/sync';
+// La condivisione con la famiglia avviene solo con account e famiglia attivi
+const inFamiglia = () => cloudEnabled && !!getCloudMe()?.famigliaId;
+// Conservazione: le etichette "7g" sembravano grammi; ora sono in giorni/settimane/mesi
+const ETICHETTA_GIORNI = { 1: "1 giorno", 3: "3 giorni", 7: "1 settimana", 14: "2 settimane", 30: "1 mese", 90: "3 mesi", 180: "6 mesi" };
 
 const CATEGORIE = [
   "🌾 Cereali","🫘 Legumi","🥦 Verdure","🍎 Frutta","🥜 Frutta secca",
@@ -164,7 +169,7 @@ export function AddIngredientModal({ editing = null, initial = null, sorgente = 
         {/* Deperibilità */}
         <div style={{ marginBottom: 10 }}>
           <label style={{ fontSize: 11, fontWeight: 700, color: "#6E8576", display: "block", marginBottom: 3 }}>
-            Deperibilità — 365+ = stabile
+            Quanto si conserva
           </label>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {[1, 3, 7, 14, 30, 90, 180, 365].map(d => (
@@ -174,7 +179,7 @@ export function AddIngredientModal({ editing = null, initial = null, sorgente = 
                 background: form.deperibile === d ? "#2F6B3A" : "#F5F8F1",
                 color: form.deperibile === d ? "#fff" : "#6E8576",
               }}>
-                {d >= 365 ? "Stabile" : `${d}g`}
+                {d >= 365 ? "Oltre un anno" : ETICHETTA_GIORNI[d] || `${d} giorni`}
               </button>
             ))}
           </div>
@@ -239,7 +244,7 @@ export function AddIngredientModal({ editing = null, initial = null, sorgente = 
           </div>
         </div>
 
-        {cloudEnabled && (
+        {inFamiglia() && (
           <div style={{ fontSize: 10, color: "#16a34a", background: "#EEF7F0", border: "1px solid #A9DDB8", borderRadius: 7, padding: "6px 10px", marginBottom: 14 }}>
             ☁ {editing ? "Le modifiche verranno condivise con la tua famiglia" : "L'ingrediente verrà condiviso con la tua famiglia"}
           </div>
@@ -368,7 +373,7 @@ export function IngredientiPage({ excluded, onToggle }) {
       {/* Badge custom */}
       {customList.length > 0 && (
         <div style={{ background: "#EEF7F0", border: "1px solid #A9DDB8", borderRadius: 8, padding: "7px 12px", marginBottom: 10, fontSize: 11, color: "#16a34a", fontWeight: 700 }}>
-          ✨ {customList.length} ingredient{customList.length === 1 ? "e" : "i"} personalizzat{customList.length === 1 ? "o" : "i"} nel database{cloudEnabled ? " · sincronizzati con la famiglia" : ""}
+          ✨ {customList.length} ingredient{customList.length === 1 ? "e" : "i"} personalizzat{customList.length === 1 ? "o" : "i"} nel database{inFamiglia() ? " · sincronizzati con la famiglia" : ""}
         </div>
       )}
 
@@ -473,7 +478,7 @@ export function IngredientiPage({ excluded, onToggle }) {
           <div style={{ background: "#fff", borderRadius: 14, padding: "22px 20px", maxWidth: 320, width: "100%" }}>
             <div style={{ fontSize: 15, fontWeight: 800, color: "#15251C", marginBottom: 8 }}>Elimina ingrediente</div>
             <div style={{ fontSize: 13, color: "#6E8576", marginBottom: 20 }}>
-              L'ingrediente verrà rimosso dal database personale{cloudEnabled ? " e dalla famiglia" : ""}. Non è reversibile.
+              L'ingrediente verrà rimosso dal database personale{inFamiglia() ? " e dalla famiglia" : ""}. Non è reversibile.
             </div>
             <div style={{ display: "flex", gap: 8 }}>
               <button onClick={() => setConfirmDelete(null)}

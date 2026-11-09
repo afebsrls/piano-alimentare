@@ -147,6 +147,13 @@ export function App() {
   const [ricetteUtente, setRicetteUtente] = useState(() => ricetteCachePersistita() || []);
   // Le ricette di famiglia servono anche a ricalcolare i pasti salvati con 0 kcal (riparaMacroPasto)
   useMemo(() => registraRicetteUtente(ricetteUtente), [ricetteUtente]);
+  // Valori sempre aggiornati per l'ascoltatore degli eventi cloud (registrato una volta sola):
+  // prima usava le ricette della cache letta all'avvio, quindi un piano arrivato dal cloud
+  // veniva ricostruito con ricette vecchie e poteva differire da quello degli altri membri.
+  const ricetteUtenteRef = useRef(ricetteUtente);
+  ricetteUtenteRef.current = ricetteUtente;
+  // Contatore: si incrementa quando arrivano le ricette fresche dal cloud
+  const [ricetteCloudVer, setRicetteCloudVer] = useState(0);
   // Set di id-ricetta esclusi dal piano: catalogo (localStorage cat-escluse) + utente (flag esclusa)
   const [ricetteEscluseIds, setRicetteEscluseIds] = useState(() => {
     try {
@@ -157,6 +164,8 @@ export function App() {
       return new Set([...cat, ...usrEscluse.map(r => "usr_" + r.id), ...usrEscluse.map(r => r.id)]);
     } catch { return new Set(); }
   });
+  const ricetteEscluseRef = useRef(ricetteEscluseIds);
+  ricetteEscluseRef.current = ricetteEscluseIds;
 
   // ── Cloud sync: avvio, stato e applicazione degli aggiornamenti remoti ──
   useEffect(()=>{
@@ -204,6 +213,7 @@ export function App() {
         caricaRicette().then(rs => {
           setRicetteUtente(rs);
           aggiornaEscluse(rs);
+          setRicetteCloudVer(v => v + 1);
         }).catch(()=>{});
       } else {
         // Sessione assente: al boot è spesso solo transitoria (nel log
@@ -241,8 +251,11 @@ export function App() {
           if (isNaN(seedCloud) || seedCloud <= 0) break;
           const frozenCloud = (e.detail.frozen && typeof e.detail.frozen==="object") ? e.detail.frozen : {};
           const cur = weekIndexForDate(new Date());
-          const np = planForWeek({baseSeed:seedCloud, frozen:frozenCloud}, cur, { excludedIds: excludedRef.current || [], ricetteUtente, ricetteEscluseIds });
-          setSeed(seedCloud); setFrozen(frozenCloud); setPlan(np); setOverrides(migraOverridesASettimana(ovrCloud, cur)); setRegenNeeded(false);
+          const np = planForWeek({baseSeed:seedCloud, frozen:frozenCloud}, cur, { excludedIds: excludedRef.current || [], ricetteUtente: ricetteUtenteRef.current, ricetteEscluseIds: ricetteEscluseRef.current });
+          const ovCloud = migraOverridesASettimana(ovrCloud, cur);
+          // Ricette personali nelle sostituzioni arrivate dal cloud: registra le quantità (lista spesa)
+          for (const ricetta of tuttiOverrideMeals(ovCloud)) restoreCustomING_QTY(ricetta);
+          setSeed(seedCloud); setFrozen(frozenCloud); setPlan(np); setOverrides(ovCloud); setRegenNeeded(false);
           break;
         }
       }
@@ -501,6 +514,23 @@ export function App() {
     const utenteEscluseRaw = (ricette||[]).filter(r => r.esclusa).map(r => r.id);
     setRicetteEscluseIds(new Set([...catEscluse, ...utenteEscluse, ...utenteEscluseRaw]));
   }, []);
+
+  // Il piano dell'avvio usa la cache locale delle ricette di famiglia. Quando arriva
+  // la lista vera dal cloud (nuovo dispositivo, cache vecchia) il piano va ricostruito
+  // con lo STESSO seme: altrimenti questo dispositivo mostrerebbe pasti e lista della
+  // spesa diversi da quelli degli altri membri della famiglia.
+  useEffect(() => {
+    if (!ricetteCloudVer || !booted || !seed) return;
+    const cur = weekIndexForDate(new Date());
+    const np = planForWeek({ baseSeed: seed, frozen }, cur, { excludedIds: excluded, ricetteUtente, ricetteEscluseIds });
+    const firma = (w) => JSON.stringify((w || []).map(d => MEAL_KEYS.map(mk => d?.[mk]?.id || "")));
+    setPlan(prev => {
+      if (firma(prev) === firma(np)) return prev;
+      logSync("info", "Piano riallineato alle ricette di famiglia dal cloud", {});
+      return np;
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ricetteCloudVer, booted]);
 
   // Chiamato da RicettePage dopo ogni modifica: ricarica ricette + esclusioni + rigenera piano
   const handleRicetteChange = useCallback(async () => {

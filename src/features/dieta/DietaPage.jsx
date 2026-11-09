@@ -40,11 +40,18 @@ function Torta({ split }) {
   );
 }
 
-export function DietaPage({ persona, misure, onUpdatePersona }) {
-  if (!persona) {
+// Il controllo "nessun profilo" sta in un componente a parte: gli hook React non
+// possono stare dopo un return condizionale (crash "Rendered more hooks…" quando
+// il profilo passa da assente a presente).
+export function DietaPage(props) {
+  if (!props.persona) {
     return <div style={{ padding: 20 }}><EmptyState emoji="🥧" title="Nessun profilo"
       text="Seleziona o crea un profilo per impostare la ripartizione della dieta." /></div>;
   }
+  return <DietaPageProfilo {...props} />;
+}
+
+function DietaPageProfilo({ persona, misure, onUpdatePersona }) {
 
   // Target attuale (per le calorie e la ripartizione di partenza)
   const target = useMemo(() => calcTargetAdattivo(persona, misure || []), [persona, misure]);

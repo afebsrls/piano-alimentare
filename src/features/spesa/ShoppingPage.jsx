@@ -132,7 +132,7 @@ export function ShoppingPage({ planState, overrides, genArgs, checks, onToggle, 
             )}
           </div>
           <div style={{display:"flex",gap:8,marginBottom:12,flexWrap:"wrap"}}>
-            {[[2,"≤3g","Freschissimo"],[7,"≤7g","Breve conservaz."],[14,"≤14g","Media conservaz."],[365,"Stabile","Lunga conservaz."]].map(([days,lab,desc])=>(
+            {[[2,"≤3 giorni","Freschissimo"],[7,"≤7 giorni","Breve conservaz."],[14,"≤14 giorni","Media conservaz."],[365,"Stabile","Lunga conservaz."]].map(([days,lab,desc])=>(
               <div key={days} style={{display:"flex",alignItems:"center",gap:4,fontSize:10,color:"#6E8576"}}>
                 <div style={{width:8,height:8,borderRadius:"50%",background:depColor(days),flexShrink:0}}/><span style={{fontWeight:700,color:depColor(days)}}>{lab}</span><span>{desc}</span>
               </div>
