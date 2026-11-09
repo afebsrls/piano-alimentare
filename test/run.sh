@@ -109,6 +109,12 @@ node ./.tpro.mjs || FAIL=1
 rm -f ./.tpro.mjs
 
 echo ""
+echo "▸ TEST 3m — Arrivi dal sito (#da= e ?da=)"
+"$EB" test/test_arrivi.mjs --bundle --format=esm --outfile=./.tar.mjs "--alias:@=$ROOT/src" --loader:.json=json --packages=external --log-level=error
+node ./.tar.mjs || FAIL=1
+rm -f ./.tar.mjs
+
+echo ""
 echo "▸ TEST 3k — Kit di emergenza (formule)"
 node test/test_kit.mjs || FAIL=1
 

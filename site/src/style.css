@@ -113,3 +113,19 @@ p{margin:0 0 1em}
   body:has(#cn:not([hidden])) .stickycta{display:none}
 }
 .agg{margin-top:28px}
+/* Immagini ricetta e infografica menù dieta */
+.foto-ricetta,.infografica{margin:16px 0 8px}
+.foto-ricetta img,.infografica img{display:block;width:100%;height:auto;border-radius:16px;border:1px solid var(--bordo);background:#fff}
+.infografica img{max-width:760px}
+.foto-ricetta figcaption,.infografica figcaption{font-size:14px;color:var(--muted);margin-top:6px}
+.settimana{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.giorno{background:#fff;border:1px solid var(--bordo);border-radius:16px;padding:0 16px 10px;overflow:hidden}
+.giorno h3{margin:0 -16px 8px;padding:10px 16px;background:var(--ink);color:#fff;font-size:17px;display:flex;justify-content:space-between;gap:8px}
+.giorno h3 span{color:var(--lime);font-size:15px;white-space:nowrap}.giorno h3 small{color:#CFE3C8;font-weight:400}
+.giorno ul{list-style:none;margin:0;padding:0}.giorno li{padding:6px 0;border-bottom:1px solid var(--bordo);font-size:15px;line-height:1.4}.giorno li:last-child{border:0}
+.giorno li b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--verde)}
+.spesa-menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.spesa-menu>div{background:#fff;border:1px solid var(--bordo);border-radius:14px;padding:4px 14px 8px}
+.spesa-menu h3{margin:.6em 0 .2em;font-size:16px}.spesa-menu ul{margin:0;padding-left:18px;font-size:15px}
+button.btn{font:inherit;cursor:pointer}
+@media print{.btns,.stickycta,.infografica,.foto-ricetta{display:none!important}.giorno{break-inside:avoid}}

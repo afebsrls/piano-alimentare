@@ -56,12 +56,43 @@ for (const [slug, fill, expect] of [
   const chiave = fs.readdirSync('site/dist').find(f => /^[0-9a-f]{32}\.txt$/.test(f));
   const ok3 = !!chiave && fs.readFileSync('site/dist/' + chiave, 'utf8') === chiave.replace('.txt', '');
   const moz = fs.readFileSync('site/dist/alimenti/mozzarella/index.html','utf8');
-  const ok4 = /app\/\?da=alimenti\/mozzarella"/.test(moz) && /app\/privacy\.html"/.test(moz);
+  const ok4 = /app\/#da=alimenti\/mozzarella"/.test(moz) && /app\/privacy\.html"/.test(moz) && !/app\/\?da=/.test(moz);
   const kit = fs.readFileSync('site/dist/kit-di-emergenza/index.html','utf8');
   const ok5 = !/href="https:\/\/www\.menudieta\.it\/app\/\?kit=1"/.test(kit);
   const t = (moz.match(/<title>([^<]*)/) || [])[1] || '';
   const ok6 = t.length <= 65;
-  for (const [ok, m] of [[ok1, 'llms.txt presente'], [ok2, 'robots.txt accoglie i motori AI e tiene fuori /app/'], [ok3, 'file chiave IndexNow'], [ok4, 'link all\u2019app con ?da=pagina (privacy esclusa)'], [ok5, 'link kit con parametri: da aggiunto in coda'], [ok6, 'title entro 65 caratteri']]) { console.log('  ' + (ok ? '✓' : '✗') + ' ' + m); if (!ok) process.exitCode = 1; }
+  for (const [ok, m] of [[ok1, 'llms.txt presente'], [ok2, 'robots.txt accoglie i motori AI e tiene fuori /app/'], [ok3, 'file chiave IndexNow'], [ok4, 'link all\u2019app con #da=pagina, un solo URL per Google (privacy esclusa)'], [ok5, 'link kit con parametri: da aggiunto in coda'], [ok6, 'title entro 65 caratteri']]) { console.log('  ' + (ok ? '✓' : '✗') + ' ' + m); if (!ok) process.exitCode = 1; }
+}
+
+// Ricette: campo "image" nei dati strutturati (errore critico in Search Console) e file presenti
+{
+  const dir = 'site/dist/ricette';
+  const slugs = fs.readdirSync(dir).filter(f => fs.existsSync(`${dir}/${f}/index.html`));
+  let senza = [], mancanti = [];
+  for (const s of slugs) {
+    const html = fs.readFileSync(`${dir}/${s}/index.html`, 'utf8');
+    const ld = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(m => JSON.parse(m[1]));
+    const rec = ld.find(x => x['@type'] === 'Recipe');
+    if (!rec) continue;
+    if (!Array.isArray(rec.image) || rec.image.length !== 3) senza.push(s);
+    for (const u of rec.image || []) if (!fs.existsSync('site/dist' + u.replace('https://www.menudieta.it', ''))) mancanti.push(u);
+  }
+  const ok1 = slugs.length > 100 && !senza.length, ok2 = !mancanti.length;
+  console.log('  ' + (ok1 ? '✓' : '✗') + ` Recipe con image (3 formati) in ${slugs.length} pagine` + (senza.length ? ' — senza: ' + senza.slice(0, 3) : '')); if (!ok1) process.exitCode = 1;
+  console.log('  ' + (ok2 ? '✓' : '✗') + ' file immagine delle ricette presenti' + (mancanti.length ? ' — mancano: ' + mancanti.slice(0, 3) : '')); if (!ok2) process.exitCode = 1;
+}
+
+// Menù dieta: pagina, infografica, nel menu di navigazione e nella sitemap
+{
+  const html = fs.readFileSync('site/dist/menu-dieta/index.html', 'utf8');
+  const t = (html.match(/<title>([^<]*)/) || [])[1] || '';
+  const giorni = (html.match(/<section class="giorno">/g) || []).length;
+  const ok1 = /^Menù dieta settimanale/.test(t) && t.length <= 65 && /<h1>Menù dieta settimanale/.test(html) && giorni === 7;
+  const ok2 = fs.existsSync('site/dist/menu-dieta/menu-dieta-settimanale.webp') && fs.existsSync('site/dist/menu-dieta/menu-dieta-og.jpg') && /"Article"/.test(html) && /"FAQPage"/.test(html);
+  const ok3 = /href="\/menu-dieta\/">Menù dieta<\/a>/.test(fs.readFileSync('site/dist/index.html', 'utf8')) && /menu-dieta\/<\/loc>/.test(fs.readFileSync('site/dist/sitemap-pagine.xml', 'utf8'));
+  const kcal = [...html.matchAll(/<h3>[^<]+ <span>([\d.]+) kcal/g)].map(m => +m[1].replace('.', ''));
+  const ok4 = kcal.length === 7 && kcal.every(k => k >= 1350 && k <= 1700);
+  for (const [ok, m] of [[ok1, 'menù dieta: title, H1 e 7 giorni'], [ok2, 'menù dieta: infografica, anteprima social, Article e FAQ'], [ok3, 'menù dieta nel menu del sito e nella sitemap'], [ok4, 'menù dieta: ogni giorno tra 1350 e 1700 kcal (' + kcal.join(', ') + ')']]) { console.log('  ' + (ok ? '✓' : '✗') + ' ' + m); if (!ok) process.exitCode = 1; }
 }
 
 console.log(process.exitCode ? '✗ TEST SITO FALLITO' : '✓ TEST SITO OK');

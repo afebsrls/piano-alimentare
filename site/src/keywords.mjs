@@ -29,6 +29,16 @@ export const PAGES = [
     tipo: 'home',
   },
   {
+    slug: 'menu-dieta',
+    kw: 'menù dieta',
+    varianti: ['menù dieta settimanale', 'menu dieta settimanale', 'esempio menù dieta', 'dieta 1500 calorie menù settimanale', 'menù dieta equilibrata', 'menù settimanale dieta dimagrante', 'schema dieta settimanale'],
+    intento: 'vogliono un esempio pronto di 7 giorni, con le calorie, da stampare o salvare (Google mostra un blocco Immagini con infografiche)',
+    concorrenti: 'my-personaltrainer (menù settimanale con infografica), educazionenutrizionale, nutrizionista bio; in Immagini infografiche “Lunedì… colazione/spuntino/pranzo/cena”',
+    title: 'Menù dieta settimanale: esempio di 7 giorni da stampare',
+    description: 'Menù dieta settimanale di esempio: 7 giorni con colazione, spuntini, pranzo e cena, circa 1500 kcal (porzione donna), versioni uomo e bambino, lista della spesa e infografica.',
+    tipo: 'menu', mod: '2026-11-09',
+  },
+  {
     slug: 'menu-settimanale-famiglia',
     kw: 'menu settimanale per la famiglia',
     varianti: ['menù settimanale famiglia', 'piano alimentare settimanale famiglia', 'menu settimanale con bambini', 'esempio menu settimanale'],

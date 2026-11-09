@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ETA, PORZIONI, FONTE_PORZIONI, chiavePorzione } from './porzioni.mjs';
+import { coloreCat } from './immagini.mjs';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ING = JSON.parse(fs.readFileSync(path.join(__dirname, '../../src/data/ingredients.json'), 'utf8'));
@@ -24,7 +25,7 @@ const nomeBreve = (nome) => nome.replace(/\s*\([^)]*\)/g, '').trim();
 // "Bowl di ceci + spinaci + feta" → "Bowl di ceci, spinaci e feta" (title, H1, schema)
 export const bello = (nome) => { const p = String(nome).split(/\s*\+\s*/); return p.length > 1 ? p.slice(0, -1).join(', ') + ' e ' + p[p.length - 1] : p[0]; };
 // Data dell'ultima modifica dei dati (aggiornare quando cambiano ingredients.json / recipes.json)
-export const DATA_MOD = '2026-11-06';
+export const DATA_MOD = '2026-11-09';
 
 // Ricette che usano un alimento
 const RIC_PER_ING = {};
@@ -131,6 +132,19 @@ ${cta('Le porzioni giuste per la tua famiglia, in automatico')}`;
 // Divide la preparazione in passi (frasi separate da ; o .)
 const passi = (t) => String(t).split(/(?<=[.;])\s+/).map(s => s.replace(/[;.]\s*$/, '').trim()).filter(Boolean).map(s => s[0].toUpperCase() + s.slice(1) + '.');
 
+// ── Immagini della ricetta (generate in build.mjs con immagini.mjs) ─────
+// Tre formati come chiede Google per Recipe: 16:9, 4:3 (mostrata in pagina), 1:1.
+export const FORMATI_RICETTA = [['', 1200, 900], ['-16x9', 1200, 675], ['-1x1', 1200, 1200]];
+export const immaginiRicetta = (r) => FORMATI_RICETTA.map(([suf, w, h]) => ({ url: `https://www.menudieta.it/ricette/${r.slug}/${r.slug}${suf}.webp`, file: `ricette/${r.slug}/${r.slug}${suf}.webp`, w, h }));
+// Grammi (porzione donna) di ogni ingrediente, per disegnarlo nel piatto in proporzione
+const grammi = (q, a) => !q ? 20 : q.unit === 'pz' ? q.donna * (a?.pesoPezzoG || 50) : q.unit === 'cucchiaio' ? q.donna * 10 : q.donna;
+export const datiImmagineRicetta = (r) => ({
+  nome: r.nomeVis, categoria: CAT_RIC[r.categoria] || r.categoria, prep: r.prep, uomo: r.uomo, donna: r.donna, bimbo: r.bimbo,
+  ingredienti: r.ingredients.map(id => { const a = ALI_BY_ID[id] || BY_ID[id]; const q = r.quantita?.[id];
+    return { nome: a ? nomeBreve(a.nome) : id, g: grammi(q, a), q: q?.donna, unit: q?.unit || 'g', colore: coloreCat(a?.cat) }; })
+    .sort((x, y) => y.g - x.g),
+});
+
 // ── Pagina ricetta ───────────────────────────────────────────────────
 export function paginaRicetta(r, { APP, cta }) {
   const cat = CAT_RIC[r.categoria] || r.categoria;
@@ -147,6 +161,7 @@ export function paginaRicetta(r, { APP, cta }) {
 <p class="crumb"><a href="/">Home</a> · <a href="/ricette/">Ricette</a> · ${esc(cat)}</p>
 <h1>${esc(r.nomeVis)}: calorie e porzioni per uomo, donna e bambino</h1>
 <p class="lead">${esc(bello(r.nome))} è una ricetta da ${esc(cat.toLowerCase())}${r.prep ? ` pronta in circa ${r.prep} minuti` : ''}: <strong>${n0(r.donna?.kcal)} kcal</strong> nella porzione per una donna, ${n0(r.uomo?.kcal)} per un uomo, ${n0(r.bimbo?.kcal)} per un bambino. Stessi ingredienti, grammature diverse: è così che MenuDieta cucina una volta sola per tutta la famiglia.</p>
+<figure class="foto-ricetta"><img src="/ricette/${r.slug}/${r.slug}.webp" width="1200" height="900" alt="${esc(bello(r.nome))}: ingredienti nel piatto e calorie per uomo, donna e bambino" fetchpriority="high"><figcaption>Il piatto in proporzione: ogni cerchio è un ingrediente, grande quanto i suoi grammi nella porzione donna.</figcaption></figure>
 <h2>Ingredienti e quantità per persona</h2>
 <div class="scroll"><table class="tabella"><tr><th>Ingrediente</th><th>👨 Uomo</th><th>👩 Donna</th><th>🧒 Bambino</th></tr>
 ${ingr.map(({ a, q, id }) => `<tr><td>${a ? (ALI_BY_ID[id] ? `<a href="/alimenti/${ALI_BY_ID[id].slug}/">${esc(nomeBreve(a.nome))}</a>` : esc(nomeBreve(a.nome))) : esc(id)}</td><td>${q ? `${q.uomo} ${q.unit || 'g'}` : '—'}</td><td>${q ? `${q.donna} ${q.unit || 'g'}` : '—'}</td><td>${q ? `${q.bimbo} ${q.unit || 'g'}` : '—'}</td></tr>`).join('')}
@@ -167,8 +182,10 @@ ${cta(`Metti ${bello(r.nome)} nel menu della tua famiglia`)}
     title: titolo(`${r.nomeVis}: calorie e porzioni`, `${r.nomeVis}: calorie`, r.nomeVis),
     description: `${r.nomeVis} (${cat.toLowerCase()}${r.prep ? `, ${r.prep} min` : ''}): ${n0(r.donna?.kcal)} kcal porzione donna, ${n0(r.uomo?.kcal)} uomo, ${n0(r.bimbo?.kcal)} bambino. Ingredienti e grammature.`,
     body, faq,
+    ogImage: immaginiRicetta(r)[1].url, ogW: 1200, ogH: 675,
     schema: [{
       '@context': 'https://schema.org', '@type': 'Recipe', name: bello(r.nome), description: `${bello(r.nome)}: ricetta da ${cat.toLowerCase()} con porzioni e calorie per uomo, donna e bambino.`, recipeCategory: cat, recipeCuisine: 'Italiana', inLanguage: 'it',
+      image: immaginiRicetta(r).map(i => i.url),
       author: { '@type': 'Organization', name: 'Redazione MenuDieta', url: 'https://www.menudieta.it/chi-siamo/' }, recipeYield: '1 porzione', datePublished: DATA_MOD,
       ...(r.prep ? { prepTime: `PT${r.prep}M`, totalTime: `PT${r.prep}M` } : {}),
       ...(r.preparazione ? { recipeInstructions: passi(r.preparazione).map(t => ({ '@type': 'HowToStep', text: t })) } : {}),

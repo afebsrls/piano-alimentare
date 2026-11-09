@@ -4,6 +4,7 @@
 
 import { toolKit, tabellaPersone, linkVarianti } from './kitPagine.mjs';
 import { ETA, PORZIONI, ORDINE, FONTE_PORZIONI } from './porzioni.mjs';
+import { paginaMenuDieta } from './menuDieta.mjs';
 const toolCalorie = () => `
 <div class="tool" data-tool="calorie">
   <div class="row">
@@ -51,6 +52,10 @@ const menuEsempio = () => `
 <p class="note">Colazione e spuntini variano per persona (yogurt, frutta, pane e marmellata, frutta secca). Le quantità in grammi dipendono dal fabbisogno di ciascuno: è il motivo per cui un menu "uguale per tutti" non funziona, e il motivo per cui esiste MenuDieta.</p>`;
 
 export const CONTENUTI = {
+  'menu-dieta': {
+    body: (ctx) => paginaMenuDieta(ctx).body,
+    faq: paginaMenuDieta({ APP: '', cta: () => '' }).faq,
+  },
   home: {
     body: ({ APP, cta, phone }) => `
 <a class="avviso-kit" href="/kit-di-emergenza/"><span>🎒</span><span><strong>Nuovo: calcolatore del kit di emergenza 72 ore.</strong> Acqua, cibo, luce e farmaci con le quantità giuste per la tua famiglia, gratis e senza account →</span></a>
@@ -58,7 +63,7 @@ export const CONTENUTI = {
   <div>
     <h1>MenuDieta, l’app gratuita per il piano alimentare settimanale della famiglia</h1>
     <p class="lead">MenuDieta è un’app web gratuita che decide cosa si mangia questa settimana: un menu equilibrato per tutta la famiglia, con le porzioni giuste per ogni persona, la lista della spesa pronta e le ricette di stagione. Nessuna pubblicità, nessun abbonamento.</p>
-    <div class="btns"><a class="btn" href="${APP}">Apri MenuDieta gratis →</a><a class="btn secondario" href="/menu-settimanale-famiglia/">Vedi un menu di esempio</a></div>
+    <div class="btns"><a class="btn" href="${APP}">Apri MenuDieta gratis →</a><a class="btn secondario" href="/menu-dieta/">Vedi un menù dieta di esempio</a></div>
     <p class="note">Funziona sul telefono e sul computer, si installa come un’app. I dati restano tuoi.</p>
   </div>
   <div class="phones">${phone('OGGI')}${phone('PIANO')}</div>
@@ -111,7 +116,7 @@ ${cta('Inizia oggi, è gratis')}
 
 <div class="grid">
   <div class="box"><h3>📖 Le tue ricette</h3><p>Aggiungi i piatti di casa: MenuDieta calcola le calorie dagli ingredienti e li inserisce nel menu. Le migliori, validate, finiscono nel catalogo della community.</p></div>
-  <div class="box"><h3>🧰 Strumenti gratuiti</h3><p><a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a>, <a href="/peso-forma-calcolo/">peso forma</a>, <a href="/quanta-acqua-bere-al-giorno/">acqua al giorno</a>, equivalenze e misure casalinghe.</p></div>
+  <div class="box"><h3>🧰 Strumenti gratuiti</h3><p><a href="/menu-dieta/">Menù dieta settimanale di esempio</a>, <a href="/calcolo-fabbisogno-calorico/">fabbisogno calorico</a>, <a href="/peso-forma-calcolo/">peso forma</a>, <a href="/quanta-acqua-bere-al-giorno/">acqua al giorno</a>, equivalenze e misure casalinghe.</p></div>
   <div class="box"><h3>🩺 Sei un nutrizionista?</h3><p>Segui i tuoi pazienti dentro l’app: misure, diario e messaggi in tempo reale, target impostato da te. <a href="/per-nutrizionisti/">Scopri MenuDieta Pro ed entra in lista d’attesa</a>.</p></div>
 </div>
 
@@ -134,6 +139,8 @@ ${cta('Inizia oggi, è gratis')}
 
 <h2>Esempio di menù settimanale per la famiglia (pranzo e cena)</h2>
 ${menuEsempio()}
+
+<p>Cerchi un menù con le calorie di ogni pasto e la lista della spesa? Guarda l’esempio di <a href="/menu-dieta/">menù dieta settimanale da 1500 kcal</a>, con le porzioni per uomo, donna e bambino.</p>
 
 <h2>Le regole che rendono un piano alimentare settimanale davvero "di famiglia"</h2>
 <div class="grid">

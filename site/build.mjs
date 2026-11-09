@@ -10,6 +10,9 @@ import { ALIMENTI, RICETTE, DATA_MOD, paginaAlimento, indiceAlimenti, paginaRice
 import { paginaMese, indiceStagioni } from './src/stagioni.mjs';
 import { VARIANTI, paginaVariante, itemListSchema } from './src/kitPagine.mjs';
 import { calcolaKit, KIT_DEFAULT } from '../src/core/kitEmergenza.js';
+import { svgRicetta, svgOg, webp, jpg } from './src/immagini.mjs';
+import { immaginiRicetta, datiImmagineRicetta } from './src/generati.mjs';
+import { paginaMenuDieta, infografica, IMG as IMG_MENU, KCAL } from './src/menuDieta.mjs';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const OUT = path.join(__dirname, 'dist');
@@ -40,6 +43,7 @@ const ICONA = `<svg viewBox="0 0 176 176" width="34" height="34" aria-hidden="tr
 const LOGO = `<a class="logo" href="/" aria-label="MenuDieta">${ICONA}menu<span>dieta</span></a>`;
 const NAV = `
 <nav class="nav">
+  <a href="/menu-dieta/">Menù dieta</a>
   <a href="/menu-settimanale-famiglia/">Menu settimanale</a>
   <a href="/lista-della-spesa-automatica/">Lista spesa</a>
   <a href="/calcolo-fabbisogno-calorico/">Calcolatori</a>
@@ -52,7 +56,7 @@ const NAV = `
   <a class="cta" href="${APP}">Apri l’app</a>
 </nav>`;
 
-function layout({ title, description, slug, body, schema = [], type = 'website', datePublished, dateModified, noindex = false, ogImage }) {
+function layout({ title, description, slug, body, schema = [], type = 'website', datePublished, dateModified, noindex = false, ogImage, ogW = 1200, ogH = 630 }) {
   const canonical = url(slug);
   description = corta(description);
   const ld = [
@@ -75,8 +79,8 @@ function layout({ title, description, slug, body, schema = [], type = 'website',
 <meta property="og:site_name" content="MenuDieta">
 <meta property="og:locale" content="it_IT">
 <meta property="og:image" content="${ogImage || SITE + '/og.png'}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="${ogW}">
+<meta property="og:image:height" content="${ogH}">
 <meta name="twitter:card" content="summary_large_image">
 ${noindex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robots" content="index,follow,max-image-preview:large">'}
 ${datePublished ? `<meta property="article:published_time" content="${datePublished}">` : ''}${dateModified ? `<meta property="article:modified_time" content="${dateModified}">` : ''}
@@ -95,6 +99,7 @@ ${slug === '' || noindex ? '' : `<a class="stickycta" href="${APP}">Crea il menu
   <div class="cols">
     <div><strong>MenuDieta</strong><br>Nutrizione intelligente per la famiglia.<br><a href="${APP}">Apri l’app</a> · gratis, senza pubblicità.</div>
     <div><strong>Strumenti gratuiti</strong><br>
+      <a href="/menu-dieta/">Menù dieta settimanale</a><br>
       <a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a><br>
       <a href="/peso-forma-calcolo/">Peso forma</a><br>
       <a href="/quanta-acqua-bere-al-giorno/">Acqua al giorno</a><br>
@@ -126,8 +131,10 @@ const faqHtml = (faq) => faq?.length ? `<section class="faq"><h2>Domande frequen
 
 const ctaHtml = (testo = 'Prova MenuDieta gratis') => `<div class="ctabox"><div><strong>${esc(testo)}</strong><br>Menu settimanale per tutta la famiglia, porzioni per ciascuno e lista della spesa automatica. Senza pubblicità, senza carta di credito.</div><a class="btn" href="${APP}">Apri l’app →</a></div>`;
 
-// Ogni link all'app porta ?da=<pagina>: l'app conta in modo anonimo quali pagine portano persone (vedi supabase/s15_arrivi.sql)
-const tagApp = (html, slug) => html.replace(/href="https:\/\/www\.menudieta\.it\/app\/(\?[^"#]*)?(#[^"]*)?"/g, (m, q = '', h = '') => `href="${APP}${q ? q + '&' : '?'}da=${slug || 'home'}${h}"`);
+// Ogni link all'app porta #da=<pagina>: l'app conta in modo anonimo quali pagine portano persone (vedi supabase/s15_arrivi.sql).
+// Nel frammento (#) e non nella query (?): Google ignora il frammento, quindi vede un solo indirizzo /app/
+// invece di un indirizzo diverso per ogni pagina (prima erano ~950 URL "Bloccata da robots.txt" in Search Console).
+const tagApp = (html, slug) => html.replace(/href="https:\/\/www\.menudieta\.it\/app\/(\?[^"#]*)?(#[^"]*)?"/g, (m, q = '', h = '') => `href="${APP}${q}#${h ? h.slice(1) + '&' : ''}da=${slug || 'home'}"`);
 function writePage(slug, html) {
   html = tagApp(html, slug);
   const dir = path.join(OUT, slug);
@@ -147,6 +154,7 @@ for (const p of PAGES) {
     description: p.description, url: APP, inLanguage: 'it',
   });
   if (p.tipo === 'kit') { p.ogImage = `${SITE}/og-kit.png`; schema.push(itemListSchema(calcolaKit({ ...KIT_DEFAULT, A: 2, B: 0, G: 3, F: 1 }), 'Kit di emergenza per 2 adulti, 72 ore'), { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` }, { '@type': 'ListItem', position: 2, name: 'Kit di emergenza', item: `${SITE}/kit-di-emergenza/` }] }); }
+  if (p.tipo === 'menu') { p.ogImage = `${SITE}/${IMG_MENU.og}`; schema.push(...paginaMenuDieta({ APP, cta: ctaHtml }).schemaExtra(p.mod)); }
   if (p.tipo === 'tool' || p.tipo === 'kit' || p.tipo === 'porzioni') schema.push({
     '@context': 'https://schema.org', '@type': 'WebApplication', name: p.title,
     applicationCategory: 'HealthApplication', operatingSystem: 'Web', browserRequirements: 'Requires JavaScript',
@@ -211,13 +219,14 @@ fs.writeFileSync(path.join(OUT, '404.html'), layout({
 }));
 const OGGI = DATA_MOD; // data vera dell'ultima modifica dei dati, non del build
 fs.writeFileSync(path.join(OUT, 'sitemap-alimenti.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['alimenti', ...gen.filter(g => g.startsWith('alimenti/'))].map(g => `  <url><loc>${url(g)}</loc><lastmod>${OGGI}</lastmod></url>`).join('\n')}\n</urlset>\n`);
-fs.writeFileSync(path.join(OUT, 'sitemap-ricette.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['ricette', ...gen.filter(g => g.startsWith('ricette/'))].map(g => `  <url><loc>${url(g)}</loc><lastmod>${OGGI}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+const IMG_RIC = Object.fromEntries(RICETTE.map(r => [`ricette/${r.slug}`, immaginiRicetta(r)[0].url]));
+fs.writeFileSync(path.join(OUT, 'sitemap-ricette.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${['ricette', ...gen.filter(g => g.startsWith('ricette/'))].map(g => `  <url><loc>${url(g)}</loc><lastmod>${OGGI}</lastmod>${IMG_RIC[g] ? `<image:image><image:loc>${IMG_RIC[g]}</image:loc></image:image>` : ''}</url>`).join('\n')}\n</urlset>\n`);
 
 // ── File di servizio ──
 const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : p.tipo === 'info' ? '0.4' : '0.8', mod: p.mod || '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...Object.keys(LEGALI).map(slug => ({ slug, pri: '0.3', mod: '2026-11-03' })), ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.mod || a.data })), { slug: 'frutta-verdura-di-stagione', pri: '0.8', mod: DATA_MOD }, ...stag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD })), ...kitPag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD }))];
 fs.writeFileSync(path.join(OUT, 'sitemap-pagine.xml'), `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${tutte.map(u => `  <url><loc>${url(u.slug)}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority></url>`).join('\n')}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${tutte.map(u => `  <url><loc>${url(u.slug)}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority>${u.slug === 'menu-dieta' ? `<image:image><image:loc>${IMG_MENU.url}</image:loc></image:image>` : ''}</url>`).join('\n')}
 </urlset>
 `);
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
@@ -244,7 +253,7 @@ Fatti utili, con fonte nelle pagine indicate:
 - Fabbisogno calorico calcolato con il metodo LARN (metabolismo basale × livello di attività).
 
 ## Strumenti gratuiti
-${PAGES.filter(p => ['tool', 'kit', 'porzioni', 'landing'].includes(p.tipo)).map(p => riga(p.slug, p.title.replace(/ [–-] .*$/, ''), p.description)).join('\n')}
+${PAGES.filter(p => ['menu', 'tool', 'kit', 'porzioni', 'landing'].includes(p.tipo)).map(p => riga(p.slug, p.title.replace(/ [–-] .*$/, ''), p.description)).join('\n')}
 
 ## Guide
 ${ARTICOLI.map(a => riga(a.slug, a.title, a.description)).join('\n')}
@@ -266,4 +275,11 @@ fs.copyFileSync(path.join(__dirname, 'src/icon.svg'), path.join(OUT, 'icon.svg')
 fs.copyFileSync(path.join(__dirname, 'src/og.png'), path.join(OUT, 'og.png'));
 fs.copyFileSync(path.join(__dirname, 'src/og-kit.png'), path.join(OUT, 'og-kit.png'));
 
-console.log(`[site] generate ${tutte.length + gen.length + 3} pagine in site/dist/ (${gen.length} alimenti+ricette)`);
+// ── Immagini: ricette (campo "image" dei dati strutturati Recipe) e menù dieta ──
+const lavori = [];
+for (const r of RICETTE) { const dati = datiImmagineRicetta(r); for (const im of immaginiRicetta(r)) lavori.push([im.file, () => webp(svgRicetta(dati, im.w, im.h))]); }
+lavori.push([IMG_MENU.file, () => webp(infografica().svg)]);
+lavori.push([IMG_MENU.og, () => jpg(svgOg('Menù dieta settimanale: esempio di 7 giorni', `Circa ${KCAL} kcal al giorno · con lista della spesa`))]);
+for (let i = 0; i < lavori.length; i += 16) await Promise.all(lavori.slice(i, i + 16).map(async ([file, fai]) => { fs.mkdirSync(path.dirname(path.join(OUT, file)), { recursive: true }); fs.writeFileSync(path.join(OUT, file), await fai()); }));
+
+console.log(`[site] generate ${tutte.length + gen.length + 3} pagine in site/dist/ (${gen.length} alimenti+ricette) e ${lavori.length} immagini`);
