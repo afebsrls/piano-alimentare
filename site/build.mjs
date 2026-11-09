@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SITE, APP, PAGES, ARTICOLI } from './src/keywords.mjs';
+import { SITE, APP, PAGES, ARTICOLI, INDEXNOW_KEY } from './src/keywords.mjs';
 import { CONTENUTI, ARTICOLI_HTML, ARTICOLI_FAQ, LEGALI } from './src/contenuti.mjs';
 import * as MOCK from './src/mockups.mjs';
 import { ALIMENTI, RICETTE, DATA_MOD, paginaAlimento, indiceAlimenti, paginaRicetta, indiceRicette } from './src/generati.mjs';
@@ -27,6 +27,11 @@ const TOOLS_JS = fs.readFileSync(path.join(__dirname, 'src/tools.js'), 'utf8');
 // Motore del kit di emergenza: stesso file dell'app (src/core/kitEmergenza.js), reso script semplice
 const KIT_JS = fs.readFileSync(path.join(__dirname, '../src/core/kitEmergenza.js'), 'utf8').replace(/^export /gm, '') + '\n' + fs.readFileSync(path.join(__dirname, 'src/kit.js'), 'utf8');
 
+// Entità MenuDieta, uguale su tutte le pagine: aiuta Google e gli assistenti AI a riconoscere il marchio (anche il vecchio nome Fitsy)
+const ORG = { '@context': 'https://schema.org', '@type': 'Organization', '@id': `${SITE}/#org`, name: 'MenuDieta', alternateName: ['Menu Dieta', 'menudieta.it', 'Fitsy'], legalName: 'AF&B S.r.l.s.', url: `${SITE}/`, logo: `${SITE}/icon.svg`, email: 'info@menudieta.it', vatID: 'IT13698751008', slogan: 'Nutrizione intelligente', description: 'App gratuita italiana che crea il menu settimanale della famiglia con le porzioni di ciascuno e la lista della spesa, basata su LARN e linee guida CREA.', knowsAbout: ['menu settimanale', 'porzioni per età', 'fabbisogno calorico', 'linee guida CREA', 'LARN', 'lista della spesa', 'kit di emergenza 72 ore'], address: { '@type': 'PostalAddress', streetAddress: 'Via Mario Ugo Guattari 48', postalCode: '00173', addressLocality: 'Roma', addressRegion: 'RM', addressCountry: 'IT' }, contactPoint: { '@type': 'ContactPoint', email: 'info@menudieta.it', contactType: 'customer support', availableLanguage: 'Italian' } };
+const DATA_IT = (d) => new Date(d).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+// Meta description entro i ~155 caratteri mostrati da Google
+const corta = (s, max = 155) => s.length <= max ? s : s.slice(0, max - 1).replace(/[\s,;:.–-]+\S*$/, '') + '…';
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const url = (slug) => slug ? `${SITE}/${slug}/` : `${SITE}/`;
 
@@ -47,10 +52,11 @@ const NAV = `
   <a class="cta" href="${APP}">Apri l’app</a>
 </nav>`;
 
-function layout({ title, description, slug, body, schema = [], type = 'website', datePublished, noindex = false, ogImage }) {
+function layout({ title, description, slug, body, schema = [], type = 'website', datePublished, dateModified, noindex = false, ogImage }) {
   const canonical = url(slug);
+  description = corta(description);
   const ld = [
-    { '@context': 'https://schema.org', '@type': 'Organization', name: 'MenuDieta', legalName: 'AF&B S.r.l.s.', url: SITE, logo: `${SITE}/icon.svg`, email: 'info@menudieta.it', vatID: 'IT13698751008', address: { '@type': 'PostalAddress', streetAddress: 'Via Mario Ugo Guattari 48', postalCode: '00173', addressLocality: 'Roma', addressRegion: 'RM', addressCountry: 'IT' } },
+    ORG,
     ...schema,
   ];
   return `<!doctype html>
@@ -73,7 +79,7 @@ function layout({ title, description, slug, body, schema = [], type = 'website',
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 ${noindex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robots" content="index,follow,max-image-preview:large">'}
-${datePublished ? `<meta property="article:published_time" content="${datePublished}">` : ''}
+${datePublished ? `<meta property="article:published_time" content="${datePublished}">` : ''}${dateModified ? `<meta property="article:modified_time" content="${dateModified}">` : ''}
 <meta name="theme-color" content="#15251C">
 <style>${CSS}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
@@ -82,7 +88,9 @@ ${datePublished ? `<meta property="article:published_time" content="${datePublis
 <header class="top"><div class="wrap">${LOGO}${NAV}</div></header>
 <main class="wrap">
 ${body}
+${dateModified && !noindex ? `<p class="note agg">Ultimo aggiornamento: ${DATA_IT(dateModified)} · <a href="/chi-siamo/">metodo e fonti</a></p>` : ''}
 </main>
+${slug === '' || noindex ? '' : `<a class="stickycta" href="${APP}">Crea il menu della tua famiglia <strong>gratis →</strong></a>`}
 <footer class="foot"><div class="wrap">
   <div class="cols">
     <div><strong>MenuDieta</strong><br>Nutrizione intelligente per la famiglia.<br><a href="${APP}">Apri l’app</a> · gratis, senza pubblicità.</div>
@@ -118,7 +126,10 @@ const faqHtml = (faq) => faq?.length ? `<section class="faq"><h2>Domande frequen
 
 const ctaHtml = (testo = 'Prova MenuDieta gratis') => `<div class="ctabox"><div><strong>${esc(testo)}</strong><br>Menu settimanale per tutta la famiglia, porzioni per ciascuno e lista della spesa automatica. Senza pubblicità, senza carta di credito.</div><a class="btn" href="${APP}">Apri l’app →</a></div>`;
 
+// Ogni link all'app porta ?da=<pagina>: l'app conta in modo anonimo quali pagine portano persone (vedi supabase/s15_arrivi.sql)
+const tagApp = (html, slug) => html.replace(/href="https:\/\/www\.menudieta\.it\/app\/(\?[^"#]*)?(#[^"]*)?"/g, (m, q = '', h = '') => `href="${APP}${q ? q + '&' : '?'}da=${slug || 'home'}${h}"`);
 function writePage(slug, html) {
+  html = tagApp(html, slug);
   const dir = path.join(OUT, slug);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
@@ -129,7 +140,7 @@ for (const p of PAGES) {
   const c = CONTENUTI[p.slug || 'home'];
   if (!c) throw new Error('Contenuto mancante per ' + (p.slug || 'home'));
   const schema = [...faqSchema(c.faq)];
-  if (p.tipo === 'home') schema.push({
+  if (p.tipo === 'home') schema.push({ '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${SITE}/#website`, name: 'MenuDieta', alternateName: ['Menu Dieta', 'Fitsy'], url: `${SITE}/`, inLanguage: 'it', publisher: { '@id': `${SITE}/#org` } }, {
     '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'MenuDieta',
     applicationCategory: 'HealthApplication', operatingSystem: 'Web, Android, iOS',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
@@ -142,7 +153,7 @@ for (const p of PAGES) {
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, url: url(p.slug), inLanguage: 'it',
   });
   const body = `${c.body({ esc, APP, cta: ctaHtml, phone })}${faqHtml(c.faq)}${p.tipo === 'tool' ? `<script>${TOOLS_JS}</script>` : ''}${p.tipo === 'nutrizionisti' ? `<script>${WAITLIST_JS}</script>` : ''}${p.tipo === 'kit' ? `<script>(function(){${KIT_JS}})();</script>` : ''}`;
-  writePage(p.slug, layout({ ...p, body, schema }));
+  writePage(p.slug, layout({ ...p, body, schema, dateModified: p.slug ? (p.mod || '2026-11-03') : undefined }));
 }
 
 // ── Pagine legali ──
@@ -160,33 +171,37 @@ for (const a of ARTICOLI) {
     author: { '@type': 'Organization', name: 'Redazione MenuDieta', url: url('chi-siamo') }, publisher: { '@type': 'Organization', name: 'MenuDieta', url: SITE, logo: { '@type': 'ImageObject', url: `${SITE}/icon.svg` } },
     mainEntityOfPage: url(a.slug),
   }, ...faqSchema(ARTICOLI_FAQ[a.slug])];
-  const body = `<article class="art"><p class="crumb"><a href="/blog/">Guide</a> · ${new Date(a.data).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })} · <a href="/chi-siamo/">Redazione MenuDieta, metodo e fonti</a></p>${html({ esc, APP, cta: ctaHtml, phone })}${faqHtml(ARTICOLI_FAQ[a.slug])}</article>`;
-  writePage(a.slug, layout({ ...a, body, schema, type: 'article', datePublished: a.data }));
+  const correlati = ARTICOLI.filter(x => x.slug !== a.slug).slice(0, 3);
+  const body = `<article class="art"><p class="crumb"><a href="/blog/">Guide</a> · ${DATA_IT(a.data)} · <a href="/chi-siamo/">Redazione MenuDieta, metodo e fonti</a></p>${html({ esc, APP, cta: ctaHtml, phone })}${faqHtml(ARTICOLI_FAQ[a.slug])}<h2>Leggi anche</h2><ul>${correlati.map(x => `<li><a href="/${x.slug}/">${esc(x.title)}</a></li>`).join('')}<li><a href="/porzioni-bambini-per-eta/">Porzioni per bambini e adulti: la tabella per età</a></li></ul></article>`;
+  writePage(a.slug, layout({ ...a, body, schema, type: 'article', datePublished: a.data, dateModified: a.mod || a.data }));
 }
 writePage('blog', layout({
   title: 'Guide MenuDieta: organizzare i pasti della famiglia',
   description: 'Guide pratiche per organizzare il menu settimanale, le porzioni dei bambini e il piano alimentare di mantenimento.',
   slug: 'blog',
-  body: `<h1>Guide per organizzare i pasti della famiglia</h1><p class="lead">Metodi concreti, senza mode. Ogni guida rimanda a uno strumento gratuito con cui provare subito.</p>
-  <div class="cards">${ARTICOLI.map(a => `<a class="card" href="/${a.slug}/"><h2>${esc(a.title)}</h2><p>${esc(a.description)}</p></a>`).join('')}</div>`,
+  body: `<h1>Guide per organizzare i pasti della famiglia</h1><p class="lead">Guide pratiche per cucinare una volta sola per tutta la famiglia: come organizzare il menu della settimana, quanto mettere nel piatto di adulti e bambini, come fare la spesa senza sprechi. Ogni guida cita le fonti (LARN, linee guida CREA) e rimanda a uno strumento gratuito con cui provare subito.</p>
+  <div class="cards">${[...ARTICOLI].sort((x, y) => (y.data > x.data ? 1 : -1)).map(a => `<a class="card" href="/${a.slug}/"><h2>${esc(a.title)}</h2><p>${esc(a.description)}</p><p class="note">${DATA_IT(a.data)}</p></a>`).join('')}</div>
+  <h2>Strumenti gratuiti</h2>
+  <p>Per mettere subito in pratica le guide: <a href="/porzioni-bambini-per-eta/">porzioni per età</a> · <a href="/calcolo-fabbisogno-calorico/">calcolo del fabbisogno calorico</a> · <a href="/quanta-acqua-bere-al-giorno/">quanta acqua bere</a> · <a href="/peso-forma-calcolo/">peso forma</a> · <a href="/frutta-verdura-di-stagione/">frutta e verdura di stagione</a> · <a href="/kit-di-emergenza/">kit di emergenza 72 ore</a> · <a href="/alimenti/">calorie degli alimenti</a> · <a href="/ricette/">ricette con porzioni</a>.</p>
+  ${ctaHtml('Dalla guida al menu della tua famiglia')}`,
 }));
 
 // ── Pagine generate: alimenti e ricette ──
 const gen = [];
 const ctx = { esc, APP, cta: ctaHtml };
-for (const a of ALIMENTI) { const pg = paginaAlimento(a, ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema] })); gen.push(pg.slug); }
-for (const r of RICETTE) { const pg = paginaRicetta(r, ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema] })); gen.push(pg.slug); }
+for (const a of ALIMENTI) { const pg = paginaAlimento(a, ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema], dateModified: DATA_MOD })); gen.push(pg.slug); }
+for (const r of RICETTE) { const pg = paginaRicetta(r, ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema], dateModified: DATA_MOD })); gen.push(pg.slug); }
 { const pg = indiceAlimenti(ctx); writePage(pg.slug, layout(pg)); }
 { const pg = indiceRicette(ctx); writePage(pg.slug, layout(pg)); }
 
 // ── Pagine stagionalità: 12 mesi + calendario ──
 const stag = [];
-for (let m = 1; m <= 12; m++) { const pg = paginaMese(m, { ...ctx, RICETTE }); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema] })); stag.push(pg.slug); }
+for (let m = 1; m <= 12; m++) { const pg = paginaMese(m, { ...ctx, RICETTE }); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: [...faqSchema(pg.faq), ...pg.schema], dateModified: DATA_MOD })); stag.push(pg.slug); }
 { const pg = indiceStagioni(ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}`, schema: faqSchema(pg.faq) })); }
 
 // ── Kit di emergenza: liste pronte (long tail) ──
 const kitPag = [];
-for (const v of VARIANTI) { const pg = paginaVariante(v, ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}<script>(function(){${KIT_JS}})();</script>`, schema: [...faqSchema(pg.faq), ...pg.schema] })); kitPag.push(pg.slug); }
+for (const v of VARIANTI) { const pg = paginaVariante(v, ctx); writePage(pg.slug, layout({ ...pg, body: `${pg.body}${faqHtml(pg.faq)}<script>(function(){${KIT_JS}})();</script>`, schema: [...faqSchema(pg.faq), ...pg.schema], dateModified: DATA_MOD })); kitPag.push(pg.slug); }
 
 // ── Pagina 404 vera (status 404 dal server, vedi .htaccess) ──
 fs.writeFileSync(path.join(OUT, '404.html'), layout({
@@ -212,7 +227,40 @@ fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="U
   <sitemap><loc>${SITE}/sitemap-alimenti.xml</loc></sitemap>
 </sitemapindex>
 `);
-fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /app/\nSitemap: ${SITE}/sitemap.xml\n`);
+// robots.txt: tutti benvenuti, compresi i motori di risposta AI (citano le pagine con link alla fonte). L'app resta fuori.
+const BOT_AI = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'Bingbot', 'DuckAssistBot', 'MistralAI-User'];
+fs.writeFileSync(path.join(OUT, 'robots.txt'), `# MenuDieta: contenuti liberamente consultabili e citabili, con link alla fonte.\nUser-agent: *\n${BOT_AI.map(b => `User-agent: ${b}`).join('\n')}\nAllow: /\nDisallow: /app/\n\nSitemap: ${SITE}/sitemap.xml\n`);
+fs.writeFileSync(path.join(OUT, `${INDEXNOW_KEY}.txt`), INDEXNOW_KEY);
+// llms.txt: sommario del sito per gli assistenti AI (standard llmstxt.org): cosa siamo, pagine chiave, fatti citabili
+const riga = (slug, t, d) => `- [${t}](${url(slug)}): ${d}`;
+fs.writeFileSync(path.join(OUT, 'llms.txt'), `# MenuDieta
+
+> MenuDieta (www.menudieta.it, prima chiamata Fitsy) è un'app web gratuita e senza pubblicità, italiana, che crea il menu settimanale per tutta la famiglia con la porzione giusta per ogni persona (adulti e bambini) e la lista della spesa automatica. I calcoli seguono i LARN (SINU) e le Linee guida per una sana alimentazione del CREA (2018). Servizio di AF&B S.r.l.s., Roma.
+
+Fatti utili, con fonte nelle pagine indicate:
+- Frequenze settimanali dei secondi piatti (CREA 2018, su 14 pasti): legumi 3, carne 3, formaggi 3, pesce 2, uova 2, salumi 1.
+- Porzione di pasta a crudo per pasto: 40 g a 2–3 anni, 50 g a 4–6 anni, 70 g a 7–10 anni, 100 g a 11–17 anni, 80 g per un adulto (grammature ASL da CREA e LARN).
+- Kit di emergenza 72 ore: circa 5 litri d'acqua al giorno per adulto e 3 per bambino; per 2 adulti e 1 bambino servono 39 litri.
+- Fabbisogno calorico calcolato con il metodo LARN (metabolismo basale × livello di attività).
+
+## Strumenti gratuiti
+${PAGES.filter(p => ['tool', 'kit', 'porzioni', 'landing'].includes(p.tipo)).map(p => riga(p.slug, p.title.replace(/ [–-] .*$/, ''), p.description)).join('\n')}
+
+## Guide
+${ARTICOLI.map(a => riga(a.slug, a.title, a.description)).join('\n')}
+
+## Dati
+- [Calorie degli alimenti](${url('alimenti')}): ${gen.filter(g => g.startsWith('alimenti/')).length} alimenti con calorie, macronutrienti per 100 g e porzione per età.
+- [Ricette con porzioni](${url('ricette')}): ${gen.filter(g => g.startsWith('ricette/')).length} ricette con grammature per uomo, donna e bambino e valori nutrizionali.
+- [Frutta e verdura di stagione](${url('frutta-verdura-di-stagione')}): calendario mese per mese.
+
+## Chi siamo
+${riga('chi-siamo', 'Chi siamo, metodo e fonti', 'chi c’è dietro MenuDieta e su quali fonti si basano i calcoli.')}
+${riga('per-nutrizionisti', 'Per nutrizionisti', 'MenuDieta per i professionisti della nutrizione (lista d’attesa).')}
+
+## App
+- [Apri l'app](${APP}): gratuita per le famiglie, funziona nel browser e si installa sul telefono.
+`);
 fs.copyFileSync(path.join(__dirname, 'src/htaccess-root'), path.join(OUT, '.htaccess'));
 fs.copyFileSync(path.join(__dirname, 'src/icon.svg'), path.join(OUT, 'icon.svg'));
 fs.copyFileSync(path.join(__dirname, 'src/og.png'), path.join(OUT, 'og.png'));

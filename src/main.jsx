@@ -16,10 +16,15 @@ import './index.css';
 import { App } from '@/App';
 import { IntroSplash } from '@/features/intro/IntroSplash';
 import { importaTrasloco, isVecchioSito, BannerTrasloco } from '@/features/trasloco/Trasloco';
+import { registraArrivo } from '@/db/arrivi';
 
 // 🚚 Trasloco: se arrivo da github.io con i dati nell'URL, li importo e
 // ricarico PRIMA di avviare l'app (così parte già con tutto).
 const traslocoInCorso = importaTrasloco();
+
+// 🔗 Arrivo dal sito (?da=<pagina>): conteggio anonimo per sapere quali pagine
+// portano persone nell'app. Il parametro viene tolto subito dall'URL.
+if (!traslocoInCorso) registraArrivo();
 
 // 🩺 Link di invito del nutrizionista (?nut=NUT-XXXXXX): il codice viene
 // memorizzato e proposto in Account → Il mio nutrizionista dopo il login.

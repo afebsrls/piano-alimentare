@@ -40,6 +40,7 @@ export const adminNutrizionisti = () => rpc('admin_nutrizionisti');
 export const adminNutrizionistaStato = (userId, stato) => rpc('admin_nutrizionista_stato', { p_user_id: userId, p_stato: stato });
 
 export const adminListaAttesa = () => rpc('admin_lista_attesa');
+export const adminArrivi = () => rpc('admin_arrivi');
 export const adminListaAttesaStato = (id, stato) => rpc('admin_lista_attesa_stato', { p_id: id, p_stato: stato });
 
 // Catalogo pubblico: per tutti gli utenti loggati (tab Catalogo).

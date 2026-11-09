@@ -13,6 +13,9 @@
 
 export const SITE = 'https://www.menudieta.it';
 export const APP  = 'https://www.menudieta.it/app/';
+// Chiave IndexNow (Bing, Yandex, Seznam… e quindi Copilot/ChatGPT search): pubblica per natura,
+// il file /<chiave>.txt sul sito prova che il dominio è nostro. Vedi site/indexnow.mjs.
+export const INDEXNOW_KEY = '51b7937f8d45d8a8571fb03858bbf7fa';
 
 export const PAGES = [
   {
@@ -21,7 +24,7 @@ export const PAGES = [
     varianti: ['app menu settimanale famiglia', 'pianificare i pasti della settimana', 'piano alimentare famiglia gratis'],
     intento: 'cercano uno strumento gratuito che decida cosa cucinare per tutta la famiglia',
     concorrenti: 'raccolte di app (aranzulla, trend-online), schede App Store di app straniere',
-    title: 'MenuDieta – App gratuita per il piano alimentare settimanale della famiglia',
+    title: 'MenuDieta: app gratis per il menu settimanale della famiglia',
     description: 'MenuDieta crea il menu settimanale per tutta la famiglia con porzioni per ciascuno, lista della spesa automatica e ricette di stagione. Gratis, senza pubblicità.',
     tipo: 'home',
   },
@@ -31,7 +34,7 @@ export const PAGES = [
     varianti: ['menù settimanale famiglia', 'piano alimentare settimanale famiglia', 'menu settimanale con bambini', 'esempio menu settimanale'],
     intento: 'vogliono un menu pronto, equilibrato, che vada bene a grandi e piccoli',
     concorrenti: 'migros (PDF), dilei, postfinance',
-    title: 'Menu settimanale per la famiglia: esempio pronto e generatore gratuito',
+    title: 'Menu settimanale per la famiglia: esempio pronto e gratuito',
     description: 'Un menu settimanale per la famiglia equilibrato, con porzioni per adulti e bambini e lista della spesa. Esempio completo e generatore automatico gratuito.',
     tipo: 'landing',
   },
@@ -51,7 +54,7 @@ export const PAGES = [
     varianti: ['fabbisogno calorico', 'quante calorie al giorno', 'metabolismo basale calcolo', 'calcolatore calorie LARN'],
     intento: 'vogliono un numero subito, spiegato, con una formula affidabile',
     concorrenti: 'calcolatori generici (my-personaltrainer, dietagratis), spesso con formule americane',
-    title: 'Calcolo fabbisogno calorico giornaliero (metodo LARN italiano) – gratis',
+    title: 'Calcolo fabbisogno calorico giornaliero (metodo LARN), gratis',
     description: 'Calcola in 10 secondi il tuo fabbisogno calorico giornaliero e il metabolismo basale con il metodo LARN/SINU, lo standard italiano. Gratis, senza registrazione.',
     tipo: 'tool', tool: 'calorie',
   },
@@ -61,7 +64,7 @@ export const PAGES = [
     varianti: ['peso ideale', 'peso forma in base a costituzione', 'indice di Grant', 'peso forma donna', 'peso forma uomo'],
     intento: 'vogliono un intervallo realistico, non un numero secco',
     concorrenti: 'calcolatori BMI generici',
-    title: 'Calcolo peso forma in base a costituzione (indice di Grant) – gratis',
+    title: 'Calcolo peso forma per costituzione (indice di Grant), gratis',
     description: 'Calcola il tuo peso forma tenendo conto della costituzione ossea (polso e altezza). Intervallo realistico, non un numero unico. Strumento gratuito.',
     tipo: 'tool', tool: 'pesoforma',
   },
@@ -71,7 +74,7 @@ export const PAGES = [
     varianti: ['fabbisogno idrico calcolo', 'quanti litri di acqua al giorno', 'bicchieri di acqua al giorno'],
     intento: 'vogliono una quantità personalizzata in litri e bicchieri',
     concorrenti: 'articoli generici (2 litri per tutti)',
-    title: 'Quanta acqua bere al giorno: calcolo personalizzato in litri e bicchieri',
+    title: 'Quanta acqua bere al giorno: calcolo in litri e bicchieri',
     description: 'Calcola quanta acqua bere al giorno in base a peso e allenamento (30–35 ml/kg, criterio EFSA). Risultato in litri e bicchieri. Gratis.',
     tipo: 'tool', tool: 'acqua',
   },
@@ -91,7 +94,7 @@ export const PAGES = [
     varianti: ['grammature bambini per età', 'quanta pasta a un bambino', 'quanto deve mangiare un bambino', 'porzioni adulti e bambini', 'tabella porzioni LARN'],
     intento: 'genitori che vogliono sapere quanti grammi mettere nel piatto del figlio, alimento per alimento',
     concorrenti: 'PDF delle ASL (completi ma scomodi da leggere), blog di genitorialità con tabelle parziali',
-    title: 'Porzioni per bambini e adulti: tabella dei grammi per età (CREA e LARN)',
+    title: 'Porzioni per bambini e adulti: tabella dei grammi per età',
     description: 'Quanti grammi di pasta, carne, pesce, legumi e verdura per un bambino di 2, 5, 8 o 12 anni? Tabella completa per età da CREA e LARN, con calcolatore.',
     tipo: 'porzioni', mod: '2026-11-08',
   },
@@ -111,7 +114,7 @@ export const PAGES = [
     varianti: ['app per nutrizionisti', 'gestione pazienti nutrizionista', 'app per i clienti del nutrizionista', 'piano alimentare da inviare ai pazienti'],
     intento: 'professionisti che vogliono consegnare piani ai clienti in un\'app italiana e seguirli',
     concorrenti: 'Nutrium, EvolutionFit, Coachway, MetaDieta',
-    title: 'MenuDieta per nutrizionisti: i piani dei tuoi pazienti in un\'app italiana',
+    title: 'MenuDieta per nutrizionisti: i piani dei pazienti in un\'app',
     description: 'Carica i dati dei tuoi pazienti, assegna il piano alimentare e seguili dall\'app MenuDieta, gratuita per le famiglie. Lista di attesa per i professionisti.',
     tipo: 'nutrizionisti',
   },
@@ -130,7 +133,7 @@ export const ARTICOLI = [
     slug: 'blog/menu-settimanale-bambini',
     kw: 'menu settimanale per bambini',
     varianti: ['dieta equilibrata bambini settimana', 'porzioni bambini', 'cosa far mangiare ai bambini a cena'],
-    title: 'Menu settimanale per bambini: porzioni giuste e piatti che piacciono',
+    title: 'Menu settimanale per bambini: porzioni e piatti che piacciono',
     description: 'Come costruire un menu settimanale per bambini equilibrato senza cucinare due volte: stessi piatti della famiglia, porzioni adatte all\'età. Esempio di settimana.',
     data: '2026-11-03',
   },
@@ -138,7 +141,7 @@ export const ARTICOLI = [
     slug: 'blog/piano-alimentare-mantenimento',
     kw: 'piano alimentare di mantenimento',
     varianti: ['dieta di mantenimento cosa mangiare', 'mantenere il peso dopo la dieta', 'calorie di mantenimento'],
-    title: 'Piano alimentare di mantenimento: come mangiare per restare al tuo peso',
+    title: 'Piano alimentare di mantenimento: come restare al tuo peso',
     description: 'Cos\'è un piano alimentare di mantenimento, come calcolare le calorie giuste e come costruire la settimana senza rinunce. Guida pratica con calcolatore.',
     data: '2026-11-03',
   },

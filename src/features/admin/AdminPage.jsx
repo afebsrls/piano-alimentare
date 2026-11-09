@@ -1,6 +1,6 @@
 import React from 'react';
 const { useState, useEffect, useCallback } = React;
-import { adminStats, adminUtenti, adminRicette, adminRicettaAzione, adminFamiglie, adminFamigliaDettaglio, adminDettaglioProfilo, adminNutrizionisti, adminNutrizionistaStato, adminListaAttesa, adminListaAttesaStato } from '@/db/admin';
+import { adminStats, adminUtenti, adminRicette, adminRicettaAzione, adminFamiglie, adminFamigliaDettaglio, adminDettaglioProfilo, adminNutrizionisti, adminNutrizionistaStato, adminListaAttesa, adminListaAttesaStato, adminArrivi } from '@/db/admin';
 import { ING_MAP } from '@/core';
 import { SchedaPersona, C, card, btn, fmtData, Pill } from '@/features/pro/SchedaPersona';
 
@@ -21,6 +21,7 @@ export function AdminPage() {
   const [ricette, setRicette] = useState(null);
   const [nutr, setNutr] = useState(null);
   const [attesa, setAttesa] = useState(null);
+  const [arrivi, setArrivi] = useState(null);
   const [err, setErr] = useState('');
   const [msg, setMsg] = useState('');
   const [stack, setStack] = useState([]);     // navigazione a pila: [{tipo:'profilo'|'famiglia', id}]
@@ -34,6 +35,7 @@ export function AdminPage() {
       const [s, u, f, r, n] = await Promise.all([adminStats(), adminUtenti(), adminFamiglie(), adminRicette(), adminNutrizionisti()]);
       setStats(s); setUtenti(u || []); setFamiglie(f || []); setRicette(r || []); setNutr(n || []);
       try { setAttesa(await adminListaAttesa()); } catch { setAttesa([]); }
+      try { setArrivi(await adminArrivi()); } catch { setArrivi([]); }
     } catch (e) { setErr(e?.message || 'Errore di caricamento'); }
   }, []);
   useEffect(() => { carica(); }, [carica]);
@@ -52,7 +54,7 @@ export function AdminPage() {
   const vai = (t, filtro) => { setStack([]); setDett(null); setTab(t); if (t === 'ricette' && filtro) setFiltroRicette(filtro); if (t === 'utenti') setFiltroUtenti(filtro || ''); };
 
   const top = stack[stack.length - 1];
-  const TABS = [['panoramica', '📊 Panoramica'], ['utenti', '👥 Utenti'], ['famiglie', '👨‍👩‍👧 Famiglie'], ['ricette', '📖 Ricette'], ['nutrizionisti', '🩺 Nutrizionisti'], ['attesa', '📬 Lista d’attesa']];
+  const TABS = [['panoramica', '📊 Panoramica'], ['utenti', '👥 Utenti'], ['famiglie', '👨‍👩‍👧 Famiglie'], ['ricette', '📖 Ricette'], ['nutrizionisti', '🩺 Nutrizionisti'], ['attesa', '📬 Lista d’attesa'], ['arrivi', '🔗 Arrivi dal sito']];
 
   return (
     <div style={{ padding: '12px 14px 60px', maxWidth: 980, margin: '0 auto' }}>
@@ -92,6 +94,7 @@ export function AdminPage() {
       {!top && tab === 'ricette' && <Ricette ricette={ricette} filtro={filtroRicette} setFiltro={setFiltroRicette} onReload={carica} flash={flash} setErr={setErr} onApriAutore={(uid) => { const u = (utenti || []).find(x => x.user_id === uid); if (u) apri('profilo', u.profilo_id); }} />}
       {!top && tab === 'nutrizionisti' && <Nutrizionisti lista={nutr} onReload={carica} flash={flash} setErr={setErr} />}
       {!top && tab === 'attesa' && <ListaAttesa lista={attesa} onReload={carica} flash={flash} setErr={setErr} />}
+      {!top && tab === 'arrivi' && <Arrivi lista={arrivi} />}
     </div>
   );
 }
@@ -352,6 +355,35 @@ function ListaAttesa({ lista, onReload, flash, setErr }) {
           </div>
         </div>
       ))}
+    </>
+  );
+}
+
+// 🔗 Quali pagine del sito portano persone nell'app (conteggio anonimo, vedi s15_arrivi.sql)
+function Arrivi({ lista }) {
+  if (!lista) return <div style={{ color: C.grigio, fontSize: 13 }}>Carico…</div>;
+  const tot = lista.reduce((t, a) => ({ oggi: t.oggi + +a.oggi, u7: t.u7 + +a.ultimi_7, u30: t.u30 + +a.ultimi_30, tutti: t.tutti + +a.totale }), { oggi: 0, u7: 0, u30: 0, tutti: 0 });
+  const cella = { padding: '6px 8px', borderBottom: '1px solid #E5ECE3', fontSize: 13, textAlign: 'right' };
+  return (
+    <>
+      <div style={{ fontSize: 12, color: C.grigio, marginBottom: 8 }}>Aperture dell'app partite da un link del sito, per pagina. Solo nome della pagina e giorno: nessun dato personale. Se è vuoto e dà errore: eseguire <code>s15_arrivi.sql</code>.</div>
+      <div style={{ ...card, display: 'flex', gap: 16, flexWrap: 'wrap', fontSize: 13 }}>
+        <div><strong>{tot.oggi}</strong> oggi</div><div><strong>{tot.u7}</strong> ultimi 7 giorni</div><div><strong>{tot.u30}</strong> ultimi 30 giorni</div><div><strong>{tot.tutti}</strong> in totale</div>
+      </div>
+      {lista.length === 0 && <div style={{ ...card, fontSize: 13, color: C.grigio }}>Ancora nessun arrivo registrato.</div>}
+      {lista.length > 0 && (
+        <div style={{ ...card, overflowX: 'auto', padding: 0 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead><tr>{['Pagina del sito', 'Oggi', '7 gg', '30 gg', 'Totale'].map((h, i) => <th key={h} style={{ ...cella, textAlign: i ? 'right' : 'left', color: C.grigio, fontWeight: 700 }}>{h}</th>)}</tr></thead>
+            <tbody>{lista.map(a => (
+              <tr key={a.pagina}>
+                <td style={{ ...cella, textAlign: 'left' }}><a href={`/${a.pagina === 'home' ? '' : a.pagina + '/'}`} target="_blank" rel="noopener" style={{ color: C.verde }}>{a.pagina}</a></td>
+                <td style={cella}>{a.oggi}</td><td style={cella}>{a.ultimi_7}</td><td style={cella}>{a.ultimi_30}</td><td style={{ ...cella, fontWeight: 800 }}>{a.totale}</td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      )}
     </>
   );
 }

@@ -9,6 +9,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      tutte:
+        description: 'IndexNow: invia tutte le pagine (solo la prima volta)'
+        type: boolean
+        default: false
 
 concurrency:
   group: aruba
@@ -98,6 +103,22 @@ jobs:
           dangerous-clean-slate: false
           exclude: |
             app/**
+
+  # Avvisa Bing/IndexNow (che alimentano anche Copilot e ChatGPT search) delle pagine cambiate.
+  # Avvio manuale con "tutte" = true la prima volta, per inviare l'intero sito.
+  indexnow:
+    needs: site-menudieta
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: 22 }
+      - uses: actions/download-artifact@v4
+        with: { name: site, path: site/dist/ }
+      - run: node site/indexnow.mjs
+        env:
+          INDEXNOW_TUTTE: ${{ github.event.inputs.tutte == 'true' && '1' || '0' }}
 
   # Vecchio dominio: l'app resta (con trasloco automatico), il sito diventa un redirect.
   fitsy-vecchio:

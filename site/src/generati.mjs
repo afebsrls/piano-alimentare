@@ -35,7 +35,10 @@ const CAT_RIC = { colazione: 'Colazione', spuntino: 'Spuntino', pranzo: 'Pranzo'
 // Evita slug duplicati
 const used = new Map();
 const uniq = (s) => { const n = (used.get(s) || 0) + 1; used.set(s, n); return n === 1 ? s : `${s}-${n}`; };
-export const ALIMENTI = ING.filter(i => i.nutrizione && i.nutrizione.kcal != null && i.nome).map(i => {
+// Title che stia nei ~60 caratteri mostrati da Google: prima la versione completa, poi le più corte
+export const titolo = (...cand) => cand.find(t => t.length <= 60) || cand[cand.length - 1].slice(0, 59).replace(/\s+\S*$/, '') + '…';
+// "Altro" non è un alimento reale: niente pagina
+export const ALIMENTI = ING.filter(i => i.nutrizione && i.nutrizione.kcal != null && i.nome && !/Altro$/.test(i.cat || '')).map(i => {
   const base = slug(nomeBreve(i.nome)); const sl = uniq(base);
   // Omonimi (es. "Noci" secche vs fresche): nome distinto preso dall'id
   const nomeVis = sl === base ? nomeBreve(i.nome) : `${nomeBreve(i.nome)} (${i.id.replace(/^db_|^ing_/, '').replace(/_/g, ' ').replace(new RegExp('^' + base.replace(/-/g, ' ') + '\\s*'), '').trim() || 'variante'})`;
@@ -105,7 +108,7 @@ ${cta(`Quanto ${nome.toLowerCase()} per te? MenuDieta calcola la porzione giusta
 <p>${simili.map(x => `<a href="/alimenti/${x.slug}/">${esc(x.nomeVis)}</a>`).join(' · ')} · <a href="/alimenti/">tutti gli alimenti</a></p>`;
   return {
     slug: `alimenti/${a.slug}`,
-    title: `Calorie ${nome}: valori nutrizionali per 100 g`,
+    title: titolo(`Calorie ${nome}: valori nutrizionali per 100 g`, `Calorie ${nome}: valori per 100 g`, `Calorie ${nome} per 100 g`, `${nome}: calorie`),
     description: `${nome}: ${n0(nz.kcal)} kcal per 100 g, ${n1(nz.p)} g proteine, ${n1(nz.c)} g carboidrati, ${n1(nz.g)} g grassi.${pezzo ? ` Un pezzo (${pezzo} g): ${kcalPezzo} kcal.` : ''} Porzioni, stagione e ricette.`,
     body, faq,
     schema: [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
@@ -124,6 +127,9 @@ ${Object.entries(cats).sort((x, y) => y[1].length - x[1].length).map(([c, L]) =>
 ${cta('Le porzioni giuste per la tua famiglia, in automatico')}`;
   return { slug: 'alimenti', title: 'Calorie e valori nutrizionali di 700+ alimenti – MenuDieta', description: `Tabella calorie di ${ALIMENTI.length} alimenti con proteine, carboidrati e grassi per 100 g e per porzione, divisi per categoria. Dati usati dal motore di MenuDieta.`, body };
 }
+
+// Divide la preparazione in passi (frasi separate da ; o .)
+const passi = (t) => String(t).split(/(?<=[.;])\s+/).map(s => s.replace(/[;.]\s*$/, '').trim()).filter(Boolean).map(s => s[0].toUpperCase() + s.slice(1) + '.');
 
 // ── Pagina ricetta ───────────────────────────────────────────────────
 export function paginaRicetta(r, { APP, cta }) {
@@ -146,6 +152,7 @@ export function paginaRicetta(r, { APP, cta }) {
 ${ingr.map(({ a, q, id }) => `<tr><td>${a ? (ALI_BY_ID[id] ? `<a href="/alimenti/${ALI_BY_ID[id].slug}/">${esc(nomeBreve(a.nome))}</a>` : esc(nomeBreve(a.nome))) : esc(id)}</td><td>${q ? `${q.uomo} ${q.unit || 'g'}` : '—'}</td><td>${q ? `${q.donna} ${q.unit || 'g'}` : '—'}</td><td>${q ? `${q.bimbo} ${q.unit || 'g'}` : '—'}</td></tr>`).join('')}
 </table></div>
 ${r.porzioni?.donna ? `<p class="note">In breve, porzione donna: ${esc(r.porzioni.donna)}.</p>` : ''}
+${r.preparazione ? `<h2>Come si prepara</h2>\n<ol>${passi(r.preparazione).map(p => `<li>${esc(p)}</li>`).join('')}</ol>` : ''}
 <h2>Valori nutrizionali per porzione</h2>
 <div class="scroll"><table class="tabella"><tr><th>Porzione</th><th>Calorie</th><th>Proteine</th><th>Carboidrati</th><th>Grassi</th></tr>
 <tr><td>👨 Uomo</td>${riga('uomo')}</tr><tr><td>👩 Donna</td>${riga('donna')}</tr><tr><td>🧒 Bambino</td>${riga('bimbo')}</tr>
@@ -157,13 +164,14 @@ ${cta(`Metti ${bello(r.nome)} nel menu della tua famiglia`)}
 <p>${altre.map(x => `<a href="/ricette/${x.slug}/">${esc(x.nomeVis)}</a>`).join(' · ')} · <a href="/ricette/">tutte le ricette</a></p>`;
   return {
     slug: `ricette/${r.slug}`,
-    title: `${r.nomeVis}: calorie e porzioni`,
+    title: titolo(`${r.nomeVis}: calorie e porzioni`, `${r.nomeVis}: calorie`, r.nomeVis),
     description: `${r.nomeVis} (${cat.toLowerCase()}${r.prep ? `, ${r.prep} min` : ''}): ${n0(r.donna?.kcal)} kcal porzione donna, ${n0(r.uomo?.kcal)} uomo, ${n0(r.bimbo?.kcal)} bambino. Ingredienti e grammature.`,
     body, faq,
     schema: [{
       '@context': 'https://schema.org', '@type': 'Recipe', name: bello(r.nome), description: `${bello(r.nome)}: ricetta da ${cat.toLowerCase()} con porzioni e calorie per uomo, donna e bambino.`, recipeCategory: cat, recipeCuisine: 'Italiana', inLanguage: 'it',
-      author: { '@type': 'Organization', name: 'MenuDieta' }, recipeYield: '1 porzione',
-      ...(r.prep ? { totalTime: `PT${r.prep}M` } : {}),
+      author: { '@type': 'Organization', name: 'Redazione MenuDieta', url: 'https://www.menudieta.it/chi-siamo/' }, recipeYield: '1 porzione', datePublished: DATA_MOD,
+      ...(r.prep ? { prepTime: `PT${r.prep}M`, totalTime: `PT${r.prep}M` } : {}),
+      ...(r.preparazione ? { recipeInstructions: passi(r.preparazione).map(t => ({ '@type': 'HowToStep', text: t })) } : {}),
       recipeIngredient: ingr.map(({ a, q, id }) => `${q ? `${q.donna} ${q.unit || 'g'} ` : ''}${a ? nomeBreve(a.nome) : id}`),
       nutrition: { '@type': 'NutritionInformation', calories: `${n0(r.donna?.kcal)} kcal`, proteinContent: `${n0(r.donna?.p)} g`, carbohydrateContent: `${n0(r.donna?.c)} g`, fatContent: `${n0(r.donna?.g)} g` },
       keywords: `${bello(r.nome)}, calorie, porzioni, ${cat.toLowerCase()}, famiglia`,

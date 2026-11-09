@@ -48,4 +48,20 @@ for (const [slug, fill, expect] of [
   console.log('  ' + (ok4?'✓':'✗') + ' articolo lista spesa con FAQ strutturate e autore'); if (!ok4) process.exitCode = 1;
 }
 
+// GEO e conversioni: llms.txt, robots per i motori AI, IndexNow, link all'app tracciati, title entro 65 caratteri
+{
+  const ok1 = /^# MenuDieta/.test(fs.readFileSync('site/dist/llms.txt','utf8'));
+  const rob = fs.readFileSync('site/dist/robots.txt','utf8');
+  const ok2 = /User-agent: GPTBot/.test(rob) && /User-agent: ClaudeBot/.test(rob) && /Disallow: \/app\//.test(rob);
+  const chiave = fs.readdirSync('site/dist').find(f => /^[0-9a-f]{32}\.txt$/.test(f));
+  const ok3 = !!chiave && fs.readFileSync('site/dist/' + chiave, 'utf8') === chiave.replace('.txt', '');
+  const moz = fs.readFileSync('site/dist/alimenti/mozzarella/index.html','utf8');
+  const ok4 = /app\/\?da=alimenti\/mozzarella"/.test(moz) && /app\/privacy\.html"/.test(moz);
+  const kit = fs.readFileSync('site/dist/kit-di-emergenza/index.html','utf8');
+  const ok5 = !/href="https:\/\/www\.menudieta\.it\/app\/\?kit=1"/.test(kit);
+  const t = (moz.match(/<title>([^<]*)/) || [])[1] || '';
+  const ok6 = t.length <= 65;
+  for (const [ok, m] of [[ok1, 'llms.txt presente'], [ok2, 'robots.txt accoglie i motori AI e tiene fuori /app/'], [ok3, 'file chiave IndexNow'], [ok4, 'link all\u2019app con ?da=pagina (privacy esclusa)'], [ok5, 'link kit con parametri: da aggiunto in coda'], [ok6, 'title entro 65 caratteri']]) { console.log('  ' + (ok ? '✓' : '✗') + ' ' + m); if (!ok) process.exitCode = 1; }
+}
+
 console.log(process.exitCode ? '✗ TEST SITO FALLITO' : '✓ TEST SITO OK');
