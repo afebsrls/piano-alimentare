@@ -45,6 +45,12 @@ node ./.tom.mjs || FAIL=1
 rm -f ./.tom.mjs
 
 echo ""
+echo "▸ TEST 2z — Pasti con 0 kcal (ricette di famiglia formato nuovo, riparazione)"
+"$EB" test/test_kcal_zero.mjs --bundle --format=esm --outfile=./.tkz.mjs "--alias:@=$ROOT/src" --loader:.json=json --packages=external --log-level=error
+node ./.tkz.mjs || FAIL=1
+rm -f ./.tkz.mjs
+
+echo ""
 echo "▸ TEST 2h — Ricetta → ingrediente (nutriPer100DaQuantita)"
 "$EB" test/test_ricetta_ingrediente.mjs --bundle --format=esm --outfile=./.tri.mjs "--alias:@=$ROOT/src" --loader:.json=json --packages=external --log-level=error
 node ./.tri.mjs || FAIL=1

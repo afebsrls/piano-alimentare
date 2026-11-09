@@ -536,6 +536,17 @@ export function formattaPorzione(quantitaMap) {
 // macro fissi uguali per ogni profilo, ING_QTY registrato per il ricalcolo
 // porzioni, baseId per ricollegarla al pasto che sta sostituendo.
 export function cloudRecipeToMeal(ricetta, baseMealId) {
+  // FIX 0 kcal: le ricette nel formato nuovo (quantita per uomo/donna/bimbo)
+  // o salvate senza kcal sulla riga cloud venivano convertite con macro a zero
+  // e senza ingredienti. In quei casi si usa il convertitore completo, che
+  // calcola le macro di ogni taglia dagli ingredienti.
+  const haQuantita = ricetta?.quantita && typeof ricetta.quantita === "object" && Object.keys(ricetta.quantita).length > 0;
+  if (haQuantita || !(Number(ricetta?.kcal) > 0)) {
+    try {
+      const m = ricettaUtenteToMealObj(ricetta);
+      if (!macroVuote(m)) return { ...m, baseId: baseMealId || null };
+    } catch { /* ricade sul formato storico */ }
+  }
   const macro = { kcal: Math.round(ricetta.kcal||0), p: Math.round(ricetta.p||0), c: Math.round(ricetta.c||0), g: Math.round(ricetta.g||0) };
   const ings = {};
   for (const it of (ricetta.ingredienti || [])) {
@@ -909,17 +920,58 @@ export function migraOverridesASettimana(overrides, weekIndex) {
 
 // Applica gli override (per-settimana) a un piano-settimana di weekIndex dato.
 // personaId opzionale: con l'id si vede condivisi+propri, senza solo condivisi.
+// ── Riparazione dei pasti con 0 kcal ─────────────────────────────────
+// Pasti già salvati (scambi dal Ricettario, giorni congelati) con macro a
+// zero per il bug di cloudRecipeToMeal: al momento di mostrarli si ricalcolano
+// dalla ricetta di famiglia corrispondente, se è tra quelle caricate.
+let RICETTE_UTENTE_NOTE = new Map();
+export function registraRicetteUtente(lista) {
+  RICETTE_UTENTE_NOTE = new Map((lista || []).filter(r => r && r.id != null).map(r => [String(r.id), r]));
+}
+export const macroVuote = (meal) => !meal || ["uomo", "donna", "bimbo"].every(s => !(Number(meal[s]?.kcal) > 0));
+export function riparaMacroPasto(meal) {
+  if (!meal || typeof meal !== "object" || !macroVuote(meal)) return meal;
+  const cid = meal._cloudId ?? (typeof meal.id === "string" && /^(cloud|usr)_/.test(meal.id) ? meal.id.replace(/^(cloud|usr)_/, "") : null);
+  const r = cid != null ? RICETTE_UTENTE_NOTE.get(String(cid)) : null;
+  if (r) {
+    try {
+      const m = ricettaUtenteToMealObj(r);
+      if (!macroVuote(m)) return { ...m, baseId: meal.baseId ?? null };
+    } catch { /* lascia il pasto com'è */ }
+  }
+  // Ricetta personale con ingredienti salvati nel pasto: macro dagli ingredienti
+  const ings = meal._ingredienti && typeof meal._ingredienti === "object" ? Object.entries(meal._ingredienti) : [];
+  if (ings.length) {
+    const tot = { kcal: 0, p: 0, c: 0, g: 0 };
+    for (const [ingId, q] of ings) {
+      const n = nutriPerGrammi(ingId, quantitaInGrammi(ingId, Number(q?.valore) || 0, q?.unit || "g"));
+      tot.kcal += n.kcal; tot.p += n.p; tot.c += n.c; tot.g += n.g;
+    }
+    if (tot.kcal > 0) {
+      const macro = { kcal: Math.round(tot.kcal), p: Math.round(tot.p), c: Math.round(tot.c), g: Math.round(tot.g) };
+      return { ...meal, uomo: macro, donna: macro, bimbo: macro };
+    }
+  }
+  return meal;
+}
+
 export function applyOverridesWeek(week, overrides, weekIndex, personaId = null) {
   const flat = overridesForPersona(overrides, personaId);
-  if (Object.keys(flat).length === 0) return week;
-  return week.map((day, wd) => {
+  const conOverride = Object.keys(flat).length > 0;
+  let cambiato = false;
+  const out = (week || []).map((day, wd) => {
+    if (!day) return day;
     let copy = null;
     MEAL_KEYS.forEach(mk => {
-      const ov = flat[`${weekIndex}:${wd}-${mk}`];
-      if (ov) { if (!copy) copy = { ...day }; copy[mk] = ov; }
+      const ov = conOverride ? flat[`${weekIndex}:${wd}-${mk}`] : null;
+      const orig = ov || day[mk];
+      const fixed = riparaMacroPasto(orig);
+      if (ov || fixed !== orig) { if (!copy) copy = { ...day }; copy[mk] = fixed; }
     });
+    if (copy) cambiato = true;
     return copy || day;
   });
+  return cambiato ? out : week;
 }
 
 // ── Costituzione ossea (indice di Grant) ─────────────────────────────
