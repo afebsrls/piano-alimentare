@@ -68,18 +68,21 @@ for (const [slug, fill, expect] of [
 {
   const dir = 'site/dist/ricette';
   const slugs = fs.readdirSync(dir).filter(f => fs.existsSync(`${dir}/${f}/index.html`));
-  let senza = [], mancanti = [];
+  let senza = [], mancanti = [], senzaPassi = [];
   for (const s of slugs) {
     const html = fs.readFileSync(`${dir}/${s}/index.html`, 'utf8');
     const ld = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(m => JSON.parse(m[1]));
     const rec = ld.find(x => x['@type'] === 'Recipe');
     if (!rec) continue;
     if (!Array.isArray(rec.image) || rec.image.length !== 3) senza.push(s);
+    if (!Array.isArray(rec.recipeInstructions) || !rec.recipeInstructions.length || !/<h2>Come si prepara<\/h2>/.test(html)) senzaPassi.push(s);
     for (const u of rec.image || []) if (!fs.existsSync('site/dist' + u.replace('https://www.menudieta.it', ''))) mancanti.push(u);
   }
   const ok1 = slugs.length > 100 && !senza.length, ok2 = !mancanti.length;
   console.log('  ' + (ok1 ? '✓' : '✗') + ` Recipe con image (3 formati) in ${slugs.length} pagine` + (senza.length ? ' — senza: ' + senza.slice(0, 3) : '')); if (!ok1) process.exitCode = 1;
   console.log('  ' + (ok2 ? '✓' : '✗') + ' file immagine delle ricette presenti' + (mancanti.length ? ' — mancano: ' + mancanti.slice(0, 3) : '')); if (!ok2) process.exitCode = 1;
+  const ok3 = !senzaPassi.length;
+  console.log('  ' + (ok3 ? '✓' : '✗') + ' Recipe con recipeInstructions e sezione "Come si prepara"' + (senzaPassi.length ? ' — senza: ' + senzaPassi.length + ' (' + senzaPassi.slice(0, 3) + ')' : '')); if (!ok3) process.exitCode = 1;
 }
 
 // Menù dieta: pagina, infografica, nel menu di navigazione e nella sitemap

@@ -51,7 +51,8 @@
     "bimbo": 40,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Versa lo yogurt greco in una ciotola. Aggiungi i fiocchi d'avena e mescola. Completa con i frutti di bosco lavati (se surgelati, lasciali scongelare qualche minuto)."
  },
  {
   "id": "col_02",
@@ -112,7 +113,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Tosta il pane integrale. Sbatti le uova con un pizzico di sale e cuocile in padella con l'olio EVO a fuoco basso, mescolando con una spatola finché sono cremose. Servi sul pane con i pomodorini tagliati a metà."
  },
  {
   "id": "col_03",
@@ -228,7 +230,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Tosta il pane integrale. Spalma la ricotta sulle fette, aggiungi un filo di miele. Completa con le noci spezzettate."
  },
  {
   "id": "col_05",
@@ -289,7 +292,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Versa lo yogurt greco in una ciotola e aggiungi i fiocchi d'avena. Taglia la banana a rondelle e disponila sopra. Completa con un filo di miele, se ti piace."
  },
  {
   "id": "col_06",
@@ -344,7 +348,8 @@
     "bimbo": 0.5,
     "unit": "pz"
    }
-  }
+  },
+  "preparazione": "Sbatti le uova con i fiocchi d'avena e un pizzico di cannella. Aggiungi la mela grattugiata o tagliata a fettine sottili. Cuoci in una padella antiaderente a fuoco medio-basso, coperto, 4 minuti per lato."
  },
  {
   "id": "col_07",
@@ -405,7 +410,8 @@
     "bimbo": 20,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Frulla lo yogurt greco con la banana, i fiocchi d'avena e un goccio d'acqua fredda fino a ottenere un frullato liscio. Accompagna con il pane integrale tostato."
  },
  {
   "id": "col_08",
@@ -460,7 +466,8 @@
     "bimbo": 0,
     "unit": "pz"
    }
-  }
+  },
+  "preparazione": "Porta a leggero bollore un pentolino d'acqua con un cucchiaio di aceto, crea un vortice e versa l'uovo al centro; cuoci 3 minuti e scolalo con una schiumarola. Tosta il pane, schiaccia l'avocado con un pizzico di sale e spalmalo. Adagia sopra l'uovo e completa con un filo d'olio EVO."
  },
  {
   "id": "col_09",
@@ -522,7 +529,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Porta il latte a bollore in un pentolino, versa i fiocchi d'avena e cuoci 4-5 minuti a fuoco basso, mescolando, finché si addensa. Versa nella ciotola e completa con le noci, la frutta secca e una spolverata di cannella."
  },
  {
   "id": "col_10",
@@ -576,7 +584,8 @@
     "bimbo": 0.5,
     "unit": "pz"
    }
-  }
+  },
+  "preparazione": "Immergi le uova in acqua già in ebollizione e cuocile 3 minuti per il tuorlo liquido (4 per averlo più sodo). Accompagna con il pane integrale tostato e l'arancia a spicchi."
  },
  {
   "id": "col_11",
@@ -644,7 +653,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "La sera prima mescola i fiocchi d'avena con lo yogurt greco in un barattolo, copri e lascia in frigo tutta la notte. La mattina completa con i mirtilli, le mandorle a lamelle e, se vuoi, un filo di miele."
  },
  {
   "id": "col_12",
@@ -705,7 +715,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Tosta il pane integrale. Spalma i fiocchi di latte sulle fette. Completa con le fragole a fettine e, se ti piace, un filo di miele."
  },
  {
   "id": "col_13",
@@ -773,7 +784,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Frulla il mango a pezzi e la banana con lo yogurt greco fino a ottenere una crema densa. Versa in una ciotola e completa con i fiocchi d'avena e la frutta secca."
  },
  {
   "id": "col_14",
@@ -835,7 +847,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Cuoci la zucca a dadini con il latte in un pentolino per 5 minuti, poi schiacciala con la forchetta. Aggiungi i fiocchi d'avena e cuoci altri 4-5 minuti, mescolando. Completa con cannella e, se vuoi, un filo di miele."
  },
  {
   "id": "col_15",
@@ -910,7 +923,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 180°C. Sbatti le uova con un pizzico di sale, aggiungi gli spinaci tritati, i pomodorini a pezzi e la feta sbriciolata. Versa in una pirofila piccola unta con l'olio EVO e cuoci 15-18 minuti. Servi con il pane integrale."
  },
  {
   "id": "col_16",
@@ -978,7 +992,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Versa lo yogurt greco in una ciotola e aggiungi i fiocchi d'avena. Taglia la pesca a spicchi e disponila sopra. Completa con i pistacchi tritati grossolanamente e, se vuoi, un filo di miele."
  },
  {
   "id": "col_17",
@@ -1094,7 +1109,8 @@
     "bimbo": 0.5,
     "unit": "pz"
    }
-  }
+  },
+  "preparazione": "Tosta il pane integrale. Spalma il burro di mandorle. Completa con la banana a rondelle."
  },
  {
   "id": "col_19",
@@ -1162,7 +1178,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Versa i fiocchi di latte in una ciotola e aggiungi i fiocchi d'avena. Sbuccia il kiwi e taglialo a dadini. Completa con il kiwi, le noci spezzettate e, se ti piace, un filo di miele."
  },
  {
   "id": "col_20",
@@ -1230,7 +1247,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Porta il latte a bollore, aggiungi i fiocchi d'avena e il cacao e cuoci 4-5 minuti a fuoco basso, mescolando. Unisci le castagne lessate sbriciolate. Dolcifica con un filo di miele, se vuoi."
  },
  {
   "id": "col_21",
@@ -1292,7 +1310,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Sbatti le uova con un pizzico di pepe. Cuocile in padella con l'olio EVO a fuoco basso, mescolando, e a fine cottura unisci il salmone affumicato a striscioline. Completa con il prezzemolo tritato e servi con il pane integrale tostato."
  },
  {
   "id": "col_22",
@@ -1360,7 +1379,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Metti nel frullatore lo yogurt greco, le fragole, i fiocchi d'avena e il latte. Frulla per un minuto fino a ottenere un frullato liscio. Assaggia e aggiungi un filo di miele, se serve."
  },
  {
   "id": "col_23",
@@ -1490,7 +1510,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Tosta il pane integrale. Spalma la ricotta sulle fette. Completa con gli acini d'uva tagliati a metà e, se ti piace, un filo di miele."
  },
  {
   "id": "spu_01",
@@ -1537,7 +1558,8 @@
     "bimbo": 5,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava la mela e tagliala a spicchi. Accompagnala con le mandorle."
  },
  {
   "id": "spu_02",
@@ -1584,7 +1606,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Versa lo yogurt greco in una coppetta. Completa con il miele."
  },
  {
   "id": "spu_03",
@@ -1631,7 +1654,8 @@
     "bimbo": 25,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Spalma la ricotta sui crackers integrali. Se ti piace, aggiungi un pizzico di sale e pepe o di erbe aromatiche."
  },
  {
   "id": "spu_04",
@@ -1678,7 +1702,8 @@
     "bimbo": 15,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Pela le carote e tagliale a bastoncini. Servile con l'hummus di ceci in una ciotolina, da intingere."
  },
  {
   "id": "spu_05",
@@ -1726,7 +1751,8 @@
     "bimbo": 0.25,
     "unit": "pz"
    }
-  }
+  },
+  "preparazione": "Tosta il pane integrale. Schiaccia l'avocado con qualche goccia di limone e un pizzico di sale. Spalmalo sul pane."
  },
  {
   "id": "spu_06",
@@ -1766,7 +1792,8 @@
     "bimbo": 10,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Porziona la frutta secca mista in una ciotolina: la quantità indicata è già la porzione giusta."
  },
  {
   "id": "spu_07",
@@ -1813,7 +1840,8 @@
     "bimbo": 5,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava la mela e tagliala a spicchi. Spalma il burro di mandorle sugli spicchi o usalo come salsa da intingere."
  },
  {
   "id": "spu_08",
@@ -1860,7 +1888,8 @@
     "bimbo": 50,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Versa lo yogurt greco in una coppetta. Aggiungi la banana a rondelle."
  },
  {
   "id": "spu_09",
@@ -1907,7 +1936,8 @@
     "bimbo": 5,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Sbuccia i mandarini. Accompagnali con i pistacchi."
  },
  {
   "id": "spu_10",
@@ -1961,7 +1991,8 @@
     "bimbo": 100,
     "unit": "ml"
    }
-  }
+  },
+  "preparazione": "Lava bene gli spinaci. Frullali con la banana e il latte freddo per un minuto, fino a ottenere un frullato liscio. Bevilo subito."
  },
  {
   "id": "spu_11",
@@ -2022,7 +2053,8 @@
     "bimbo": 40,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava il peperone e il sedano e tagliali a bastoncini. Spalma l'hummus sui crackers e accompagna con le verdure crude."
  },
  {
   "id": "spu_12",
@@ -2069,7 +2101,8 @@
     "bimbo": 5,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava la pera e tagliala a spicchi. Accompagnala con le noci."
  },
  {
   "id": "spu_13",
@@ -2116,7 +2149,8 @@
     "bimbo": 8,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia il mango a cubetti. Completa con i pistacchi tritati grossolanamente."
  },
  {
   "id": "spu_14",
@@ -2170,7 +2204,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Versa i fiocchi di latte in una coppetta. Aggiungi l'ananas a cubetti e, se ti piace, un filo di miele."
  },
  {
   "id": "spu_15",
@@ -2224,7 +2259,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava le fragole e tagliale a metà. Servile con la ricotta e un filo di miele."
  },
  {
   "id": "spu_16",
@@ -2271,7 +2307,8 @@
     "bimbo": 50,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava l'uva. Accompagnala con gli anacardi."
  },
  {
   "id": "spu_17",
@@ -2318,7 +2355,8 @@
     "bimbo": 50,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Sbuccia i kiwi e tagliali a rondelle. Servili sullo yogurt greco."
  },
  {
   "id": "spu_18",
@@ -2372,7 +2410,8 @@
     "bimbo": 15,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava il sedano e taglialo a bastoncini. Servilo con l'hummus di ceci condito con l'olio EVO."
  },
  {
   "id": "spu_19",
@@ -2419,7 +2458,8 @@
     "bimbo": 5,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava la pesca e tagliala a spicchi. Tosta i pinoli in padella senza grassi per un minuto e cospargili sopra."
  },
  {
   "id": "spu_20",
@@ -2473,7 +2513,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia il tofu a cubetti e scottalo in padella antiaderente 3-4 minuti, finché è dorato. Bagna con la salsa di soia e cospargi con i semi di sesamo."
  },
  {
   "id": "spu_21",
@@ -2520,7 +2561,8 @@
     "bimbo": 50,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava le ciliegie. Accompagnale con le nocciole."
  },
  {
   "id": "spu_22",
@@ -2567,7 +2609,8 @@
     "bimbo": 20,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Tosta il pane integrale. Spalma il formaggio fresco sulla fetta."
  },
  {
   "id": "spu_23",
@@ -2615,7 +2658,8 @@
     "bimbo": 40,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia le barbabietole cotte a cubetti. Uniscile ai fiocchi di latte e condisci con qualche goccia di limone e un pizzico di sale."
  },
  {
   "id": "spu_24",
@@ -2662,7 +2706,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia il melone a fette e togli la buccia. Avvolgi ogni fetta con il prosciutto crudo."
  },
  {
   "id": "pra_01",
@@ -2737,7 +2782,8 @@
     "bimbo": 30,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Cuoci il farro perlato in acqua bollente salata per 20 minuti, scolalo e passalo sotto l'acqua fredda. Taglia i pomodorini a metà. Unisci al farro il tonno sgocciolato, i pomodorini, le olive e la rucola. Condisci con l'olio EVO e un pizzico di sale."
  },
  {
   "id": "pra_02",
@@ -2805,7 +2851,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Taglia zucchine e peperoni a pezzi, condiscili con metà dell'olio EVO e un pizzico di sale e arrostiscili 20 minuti. Sciacqua la quinoa e cuocila in acqua salata per 15 minuti. Griglia il petto di pollo su una piastra calda, 4-5 minuti per lato. Servi tutto insieme con l'olio rimasto a crudo."
  },
  {
   "id": "pra_03",
@@ -2873,7 +2920,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Taglia le carote a dadini e rosolale 3 minuti in pentola con un filo d'olio EVO. Aggiungi i legumi scolati e il brodo vegetale e cuoci 20 minuti a fuoco basso. Frulla una parte della zuppa per renderla cremosa e servi con il pane integrale tostato e l'olio rimasto a crudo."
  },
  {
   "id": "pra_04",
@@ -2934,7 +2982,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Immergi le uova in acqua bollente e cuocile 9 minuti, poi raffreddale e sgusciale. Lava l'insalata e condiscila con l'olio EVO e un pizzico di sale. Servi le uova a spicchi sull'insalata, con i crostini integrali."
  },
  {
   "id": "pra_05",
@@ -2995,7 +3044,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci il riso in acqua salata per il tempo indicato sulla confezione (circa 15 minuti il basmati, 35-40 l'integrale). Accendi il forno a 200°C e cuoci il salmone in una teglia con le zucchine a rondelle per 15 minuti. Condisci con l'olio EVO a crudo e servi tutto insieme."
  },
  {
   "id": "pra_06",
@@ -3056,7 +3106,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci la pasta integrale in acqua bollente salata. Intanto taglia i pomodori a cubetti e condiscili in una ciotola grande con l'olio EVO, un pizzico di sale e, se l'hai, qualche foglia di basilico. Scola la pasta, uniscila ai pomodori e aggiungi la mozzarella a dadini."
  },
  {
   "id": "pra_07",
@@ -3131,7 +3182,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Taglia le zucchine a rondelle sottili e saltale in padella con un filo d'olio EVO per 5 minuti insieme agli spinaci. Versa le uova sbattute con un pizzico di sale e cuoci coperto a fuoco basso 5 minuti, poi gira la frittata e cuoci altri 2-3 minuti. Servi con l'insalata e il pane integrale."
  },
  {
   "id": "pra_08",
@@ -3206,7 +3258,8 @@
     "bimbo": 30,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Cuoci il petto di pollo su una piastra calda, 4-5 minuti per lato, e taglialo a striscioline. Unisci la rucola, i pomodorini a metà e l'avocado a cubetti. Condisci con l'olio EVO e un pizzico di sale e servi con il pane integrale."
  },
  {
   "id": "pra_09",
@@ -3267,7 +3320,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci il riso in acqua salata per il tempo indicato sulla confezione. Cuoci i broccoli a cimette al vapore per 10 minuti e il merluzzo, sopra i broccoli, per gli ultimi 8 minuti. Servi tutto con l'olio EVO a crudo e un pizzico di sale."
  },
  {
   "id": "pra_10",
@@ -3335,7 +3389,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Sciacqua i ceci e scolali. Lava gli spinaci freschi e mettili in una ciotola. Aggiungi i ceci, i pomodori secchi a striscioline e la feta sbriciolata. Condisci con l'olio EVO."
  },
  {
   "id": "pra_11",
@@ -3403,7 +3458,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Cuoci il petto di pollo sulla piastra, 4-5 minuti per lato, e taglialo a striscioline. Griglia anche peperoni e zucchine a fette. Scalda la piadina in padella 30 secondi per lato, spalma l'hummus, aggiungi pollo e verdure e arrotola."
  },
  {
   "id": "pra_12",
@@ -3464,7 +3520,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Sciacqua le lenticchie e scolale. Pela le carote e grattugiale o tagliale a julienne. Unisci il tonno sgocciolato, le lenticchie e le carote, condisci con l'olio EVO e, se l'hai, prezzemolo tritato."
  },
  {
   "id": "pra_13",
@@ -3532,7 +3589,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Versa sul cous cous il suo peso in acqua bollente salata, copri e lascia riposare 5 minuti, poi sgranalo con la forchetta. Salta in padella con l'olio EVO le zucchine a dadini per 5 minuti, aggiungi i gamberi e cuoci altri 3 minuti. Unisci al cous cous e completa con il succo e la scorza del limone."
  },
  {
   "id": "pra_14",
@@ -3601,7 +3659,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Taglia peperoni e cipolla a pezzi, condiscili con metà dell'olio EVO e le spezie e arrostiscili 20 minuti; a metà cottura aggiungi il pollo a cubetti. Cuoci il bulgur in acqua salata per 10-12 minuti e scolalo. Unisci tutto e condisci con l'olio rimasto."
  },
  {
   "id": "pra_15",
@@ -3753,7 +3812,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci l'orzo perlato in acqua bollente salata per 20-25 minuti, scolalo e passalo sotto l'acqua fredda. Taglia a dadini i cetrioli e a metà i pomodorini. Unisci all'orzo le verdure, la feta sbriciolata e le olive e condisci con l'olio EVO."
  },
  {
   "id": "pra_17",
@@ -3898,7 +3958,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Trita la cipolla e rosolala in padella con l'olio EVO per 3 minuti. Aggiungi le carote e le zucchine a dadini piccoli e cuoci 5 minuti, poi la passata di pomodoro e un pizzico di sale; cuoci altri 10 minuti. Lessa la pasta fresca per 2-3 minuti, scolala nel sugo e completa con il parmigiano."
  },
  {
   "id": "pra_19",
@@ -3973,7 +4034,8 @@
     "bimbo": 0,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Cuoci il riso venere in acqua salata per 18-20 minuti e lascialo intiepidire. Taglia il salmone a cubetti e scottalo in padella 2 minuti (o usalo crudo se abbattuto). Componi la bowl con riso, salmone, avocado a fette e insalata. Condisci con la salsa di soia e i semi di sesamo."
  },
  {
   "id": "pra_20",
@@ -4055,7 +4117,8 @@
     "bimbo": 25,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Trita la cipolla e l'aglio e rosolali in pentola con l'olio EVO per 3 minuti. Aggiungi il cavolo a striscioline e il brodo vegetale e cuoci 15 minuti. Unisci i cannellini scolati e cuoci altri 10 minuti. Servi con il pane integrale tostato."
  },
  {
   "id": "pra_21",
@@ -4207,7 +4270,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci il grano saraceno in acqua salata per 15 minuti e scolalo. Rosola l'aglio in padella con l'olio EVO, aggiungi i funghi a fette e cuoci 6-7 minuti, poi gli spinaci per altri 2 minuti. Unisci il grano saraceno e completa con le noci spezzettate."
  },
  {
   "id": "pra_23",
@@ -4276,7 +4340,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Sciacqua le lenticchie e scolale. Pela le carote e grattugiale, affetta sottile la cipolla. Unisci tutto e condisci con il succo del limone, l'olio EVO, un pizzico di sale e un pizzico di cumino o delle spezie che preferisci."
  },
  {
   "id": "pra_24",
@@ -4338,7 +4403,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 210°C. Taglia il cavolfiore a cimette, condiscilo con l'olio EVO, le spezie e un pizzico di sale e arrostiscilo 15 minuti; aggiungi i ceci scolati e cuoci altri 10 minuti. Completa con il succo di limone (e, se l'hai, un cucchiaino di tahini sciolto in un po' d'acqua)."
  },
  {
   "id": "pra_25",
@@ -4413,7 +4479,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci il farro perlato in acqua salata per 20 minuti e scolalo. Cuoci il petto di pollo sulla piastra, 4-5 minuti per lato, e taglialo a striscioline. Taglia il radicchio sottile e pela l'arancia a vivo. Unisci tutto con le noci e condisci con l'olio EVO e un pizzico di sale."
  },
  {
   "id": "pra_26",
@@ -4552,7 +4619,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci il riso basmati in acqua salata per 12-15 minuti. Trita la cipolla e rosolala in padella con l'olio EVO, aggiungi il tofu a cubetti e la curcuma (o le spezie) e cuoci 5 minuti, poi i piselli e un goccio d'acqua per altri 5 minuti. Servi sul riso."
  },
  {
   "id": "pra_28",
@@ -4628,7 +4696,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Lava la lattuga e spezzala. Aggiungi il tonno sgocciolato, i cannellini scolati, i datterini a metà e i capperi sciacquati. Condisci con l'olio EVO e qualche goccia di limone."
  },
  {
   "id": "cen_01",
@@ -4689,7 +4758,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Taglia le patate dolci a spicchi, condiscile con metà dell'olio EVO e un pizzico di sale e cuocile 15 minuti. Aggiungi il salmone nella stessa teglia e cuoci altri 12-15 minuti. Servi con l'insalata condita con l'olio rimasto."
  },
  {
   "id": "cen_02",
@@ -4757,7 +4827,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C e cuoci il petto di pollo in una teglia con un filo d'olio EVO e un pizzico di sale per 20 minuti. Intanto taglia zucchine e peperoni a listarelle e saltali in padella con l'olio rimasto per 8-10 minuti. Servi con il pane integrale."
  },
  {
   "id": "cen_03",
@@ -4825,7 +4896,8 @@
     "bimbo": 10,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Scalda in padella l'olio EVO, aggiungi la passata di pomodoro e le lenticchie scolate e cuoci 15 minuti a fuoco basso, schiacciandone una parte con la forchetta. Cuoci la pasta integrale in acqua bollente salata e scolala nel ragù. Completa con il parmigiano, se previsto."
  },
  {
   "id": "cen_04",
@@ -4886,7 +4958,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci il riso in acqua salata per il tempo indicato sulla confezione. Cuoci i broccoli a cimette al vapore per 10 minuti e il merluzzo, sopra i broccoli, negli ultimi 8 minuti. Condisci tutto con l'olio EVO a crudo e un pizzico di sale."
  },
  {
   "id": "cen_05",
@@ -4954,7 +5027,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Sciogli il lievito in 60 ml d'acqua tiepida, aggiungi la farina integrale, l'olio EVO e un pizzico di sale e impasta 5 minuti. Copri e lascia lievitare almeno un'ora. Stendi l'impasto su una teglia, condisci con la passata di pomodoro e cuoci a 250°C per 10 minuti. Aggiungi la mozzarella e cuoci altri 5 minuti."
  },
  {
   "id": "cen_06",
@@ -5029,7 +5103,8 @@
     "bimbo": 10,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Rosola lo spezzatino di manzo in un tegame con metà dell'olio EVO, aggiungi metà delle carote a pezzi e un mestolo di brodo e cuoci coperto a fuoco basso 35-40 minuti, aggiungendo brodo se serve. Intanto tosta il riso con l'olio rimasto e le altre carote a dadini e cuocilo 16-18 minuti aggiungendo il brodo caldo poco alla volta. Manteca con il parmigiano, se previsto."
  },
  {
   "id": "cen_07",
@@ -5111,7 +5186,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Taglia le carote a dadini e cuocile nel brodo vegetale con i legumi scolati per 20 minuti, aggiungendo gli spinaci negli ultimi 3. Cuoci le uova al tegamino in una padella antiaderente con un filo d'olio EVO, coperte, per 3-4 minuti. Servi il minestrone con l'olio rimasto a crudo, le uova e il pane integrale."
  },
  {
   "id": "cen_08",
@@ -5172,7 +5248,8 @@
     "bimbo": 5,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Cuoci il riso in acqua salata per il tempo indicato sulla confezione. Lessa gli edamame per 4 minuti. Cuoci il salmone in padella antiaderente dal lato della pelle per 5 minuti, giralo, aggiungi la salsa teriyaki e cuoci altri 3 minuti, bagnandolo con la salsa. Servi con il riso e gli edamame."
  },
  {
   "id": "cen_09",
@@ -5234,7 +5311,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Spennella il petto di pollo con metà dell'olio EVO, coprilo con le erbe e le spezie tritate e cuocilo 20 minuti. Sciacqua la quinoa e cuocila in acqua salata per 15 minuti. Salta gli spinaci in padella con l'olio rimasto per 2-3 minuti e servi tutto insieme."
  },
  {
   "id": "cen_10",
@@ -5295,7 +5373,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Lessa le patate dolci a pezzi per 15 minuti e schiacciale con un pizzico di sale e metà dell'olio EVO. Trita le fettine di tacchino nel mixer, aggiungi un pizzico di sale e forma delle polpette. Cuocile in padella antiaderente 8-10 minuti, girandole spesso. Lessa i fagiolini per 8 minuti e condiscili con l'olio rimasto."
  },
  {
   "id": "cen_11",
@@ -5357,7 +5436,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Scalda in pentola i ceci scolati con il brodo vegetale e il rosmarino (o le spezie) per 15 minuti. Togli il rosmarino e frulla metà della zuppa per renderla cremosa. Servi con l'olio EVO a crudo e i crostini."
  },
  {
   "id": "cen_12",
@@ -5418,7 +5498,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Taglia le patate a spicchi, condiscile con metà dell'olio EVO e un pizzico di sale e cuocile 15 minuti. Aggiungi nella stessa teglia l'orata pulita, con fette di limone nella pancia, e cuoci altri 20 minuti. Servi con l'insalata condita con l'olio rimasto."
  },
  {
   "id": "cen_13",
@@ -5486,7 +5567,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Metti in una teglia l'agnello e le patate dolci a spicchi con l'aglio in camicia, il rosmarino, l'olio EVO e un pizzico di sale. Cuoci 25-30 minuti, girando a metà, finché la carne è dorata."
  },
  {
   "id": "cen_14",
@@ -5555,7 +5637,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci il riso in acqua salata per il tempo indicato sulla confezione. In una padella o un wok scalda l'olio EVO con l'aglio e lo zenzero grattugiato, aggiungi i gamberi e cuoci 3-4 minuti. Bagna con la salsa di soia, unisci il riso e salta un minuto a fuoco vivo."
  },
  {
   "id": "cen_15",
@@ -5623,7 +5706,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Incidi la pelle del petto d'anatra a rombi e mettilo, dal lato della pelle, in una padella fredda; accendi a fuoco medio e cuoci 8 minuti, poi giralo e cuoci altri 4-5 minuti. Lascialo riposare 5 minuti prima di affettarlo. Intanto stufa il cavolo a striscioline con la mela a dadini, l'olio EVO, l'aceto e un goccio d'acqua per 20 minuti."
  },
  {
   "id": "cen_16",
@@ -5698,7 +5782,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci il riso in acqua salata per il tempo indicato sulla confezione. Accendi il forno a 200°C, spennella il salmone con un filo d'olio EVO e coprilo con i semi di sesamo. Cuocilo 12-15 minuti in teglia con gli asparagi, conditi con l'olio rimasto e un pizzico di sale. Completa con il succo di limone."
  },
  {
   "id": "cen_17",
@@ -5773,7 +5858,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Rosola la cipolla tritata con l'olio EVO, aggiungi la lonza a cubetti e falla dorare 5 minuti. Unisci i funghi a fette e l'orzo, poi il brodo caldo. Cuoci coperto a fuoco basso per 30 minuti, mescolando ogni tanto e aggiungendo brodo se si asciuga."
  },
  {
   "id": "cen_18",
@@ -5842,7 +5928,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Versa sul cous cous il suo peso in acqua bollente salata, copri e lascia riposare 5 minuti, poi sgranalo. Griglia i calamari puliti su una piastra caldissima per 2-3 minuti per lato e le zucchine a fette per 3 minuti per lato. Condisci con l'olio EVO, il limone e il prezzemolo tritato."
  },
  {
   "id": "cen_19",
@@ -5911,7 +5998,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Taglia le melanzane a dadini e cuocile in padella con l'olio EVO per 8 minuti, poi aggiungi i pomodorini a pezzi e cuoci altri 5 minuti. Lessa la pasta per metà del tempo indicato, scolala e uniscila al sugo con il basilico. Versa in una pirofila, copri con la mozzarella a dadini e gratina 15 minuti."
  },
  {
   "id": "cen_20",
@@ -6062,7 +6150,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Trita la cipolla e rosolala con l'olio EVO, aggiungi la salsiccia sbriciolata e falla dorare 5 minuti. Unisci il cavolo a striscioline e il brodo e cuoci coperto 12 minuti. Aggiungi le lenticchie scolate e cuoci altri 5 minuti."
  },
  {
   "id": "cen_22",
@@ -6137,7 +6226,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci il grano saraceno in acqua salata per 15 minuti e scolalo. Cuoci i broccoli a cimette al vapore per 8 minuti. Rosola il tofu a cubetti in padella con l'olio EVO per 5 minuti, aggiungi i broccoli e la salsa di soia e salta un minuto. Servi sul grano saraceno con i semi di sesamo."
  },
  {
   "id": "cen_23",
@@ -6212,7 +6302,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Affetta il porro e rosolalo in pentola con l'olio EVO per 3 minuti, poi aggiungi la zucca a dadini. Unisci il riso e tostalo un minuto, poi cuoci 16-18 minuti aggiungendo il brodo caldo poco alla volta. A fuoco spento manteca con il parmigiano."
  },
  {
   "id": "cen_24",
@@ -6344,7 +6435,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Cuoci il bulgur in acqua salata per 10-12 minuti e scolalo. Affetta la cipolla e i peperoni a listarelle e cuocili in padella con l'olio EVO per 10 minuti. Aggiungi il tacchino a striscioline e le spezie e cuoci altri 5 minuti. Servi con il bulgur."
  },
  {
   "id": "cen_26",
@@ -6419,7 +6511,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Taglia le patate a spicchi e il finocchio a fette, condiscili con l'olio EVO e un pizzico di sale e cuocili 25 minuti. Aggiungi lo sgombro sgocciolato negli ultimi 5 minuti per scaldarlo. Completa con l'arancia a spicchi e il succo di limone."
  },
  {
   "id": "cen_27",
@@ -6494,7 +6587,8 @@
     "bimbo": 0,
     "unit": "cucchiaio"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C e cuoci le patate a spicchi con metà dell'olio EVO e un pizzico di sale per 25-30 minuti. Trita le fettine di tacchino nel mixer con la cipolla e la senape e forma un hamburger. Cuocilo in padella antiaderente 4-5 minuti per lato. Servi con le patate e l'insalata condita con l'olio rimasto."
  },
  {
   "id": "cen_28",
@@ -6569,7 +6663,8 @@
     "bimbo": 40,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Togli la carne dal frigo mezz'ora prima. Cuocila su una piastra caldissima 3-4 minuti per lato, poi lasciala riposare 5 minuti e tagliala a fette. Servila su un letto di rucola con il parmigiano a scaglie, l'olio EVO, l'aceto balsamico e un pizzico di sale. Accompagna con il pane integrale."
  },
  {
   "id": "col_25",
@@ -6630,7 +6725,8 @@
     "bimbo": 4,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Salta gli spinaci in padella con un filo dell'olio EVO per 2 minuti, finché appassiscono. Versa le uova sbattute con un pizzico di sale e mescola a fuoco basso finché sono cremose. Servi con il pane integrale tostato."
  },
  {
   "id": "col_26",
@@ -6691,7 +6787,8 @@
     "bimbo": 55,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Porta il latte a bollore, aggiungi i fiocchi d'avena e il cacao e cuoci 5 minuti a fuoco basso, mescolando. Schiaccia metà banana e uniscila al porridge per addolcirlo. Completa con l'altra metà a rondelle."
  },
  {
   "id": "col_27",
@@ -6759,7 +6856,8 @@
     "bimbo": 8,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Mescola la ricotta con l'uovo e il miele, poi aggiungi la farina integrale e un pizzico di lievito fino a ottenere una pastella densa. Unisci metà dei mirtilli. Cuoci a cucchiaiate in padella antiaderente a fuoco medio, 2 minuti per lato, e servi con i mirtilli rimasti."
  },
  {
   "id": "col_28",
@@ -6827,7 +6925,8 @@
     "bimbo": 6,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Sbatti le uova con il latte. Immergi le fette di pane integrale nel composto da entrambi i lati. Cuocile in padella antiaderente a fuoco medio, 2-3 minuti per lato, finché sono dorate. Servi con le fragole a fettine e il miele."
  },
  {
   "id": "col_29",
@@ -6888,7 +6987,8 @@
     "bimbo": 10,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Sbatti l'uovo con il latte e un pizzico di sale, poi aggiungi la farina integrale a pioggia, mescolando con la frusta senza grumi. Lascia riposare 10 minuti. Cuoci un mestolino di pastella alla volta in una padella antiaderente calda, 1 minuto per lato. Spalma la crema di nocciole e piega le crêpes in quattro."
  },
  {
   "id": "col_30",
@@ -6956,7 +7056,8 @@
     "bimbo": 1,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Sbatti le uova con il miele e la cannella e aggiungi i fiocchi d'avena. Unisci la mela tagliata a fettine sottili. Cuoci in padella antiaderente a fuoco medio-basso, coperto, 5 minuti per lato."
  },
  {
   "id": "col_31",
@@ -7017,7 +7118,8 @@
     "bimbo": 3,
     "unit": "ml"
    }
-  }
+  },
+  "preparazione": "Tosta il pane integrale. Schiaccia l'avocado con il succo di limone e un pizzico di sale e spalmalo sulle fette. Cuoci l'uovo al tegamino in una padella antiaderente, coperto, 3-4 minuti, e adagialo sopra."
  },
  {
   "id": "col_32",
@@ -7085,7 +7187,8 @@
     "bimbo": 7,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 180°C. Schiaccia la banana con la forchetta, aggiungi l'uovo e il miele e mescola. Unisci i fiocchi d'avena, mezzo cucchiaino di lievito e le noci tritate. Dividi l'impasto in 2 pirottini e cuoci 20 minuti."
  },
  {
   "id": "col_33",
@@ -7153,7 +7256,8 @@
     "bimbo": 4,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 180°C. Sbatti l'uovo con il miele, aggiungi lo yogurt greco e l'olio di semi. Unisci la farina integrale con un cucchiaino di lievito per dolci e mescola senza grumi. Versa in uno stampo da plumcake foderato e cuoci 35-40 minuti: la dose della ricetta corrisponde a una fetta, moltiplicala per lo stampo intero."
  },
  {
   "id": "col_34",
@@ -7221,7 +7325,8 @@
     "bimbo": 1,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 180°C. Sbatti l'uovo con il miele e la cannella, poi aggiungi i fiocchi d'avena e un cucchiaino di lievito. Unisci la mela, metà a dadini nell'impasto e metà a fettine sopra. Cuoci in uno stampo foderato 35-40 minuti: la dose corrisponde a una fetta, moltiplicala per lo stampo intero."
  },
  {
   "id": "col_35",
@@ -7289,7 +7394,8 @@
     "bimbo": 5,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 175°C. Schiaccia le banane mature, aggiungi l'uovo e il miele e mescola. Unisci la farina integrale con un cucchiaino di lievito e le noci tritate. Versa in uno stampo da plumcake foderato e cuoci 45-50 minuti: la dose corrisponde a una fetta, moltiplicala per lo stampo intero."
  },
  {
   "id": "col_36",
@@ -7350,7 +7456,8 @@
     "bimbo": 65,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 160°C. Mescola i fiocchi d'avena con il miele e le mandorle tritate grossolanamente. Stendi su una teglia con carta forno e cuoci 15-20 minuti, mescolando a metà, finché è dorata. Lasciala raffreddare (diventa croccante) e servila sullo yogurt greco."
  },
  {
   "id": "spu_25",
@@ -7404,7 +7511,8 @@
     "bimbo": 3,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Frulla le mandorle nel mixer fino a ridurle in granella fine. Aggiungi i datteri snocciolati e il cacao e frulla ancora finché l'impasto si compatta (aggiungi un cucchiaino d'acqua se è troppo asciutto). Forma 3 palline con le mani e mettile in frigo 10 minuti."
  },
  {
   "id": "spu_26",
@@ -7465,7 +7573,8 @@
     "bimbo": 65,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Frulla i ceci scolati con il succo di limone, l'olio EVO, un pizzico di sale e un cucchiaio d'acqua fino a ottenere una crema liscia. Pela le carote e tagliale a bastoncini da intingere nell'hummus."
  },
  {
   "id": "spu_27",
@@ -7526,7 +7635,8 @@
     "bimbo": 2,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Tosta il pane integrale in forno o in padella. Taglia i pomodori a dadini e condiscili con l'olio EVO, il basilico spezzettato e un pizzico di sale. Distribuisci sul pane appena prima di servire."
  },
  {
   "id": "spu_28",
@@ -7587,7 +7697,8 @@
     "bimbo": 1,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia la pera a dadini e cuocila in un pentolino con il miele, la cannella e un cucchiaio d'acqua per 5-6 minuti, finché si ammorbidisce. Versa la composta calda sullo yogurt greco."
  },
  {
   "id": "spu_29",
@@ -7655,7 +7766,8 @@
     "bimbo": 3,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava e taglia a pezzi le fragole, il kiwi e la banana. Disponili in una coppetta con lo yogurt greco. Completa con le nocciole tritate."
  },
  {
   "id": "spu_30",
@@ -7716,7 +7828,8 @@
     "bimbo": 3,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Tosta il pane integrale e taglialo a crostini. Spalma la ricotta, aggiungi un filo di miele e le noci spezzettate."
  },
  {
   "id": "spu_31",
@@ -7784,7 +7897,8 @@
     "bimbo": 1,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 180°C. Grattugia la zucchina e strizzala. Mescola l'uovo con l'olio EVO, il parmigiano, la zucchina, la farina integrale, un pizzico di sale e un pizzico di lievito istantaneo per torte salate. Versa nel pirottino e cuoci 20 minuti."
  },
  {
   "id": "spu_32",
@@ -7845,7 +7959,8 @@
     "bimbo": 4,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 170°C. Mescola i fiocchi d'avena con il miele, le mandorle tritate e l'uvetta. Compatta l'impasto in una teglia foderata con carta forno, alto circa 1 cm. Cuoci 15-20 minuti, lascia raffreddare e taglia a barrette."
  },
  {
   "id": "spu_33",
@@ -7899,7 +8014,8 @@
     "bimbo": 8,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno ventilato a 140°C. Taglia la mela a fettine sottilissime, senza sbucciarla, e disponile su una teglia con carta forno. Spolvera con la cannella e cuoci 25-30 minuti, finché sono asciutte: raffreddandosi diventano croccanti. Servile con le mandorle."
  },
  {
   "id": "spu_34",
@@ -7960,7 +8076,8 @@
     "bimbo": 30,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Frulla gli albumi con i fiocchi d'avena e lo yogurt greco fino a ottenere una pastella. Cuoci in una padella antiaderente calda a fuoco medio, 2 minuti per lato. Servi con i mirtilli."
  },
  {
   "id": "spu_35",
@@ -8028,7 +8145,8 @@
     "bimbo": 2,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 180°C. Sbatti l'uovo con il miele, aggiungi lo yogurt greco e l'olio di semi. Unisci la farina con un cucchiaino di lievito per dolci e mescola senza grumi. Versa in uno stampo da ciambella e cuoci 35-40 minuti: la dose corrisponde a una fetta, moltiplicala per lo stampo intero."
  },
  {
   "id": "spu_36",
@@ -8089,7 +8207,8 @@
     "bimbo": 3,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 180°C. Schiaccia la banana matura e mescolala con il miele, i fiocchi d'avena e l'uvetta. Forma 3 biscotti su una teglia con carta forno, schiacciandoli con il cucchiaio. Cuoci 15-18 minuti, finché sono dorati, e lasciali raffreddare."
  },
  {
   "id": "pra_29",
@@ -8164,7 +8283,8 @@
     "bimbo": 30,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Sciacqua i cannellini e scolali. Affetta sottile la cipolla e taglia i pomodori a pezzi. Unisci il tonno sgocciolato, condisci con l'olio EVO e un pizzico di sale e servi con il pane integrale."
  },
  {
   "id": "pra_30",
@@ -8239,7 +8359,8 @@
     "bimbo": 3,
     "unit": "ml"
    }
-  }
+  },
+  "preparazione": "Taglia il pane integrale a fette. Farciscilo con la bresaola, la rucola e il grana a scaglie. Condisci con l'olio EVO e qualche goccia di limone."
  },
  {
   "id": "pra_31",
@@ -8307,7 +8428,8 @@
     "bimbo": 40,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia la mozzarella e i pomodori a fette e alternali nel piatto. Condisci con l'olio EVO, un pizzico di sale e il basilico. Servi con il pane integrale."
  },
  {
   "id": "pra_32",
@@ -8382,7 +8504,8 @@
     "bimbo": 40,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava la lattuga e spezzala in una ciotola. Aggiungi il mais e il tonno sgocciolati e le olive. Condisci con l'olio EVO e un pizzico di sale e servi con il pane integrale."
  },
  {
   "id": "pra_33",
@@ -8443,7 +8566,8 @@
     "bimbo": 25,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Farcisci il pane integrale con il prosciutto cotto e la scamorza a fette. Tosta il toast in padella o nel tostapane finché il formaggio si scioglie. Servi con l'insalata."
  },
  {
   "id": "pra_34",
@@ -8511,7 +8635,8 @@
     "bimbo": 16,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Tosta il pane di segale. Schiaccia l'avocado con il succo di limone e un pizzico di sale e spalmalo sulle fette. Completa con il salmone affumicato e la rucola."
  },
  {
   "id": "pra_35",
@@ -8579,7 +8704,8 @@
     "bimbo": 1,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Versa sul cous cous il suo peso in acqua bollente salata, copri e lascia riposare 5 minuti, poi sgranalo. Rosola l'aglio in padella con l'olio EVO, aggiungi le zucchine a dadini e cuoci 5 minuti, poi i gamberi per altri 3-4 minuti. Unisci al cous cous."
  },
  {
   "id": "pra_36",
@@ -8647,7 +8773,8 @@
     "bimbo": 7,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Frulla il basilico con i pinoli, il parmigiano, l'olio EVO e un pizzico di sale fino a ottenere una crema (se serve aggiungi un cucchiaio d'acqua fredda). Cuoci la pasta integrale in acqua bollente salata. Scolala, tieni da parte un goccio d'acqua di cottura e condiscila con il pesto, a fuoco spento."
  },
  {
   "id": "pra_37",
@@ -8708,7 +8835,8 @@
     "bimbo": 5,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Cuoci il riso in acqua bollente salata per 15 minuti, aggiungendo i piselli negli ultimi 5. Cuoci le uova in acqua bollente per 9 minuti, raffreddale e sgusciale. Scola riso e piselli, condisci con l'olio EVO e servi con le uova a spicchi."
  },
  {
   "id": "pra_38",
@@ -8776,7 +8904,8 @@
     "bimbo": 4,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Rosola l'orzo in pentola con l'olio EVO per un minuto, aggiungi la zucca a dadini. Cuoci come un risotto per 25 minuti, aggiungendo il brodo caldo poco alla volta. A fuoco spento manteca con il gorgonzola a pezzetti."
  },
  {
   "id": "pra_39",
@@ -8851,7 +8980,8 @@
     "bimbo": 2,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Rosola i funghi a fette in pentola con metà dell'olio EVO per 5 minuti, poi aggiungi il riso e tostalo un minuto. Cuoci per 16-18 minuti, aggiungendo il brodo caldo poco alla volta. A fuoco spento manteca con il parmigiano e l'olio rimasto e completa con il prezzemolo."
  },
  {
   "id": "pra_40",
@@ -8919,7 +9049,8 @@
     "bimbo": 5,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Cuoci il farro perlato in acqua salata per 20 minuti, scolalo e passalo sotto l'acqua fredda. Taglia i pomodorini a metà. Unisci al farro la feta a dadini, le olive e i pomodorini e condisci con l'olio EVO."
  },
  {
   "id": "pra_41",
@@ -8987,7 +9118,8 @@
     "bimbo": 6,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Taglia le melanzane a dadini e cuocile in padella con l'olio EVO per 8 minuti, poi aggiungi la passata e cuoci 10 minuti. Lessa la pasta per metà del tempo indicato, scolala e uniscila al sugo con metà della scamorza. Versa in una pirofila, copri con la scamorza rimasta e gratina 15 minuti."
  },
  {
   "id": "pra_42",
@@ -9062,7 +9194,8 @@
     "bimbo": 1,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 180°C. Trita le fettine di tacchino nel mixer e impastale con l'uovo, il parmigiano e un pizzico di sale. Forma un polpettone e mettilo in una teglia con le patate a spicchi, l'olio EVO e il rosmarino. Cuoci 45 minuti, girando le patate a metà."
  },
  {
   "id": "pra_43",
@@ -9137,7 +9270,8 @@
     "bimbo": 25,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Taglia le melanzane a fette e grigliale su una piastra, 2 minuti per lato. In una pirofila alterna strati di passata, melanzane, mozzarella e parmigiano, con un filo d'olio EVO. Cuoci 25-30 minuti e lascia riposare 5 minuti. Servi con il pane integrale."
  },
  {
   "id": "pra_44",
@@ -9212,7 +9346,8 @@
     "bimbo": 1,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Rosola il riso in pentola con metà dell'olio EVO per un minuto, aggiungi la zucca a dadini piccoli e il rosmarino tritato. Cuoci 16-18 minuti, aggiungendo il brodo caldo poco alla volta. A fuoco spento manteca con il parmigiano e l'olio rimasto."
  },
  {
   "id": "pra_45",
@@ -9266,7 +9401,8 @@
     "bimbo": 9,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Porta a bollore il brodo. Cuoci i tortellini per il tempo indicato sulla confezione, di solito 3-5 minuti. Servi in brodo con il grana grattugiato."
  },
  {
   "id": "pra_46",
@@ -9320,7 +9456,8 @@
     "bimbo": 3,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Scalda o cuoci la pizza in forno a 220°C, per il tempo indicato sulla confezione (di solito 8-10 minuti). Lava l'insalata, condiscila con l'olio EVO e un pizzico di sale e servila accanto."
  },
  {
   "id": "cen_29",
@@ -9388,7 +9525,8 @@
     "bimbo": 30,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia la mozzarella di bufala e i pomodori a fette. Disponili su un letto di rucola e condisci con l'olio EVO e un pizzico di sale. Servi con il pane integrale."
  },
  {
   "id": "cen_30",
@@ -9456,7 +9594,8 @@
     "bimbo": 30,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Sciacqua i cannellini e scolali. Affetta sottile la cipolla. Unisci lo sgombro sgocciolato a pezzi, i cannellini e la cipolla e condisci con l'olio EVO e un pizzico di sale. Servi con il pane integrale."
  },
  {
   "id": "cen_31",
@@ -9531,7 +9670,8 @@
     "bimbo": 45,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Disponi la bresaola nel piatto. Copri con la rucola e il grana a scaglie. Condisci con l'olio EVO e il succo di limone e servi con il pane integrale."
  },
  {
   "id": "cen_32",
@@ -9606,7 +9746,8 @@
     "bimbo": 45,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Immergi le uova in acqua bollente e cuocile 9 minuti, poi raffreddale e sgusciale. Lava l'insalata, grattugia le carote e taglia i pomodori a metà. Condisci con l'olio EVO e un pizzico di sale e servi con le uova a spicchi e il pane integrale."
  },
  {
   "id": "cen_33",
@@ -9674,7 +9815,8 @@
     "bimbo": 40,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lava l'insalata e disponila nel piatto. Aggiungi il salmone affumicato e l'avocado a fette. Condisci con il succo di limone e servi con il pane integrale."
  },
  {
   "id": "cen_34",
@@ -9742,7 +9884,8 @@
     "bimbo": 40,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia i pomodori a pezzi e mettili in una ciotola con le olive. Aggiungi il tonno sgocciolato e condisci con l'olio EVO e un pizzico di sale. Servi con il pane integrale."
  },
  {
   "id": "cen_35",
@@ -9810,7 +9953,8 @@
     "bimbo": 5,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Pela le carote e tagliale a bastoncini, affetta il finocchio. Condisci le verdure con l'olio EVO e un pizzico di sale. Servi con i fiocchi di latte e i grissini."
  },
  {
   "id": "cen_36",
@@ -9878,7 +10022,8 @@
     "bimbo": 40,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Trifola i funghi a fette in padella con metà dell'olio EVO per 5 minuti e mettili da parte. Sbatti le uova con un pizzico di sale, versale nella padella e cuoci a fuoco basso finché il fondo si rapprende. Distribuisci i funghi su metà, chiudi l'omelette a mezzaluna e cuoci un altro minuto. Servi con l'insalata condita con l'olio rimasto e il pane integrale."
  },
  {
   "id": "cen_37",
@@ -9946,7 +10091,8 @@
     "bimbo": 40,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia le zucchine a fette nel senso della lunghezza e grigliale su una piastra calda, 2-3 minuti per lato. Cuoci il petto di pollo sulla stessa piastra, 4-5 minuti per lato. Condisci tutto con l'olio EVO, il succo di limone e un pizzico di sale e servi con il pane integrale."
  },
  {
   "id": "cen_38",
@@ -10014,7 +10160,8 @@
     "bimbo": 2,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Lessa le patate novelle con la buccia per 15-20 minuti. Cuoci i filetti di trota in padella antiaderente con metà dell'olio EVO, 3 minuti dal lato della pelle e 1-2 minuti dall'altro. Condisci con il succo di limone e il prezzemolo e servi con le patate e l'olio rimasto."
  },
  {
   "id": "cen_39",
@@ -10075,7 +10222,8 @@
     "bimbo": 35,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia i peperoni a listarelle e cuocili in padella con l'olio EVO per 10 minuti, coperti. Aggiungi il tacchino a striscioline e un pizzico di sale e cuoci altri 5 minuti a fuoco vivo. Servi con il pane integrale."
  },
  {
   "id": "cen_40",
@@ -10143,7 +10291,8 @@
     "bimbo": 6,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Cuoci i piselli nel brodo vegetale per 10 minuti (5 se surgelati) e frullali fino a ottenere una crema. Tosta il pane integrale e taglialo a crostini. Servi la crema con la ricotta, l'olio EVO a crudo e i crostini."
  },
  {
   "id": "cen_41",
@@ -10211,7 +10360,8 @@
     "bimbo": 25,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Taglia zucchine e melanzane a fette e grigliale su una piastra calda, 2-3 minuti per lato. Taglia la scamorza a fette e cuocila sulla piastra 1 minuto per lato, finché fa la crosticina. Condisci le verdure con l'olio EVO e un pizzico di sale e servi con il pane integrale."
  },
  {
   "id": "cen_42",
@@ -10286,7 +10436,8 @@
     "bimbo": 2,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Rosola l'aglio in un tegame con l'olio EVO, aggiungi la passata e le patate a dadini piccoli e cuoci coperto 15 minuti. Adagia il merluzzo nel sugo e cuoci altri 8-10 minuti. Completa con il prezzemolo tritato."
  },
  {
   "id": "cen_43",
@@ -10361,7 +10512,8 @@
     "bimbo": 35,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 180°C. Taglia le zucchine a rondelle sottili e saltale in padella con metà dell'olio EVO per 5 minuti. Sbatti le uova con il parmigiano e un pizzico di sale, unisci le zucchine e versa in una pirofila unta. Cuoci 18-20 minuti e servi con l'insalata, l'olio rimasto e il pane integrale."
  },
  {
   "id": "cen_44",
@@ -10429,7 +10581,8 @@
     "bimbo": 7,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Rosola la zucca a dadini in pentola con metà dell'olio EVO, aggiungi il brodo e cuoci 20 minuti, poi frulla fino a ottenere una crema. Cuoci il farro perlato in acqua salata per 20 minuti e scolalo. Servi la vellutata con il farro, il parmigiano e l'olio rimasto."
  },
  {
   "id": "cen_45",
@@ -10490,7 +10643,8 @@
     "bimbo": 1,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Metti in una teglia il pollo e le patate a spicchi con l'olio EVO, il rosmarino e un pizzico di sale. Cuoci 35-40 minuti, girando a metà, finché il pollo è ben dorato."
  },
  {
   "id": "cen_46",
@@ -10565,7 +10719,8 @@
     "bimbo": 35,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Trita la carne nel mixer e impastala con l'uovo, il parmigiano e un pizzico di sale. Forma delle polpette. Scalda la passata in un tegame con l'olio EVO, adagia le polpette e cuoci coperto a fuoco basso 20-25 minuti, girandole a metà. Servi con il pane integrale."
  },
  {
   "id": "cen_47",
@@ -10640,7 +10795,8 @@
     "bimbo": 1,
     "unit": "g"
    }
-  }
+  },
+  "preparazione": "Rosola il coniglio a pezzi in un tegame con l'olio EVO e il rosmarino per 5 minuti. Aggiungi la passata, le olive e un bicchiere d'acqua e cuoci coperto a fuoco basso 40 minuti. Per la polenta porta a bollore 200 ml d'acqua salata, versa la farina di mais a pioggia mescolando con la frusta e cuoci per il tempo indicato sulla confezione (5 minuti la istantanea)."
  },
  {
   "id": "cen_48",
@@ -10708,7 +10864,8 @@
     "bimbo": 3,
     "unit": "ml"
    }
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Taglia le patate novelle a metà, condiscile con metà dell'olio EVO e un pizzico di sale e cuocile 20 minuti. Aggiungi il salmone e gli asparagi nella stessa teglia, condisci con l'olio rimasto e cuoci altri 12-15 minuti. Completa con il succo di limone."
  },
  {
   "id": "col_37",
@@ -10761,7 +10918,8 @@
    "uomo": "48g fette biscottate integrali · 30g marmellata · 200ml yogurt da latte parzialmente scremato",
    "donna": "40g fette biscottate integrali · 25g marmellata · 150ml yogurt da latte parzialmente scremato",
    "bimbo": "24g fette biscottate integrali · 15g marmellata · 150ml yogurt da latte parzialmente scremato"
-  }
+  },
+  "preparazione": "Spalma la marmellata sulle fette biscottate integrali. Accompagna con lo yogurt (o con una tazza di latte)."
  },
  {
   "id": "col_38",
@@ -10882,7 +11040,8 @@
    "uomo": "90g pane integrale · 100g pomodori da insalata · 12g olio evo · 2 arance",
    "donna": "70g pane integrale · 80g pomodori da insalata · 8g olio evo · 2 arance",
    "bimbo": "40g pane integrale · 50g pomodori da insalata · 5g olio evo · 1 arance"
-  }
+  },
+  "preparazione": "Tosta il pane integrale. Strofina il pomodoro tagliato a metà sulle fette, aggiungi un pizzico di sale e l'olio EVO. Accompagna con la spremuta delle arance."
  },
  {
   "id": "col_40",
@@ -10935,7 +11094,8 @@
    "uomo": "250ml kefir · 55g muesli · 1 pere",
    "donna": "200ml kefir · 45g muesli · 1 pere",
    "bimbo": "150ml kefir · 25g muesli · 0.5 pere"
-  }
+  },
+  "preparazione": "Versa il kefir in una ciotola e aggiungi il muesli. Lascia ammorbidire un paio di minuti. Completa con la pera tagliata a dadini."
  },
  {
   "id": "col_41",
@@ -11043,7 +11203,8 @@
    "uomo": "90g pane integrale · 60g tacchino intero senza pelle crudo · 2 arance",
    "donna": "70g pane integrale · 45g tacchino intero senza pelle crudo · 1 arance",
    "bimbo": "40g pane integrale · 25g tacchino intero senza pelle crudo · 1 arance"
-  }
+  },
+  "preparazione": "Tosta il pane integrale e farciscilo con la fesa di tacchino. Accompagna con la spremuta d'arancia."
  },
  {
   "id": "col_43",
@@ -11103,7 +11264,8 @@
    "uomo": "250g yogurt di soia bianco · 55g muesli · 1 kiwi · 8g miele",
    "donna": "200g yogurt di soia bianco · 45g muesli · 1 kiwi · 5g miele",
    "bimbo": "150g yogurt di soia bianco · 25g muesli · 1 kiwi"
-  }
+  },
+  "preparazione": "Versa lo yogurt di soia in una ciotola e aggiungi il muesli. Sbuccia il kiwi e taglialo a dadini. Completa con il kiwi e il miele."
  },
  {
   "id": "spu_37",
@@ -11149,7 +11311,8 @@
    "uomo": "1 uova · 18g gallette di riso",
    "donna": "1 uova · 18g gallette di riso",
    "bimbo": "1 uova · 9g gallette di riso"
-  }
+  },
+  "preparazione": "Immergi l'uovo in acqua già in ebollizione e cuocilo 9 minuti. Raffreddalo sotto l'acqua fredda, sguscialo e servilo con le gallette di riso."
  },
  {
   "id": "spu_38",
@@ -11188,7 +11351,8 @@
    "uomo": "130g edamame",
    "donna": "110g edamame",
    "bimbo": "70g edamame"
-  }
+  },
+  "preparazione": "Cuoci gli edamame (anche surgelati, nel baccello) in acqua bollente salata per 4-5 minuti. Scolali e cospargili con un pizzico di sale grosso. Si mangiano sgranando i fagioli dal baccello."
  },
  {
   "id": "spu_39",
@@ -11234,7 +11398,8 @@
    "uomo": "1 pere · 25g parmigiano",
    "donna": "1 pere · 20g parmigiano",
    "bimbo": "0.5 pere · 10g parmigiano"
-  }
+  },
+  "preparazione": "Lava la pera e tagliala a spicchi. Accompagnala con il parmigiano a scaglie."
  },
  {
   "id": "spu_40",
@@ -11280,7 +11445,8 @@
    "uomo": "18g gallette di riso · 40g bresaola",
    "donna": "18g gallette di riso · 30g bresaola",
    "bimbo": "9g gallette di riso · 20g bresaola"
-  }
+  },
+  "preparazione": "Disponi la bresaola sulle gallette di riso. Se ti piace, aggiungi qualche goccia di limone."
  },
  {
   "id": "spu_41",
@@ -11326,7 +11492,8 @@
    "uomo": "20g cioccolato fondente · 12g noci",
    "donna": "15g cioccolato fondente · 10g noci",
    "bimbo": "10g cioccolato fondente · 6g noci"
-  }
+  },
+  "preparazione": "Spezza il cioccolato fondente a quadretti. Accompagnalo con le noci."
  },
  {
   "id": "spu_42",
@@ -11372,7 +11539,8 @@
    "uomo": "170g skyr · 80g mirtilli",
    "donna": "150g skyr · 60g mirtilli",
    "bimbo": "100g skyr · 40g mirtilli"
-  }
+  },
+  "preparazione": "Versa lo skyr in una coppetta. Completa con i mirtilli."
  },
  {
   "id": "pra_47",
@@ -11483,7 +11651,8 @@
    "uomo": "80g orecchiette · 160g fagioli borlotti freschi crudi · 12g olio evo · rosmarino · cipolla",
    "donna": "60g orecchiette · 130g fagioli borlotti freschi crudi · 8g olio evo · rosmarino · cipolla",
    "bimbo": "45g orecchiette · 80g fagioli borlotti freschi crudi · 5g olio evo · rosmarino · cipolla"
-  }
+  },
+  "preparazione": "Cuoci i borlotti freschi sgranati in acqua non salata per 40 minuti. In un'altra pentola rosola la cipolla tritata con l'olio EVO e il rosmarino, aggiungi i fagioli con un po' della loro acqua e schiacciane metà. Aggiungi la pasta con altra acqua calda e un pizzico di sale e cuocila nella zuppa, mescolando spesso."
  },
  {
   "id": "pra_49",
@@ -11741,7 +11910,8 @@
    "uomo": "85g riso brillato crudo · 130g salmone fresco · 60g edamame · 60g avocado · 80g cetrioli",
    "donna": "65g riso brillato crudo · 100g salmone fresco · 50g edamame · 50g avocado · 60g cetrioli",
    "bimbo": "45g riso brillato crudo · 60g salmone fresco · 30g edamame · 30g avocado · 40g cetrioli"
-  }
+  },
+  "preparazione": "Cuoci il riso in acqua salata per 15 minuti e lascialo intiepidire. Lessa gli edamame per 4 minuti. Taglia a cubetti il salmone (crudo se abbattuto, altrimenti scottalo in padella 2 minuti), l'avocado e il cetriolo. Componi la bowl con il riso alla base e gli altri ingredienti sopra."
  },
  {
   "id": "pra_53",
@@ -11884,7 +12054,8 @@
    "uomo": "220g seppia · 150g piselli freschi crudi · 60g pane integrale · 12g olio evo · 100g passata di pomodoro · cipolla",
    "donna": "170g seppia · 120g piselli freschi crudi · 45g pane integrale · 8g olio evo · 80g passata di pomodoro · cipolla",
    "bimbo": "90g seppia · 80g piselli freschi crudi · 30g pane integrale · 5g olio evo · 50g passata di pomodoro · cipolla"
-  }
+  },
+  "preparazione": "Trita la cipolla e rosolala in padella con l'olio EVO per 3 minuti. Aggiungi le seppie pulite e tagliate a strisce e cuocile 10 minuti. Unisci la passata di pomodoro, i piselli e un pizzico di sale e cuoci coperto a fuoco basso 25 minuti. Servi con il pane integrale."
  },
  {
   "id": "pra_55",
@@ -11951,7 +12122,8 @@
    "uomo": "110g tempeh · 75g quinoa · 80g carote · 120g zucchine · 10g olio evo",
    "donna": "85g tempeh · 60g quinoa · 70g carote · 100g zucchine · 7g olio evo",
    "bimbo": "50g tempeh · 40g quinoa · 40g carote · 60g zucchine · 4g olio evo"
-  }
+  },
+  "preparazione": "Sciacqua la quinoa e cuocila in acqua salata per 15 minuti. Taglia carote e zucchine a bastoncini e saltale in padella con metà dell'olio EVO per 6-7 minuti. Taglia il tempeh a fette e rosolalo 3 minuti per lato. Componi la bowl e condisci con l'olio rimasto."
  },
  {
   "id": "cen_49",
@@ -12080,7 +12252,8 @@
    "uomo": "280g spigola · 150g zucchine · 100g carote · 150g patate · 12g olio evo",
    "donna": "220g spigola · 120g zucchine · 80g carote · 120g patate · 8g olio evo",
    "bimbo": "110g spigola · 80g zucchine · 50g carote · 80g patate · 5g olio evo"
-  }
+  },
+  "preparazione": "Accendi il forno a 200°C. Adagia la spigola intera e pulita su uno strato di sale grosso in una teglia e coprila completamente di sale. Cuoci 25-30 minuti, poi rompi la crosta e sfiletta il pesce. Cuoci al vapore zucchine, carote e patate a pezzi per 15 minuti e condisci tutto con l'olio EVO a crudo."
  },
  {
   "id": "cen_51",
@@ -12141,7 +12314,8 @@
    "uomo": "220g petto di pollo · 70g riso brillato crudo · 1 limone · 12g olio evo · rosmarino",
    "donna": "170g petto di pollo · 55g riso brillato crudo · 0.5 limone · 8g olio evo · rosmarino",
    "bimbo": "90g petto di pollo · 40g riso brillato crudo · 0.5 limone · 5g olio evo · rosmarino"
-  }
+  },
+  "preparazione": "Cuoci il riso in acqua salata per 15 minuti. Taglia il petto di pollo a bocconcini e rosolalo in padella con l'olio EVO e il rosmarino per 6-7 minuti. Bagna con il succo del limone e un goccio d'acqua e cuoci altri 2 minuti finché si forma una salsina. Servi con il riso."
  },
  {
   "id": "cen_52",
@@ -12277,7 +12451,8 @@
    "uomo": "180g merluzzo o nasello baccalà secco · 80g gamberi · 150g passata di pomodoro · 60g pane integrale · 13g olio evo · aglio",
    "donna": "140g merluzzo o nasello baccalà secco · 60g gamberi · 120g passata di pomodoro · 45g pane integrale · 10g olio evo · aglio",
    "bimbo": "80g merluzzo o nasello baccalà secco · 30g gamberi · 80g passata di pomodoro · 30g pane integrale · 6g olio evo · aglio"
-  }
+  },
+  "preparazione": "Rosola l'aglio in un tegame con l'olio EVO, aggiungi la passata e un bicchiere d'acqua e cuoci 10 minuti. Unisci il pesce a pezzi e cuoci 8 minuti, poi i gamberi per altri 3-4 minuti. Servi con il pane integrale tostato."
  },
  {
   "id": "cen_54",
@@ -12337,7 +12512,8 @@
    "uomo": "130g tempeh · 150g cavolo cappuccio rosso · 70g riso brillato crudo · 10g olio evo",
    "donna": "100g tempeh · 120g cavolo cappuccio rosso · 55g riso brillato crudo · 7g olio evo",
    "bimbo": "60g tempeh · 70g cavolo cappuccio rosso · 40g riso brillato crudo · 4g olio evo"
-  }
+  },
+  "preparazione": "Cuoci il riso in acqua salata per il tempo indicato sulla confezione. Taglia il cavolo rosso a striscioline e stufalo in padella con l'olio EVO, un pizzico di sale e un goccio d'acqua per 12-15 minuti. Taglia il tempeh a fette e cuocilo sulla piastra 3 minuti per lato. Servi tutto insieme."
  },
  {
   "id": "cen_55",
@@ -12404,7 +12580,8 @@
    "uomo": "220g uova di gallina albume · 180g asparagi · 15g parmigiano · 60g pane integrale · 10g olio evo",
    "donna": "170g uova di gallina albume · 150g asparagi · 12g parmigiano · 45g pane integrale · 7g olio evo",
    "bimbo": "100g uova di gallina albume · 80g asparagi · 8g parmigiano · 30g pane integrale · 4g olio evo"
-  }
+  },
+  "preparazione": "Taglia gli asparagi a pezzi, tenendo da parte le punte, e cuocili in padella con l'olio EVO per 6-7 minuti. Sbatti gli albumi con il parmigiano e un pizzico di sale e versali sugli asparagi. Cuoci coperto a fuoco basso 5-6 minuti, finché sono rappresi, e servi con il pane integrale."
  },
  {
   "id": "cen_56",
