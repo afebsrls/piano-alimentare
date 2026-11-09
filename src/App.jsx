@@ -1056,17 +1056,18 @@ export function App() {
       )}
       {/* HEADER */}
       <div style={{background:"linear-gradient(120deg,#15251C 0%,#1D3A28 100%)",padding:"13px 18px",paddingTop:"calc(13px + env(safe-area-inset-top,0px))"}}>
-        <div style={{maxWidth:680,margin:"0 auto",display:"flex",alignItems:"center",justifyContent:"space-between",gap:10}}>
-          <div style={{display:"flex",alignItems:"center",gap:11,flexShrink:0}}>
+        {/* Riga 1: marchio centrato · Riga 2: saluto e data, centrati (niente sovrapposizioni sugli schermi stretti) */}
+        <div style={{maxWidth:680,margin:"0 auto",display:"flex",flexDirection:"column",alignItems:"center",gap:8}}>
+          <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:11}}>
             <div style={{width:40,height:40,borderRadius:12,background:"#0f1d15",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,position:"relative"}}>
               <svg width="24" height="24" viewBox="0 0 24 24" style={{transform:"rotate(-90deg)",display:"block"}}><circle cx="12" cy="12" r="9" fill="none" stroke="#28412f" strokeWidth="3.4"/><circle cx="12" cy="12" r="9" fill="none" stroke="#C7F23E" strokeWidth="3.4" strokeLinecap="round" strokeDasharray="56.5" strokeDashoffset="16"/></svg>
               <div style={{position:"absolute",left:"50%",top:4,transform:"translateX(-50%)",width:3.4,height:3.4,borderRadius:"50%",background:"#C7F23E"}}/>
             </div>
             <div style={{fontSize:40,fontWeight:800,color:"#F5F8F1",fontFamily:"'Outfit',sans-serif",lineHeight:1,letterSpacing:-1.6}}>menu<span style={{color:"#C7F23E"}}>dieta</span></div>
           </div>
-          <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",lineHeight:1.15,minWidth:0}}>
-            <div style={{fontFamily:"'Outfit',sans-serif",fontWeight:800,fontSize:16,letterSpacing:-0.3,color:"#F4F7EF",whiteSpace:"nowrap"}}>{headerSaluto}, {oggiPersona?.nome}</div>
-            <div style={{fontSize:12,color:"#9DB1A2",fontWeight:600,textTransform:"capitalize",marginTop:3,whiteSpace:"nowrap"}}>{new Date().toLocaleDateString("it-IT",{weekday:"long",day:"numeric",month:"long"})}</div>
+          <div style={{display:"flex",flexWrap:"wrap",alignItems:"baseline",justifyContent:"center",columnGap:8,rowGap:2,lineHeight:1.2,textAlign:"center",maxWidth:"100%"}}>
+            <div style={{fontFamily:"'Outfit',sans-serif",fontWeight:800,fontSize:16,letterSpacing:-0.3,color:"#F4F7EF"}}>{headerSaluto}{oggiPersona?.nome ? `, ${oggiPersona.nome}` : ""}</div>
+            <div style={{fontSize:13,color:"#9DB1A2",fontWeight:600,textTransform:"capitalize",whiteSpace:"nowrap"}}>{new Date().toLocaleDateString("it-IT",{weekday:"long",day:"numeric",month:"long"})}</div>
           </div>
         </div>
       </div>
