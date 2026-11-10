@@ -5,6 +5,7 @@ import { STILI_MENU, STILE_BY_ID } from '../../src/core/menuStili.js';
 import { scegliSettimana, media, conteggio, ripartizione, htmlSettimana, htmlSpesa, PASTI, n0, esc } from './menuDieta.mjs';
 import { svgMenu } from './immagini.mjs';
 import { htmlFonti, htmlFirma, urlFonti, linkFonte } from './fonti.mjs';
+import { htmlLivelli } from './menuCalorie.mjs';
 
 export const SITE = 'https://www.menudieta.it';
 export const imgStile = (s) => ({ file: `${s.slug}/${s.slug}-settimanale.webp`, url: `${SITE}/${s.slug}/${s.slug}-settimanale.webp`, og: `${s.slug}/${s.slug}-og.jpg` });
@@ -169,6 +170,7 @@ ${htmlSpesa(sett)}
 <h2>Dal menù di esempio al tuo ${t.nome}</h2>
 <p>Nell’app <a href="${link}">MenuDieta</a> scegli “${s.nome}” nel riquadro Menù dieta della pagina Piano: il piano si rigenera con le ricette di questo stile, sempre diverse di settimana in settimana, con le porzioni per ogni persona di casa, la lista della spesa e il conteggio delle calorie. Per partire dal numero giusto calcola il tuo <a href="/calcolo-fabbisogno-calorico/">fabbisogno calorico</a>.</p>
 ${htmlAltriMenu(id, 'Gli altri menù dieta')}
+${htmlLivelli(null)}
 ${htmlFonti(FONTI_STILE[id])}
 <p class="note">Questo menù è un esempio indicativo per adulti sani e non sostituisce il parere di un medico o di un nutrizionista.</p>`;
   const faq = t.faq(d);

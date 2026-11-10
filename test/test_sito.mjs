@@ -129,4 +129,19 @@ for (const [slug, fill, expect] of [
   for (const [ok, m] of [[ok1, 'pagine menù: firma, "In breve", fonti ufficiali con link e citation nello schema'], [ok2, 'alimenti: fonte CREA con link'], [ok3, 'ricette: menù adatti con link, VegetarianDiet, tempo'], [ok4, 'llms.txt: fatti sui menù e fonti'], [ok5, 'home: "menù dieta" in title e H1, description non troncata'], [senzaTempo.length === 0, `tutte le ricette hanno il tempo di preparazione (senza: ${senzaTempo.length})`]]) { console.log('  ' + (ok ? '✓' : '✗') + ' ' + m); if (!ok) process.exitCode = 1; }
 }
 
+// Menù dieta per calorie: ogni giorno vicino all'obiettivo, grammi degli ingredienti, collegamenti
+{
+  const centro = fs.readFileSync('site/dist/menu-dieta/index.html', 'utf8');
+  const sitemap = fs.readFileSync('site/dist/sitemap-pagine.xml', 'utf8');
+  for (const k of [1200, 1400, 1500, 1600, 1800, 2000]) {
+    const slug = `menu-dieta-${k}-calorie`, html = fs.readFileSync(`site/dist/${slug}/index.html`, 'utf8');
+    const t = (html.match(/<title>([^<]*)/) || [])[1] || '';
+    const kcal = [...html.matchAll(/<section class="giorno"><h3>[^<]+ <span>([\d.]+) kcal/g)].map(m => +m[1].replace('.', ''));
+    const ok = t.length <= 65 && kcal.length === 7 && kcal.every(x => Math.abs(x - k) <= k * 0.07) && (html.match(/class="ingr"/g) || []).length === 35
+      && fs.existsSync(`site/dist/${slug}/${slug}.webp`) && fs.existsSync(`site/dist/${slug}/${slug}-og.jpg`) && centro.includes(`href="/${slug}/"`) && sitemap.includes(`/${slug}/</loc>`)
+      && /class="inbreve"/.test(html) && /<h2>Fonti<\/h2>/.test(html) && /"Article"/.test(html) && /"FAQPage"/.test(html);
+    console.log('  ' + (ok ? '✓' : '✗') + ` ${slug}: 7 giorni entro il 7% da ${k} kcal (${kcal.join(', ')}), grammi, infografica, fonti, link dal centro`); if (!ok) process.exitCode = 1;
+  }
+}
+
 console.log(process.exitCode ? '✗ TEST SITO FALLITO' : '✓ TEST SITO OK');

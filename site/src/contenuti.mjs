@@ -7,6 +7,7 @@ import { ETA, PORZIONI, ORDINE, FONTE_PORZIONI } from './porzioni.mjs';
 import { paginaMenuDieta } from './menuDieta.mjs';
 import { paginaStile, htmlAltriMenu } from './menuStiliPagine.mjs';
 import { linkFonte } from './fonti.mjs';
+import { LIVELLI, paginaCalorie, htmlLivelli } from './menuCalorie.mjs';
 import { STILI_MENU } from '../../src/core/menuStili.js';
 const toolCalorie = () => `
 <div class="tool" data-tool="calorie">
@@ -56,9 +57,13 @@ const menuEsempio = () => `
 
 export const CONTENUTI = {
   'menu-dieta': {
-    body: (ctx) => paginaMenuDieta({ ...ctx, altriMenu: htmlAltriMenu(null) }).body,
+    body: (ctx) => paginaMenuDieta({ ...ctx, altriMenu: htmlAltriMenu(null) + htmlLivelli(null) }).body,
     faq: paginaMenuDieta({ APP: '', cta: () => '' }).faq,
   },
+  ...Object.fromEntries(LIVELLI.map(l => [l.slug, {
+    body: (ctx) => paginaCalorie(l.kcal, ctx).body,
+    faq: paginaCalorie(l.kcal, { APP: '', cta: () => '' }).faq,
+  }])),
   ...Object.fromEntries(STILI_MENU.map(s => [s.slug, {
     body: (ctx) => paginaStile(s.id, ctx).body,
     faq: paginaStile(s.id, { APP: '', cta: () => '' }).faq,

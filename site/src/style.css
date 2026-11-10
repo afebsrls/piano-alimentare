@@ -138,3 +138,4 @@ button.btn{font:inherit;cursor:pointer}
 .menu-adatti{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
 .menu-adatti a{display:inline-block;background:#fff;border:1.5px solid var(--bordo);border-radius:999px;padding:4px 12px;text-decoration:none;font-weight:700;font-size:14px}
 .menu-adatti a:hover{border-color:var(--verde)}
+.giorno li .ingr{display:block;font-size:13px;color:var(--muted);line-height:1.35;margin-top:2px}

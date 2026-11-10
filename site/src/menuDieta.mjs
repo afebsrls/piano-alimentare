@@ -68,18 +68,20 @@ const pescaSpuntini = (rand, pool) => {
   return out;
 };
 
-export function scegliSettimana(stile = null) {
+// opz: { kcal: obiettivo del giorno, slot: 'donna' | 'uomo' (porzione di partenza), seme }
+export function scegliSettimana(stile = null, opz = {}) {
+  const K = opz.kcal || KCAL, S = opz.slot || 'donna';
   const P = { colazione: poolPer(stile, 'colazione'), pranzo: poolPer(stile, 'pranzo'), cena: poolPer(stile, 'cena'), spuntino: poolPer(stile, 'spuntino', 14) };
   const obiettivo = stile ? (OBIETTIVO_STILE[stile] || null) : OBIETTIVO;
-  const rand = rng(stile ? 20261110 : 20261109); let best = null;
-  for (let it = 0; it < (stile ? 25000 : 40000); it++) {
-    const col = pesca(rand, P.colazione, 7), pra = pesca(rand, P.pranzo, 7), cen = pesca(rand, P.cena, 7), spu = pescaSpuntini(rand, P.spuntino);
-    if (col.length < 7 || pra.length < 7 || cen.length < 7 || spu.length < 14) throw new Error(`menù dieta ${stile || 'libero'}: ricette insufficienti`);
+  const rand = rng(opz.seme || (stile ? 20261110 : 20261109)); let best = null;
+  const punteggio = (col, pra, cen, spu) => {
     let score = 0; const conta = {};
     for (let d = 0; d < 7; d++) {
-      const k = col[d].donna.kcal + spu[2 * d].donna.kcal + pra[d].donna.kcal + spu[2 * d + 1].donna.kcal + cen[d].donna.kcal;
-      score += Math.abs(k - KCAL) * 1.2;
+      const k = col[d][S].kcal + spu[2 * d][S].kcal + pra[d][S].kcal + spu[2 * d + 1][S].kcal + cen[d][S].kcal;
+      score += Math.abs(k - K) * (opz.pesoKcal || 1.2);
       if (spu[2 * d].id === spu[2 * d + 1].id) score += 200;
+      // (pagine per calorie) niente due spuntini quasi uguali nello stesso giorno, es. carote e hummus due volte
+      if (opz.affina && spu[2 * d].ingredients.filter(x => spu[2 * d + 1].ingredients.includes(x)).length >= 2) score += 80;
       const gp = gruppo(pra[d]), gc = gruppo(cen[d]);
       conta[gp] = (conta[gp] || 0) + 1; conta[gc] = (conta[gc] || 0) + 1;
       if (gp === gc && gp !== 'vegetale') score += 60;
@@ -87,7 +89,25 @@ export function scegliSettimana(stile = null) {
     }
     if (obiettivo) for (const [g, n] of Object.entries(obiettivo)) score += Math.abs((conta[g] || 0) - n) * 45;
     else score += Math.max(0, (conta.salumi || 0) - 1) * 120 + Math.max(0, (conta.carne || 0) - 4) * 60;
+    return { score, conta };
+  };
+  for (let it = 0; it < (stile ? 25000 : 40000); it++) {
+    const col = pesca(rand, P.colazione, 7), pra = pesca(rand, P.pranzo, 7), cen = pesca(rand, P.cena, 7), spu = pescaSpuntini(rand, P.spuntino);
+    if (col.length < 7 || pra.length < 7 || cen.length < 7 || spu.length < 14) throw new Error(`menù dieta ${stile || 'libero'}: ricette insufficienti`);
+    const { score, conta } = punteggio(col, pra, cen, spu);
     if (!best || score < best.score) best = { score, col, pra, cen, spu, conta };
+  }
+  // Affinamento (pagine per calorie): scambi singoli finché il punteggio scende
+  if (opz.affina) {
+    const liste = { col: P.colazione, pra: P.pranzo, cen: P.cena, spu: P.spuntino };
+    for (let it = 0; it < 30000; it++) {
+      const chi = ['col', 'pra', 'cen', 'spu'][Math.floor(rand() * 4)], arr = best[chi];
+      const i = Math.floor(rand() * arr.length), nuovo = liste[chi][Math.floor(rand() * liste[chi].length)];
+      if (arr.some(r => r.id === nuovo.id)) continue;
+      const prova = { ...best, [chi]: arr.map((r, j) => j === i ? nuovo : r) };
+      const { score, conta } = punteggio(prova.col, prova.pra, prova.cen, prova.spu);
+      if (score < best.score) best = { ...prova, score, conta };
+    }
   }
   return GIORNI.map((nome, d) => {
     const pasti = { colazione: best.col[d], spuntino_m: best.spu[2 * d], pranzo: best.pra[d], spuntino_p: best.spu[2 * d + 1], cena: best.cen[d] };
@@ -105,21 +125,21 @@ export const ripartizione = (sett = SETTIMANA) => { const kc = sett.reduce((s, g
   return { p: Math.round(100 * t('p') * 4 / kc), c: Math.round(100 * t('c') * 4 / kc), g: Math.round(100 * t('g') * 9 / kc), gp: Math.round(t('p') / 7), gc: Math.round(t('c') / 7), gg: Math.round(t('g') / 7) }; };
 
 // Lista della spesa della settimana (una persona, porzione donna), per categoria
-export function listaSpesa(sett = SETTIMANA) {
+export function listaSpesa(sett = SETTIMANA, slot = 'donna') {
   const tot = {};
   for (const g of sett) for (const [k] of PASTI) { const r = g.pasti[k];
     for (const id of r.ingredients) { const q = r.quantita?.[id]; if (!q) continue; const u = q.unit || 'g'; const key = id + '|' + u;
-      (tot[key] ||= { id, u, q: 0 }).q += +q.donna || 0; } }
+      (tot[key] ||= { id, u, q: 0 }).q += +q[slot] || 0; } }
   const perCat = {};
   for (const v of Object.values(tot)) { const a = BY_ID[v.id]; if (!a || !v.q) continue; (perCat[CAT(a.cat) || 'Varie'] ||= []).push({ nome: a.nome.replace(/\s*\([^)]*\)/g, '').trim(), q: v.q, u: v.u }); }
   return Object.entries(perCat).sort((a, b) => b[1].length - a[1].length).map(([c, L]) => [c, L.sort((x, y) => x.nome.localeCompare(y.nome, 'it'))]);
 }
 export const fmtQ = (q, u) => u === 'g' && q >= 1000 ? `${(Math.round(q / 100) / 10).toLocaleString('it-IT')} kg` : u === 'ml' && q >= 1000 ? `${(Math.round(q / 100) / 10).toLocaleString('it-IT')} l` : quantita(Math.round(q * 10) / 10, u);
-export const htmlSpesa = (sett) => `<div class="spesa-menu">${listaSpesa(sett).map(([cat, L]) => `<div><h3>${esc(cat)}</h3><ul>${L.map(i => `<li>${esc(i.nome)} <span class="note">${fmtQ(i.q, i.u)}</span></li>`).join('')}</ul></div>`).join('')}</div>`;
+export const htmlSpesa = (sett, slot = 'donna') => `<div class="spesa-menu">${listaSpesa(sett, slot).map(([cat, L]) => `<div><h3>${esc(cat)}</h3><ul>${L.map(i => `<li>${esc(i.nome)} <span class="note">${fmtQ(i.q, i.u)}</span></li>`).join('')}</ul></div>`).join('')}</div>`;
 export const htmlSettimana = (sett) => `<div class="settimana">
 ${sett.map(g => `<section class="giorno"><h3>${g.nome} <span>${n0(g.donna)} kcal <small>(uomo ${n0(g.uomo)})</small></span></h3><ul>${PASTI.map(([k, et]) => { const r = g.pasti[k]; return `<li><b>${et}</b><a href="/ricette/${r.slug}/">${esc(r.nomeVis)}</a> <span class="note">${n0(r.donna.kcal)} kcal</span></li>`; }).join('')}</ul></section>`).join('\n')}
 </div>`;
-export { GIORNI, PASTI, n0, esc };
+export { GIORNI, PASTI, n0, esc, BY_ID, CAT };
 
 // Dati per l'infografica (immagini.mjs → svgMenu)
 export const datiInfografica = () => ({
