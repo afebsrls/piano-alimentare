@@ -5,6 +5,8 @@
 import { toolKit, tabellaPersone, linkVarianti } from './kitPagine.mjs';
 import { ETA, PORZIONI, ORDINE, FONTE_PORZIONI } from './porzioni.mjs';
 import { paginaMenuDieta } from './menuDieta.mjs';
+import { paginaStile, htmlAltriMenu } from './menuStiliPagine.mjs';
+import { STILI_MENU } from '../../src/core/menuStili.js';
 const toolCalorie = () => `
 <div class="tool" data-tool="calorie">
   <div class="row">
@@ -53,9 +55,13 @@ const menuEsempio = () => `
 
 export const CONTENUTI = {
   'menu-dieta': {
-    body: (ctx) => paginaMenuDieta(ctx).body,
+    body: (ctx) => paginaMenuDieta({ ...ctx, altriMenu: htmlAltriMenu(null) }).body,
     faq: paginaMenuDieta({ APP: '', cta: () => '' }).faq,
   },
+  ...Object.fromEntries(STILI_MENU.map(s => [s.slug, {
+    body: (ctx) => paginaStile(s.id, ctx).body,
+    faq: paginaStile(s.id, { APP: '', cta: () => '' }).faq,
+  }])),
   home: {
     body: ({ APP, cta, phone }) => `
 <a class="avviso-kit" href="/kit-di-emergenza/"><span>🎒</span><span><strong>Nuovo: calcolatore del kit di emergenza 72 ore.</strong> Acqua, cibo, luce e farmaci con le quantità giuste per la tua famiglia, gratis e senza account →</span></a>

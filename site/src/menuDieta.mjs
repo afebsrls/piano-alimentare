@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { RICETTE } from './generati.mjs';
 import { quantita, svgMenu } from './immagini.mjs';
+import { compatibileStile } from '../../src/core/menuStili.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ING = JSON.parse(fs.readFileSync(path.join(__dirname, '../../src/data/ingredients.json'), 'utf8'));
@@ -22,9 +23,17 @@ const CAT = (c) => String(c || '').replace(/^[^\p{L}]+/u, '').trim();
 const n0 = (v) => Math.round(+v || 0).toLocaleString('it-IT');
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
-// Solo ricette con ingredienti disponibili tutto l'anno: la pagina resta valida in ogni mese
-const tuttoLAnno = (r) => r.ingredients.every(id => { const s = BY_ID[id]?.stagioni; return !Array.isArray(s) || !s.length || s.length === 12; });
-const POOL = Object.fromEntries(['colazione', 'spuntino', 'pranzo', 'cena'].map(c => [c, RICETTE.filter(r => r.categoria === c && tuttoLAnno(r) && r.donna?.kcal > 0)]));
+// Ricette ammesse: menù libero = pool del generatore (niente soloMenu); con uno stile
+// (mediterranea, low carb…) le stesse regole dell'app (src/core/menuStili.js).
+// Preferenza per ingredienti di tutto l'anno, così la pagina resta valida in ogni mese:
+// si allarga a 1-2 ingredienti stagionali solo se lo stile non ha abbastanza ricette.
+const fuoriStagione = (r) => r.ingredients.filter(id => { const s = BY_ID[id]?.stagioni; return Array.isArray(s) && s.length > 0 && s.length < 12; }).length;
+const infoIng = (id) => BY_ID[id];
+export function poolPer(stile, cat, serve = 7) {
+  const base = RICETTE.filter(r => r.categoria === cat && r.donna?.kcal > 0 && (stile ? compatibileStile(stile, r, infoIng, cat) : !r.soloMenu));
+  for (const max of [0, 1, 2]) { const p = base.filter(r => fuoriStagione(r) <= max); if (p.length >= serve) return p; }
+  return base.filter(r => fuoriStagione(r) <= 2);
+}
 
 // Grammi (porzione donna) di un ingrediente nella ricetta
 const grammi = (r, id) => { const q = r.quantita?.[id]; if (!q) return 0; const a = BY_ID[id];
@@ -39,51 +48,77 @@ export const gruppo = (r) => {
 };
 // Frequenze di riferimento CREA 2018 sui 14 pasti principali della settimana
 export const OBIETTIVO = { legumi: 3, carne: 3, formaggi: 3, pesce: 2, uova: 2, salumi: 1 };
+// Frequenze usate per costruire gli esempi di ogni stile (null = nessun vincolo, solo varietà)
+const OBIETTIVO_STILE = {
+  mediterranea: { legumi: 4, pesce: 3, carne: 2, uova: 2, formaggi: 3, salumi: 0 },
+  lowcarb:      { pesce: 4, carne: 4, uova: 2, legumi: 1, formaggi: 2, salumi: 1 },
+  proteica:     { pesce: 4, carne: 4, uova: 2, legumi: 2, formaggi: 2, salumi: 0 },
+  vegetariana:  { legumi: 5, uova: 3, formaggi: 3 },
+};
 
 // Generatore pseudo-casuale con seme fisso (mulberry32)
 function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 const pesca = (rand, arr, n) => { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a.slice(0, n); };
+// 14 spuntini: tutti diversi se ce ne sono abbastanza, altrimenti mai uguali nello stesso giorno o di fila
+const pescaSpuntini = (rand, pool) => {
+  if (pool.length >= 14) return pesca(rand, pool, 14);
+  const out = [];
+  while (out.length < 14) { const giro = pesca(rand, pool, pool.length); for (const r of giro) { if (out.length >= 14) break; if (out.length && out[out.length - 1].id === r.id) continue; out.push(r); } }
+  return out;
+};
 
-function scegliSettimana() {
-  const rand = rng(20261109); let best = null;
-  for (let it = 0; it < 40000; it++) {
-    const col = pesca(rand, POOL.colazione, 7), pra = pesca(rand, POOL.pranzo, 7), cen = pesca(rand, POOL.cena, 7), spu = pesca(rand, POOL.spuntino, 14);
-    if (col.length < 7 || pra.length < 7 || cen.length < 7 || spu.length < 14) throw new Error('menù dieta: ricette insufficienti');
+export function scegliSettimana(stile = null) {
+  const P = { colazione: poolPer(stile, 'colazione'), pranzo: poolPer(stile, 'pranzo'), cena: poolPer(stile, 'cena'), spuntino: poolPer(stile, 'spuntino', 14) };
+  const obiettivo = stile ? (OBIETTIVO_STILE[stile] || null) : OBIETTIVO;
+  const rand = rng(stile ? 20261110 : 20261109); let best = null;
+  for (let it = 0; it < (stile ? 25000 : 40000); it++) {
+    const col = pesca(rand, P.colazione, 7), pra = pesca(rand, P.pranzo, 7), cen = pesca(rand, P.cena, 7), spu = pescaSpuntini(rand, P.spuntino);
+    if (col.length < 7 || pra.length < 7 || cen.length < 7 || spu.length < 14) throw new Error(`menù dieta ${stile || 'libero'}: ricette insufficienti`);
     let score = 0; const conta = {};
     for (let d = 0; d < 7; d++) {
       const k = col[d].donna.kcal + spu[2 * d].donna.kcal + pra[d].donna.kcal + spu[2 * d + 1].donna.kcal + cen[d].donna.kcal;
       score += Math.abs(k - KCAL) * 1.2;
+      if (spu[2 * d].id === spu[2 * d + 1].id) score += 200;
       const gp = gruppo(pra[d]), gc = gruppo(cen[d]);
       conta[gp] = (conta[gp] || 0) + 1; conta[gc] = (conta[gc] || 0) + 1;
       if (gp === gc && gp !== 'vegetale') score += 60;
       if (d && gruppo(cen[d - 1]) === gp && gp !== 'vegetale') score += 25;
     }
-    for (const [g, n] of Object.entries(OBIETTIVO)) score += Math.abs((conta[g] || 0) - n) * 45;
+    if (obiettivo) for (const [g, n] of Object.entries(obiettivo)) score += Math.abs((conta[g] || 0) - n) * 45;
+    else score += Math.max(0, (conta.salumi || 0) - 1) * 120 + Math.max(0, (conta.carne || 0) - 4) * 60;
     if (!best || score < best.score) best = { score, col, pra, cen, spu, conta };
   }
   return GIORNI.map((nome, d) => {
     const pasti = { colazione: best.col[d], spuntino_m: best.spu[2 * d], pranzo: best.pra[d], spuntino_p: best.spu[2 * d + 1], cena: best.cen[d] };
-    const tot = (p) => PASTI.reduce((s, [k]) => s + (+pasti[k][p]?.kcal || 0), 0);
-    return { nome, pasti, donna: tot('donna'), uomo: tot('uomo'), bimbo: tot('bimbo') };
+    const tot = (p, m = 'kcal') => PASTI.reduce((s, [k]) => s + (+pasti[k][p]?.[m] || 0), 0);
+    return { nome, pasti, donna: tot('donna'), uomo: tot('uomo'), bimbo: tot('bimbo'), macro: { p: tot('donna', 'p'), c: tot('donna', 'c'), g: tot('donna', 'g') } };
   });
 }
-export const SETTIMANA = scegliSettimana();
+export const SETTIMANA = scegliSettimana(null);
 
-const media = (k) => SETTIMANA.reduce((s, g) => s + g[k], 0) / 7;
-const conteggio = () => { const c = {}; for (const g of SETTIMANA) for (const k of ['pranzo', 'cena']) { const x = gruppo(g.pasti[k]); c[x] = (c[x] || 0) + 1; } return c; };
-const quota = (chiavi) => Math.round(100 * SETTIMANA.reduce((s, g) => s + chiavi.reduce((t, k) => t + g.pasti[k].donna.kcal, 0), 0) / SETTIMANA.reduce((s, g) => s + g.donna, 0));
+export const media = (k, sett = SETTIMANA) => sett.reduce((s, g) => s + g[k], 0) / 7;
+export const conteggio = (sett = SETTIMANA) => { const c = {}; for (const g of sett) for (const k of ['pranzo', 'cena']) { const x = gruppo(g.pasti[k]); c[x] = (c[x] || 0) + 1; } return c; };
+const quota = (chiavi, sett = SETTIMANA) => Math.round(100 * sett.reduce((s, g) => s + chiavi.reduce((t, k) => t + g.pasti[k].donna.kcal, 0), 0) / sett.reduce((s, g) => s + g.donna, 0));
+// Quota media di calorie da proteine / carboidrati / grassi (porzione donna) e grammi al giorno
+export const ripartizione = (sett = SETTIMANA) => { const kc = sett.reduce((s, g) => s + g.donna, 0); const t = (m) => sett.reduce((s, g) => s + g.macro[m], 0);
+  return { p: Math.round(100 * t('p') * 4 / kc), c: Math.round(100 * t('c') * 4 / kc), g: Math.round(100 * t('g') * 9 / kc), gp: Math.round(t('p') / 7), gc: Math.round(t('c') / 7), gg: Math.round(t('g') / 7) }; };
 
 // Lista della spesa della settimana (una persona, porzione donna), per categoria
-function listaSpesa() {
+export function listaSpesa(sett = SETTIMANA) {
   const tot = {};
-  for (const g of SETTIMANA) for (const [k] of PASTI) { const r = g.pasti[k];
+  for (const g of sett) for (const [k] of PASTI) { const r = g.pasti[k];
     for (const id of r.ingredients) { const q = r.quantita?.[id]; if (!q) continue; const u = q.unit || 'g'; const key = id + '|' + u;
       (tot[key] ||= { id, u, q: 0 }).q += +q.donna || 0; } }
   const perCat = {};
   for (const v of Object.values(tot)) { const a = BY_ID[v.id]; if (!a || !v.q) continue; (perCat[CAT(a.cat) || 'Varie'] ||= []).push({ nome: a.nome.replace(/\s*\([^)]*\)/g, '').trim(), q: v.q, u: v.u }); }
   return Object.entries(perCat).sort((a, b) => b[1].length - a[1].length).map(([c, L]) => [c, L.sort((x, y) => x.nome.localeCompare(y.nome, 'it'))]);
 }
-const fmtQ = (q, u) => u === 'g' && q >= 1000 ? `${(Math.round(q / 100) / 10).toLocaleString('it-IT')} kg` : u === 'ml' && q >= 1000 ? `${(Math.round(q / 100) / 10).toLocaleString('it-IT')} l` : quantita(Math.round(q * 10) / 10, u);
+export const fmtQ = (q, u) => u === 'g' && q >= 1000 ? `${(Math.round(q / 100) / 10).toLocaleString('it-IT')} kg` : u === 'ml' && q >= 1000 ? `${(Math.round(q / 100) / 10).toLocaleString('it-IT')} l` : quantita(Math.round(q * 10) / 10, u);
+export const htmlSpesa = (sett) => `<div class="spesa-menu">${listaSpesa(sett).map(([cat, L]) => `<div><h3>${esc(cat)}</h3><ul>${L.map(i => `<li>${esc(i.nome)} <span class="note">${fmtQ(i.q, i.u)}</span></li>`).join('')}</ul></div>`).join('')}</div>`;
+export const htmlSettimana = (sett) => `<div class="settimana">
+${sett.map(g => `<section class="giorno"><h3>${g.nome} <span>${n0(g.donna)} kcal <small>(uomo ${n0(g.uomo)})</small></span></h3><ul>${PASTI.map(([k, et]) => { const r = g.pasti[k]; return `<li><b>${et}</b><a href="/ricette/${r.slug}/">${esc(r.nomeVis)}</a> <span class="note">${n0(r.donna.kcal)} kcal</span></li>`; }).join('')}</ul></section>`).join('\n')}
+</div>`;
+export { GIORNI, PASTI, n0, esc };
 
 // Dati per l'infografica (immagini.mjs → svgMenu)
 export const datiInfografica = () => ({
@@ -95,7 +130,7 @@ export const datiInfografica = () => ({
 });
 
 export const infografica = () => svgMenu(datiInfografica());
-export function paginaMenuDieta({ APP, cta }) {
+export function paginaMenuDieta({ APP, cta, altriMenu = '' }) {
   const { w: imgW, h: imgH } = infografica();
   const md = media('donna'), mu = media('uomo'), mb = media('bimbo');
   const c = conteggio();
@@ -109,6 +144,8 @@ export function paginaMenuDieta({ APP, cta }) {
 <div class="btns" style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0"><a class="btn" href="${APP}">Crea il tuo menù dieta su misura →</a><a class="btn secondario" href="/${IMG.file}" download>Scarica l’immagine</a><button class="btn secondario" type="button" onclick="window.print()">Stampa</button></div>
 
 <figure class="infografica"><img src="/${IMG.file}" width="${imgW}" height="${imgH}" alt="Menù dieta settimanale: esempio di 7 giorni con colazione, spuntino, pranzo, merenda e cena, circa ${n0(tondo)} kcal al giorno" fetchpriority="high"><figcaption>L’infografica del menù dieta settimanale: salvala o stampala e attaccala al frigo.</figcaption></figure>
+
+__ALTRI_MENU__
 
 <h2>Esempio di menù dieta settimanale, giorno per giorno</h2>
 <p>Ogni piatto rimanda alla sua ricetta, con ingredienti e grammi per uomo, donna e bambino. Le calorie sono quelle della porzione donna; tra parentesi il totale della giornata per un uomo.</p>
@@ -152,6 +189,7 @@ ${cta('Il tuo menù dieta, con le tue calorie')}
 <p>Un menù uguale per tutti è un punto di partenza. <a href="${APP}">MenuDieta</a> lo trasforma nel tuo: inserisci età, peso, altezza e attività di ogni persona di casa, togli ciò che non mangiate e l’app compone la settimana con le porzioni giuste per ciascuno, la <a href="/lista-della-spesa-automatica/">lista della spesa</a> e il conteggio delle calorie. Gratis e senza pubblicità. Vuoi capire il metodo? Leggi <a href="/blog/come-organizzare-menu-settimanale-famiglia/">come organizzare il menu settimanale</a> o il <a href="/blog/piano-alimentare-mantenimento/">piano alimentare di mantenimento</a>.</p>`;
 
   const faq = [
+    ['Esistono menù dieta diversi (mediterranea, low carb, proteica, vegetariana)?', 'Sì: oltre al menù equilibrato di questa pagina trovi un esempio settimanale per la dieta mediterranea, low carb, proteica e vegetariana. Nell’app ognuno si imposta con un tocco e il piano usa solo ricette di quello stile, con le porzioni per ogni persona.'],
     ['Che cosa si mangia in un menù dieta settimanale?', `Cinque pasti al giorno: colazione (per esempio yogurt, avena e frutta), uno spuntino a metà mattina, pranzo con cereali e verdura, una merenda e una cena con una fonte di proteine e verdura. Nell’esempio di questa pagina la media è di circa ${n0(tondo)} kcal al giorno per una donna.`],
     ['Quante calorie ha questo menù dieta?', `In media ${n0(md)} kcal al giorno nella porzione donna, ${n0(mu)} kcal nella porzione uomo e ${n0(mb)} kcal nella porzione bambino. I totali di ogni giorno sono nella tabella delle calorie.`],
     ['Il menù dieta da 1500 calorie fa dimagrire?', 'Fa dimagrire chi ha un fabbisogno più alto di circa 300–500 kcal, per esempio una donna moderatamente attiva. Per sapere se fa al caso tuo calcola il tuo fabbisogno calorico: se è già vicino a 1.500 kcal ti serve un menù diverso, meglio con l’aiuto di un professionista.'],
@@ -159,7 +197,7 @@ ${cta('Il tuo menù dieta, con le tue calorie')}
     ['Posso cambiare un piatto del menù?', 'Sì, scegli un’altra ricetta della stessa categoria con calorie simili. Nell’app basta un tocco: il piatto cambia e calorie e lista della spesa si aggiornano da sole.'],
   ];
   return {
-    slug: SLUG, body, faq, giorni: SETTIMANA, mediaDonna: md,
+    slug: SLUG, body: body.replace('__ALTRI_MENU__', altriMenu), faq, giorni: SETTIMANA, mediaDonna: md,
     schemaExtra: (mod) => [{
       '@context': 'https://schema.org', '@type': 'Article', headline: `Menù dieta settimanale: esempio di 7 giorni da ${n0(KCAL)} kcal`, inLanguage: 'it',
       description: `Esempio di menù dieta settimanale con 5 pasti al giorno, circa ${n0(tondo)} kcal (porzione donna), versioni uomo e bambino, lista della spesa e infografica.`,

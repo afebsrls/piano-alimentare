@@ -129,3 +129,4 @@ p{margin:0 0 1em}
 .spesa-menu h3{margin:.6em 0 .2em;font-size:16px}.spesa-menu ul{margin:0;padding-left:18px;font-size:15px}
 button.btn{font:inherit;cursor:pointer}
 @media print{.btns,.stickycta,.infografica,.foto-ricetta{display:none!important}.giorno{break-inside:avoid}}
+.menu-stili a.box{text-decoration:none;color:inherit;display:block}.menu-stili a.box:hover{border-color:var(--verde)}.menu-stili a.box p{margin:.3em 0 .5em}

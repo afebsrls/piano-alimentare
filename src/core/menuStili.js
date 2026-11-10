@@ -31,7 +31,8 @@ export const isStileValido = (id) => !!STILE_BY_ID[id];
 
 const CARNE_ROSSA = /manzo|bovin|maiale|suin|lonza|agnello|salsicc|vitell|cavallo|wurstel/i;
 const DOLCI_OK = /miele|cacao|marmellat|confettur|cioccolato fondente/i;
-const SOLO_VEG_NO = /brodo di carne|gelatina|acciug|colatura/i;
+// Ripieni tradizionali con carne (tortellini, cappelletti, agnolotti) e derivati animali
+const SOLO_VEG_NO = /brodo di carne|gelatina|acciug|colatura|tortellin|cappellett|agnolott/i;
 const pulisciCat = (c) => String(c || '').replace(/^[^\p{L}]+/u, '').trim();
 
 // Quota di calorie da un macronutriente (porzione donna; uomo come riserva)

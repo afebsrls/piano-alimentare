@@ -98,4 +98,19 @@ for (const [slug, fill, expect] of [
   for (const [ok, m] of [[ok1, 'menù dieta: title, H1 e 7 giorni'], [ok2, 'menù dieta: infografica, anteprima social, Article e FAQ'], [ok3, 'menù dieta nel menu del sito e nella sitemap'], [ok4, 'menù dieta: ogni giorno tra 1350 e 1700 kcal (' + kcal.join(', ') + ')']]) { console.log('  ' + (ok ? '✓' : '✗') + ' ' + m); if (!ok) process.exitCode = 1; }
 }
 
+// Menù dieta per stile: pagina, 7 giorni, pulsante "imposta nell'app", infografica, collegamenti dal centro
+{
+  const stili = [['menu-dieta-mediterranea', 'mediterranea'], ['menu-dieta-low-carb', 'lowcarb'], ['menu-dieta-proteica', 'proteica'], ['menu-dieta-vegetariana', 'vegetariana']];
+  const centro = fs.readFileSync('site/dist/menu-dieta/index.html', 'utf8');
+  const sitemap = fs.readFileSync('site/dist/sitemap-pagine.xml', 'utf8');
+  for (const [slug, id] of stili) {
+    const html = fs.readFileSync(`site/dist/${slug}/index.html`, 'utf8');
+    const t = (html.match(/<title>([^<]*)/) || [])[1] || '';
+    const ok = t.length <= 65 && /<h1>Menù/.test(html) && (html.match(/<section class="giorno">/g) || []).length === 7
+      && html.includes(`/app/?menu=${id}#da=${slug}"`) && fs.existsSync(`site/dist/${slug}/${slug}-settimanale.webp`) && fs.existsSync(`site/dist/${slug}/${slug}-og.jpg`)
+      && centro.includes(`href="/${slug}/"`) && sitemap.includes(`/${slug}/</loc>`) && /"Article"/.test(html) && /"FAQPage"/.test(html);
+    console.log('  ' + (ok ? '✓' : '✗') + ` ${slug}: title, 7 giorni, link all’app con ?menu=${id}, infografica, sitemap, link dal centro`); if (!ok) process.exitCode = 1;
+  }
+}
+
 console.log(process.exitCode ? '✗ TEST SITO FALLITO' : '✓ TEST SITO OK');

@@ -13,6 +13,8 @@ import { calcolaKit, KIT_DEFAULT } from '../src/core/kitEmergenza.js';
 import { svgRicetta, svgOg, webp, jpg } from './src/immagini.mjs';
 import { immaginiRicetta, datiImmagineRicetta } from './src/generati.mjs';
 import { paginaMenuDieta, infografica, IMG as IMG_MENU, KCAL } from './src/menuDieta.mjs';
+import { paginaStile, infograficaStile, imgStile, titoloImgStile } from './src/menuStiliPagine.mjs';
+import { STILI_MENU, STILE_BY_ID } from '../src/core/menuStili.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const OUT = path.join(__dirname, 'dist');
@@ -100,6 +102,7 @@ ${slug === '' || noindex ? '' : `<a class="stickycta" href="${APP}">Crea il menu
     <div><strong>MenuDieta</strong><br>Nutrizione intelligente per la famiglia.<br><a href="${APP}">Apri l’app</a> · gratis, senza pubblicità.</div>
     <div><strong>Strumenti gratuiti</strong><br>
       <a href="/menu-dieta/">Menù dieta settimanale</a><br>
+      ${STILI_MENU.map(st => `<a href="/${st.slug}/">Menù ${st.nome.toLowerCase()}</a><br>`).join('\n      ')}
       <a href="/calcolo-fabbisogno-calorico/">Fabbisogno calorico</a><br>
       <a href="/peso-forma-calcolo/">Peso forma</a><br>
       <a href="/quanta-acqua-bere-al-giorno/">Acqua al giorno</a><br>
@@ -154,7 +157,8 @@ for (const p of PAGES) {
     description: p.description, url: APP, inLanguage: 'it',
   });
   if (p.tipo === 'kit') { p.ogImage = `${SITE}/og-kit.png`; schema.push(itemListSchema(calcolaKit({ ...KIT_DEFAULT, A: 2, B: 0, G: 3, F: 1 }), 'Kit di emergenza per 2 adulti, 72 ore'), { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` }, { '@type': 'ListItem', position: 2, name: 'Kit di emergenza', item: `${SITE}/kit-di-emergenza/` }] }); }
-  if (p.tipo === 'menu') { p.ogImage = `${SITE}/${IMG_MENU.og}`; schema.push(...paginaMenuDieta({ APP, cta: ctaHtml }).schemaExtra(p.mod)); }
+  if (p.tipo === 'menu' && !p.stile) { p.ogImage = `${SITE}/${IMG_MENU.og}`; schema.push(...paginaMenuDieta({ APP, cta: ctaHtml }).schemaExtra(p.mod)); }
+  if (p.tipo === 'menu' && p.stile) { p.ogImage = `${SITE}/${imgStile(STILE_BY_ID[p.stile]).og}`; schema.push(...paginaStile(p.stile, { APP, cta: ctaHtml }).schemaExtra(p.mod)); }
   if (p.tipo === 'tool' || p.tipo === 'kit' || p.tipo === 'porzioni') schema.push({
     '@context': 'https://schema.org', '@type': 'WebApplication', name: p.title,
     applicationCategory: 'HealthApplication', operatingSystem: 'Web', browserRequirements: 'Requires JavaScript',
@@ -224,9 +228,10 @@ fs.writeFileSync(path.join(OUT, 'sitemap-ricette.xml'), `<?xml version="1.0" enc
 
 // ── File di servizio ──
 const tutte = [...PAGES.map(p => ({ slug: p.slug, pri: p.tipo === 'home' ? '1.0' : p.tipo === 'info' ? '0.4' : '0.8', mod: p.mod || '2026-11-03' })), { slug: 'blog', pri: '0.5', mod: '2026-11-03' }, ...Object.keys(LEGALI).map(slug => ({ slug, pri: '0.3', mod: '2026-11-03' })), ...ARTICOLI.map(a => ({ slug: a.slug, pri: '0.6', mod: a.mod || a.data })), { slug: 'frutta-verdura-di-stagione', pri: '0.8', mod: DATA_MOD }, ...stag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD })), ...kitPag.map(slug => ({ slug, pri: '0.7', mod: DATA_MOD }))];
+const IMG_PAGINA = { 'menu-dieta': IMG_MENU.url, ...Object.fromEntries(STILI_MENU.map(st => [st.slug, imgStile(st).url])) };
 fs.writeFileSync(path.join(OUT, 'sitemap-pagine.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${tutte.map(u => `  <url><loc>${url(u.slug)}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority>${u.slug === 'menu-dieta' ? `<image:image><image:loc>${IMG_MENU.url}</image:loc></image:image>` : ''}</url>`).join('\n')}
+${tutte.map(u => `  <url><loc>${url(u.slug)}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority>${IMG_PAGINA[u.slug] ? `<image:image><image:loc>${IMG_PAGINA[u.slug]}</image:loc></image:image>` : ''}</url>`).join('\n')}
 </urlset>
 `);
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
@@ -280,6 +285,11 @@ const lavori = [];
 for (const r of RICETTE) { const dati = datiImmagineRicetta(r); for (const im of immaginiRicetta(r)) lavori.push([im.file, () => webp(svgRicetta(dati, im.w, im.h))]); }
 lavori.push([IMG_MENU.file, () => webp(infografica().svg)]);
 lavori.push([IMG_MENU.og, () => jpg(svgOg('Menù dieta settimanale: esempio di 7 giorni', `Circa ${KCAL} kcal al giorno · con lista della spesa`))]);
+for (const st of STILI_MENU) {
+  const im = imgStile(st);
+  lavori.push([im.file, () => webp(infograficaStile(st.id).svg)]);
+  lavori.push([im.og, () => jpg(svgOg(`${titoloImgStile(st.id)} settimanale: esempio di 7 giorni`, 'Con lista della spesa · si imposta con un tocco'))]);
+}
 for (let i = 0; i < lavori.length; i += 16) await Promise.all(lavori.slice(i, i + 16).map(async ([file, fai]) => { fs.mkdirSync(path.dirname(path.join(OUT, file)), { recursive: true }); fs.writeFileSync(path.join(OUT, file), await fai()); }));
 
 console.log(`[site] generate ${tutte.length + gen.length + 3} pagine in site/dist/ (${gen.length} alimenti+ricette) e ${lavori.length} immagini`);
