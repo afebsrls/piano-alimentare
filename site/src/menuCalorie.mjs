@@ -38,10 +38,14 @@ export const infograficaLivello = (kcal) => { const d = datiLivello(kcal);
     piede: 'Esempio indicativo, non sostituisce il parere di un medico o di un nutrizionista · www.menudieta.it' }); };
 
 const nomeIng = (id) => String(BY_ID[id]?.nome || id).replace(/\s*\([^)]*\)/g, '').split(' / ')[0].trim().toLowerCase();
+// Nomi al singolare/plurale per gli ingredienti contati a pezzi ("1 banana", "2 spicchi d'aglio")
+const PEZZI = { uova: ['uovo', 'uova'], banane: ['banana', 'banane'], mele: ['mela', 'mele'], pere: ['pera', 'pere'], arance: ['arancia', 'arance'], mandarini: ['mandarino', 'mandarini'],
+  pesche: ['pesca', 'pesche'], albicocche: ['albicocca', 'albicocche'], 'datteri secchi': ['dattero', 'datteri'], porri: ['porro', 'porri'], kiwi: ['kiwi', 'kiwi'], avocado: ['avocado', 'avocado'], limone: ['limone', 'limoni'],
+  aglio: ['spicchio d’aglio', 'spicchi d’aglio'], rosmarino: ['rametto di rosmarino', 'rametti di rosmarino'], sedano: ['gambo di sedano', 'gambi di sedano'], piadina: ['piadina integrale', 'piadine integrali'] };
 const voce = (id, v, u) => { const n = nomeIng(id).replace(/\bevo\b/, 'EVO');
   if (u !== 'pz') return `${quantita(v, u)} ${n}`;
-  const num = quantita(v, 'pz').replace(/ pz$/, '');
-  return `${num} ${n === 'uova' && v <= 1 ? 'uovo' : n}`; };
+  const num = quantita(v, 'pz').replace(/ pz$/, ''), f = PEZZI[n];
+  return `${num} ${f ? (v <= 1 ? f[0] : f[1]) : n}`; };
 const ingredienti = (r, slot) => r.ingredients.map(id => { const q = r.quantita?.[id]; return q && q[slot] ? voce(id, q[slot], q.unit) : null; }).filter(Boolean).join(', ');
 
 // Collegamenti tra i livelli di calorie (pagina centrale, pagine di stile, pagine per calorie)
