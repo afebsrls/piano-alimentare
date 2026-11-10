@@ -24,8 +24,8 @@ export const PAGES = [
     varianti: ['app menu settimanale famiglia', 'pianificare i pasti della settimana', 'piano alimentare famiglia gratis'],
     intento: 'cercano uno strumento gratuito che decida cosa cucinare per tutta la famiglia',
     concorrenti: 'raccolte di app (aranzulla, trend-online), schede App Store di app straniere',
-    title: 'MenuDieta: app gratis per il menu settimanale della famiglia',
-    description: 'MenuDieta crea il menu settimanale per tutta la famiglia con porzioni per ciascuno, lista della spesa automatica e ricette di stagione. Gratis, senza pubblicità.',
+    title: 'MenuDieta: app gratis per il menù dieta settimanale di famiglia',
+    description: 'MenuDieta crea il menù dieta settimanale per tutta la famiglia: porzioni per ciascuno, lista della spesa automatica, ricette di stagione. Gratis.',
     tipo: 'home',
   },
   {
@@ -35,8 +35,8 @@ export const PAGES = [
     intento: 'vogliono un esempio pronto di 7 giorni, con le calorie, da stampare o salvare (Google mostra un blocco Immagini con infografiche)',
     concorrenti: 'my-personaltrainer (menù settimanale con infografica), educazionenutrizionale, nutrizionista bio; in Immagini infografiche “Lunedì… colazione/spuntino/pranzo/cena”',
     title: 'Menù dieta settimanale: esempio di 7 giorni da stampare',
-    description: 'Menù dieta settimanale di esempio: 7 giorni con colazione, spuntini, pranzo e cena, circa 1500 kcal (porzione donna), versioni uomo e bambino, lista della spesa e infografica.',
-    tipo: 'menu', mod: '2026-11-09',
+    description: 'Menù dieta settimanale di esempio: 7 giorni con colazione, spuntini, pranzo e cena, circa 1500 kcal, versioni uomo e bambino, lista della spesa e infografica.',
+    tipo: 'menu', mod: '2026-11-10',
   },
   {
     slug: 'menu-dieta-mediterranea',
@@ -53,7 +53,7 @@ export const PAGES = [
     varianti: ['menu low carb settimanale', 'dieta low carb menù', 'dieta low carb esempio', 'menù a basso contenuto di carboidrati', 'dieta povera di carboidrati menù settimanale'],
     intento: 'esempio di settimana con pochi carboidrati, con grammi di carboidrati al giorno',
     title: 'Menù low carb settimanale: esempio di 7 giorni da stampare',
-    description: 'Menù low carb settimanale: 7 giorni con carboidrati al massimo al 30% di ogni pasto, grammi di proteine e carboidrati al giorno, lista della spesa e infografica.',
+    description: 'Menù low carb settimanale: 7 giorni con carboidrati al massimo al 30% di ogni pasto, grammi di carboidrati al giorno, lista della spesa e infografica.',
     tipo: 'menu', stile: 'lowcarb', mod: '2026-11-10',
   },
   {

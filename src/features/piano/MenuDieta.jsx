@@ -27,7 +27,7 @@ export function MenuDietaBottone({ stile, onApri, disabled }) {
 }
 
 // Foglio di scelta. preselezione: stile arrivato da un link del sito (chiede conferma).
-export function MenuDietaFoglio({ aperto, stileAttuale, preselezione, onScegli, onChiudi }) {
+export function MenuDietaFoglio({ aperto, stileAttuale, preselezione, onScegli, onChiudi, ciSonoMinori }) {
   const [scelto, setScelto] = useState(preselezione ?? undefined);
   useEffect(() => { if (aperto) setScelto(preselezione ?? undefined); }, [aperto, preselezione]);
   if (!aperto) return null;
@@ -62,6 +62,11 @@ export function MenuDietaFoglio({ aperto, stileAttuale, preselezione, onScegli, 
             </button>
           );
         })}
+        {ciSonoMinori && (scelto === 'lowcarb' || scelto === 'proteica') && (
+          <p role="note" style={{ margin: '4px 0 8px', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 10, padding: '9px 11px', fontSize: 12.5, color: '#92400e', lineHeight: 1.45 }}>
+            ⚠️ In famiglia ci sono bambini o ragazzi: questo menù non è pensato per chi è in crescita. Ai loro piatti aggiungi pane, pasta, riso o frutta, oppure chiedi al pediatra.
+          </p>
+        )}
         <button disabled={!daConfermare} onClick={() => onScegli(scelto || null)}
           style={{ width: '100%', marginTop: 6, background: daConfermare ? LIME : '#EEF2EA', color: INK, border: 'none', borderRadius: 12, padding: '14px', fontWeight: 900, fontSize: 15, cursor: daConfermare ? 'pointer' : 'default' }}>
           {daConfermare ? `Imposta il menù ${nomeScelto}` : 'Scegli un menù'}

@@ -6,6 +6,7 @@ import { toolKit, tabellaPersone, linkVarianti } from './kitPagine.mjs';
 import { ETA, PORZIONI, ORDINE, FONTE_PORZIONI } from './porzioni.mjs';
 import { paginaMenuDieta } from './menuDieta.mjs';
 import { paginaStile, htmlAltriMenu } from './menuStiliPagine.mjs';
+import { linkFonte } from './fonti.mjs';
 import { STILI_MENU } from '../../src/core/menuStili.js';
 const toolCalorie = () => `
 <div class="tool" data-tool="calorie">
@@ -67,7 +68,7 @@ export const CONTENUTI = {
 <a class="avviso-kit" href="/kit-di-emergenza/"><span>🎒</span><span><strong>Nuovo: calcolatore del kit di emergenza 72 ore.</strong> Acqua, cibo, luce e farmaci con le quantità giuste per la tua famiglia, gratis e senza account →</span></a>
 <section class="hero hero-grid">
   <div>
-    <h1>MenuDieta, l’app gratuita per il piano alimentare settimanale della famiglia</h1>
+    <h1>MenuDieta: il menù dieta settimanale per tutta la famiglia, in un’app gratuita</h1>
     <p class="lead">MenuDieta è un’app web gratuita che decide cosa si mangia questa settimana: un menu equilibrato per tutta la famiglia, con le porzioni giuste per ogni persona, la lista della spesa pronta e le ricette di stagione. Nessuna pubblicità, nessun abbonamento.</p>
     <div class="btns"><a class="btn" href="${APP}">Apri MenuDieta gratis →</a><a class="btn secondario" href="/menu-dieta/">Vedi un menù dieta di esempio</a></div>
     <p class="note">Funziona sul telefono e sul computer, si installa come un’app. I dati restano tuoi.</p>
@@ -451,10 +452,11 @@ ${cta('Le porzioni di tutta la famiglia, calcolate in automatico')}
 
 <h2>Le fonti che usiamo</h2>
 <ul>
-  <li><strong>LARN</strong> della Società Italiana di Nutrizione Umana (SINU): fabbisogni di energia e nutrienti per età e sesso.</li>
-  <li><strong>Linee guida per una sana alimentazione</strong> del CREA (revisione 2018): frequenze settimanali e porzioni standard.</li>
+  <li>${linkFonte('larn', '<strong>LARN</strong>')} della Società Italiana di Nutrizione Umana (SINU), IV revisione 2014: fabbisogni di energia e nutrienti per età e sesso.</li>
+  <li>${linkFonte('crea', '<strong>Linee guida per una sana alimentazione</strong>')} del CREA (revisione 2018): frequenze settimanali e porzioni standard.</li>
   <li><strong>Grammature per età</strong> delle ASL, derivate da CREA e LARN, per le porzioni dei bambini.</li>
-  <li><strong>Tabelle di composizione degli alimenti</strong> per calorie e macronutrienti delle schede alimento e delle ricette.</li>
+  <li>${linkFonte('tabelle', '<strong>Tabelle di composizione degli alimenti</strong>')} del CREA per calorie e macronutrienti delle schede alimento e delle ricette; per i pochi prodotti che non vi compaiono (per esempio skyr, tofu, hummus) usiamo i valori medi di etichetta.</li>
+  <li>${linkFonte('efsa', '<strong>Valori di riferimento per l’acqua</strong>')} dell’EFSA per il calcolo di quanta acqua bere.</li>
   <li>Per il kit di emergenza: raccomandazioni della Commissione europea e della Protezione Civile sulle 72 ore.</li>
 </ul>
 

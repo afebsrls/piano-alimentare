@@ -6,6 +6,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ETA, PORZIONI, FONTE_PORZIONI, chiavePorzione } from './porzioni.mjs';
 import { coloreCat } from './immagini.mjs';
+import { linkFonte } from './fonti.mjs';
+import { STILI_MENU, compatibileStile } from '../../src/core/menuStili.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ING = JSON.parse(fs.readFileSync(path.join(__dirname, '../../src/data/ingredients.json'), 'utf8'));
@@ -25,7 +27,7 @@ const nomeBreve = (nome) => nome.replace(/\s*\([^)]*\)/g, '').trim();
 // "Bowl di ceci + spinaci + feta" → "Bowl di ceci, spinaci e feta" (title, H1, schema)
 export const bello = (nome) => { const p = String(nome).split(/\s*\+\s*/); return p.length > 1 ? p.slice(0, -1).join(', ') + ' e ' + p[p.length - 1] : p[0]; };
 // Data dell'ultima modifica dei dati (aggiornare quando cambiano ingredients.json / recipes.json)
-export const DATA_MOD = '2026-11-09';
+export const DATA_MOD = '2026-11-10';
 
 // Ricette che usano un alimento
 const RIC_PER_ING = {};
@@ -94,7 +96,7 @@ ${nz.z != null ? `<tr><td>di cui zuccheri</td><td>${n1(nz.z)} g</td>${pezzo ? `<
 <tr><td>Grassi</td><td>${n1(nz.g)} g</td>${pezzo ? `<td>${n1(nz.g * pezzo / 100)} g</td>` : ''}</tr>
 ${nz.f != null ? `<tr><td>Fibre</td><td>${n1(nz.f)} g</td>${pezzo ? `<td>${n1(nz.f * pezzo / 100)} g</td>` : ''}</tr>` : ''}
 </table></div>
-<p class="note">Fonte: tabelle di composizione degli alimenti usate nel motore di MenuDieta${nz.fonte && nz.fonte !== a.nome ? ` (voce: ${esc(nz.fonte)})` : ''}. I valori sono medi e possono variare per varietà, marca e cottura.</p>
+<p class="note">Fonte: ${String(a.id).startsWith('db_') ? `${linkFonte('tabelle', 'Tabelle di composizione degli alimenti')} del CREA${nz.fonte && nz.fonte !== a.nome ? `, voce «${esc(nz.fonte)}»` : ''}` : 'valori medi di riferimento usati dal motore di MenuDieta'}. I valori sono medi e possono variare per varietà, marca e cottura.</p>
 
 <h2>Porzioni comuni di ${esc(nome.toLowerCase())}</h2>
 <div class="scroll"><table class="tabella"><tr><th>Quantità</th><th>Calorie</th><th>Proteine</th><th>Carboidrati</th><th>Grassi</th></tr>
@@ -162,6 +164,7 @@ export function paginaRicetta(r, { APP, cta }) {
 <h1>${esc(r.nomeVis)}: calorie e porzioni per uomo, donna e bambino</h1>
 <p class="lead">${esc(bello(r.nome))} è una ricetta da ${esc(cat.toLowerCase())}${r.prep ? ` pronta in circa ${r.prep} minuti` : ''}: <strong>${n0(r.donna?.kcal)} kcal</strong> nella porzione per una donna, ${n0(r.uomo?.kcal)} per un uomo, ${n0(r.bimbo?.kcal)} per un bambino. Stessi ingredienti, grammature diverse: è così che MenuDieta cucina una volta sola per tutta la famiglia.</p>
 <figure class="foto-ricetta"><img src="/ricette/${r.slug}/${r.slug}.webp" width="1200" height="900" alt="${esc(bello(r.nome))}: ingredienti nel piatto e calorie per uomo, donna e bambino" fetchpriority="high"><figcaption>Il piatto in proporzione: ogni cerchio è un ingrediente, grande quanto i suoi grammi nella porzione donna.</figcaption></figure>
+${(() => { const adatti = STILI_MENU.filter(st => compatibileStile(st.id, r, id => BY_ID[id], r.categoria)); return adatti.length ? `<p class="menu-adatti"><strong>Adatta ai menù:</strong> ${adatti.map(st => `<a href="/${st.slug}/">${st.emoji} ${st.nome}</a>`).join(' ')}</p>` : ''; })()}
 <h2>Ingredienti e quantità per persona</h2>
 <div class="scroll"><table class="tabella"><tr><th>Ingrediente</th><th>👨 Uomo</th><th>👩 Donna</th><th>🧒 Bambino</th></tr>
 ${ingr.map(({ a, q, id }) => `<tr><td>${a ? (ALI_BY_ID[id] ? `<a href="/alimenti/${ALI_BY_ID[id].slug}/">${esc(nomeBreve(a.nome))}</a>` : esc(nomeBreve(a.nome))) : esc(id)}</td><td>${q ? `${q.uomo} ${q.unit || 'g'}` : '—'}</td><td>${q ? `${q.donna} ${q.unit || 'g'}` : '—'}</td><td>${q ? `${q.bimbo} ${q.unit || 'g'}` : '—'}</td></tr>`).join('')}
@@ -185,8 +188,9 @@ ${cta(`Metti ${bello(r.nome)} nel menu della tua famiglia`)}
     ogImage: immaginiRicetta(r)[1].url, ogW: 1200, ogH: 675,
     schema: [{
       '@context': 'https://schema.org', '@type': 'Recipe', name: bello(r.nome), description: `${bello(r.nome)}: ricetta da ${cat.toLowerCase()} con porzioni e calorie per uomo, donna e bambino.`, recipeCategory: cat, recipeCuisine: 'Italiana', inLanguage: 'it',
+      ...(compatibileStile('vegetariana', r, id => BY_ID[id], r.categoria) ? { suitableForDiet: 'https://schema.org/VegetarianDiet' } : {}),
       image: immaginiRicetta(r).map(i => i.url),
-      author: { '@type': 'Organization', name: 'Redazione MenuDieta', url: 'https://www.menudieta.it/chi-siamo/' }, recipeYield: '1 porzione', datePublished: DATA_MOD,
+      author: { '@type': 'Organization', name: 'Redazione MenuDieta', url: 'https://www.menudieta.it/chi-siamo/' }, recipeYield: '1 porzione', datePublished: r.soloMenu ? '2026-11-10' : '2026-11-06', dateModified: DATA_MOD,
       ...(r.prep ? { prepTime: `PT${r.prep}M`, totalTime: `PT${r.prep}M` } : {}),
       ...(r.preparazione ? { recipeInstructions: passi(r.preparazione).map(t => ({ '@type': 'HowToStep', text: t })) } : {}),
       recipeIngredient: ingr.map(({ a, q, id }) => `${q ? `${q.donna} ${q.unit || 'g'} ` : ''}${a ? nomeBreve(a.nome) : id}`),

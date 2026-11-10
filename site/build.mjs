@@ -13,7 +13,8 @@ import { calcolaKit, KIT_DEFAULT } from '../src/core/kitEmergenza.js';
 import { svgRicetta, svgOg, webp, jpg } from './src/immagini.mjs';
 import { immaginiRicetta, datiImmagineRicetta } from './src/generati.mjs';
 import { paginaMenuDieta, infografica, IMG as IMG_MENU, KCAL } from './src/menuDieta.mjs';
-import { paginaStile, infograficaStile, imgStile, titoloImgStile } from './src/menuStiliPagine.mjs';
+import { paginaStile, infograficaStile, imgStile, titoloImgStile, settimanaStile } from './src/menuStiliPagine.mjs';
+import { SETTIMANA as SETT_LIBERA, media as mediaMenu, ripartizione as ripMenu } from './src/menuDieta.mjs';
 import { STILI_MENU, STILE_BY_ID } from '../src/core/menuStili.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -164,7 +165,7 @@ for (const p of PAGES) {
     applicationCategory: 'HealthApplication', operatingSystem: 'Web', browserRequirements: 'Requires JavaScript',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, url: url(p.slug), inLanguage: 'it',
   });
-  const body = `${c.body({ esc, APP, cta: ctaHtml, phone })}${faqHtml(c.faq)}${p.tipo === 'tool' ? `<script>${TOOLS_JS}</script>` : ''}${p.tipo === 'nutrizionisti' ? `<script>${WAITLIST_JS}</script>` : ''}${p.tipo === 'kit' ? `<script>(function(){${KIT_JS}})();</script>` : ''}`;
+  const body = `${c.body({ esc, APP, cta: ctaHtml, phone, dataIt: p.mod ? DATA_IT(p.mod) : '' })}${faqHtml(c.faq)}${p.tipo === 'tool' ? `<script>${TOOLS_JS}</script>` : ''}${p.tipo === 'nutrizionisti' ? `<script>${WAITLIST_JS}</script>` : ''}${p.tipo === 'kit' ? `<script>(function(){${KIT_JS}})();</script>` : ''}`;
   writePage(p.slug, layout({ ...p, body, schema, dateModified: p.slug ? (p.mod || '2026-11-03') : undefined }));
 }
 
@@ -256,6 +257,10 @@ Fatti utili, con fonte nelle pagine indicate:
 - Porzione di pasta a crudo per pasto: 40 g a 2–3 anni, 50 g a 4–6 anni, 70 g a 7–10 anni, 100 g a 11–17 anni, 80 g per un adulto (grammature ASL da CREA e LARN).
 - Kit di emergenza 72 ore: circa 5 litri d'acqua al giorno per adulto e 3 per bambino; per 2 adulti e 1 bambino servono 39 litri.
 - Fabbisogno calorico calcolato con il metodo LARN (metabolismo basale × livello di attività).
+- Menù dieta settimanale di esempio (${SITE}/menu-dieta/): 5 pasti al giorno, in media ${Math.round(mediaMenu('donna', SETT_LIBERA))} kcal al giorno nella porzione donna e ${Math.round(mediaMenu('uomo', SETT_LIBERA))} nella porzione uomo; proteine ${ripMenu(SETT_LIBERA).p}%, carboidrati ${ripMenu(SETT_LIBERA).c}%, grassi ${ripMenu(SETT_LIBERA).g}% delle calorie.
+${STILI_MENU.map(st => { const w = settimanaStile(st.id), r = ripMenu(w); return `- ${titoloImgStile(st.id)} di esempio (${SITE}/${st.slug}/): ${st.regola}; in media ${Math.round(mediaMenu('donna', w))} kcal al giorno (porzione donna), proteine ${r.gp} g (${r.p}%), carboidrati ${r.gc} g (${r.c}%), grassi ${r.gg} g (${r.g}%).`; }).join('\n')}
+- Nell'app MenuDieta i menù mediterraneo, low carb, proteico e vegetariano si impostano con un tocco: il piano settimanale usa solo ricette di quello stile, con le porzioni calcolate per ogni persona della famiglia.
+- Fonti dei calcoli: LARN (SINU, 2014), Linee guida per una sana alimentazione (CREA, 2018), Tabelle di composizione degli alimenti (CREA).
 
 ## Strumenti gratuiti
 ${PAGES.filter(p => ['menu', 'tool', 'kit', 'porzioni', 'landing'].includes(p.tipo)).map(p => riga(p.slug, p.title.replace(/ [–-] .*$/, ''), p.description)).join('\n')}

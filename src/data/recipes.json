@@ -10919,7 +10919,8 @@
    "donna": "40g fette biscottate integrali · 25g marmellata · 150ml yogurt da latte parzialmente scremato",
    "bimbo": "24g fette biscottate integrali · 15g marmellata · 150ml yogurt da latte parzialmente scremato"
   },
-  "preparazione": "Spalma la marmellata sulle fette biscottate integrali. Accompagna con lo yogurt (o con una tazza di latte)."
+  "preparazione": "Spalma la marmellata sulle fette biscottate integrali. Accompagna con lo yogurt (o con una tazza di latte).",
+  "prep": 3
  },
  {
   "id": "col_38",
@@ -10980,7 +10981,8 @@
    "donna": "28g semi di chia · 160ml yogurt da latte parzialmente scremato · 70g lamponi · 5g miele",
    "bimbo": "15g semi di chia · 120ml yogurt da latte parzialmente scremato · 50g lamponi · 5g miele"
   },
-  "preparazione": "La sera mescola i semi di chia nel latte con il miele, copri e lascia in frigo. La mattina completa con i lamponi."
+  "preparazione": "La sera mescola i semi di chia nel latte con il miele, copri e lascia in frigo. La mattina completa con i lamponi.",
+  "prep": 5
  },
  {
   "id": "col_39",
@@ -11041,7 +11043,8 @@
    "donna": "70g pane integrale · 80g pomodori da insalata · 8g olio evo · 2 arance",
    "bimbo": "40g pane integrale · 50g pomodori da insalata · 5g olio evo · 1 arance"
   },
-  "preparazione": "Tosta il pane integrale. Strofina il pomodoro tagliato a metà sulle fette, aggiungi un pizzico di sale e l'olio EVO. Accompagna con la spremuta delle arance."
+  "preparazione": "Tosta il pane integrale. Strofina il pomodoro tagliato a metà sulle fette, aggiungi un pizzico di sale e l'olio EVO. Accompagna con la spremuta delle arance.",
+  "prep": 8
  },
  {
   "id": "col_40",
@@ -11095,7 +11098,8 @@
    "donna": "200ml kefir · 45g muesli · 1 pere",
    "bimbo": "150ml kefir · 25g muesli · 0.5 pere"
   },
-  "preparazione": "Versa il kefir in una ciotola e aggiungi il muesli. Lascia ammorbidire un paio di minuti. Completa con la pera tagliata a dadini."
+  "preparazione": "Versa il kefir in una ciotola e aggiungi il muesli. Lascia ammorbidire un paio di minuti. Completa con la pera tagliata a dadini.",
+  "prep": 3
  },
  {
   "id": "col_41",
@@ -11150,7 +11154,8 @@
    "donna": "45g farina 00 · 200ml yogurt da latte parzialmente scremato · 8g miele · cannella",
    "bimbo": "30g farina 00 · 150ml yogurt da latte parzialmente scremato · 6g miele · cannella"
   },
-  "preparazione": "Porta il latte a bollore, versa il semolino a pioggia mescolando 5 min, spegni e completa con miele e cannella."
+  "preparazione": "Porta il latte a bollore, versa il semolino a pioggia mescolando 5 min, spegni e completa con miele e cannella.",
+  "prep": 10
  },
  {
   "id": "col_42",
@@ -11204,7 +11209,8 @@
    "donna": "70g pane integrale · 45g tacchino intero senza pelle crudo · 1 arance",
    "bimbo": "40g pane integrale · 25g tacchino intero senza pelle crudo · 1 arance"
   },
-  "preparazione": "Tosta il pane integrale e farciscilo con la fesa di tacchino. Accompagna con la spremuta d'arancia."
+  "preparazione": "Tosta il pane integrale e farciscilo con la fesa di tacchino. Accompagna con la spremuta d'arancia.",
+  "prep": 8
  },
  {
   "id": "col_43",
@@ -11265,7 +11271,8 @@
    "donna": "200g yogurt di soia bianco · 45g muesli · 1 kiwi · 5g miele",
    "bimbo": "150g yogurt di soia bianco · 25g muesli · 1 kiwi"
   },
-  "preparazione": "Versa lo yogurt di soia in una ciotola e aggiungi il muesli. Sbuccia il kiwi e taglialo a dadini. Completa con il kiwi e il miele."
+  "preparazione": "Versa lo yogurt di soia in una ciotola e aggiungi il muesli. Sbuccia il kiwi e taglialo a dadini. Completa con il kiwi e il miele.",
+  "prep": 3
  },
  {
   "id": "spu_37",
@@ -11312,7 +11319,8 @@
    "donna": "1 uova · 18g gallette di riso",
    "bimbo": "1 uova · 9g gallette di riso"
   },
-  "preparazione": "Immergi l'uovo in acqua già in ebollizione e cuocilo 9 minuti. Raffreddalo sotto l'acqua fredda, sguscialo e servilo con le gallette di riso."
+  "preparazione": "Immergi l'uovo in acqua già in ebollizione e cuocilo 9 minuti. Raffreddalo sotto l'acqua fredda, sguscialo e servilo con le gallette di riso.",
+  "prep": 12
  },
  {
   "id": "spu_38",
@@ -11352,7 +11360,8 @@
    "donna": "110g edamame",
    "bimbo": "70g edamame"
   },
-  "preparazione": "Cuoci gli edamame (anche surgelati, nel baccello) in acqua bollente salata per 4-5 minuti. Scolali e cospargili con un pizzico di sale grosso. Si mangiano sgranando i fagioli dal baccello."
+  "preparazione": "Cuoci gli edamame (anche surgelati, nel baccello) in acqua bollente salata per 4-5 minuti. Scolali e cospargili con un pizzico di sale grosso. Si mangiano sgranando i fagioli dal baccello.",
+  "prep": 8
  },
  {
   "id": "spu_39",
@@ -11399,7 +11408,8 @@
    "donna": "1 pere · 20g parmigiano",
    "bimbo": "0.5 pere · 10g parmigiano"
   },
-  "preparazione": "Lava la pera e tagliala a spicchi. Accompagnala con il parmigiano a scaglie."
+  "preparazione": "Lava la pera e tagliala a spicchi. Accompagnala con il parmigiano a scaglie.",
+  "prep": 3
  },
  {
   "id": "spu_40",
@@ -11446,7 +11456,8 @@
    "donna": "18g gallette di riso · 30g bresaola",
    "bimbo": "9g gallette di riso · 20g bresaola"
   },
-  "preparazione": "Disponi la bresaola sulle gallette di riso. Se ti piace, aggiungi qualche goccia di limone."
+  "preparazione": "Disponi la bresaola sulle gallette di riso. Se ti piace, aggiungi qualche goccia di limone.",
+  "prep": 2
  },
  {
   "id": "spu_41",
@@ -11493,7 +11504,8 @@
    "donna": "15g cioccolato fondente · 10g noci",
    "bimbo": "10g cioccolato fondente · 6g noci"
   },
-  "preparazione": "Spezza il cioccolato fondente a quadretti. Accompagnalo con le noci."
+  "preparazione": "Spezza il cioccolato fondente a quadretti. Accompagnalo con le noci.",
+  "prep": 1
  },
  {
   "id": "spu_42",
@@ -11540,7 +11552,8 @@
    "donna": "150g skyr · 60g mirtilli",
    "bimbo": "100g skyr · 40g mirtilli"
   },
-  "preparazione": "Versa lo skyr in una coppetta. Completa con i mirtilli."
+  "preparazione": "Versa lo skyr in una coppetta. Completa con i mirtilli.",
+  "prep": 2
  },
  {
   "id": "pra_47",
@@ -11596,7 +11609,8 @@
    "donna": "60g orecchiette · 120g ceci · 8g olio evo · rosmarino · aglio",
    "bimbo": "45g orecchiette · 70g ceci · 5g olio evo · rosmarino · aglio"
   },
-  "preparazione": "Soffriggi aglio e rosmarino in EVO, aggiungi i ceci (metà frullati) con acqua calda, poi la pasta e cuoci nel brodo di ceci."
+  "preparazione": "Soffriggi aglio e rosmarino in EVO, aggiungi i ceci (metà frullati) con acqua calda, poi la pasta e cuoci nel brodo di ceci.",
+  "prep": 25
  },
  {
   "id": "pra_48",
@@ -11652,7 +11666,8 @@
    "donna": "60g orecchiette · 130g fagioli borlotti freschi crudi · 8g olio evo · rosmarino · cipolla",
    "bimbo": "45g orecchiette · 80g fagioli borlotti freschi crudi · 5g olio evo · rosmarino · cipolla"
   },
-  "preparazione": "Cuoci i borlotti freschi sgranati in acqua non salata per 40 minuti. In un'altra pentola rosola la cipolla tritata con l'olio EVO e il rosmarino, aggiungi i fagioli con un po' della loro acqua e schiacciane metà. Aggiungi la pasta con altra acqua calda e un pizzico di sale e cuocila nella zuppa, mescolando spesso."
+  "preparazione": "Cuoci i borlotti freschi sgranati in acqua non salata per 40 minuti. In un'altra pentola rosola la cipolla tritata con l'olio EVO e il rosmarino, aggiungi i fagioli con un po' della loro acqua e schiacciane metà. Aggiungi la pasta con altra acqua calda e un pizzico di sale e cuocila nella zuppa, mescolando spesso.",
+  "prep": 60
  },
  {
   "id": "pra_49",
@@ -11714,7 +11729,8 @@
    "donna": "70g orecchiette · 200g cime di rapa · 20g alici · 10g olio evo · aglio",
    "bimbo": "50g orecchiette · 120g cime di rapa · 6g olio evo · aglio"
   },
-  "preparazione": "Cuoci le cime di rapa nell'acqua della pasta, sciogli le alici in EVO con aglio e peperoncino, salta tutto insieme."
+  "preparazione": "Cuoci le cime di rapa nell'acqua della pasta, sciogli le alici in EVO con aglio e peperoncino, salta tutto insieme.",
+  "prep": 20
  },
  {
   "id": "pra_50",
@@ -11782,7 +11798,8 @@
    "donna": "140g ceci · 1 uova · 50g pane integrale · 60g lattuga · 7g olio evo",
    "bimbo": "90g ceci · 0.5 uova · 35g pane integrale · 30g lattuga · 4g olio evo"
   },
-  "preparazione": "Frulla i ceci con uovo e aromi, forma i burger e cuoci in padella antiaderente 4 min per lato."
+  "preparazione": "Frulla i ceci con uovo e aromi, forma i burger e cuoci in padella antiaderente 4 min per lato.",
+  "prep": 20
  },
  {
   "id": "pra_51",
@@ -11843,7 +11860,8 @@
    "donna": "85g farina di ceci · 10g olio evo · 120g zucchine · 100g peperoni",
    "bimbo": "55g farina di ceci · 6g olio evo · 80g zucchine · 60g peperoni"
   },
-  "preparazione": "Mescola farina di ceci, acqua (1:3), EVO e sale; riposo 2h, poi forno a 220° per 20 min in teglia oliata."
+  "preparazione": "Mescola farina di ceci, acqua (1:3), EVO e sale; riposo 2h, poi forno a 220° per 20 min in teglia oliata.",
+  "prep": 30
  },
  {
   "id": "pra_52",
@@ -11911,7 +11929,8 @@
    "donna": "65g riso brillato crudo · 100g salmone fresco · 50g edamame · 50g avocado · 60g cetrioli",
    "bimbo": "45g riso brillato crudo · 60g salmone fresco · 30g edamame · 30g avocado · 40g cetrioli"
   },
-  "preparazione": "Cuoci il riso in acqua salata per 15 minuti e lascialo intiepidire. Lessa gli edamame per 4 minuti. Taglia a cubetti il salmone (crudo se abbattuto, altrimenti scottalo in padella 2 minuti), l'avocado e il cetriolo. Componi la bowl con il riso alla base e gli altri ingredienti sopra."
+  "preparazione": "Cuoci il riso in acqua salata per 15 minuti e lascialo intiepidire. Lessa gli edamame per 4 minuti. Taglia a cubetti il salmone (crudo se abbattuto, altrimenti scottalo in padella 2 minuti), l'avocado e il cetriolo. Componi la bowl con il riso alla base e gli altri ingredienti sopra.",
+  "prep": 25
  },
  {
   "id": "pra_53",
@@ -11986,7 +12005,8 @@
    "donna": "300g pomodori da insalata · 80g cetrioli · 60g peperoni · 50g pane integrale · 1 uova · 8g olio evo",
    "bimbo": "180g pomodori da insalata · 50g cetrioli · 40g peperoni · 35g pane integrale · 1 uova · 5g olio evo"
   },
-  "preparazione": "Frulla pomodori, cetriolo, peperone con EVO e aceto; frigo 2h. Servi freddo con pane tostato e uovo sodo a spicchi."
+  "preparazione": "Frulla pomodori, cetriolo, peperone con EVO e aceto; frigo 2h. Servi freddo con pane tostato e uovo sodo a spicchi.",
+  "prep": 15
  },
  {
   "id": "pra_54",
@@ -12055,7 +12075,8 @@
    "donna": "170g seppia · 120g piselli freschi crudi · 45g pane integrale · 8g olio evo · 80g passata di pomodoro · cipolla",
    "bimbo": "90g seppia · 80g piselli freschi crudi · 30g pane integrale · 5g olio evo · 50g passata di pomodoro · cipolla"
   },
-  "preparazione": "Trita la cipolla e rosolala in padella con l'olio EVO per 3 minuti. Aggiungi le seppie pulite e tagliate a strisce e cuocile 10 minuti. Unisci la passata di pomodoro, i piselli e un pizzico di sale e cuoci coperto a fuoco basso 25 minuti. Servi con il pane integrale."
+  "preparazione": "Trita la cipolla e rosolala in padella con l'olio EVO per 3 minuti. Aggiungi le seppie pulite e tagliate a strisce e cuocile 10 minuti. Unisci la passata di pomodoro, i piselli e un pizzico di sale e cuoci coperto a fuoco basso 25 minuti. Servi con il pane integrale.",
+  "prep": 45
  },
  {
   "id": "pra_55",
@@ -12123,7 +12144,8 @@
    "donna": "85g tempeh · 60g quinoa · 70g carote · 100g zucchine · 7g olio evo",
    "bimbo": "50g tempeh · 40g quinoa · 40g carote · 60g zucchine · 4g olio evo"
   },
-  "preparazione": "Sciacqua la quinoa e cuocila in acqua salata per 15 minuti. Taglia carote e zucchine a bastoncini e saltale in padella con metà dell'olio EVO per 6-7 minuti. Taglia il tempeh a fette e rosolalo 3 minuti per lato. Componi la bowl e condisci con l'olio rimasto."
+  "preparazione": "Sciacqua la quinoa e cuocila in acqua salata per 15 minuti. Taglia carote e zucchine a bastoncini e saltale in padella con metà dell'olio EVO per 6-7 minuti. Taglia il tempeh a fette e rosolalo 3 minuti per lato. Componi la bowl e condisci con l'olio rimasto.",
+  "prep": 25
  },
  {
   "id": "cen_49",
@@ -12185,7 +12207,8 @@
    "donna": "180g alici · 200g patate · 10g olio evo · 0.5 limone · rosmarino",
    "bimbo": "90g alici · 120g patate · 6g olio evo · rosmarino"
   },
-  "preparazione": "Alterna strati di patate a fettine sottili e alici con origano ed EVO; forno 200° per 25 min."
+  "preparazione": "Alterna strati di patate a fettine sottili e alici con origano ed EVO; forno 200° per 25 min.",
+  "prep": 40
  },
  {
   "id": "cen_50",
@@ -12253,7 +12276,8 @@
    "donna": "220g spigola · 120g zucchine · 80g carote · 120g patate · 8g olio evo",
    "bimbo": "110g spigola · 80g zucchine · 50g carote · 80g patate · 5g olio evo"
   },
-  "preparazione": "Accendi il forno a 200°C. Adagia la spigola intera e pulita su uno strato di sale grosso in una teglia e coprila completamente di sale. Cuoci 25-30 minuti, poi rompi la crosta e sfiletta il pesce. Cuoci al vapore zucchine, carote e patate a pezzi per 15 minuti e condisci tutto con l'olio EVO a crudo."
+  "preparazione": "Accendi il forno a 200°C. Adagia la spigola intera e pulita su uno strato di sale grosso in una teglia e coprila completamente di sale. Cuoci 25-30 minuti, poi rompi la crosta e sfiletta il pesce. Cuoci al vapore zucchine, carote e patate a pezzi per 15 minuti e condisci tutto con l'olio EVO a crudo.",
+  "prep": 45
  },
  {
   "id": "cen_51",
@@ -12315,7 +12339,8 @@
    "donna": "170g petto di pollo · 55g riso brillato crudo · 0.5 limone · 8g olio evo · rosmarino",
    "bimbo": "90g petto di pollo · 40g riso brillato crudo · 0.5 limone · 5g olio evo · rosmarino"
   },
-  "preparazione": "Cuoci il riso in acqua salata per 15 minuti. Taglia il petto di pollo a bocconcini e rosolalo in padella con l'olio EVO e il rosmarino per 6-7 minuti. Bagna con il succo del limone e un goccio d'acqua e cuoci altri 2 minuti finché si forma una salsina. Servi con il riso."
+  "preparazione": "Cuoci il riso in acqua salata per 15 minuti. Taglia il petto di pollo a bocconcini e rosolalo in padella con l'olio EVO e il rosmarino per 6-7 minuti. Bagna con il succo del limone e un goccio d'acqua e cuoci altri 2 minuti finché si forma una salsina. Servi con il riso.",
+  "prep": 25
  },
  {
   "id": "cen_52",
@@ -12383,7 +12408,8 @@
    "donna": "250g zucchine · 120g tacchino intero senza pelle crudo · 12g parmigiano · 40g pane integrale · 7g olio evo",
    "bimbo": "150g zucchine · 70g tacchino intero senza pelle crudo · 8g parmigiano · 25g pane integrale · 4g olio evo"
   },
-  "preparazione": "Svuota le zucchine, farcisci con tacchino tritato, mollica e parmigiano; forno 190° per 30 min."
+  "preparazione": "Svuota le zucchine, farcisci con tacchino tritato, mollica e parmigiano; forno 190° per 30 min.",
+  "prep": 45
  },
  {
   "id": "cen_53",
@@ -12452,7 +12478,8 @@
    "donna": "140g merluzzo o nasello baccalà secco · 60g gamberi · 120g passata di pomodoro · 45g pane integrale · 10g olio evo · aglio",
    "bimbo": "80g merluzzo o nasello baccalà secco · 30g gamberi · 80g passata di pomodoro · 30g pane integrale · 6g olio evo · aglio"
   },
-  "preparazione": "Rosola l'aglio in un tegame con l'olio EVO, aggiungi la passata e un bicchiere d'acqua e cuoci 10 minuti. Unisci il pesce a pezzi e cuoci 8 minuti, poi i gamberi per altri 3-4 minuti. Servi con il pane integrale tostato."
+  "preparazione": "Rosola l'aglio in un tegame con l'olio EVO, aggiungi la passata e un bicchiere d'acqua e cuoci 10 minuti. Unisci il pesce a pezzi e cuoci 8 minuti, poi i gamberi per altri 3-4 minuti. Servi con il pane integrale tostato.",
+  "prep": 30
  },
  {
   "id": "cen_54",
@@ -12513,7 +12540,8 @@
    "donna": "100g tempeh · 120g cavolo cappuccio rosso · 55g riso brillato crudo · 7g olio evo",
    "bimbo": "60g tempeh · 70g cavolo cappuccio rosso · 40g riso brillato crudo · 4g olio evo"
   },
-  "preparazione": "Cuoci il riso in acqua salata per il tempo indicato sulla confezione. Taglia il cavolo rosso a striscioline e stufalo in padella con l'olio EVO, un pizzico di sale e un goccio d'acqua per 12-15 minuti. Taglia il tempeh a fette e cuocilo sulla piastra 3 minuti per lato. Servi tutto insieme."
+  "preparazione": "Cuoci il riso in acqua salata per il tempo indicato sulla confezione. Taglia il cavolo rosso a striscioline e stufalo in padella con l'olio EVO, un pizzico di sale e un goccio d'acqua per 12-15 minuti. Taglia il tempeh a fette e cuocilo sulla piastra 3 minuti per lato. Servi tutto insieme.",
+  "prep": 40
  },
  {
   "id": "cen_55",
@@ -12581,7 +12609,8 @@
    "donna": "170g uova di gallina albume · 150g asparagi · 12g parmigiano · 45g pane integrale · 7g olio evo",
    "bimbo": "100g uova di gallina albume · 80g asparagi · 8g parmigiano · 30g pane integrale · 4g olio evo"
   },
-  "preparazione": "Taglia gli asparagi a pezzi, tenendo da parte le punte, e cuocili in padella con l'olio EVO per 6-7 minuti. Sbatti gli albumi con il parmigiano e un pizzico di sale e versali sugli asparagi. Cuoci coperto a fuoco basso 5-6 minuti, finché sono rappresi, e servi con il pane integrale."
+  "preparazione": "Taglia gli asparagi a pezzi, tenendo da parte le punte, e cuocili in padella con l'olio EVO per 6-7 minuti. Sbatti gli albumi con il parmigiano e un pizzico di sale e versali sugli asparagi. Cuoci coperto a fuoco basso 5-6 minuti, finché sono rappresi, e servi con il pane integrale.",
+  "prep": 20
  },
  {
   "id": "cen_56",
@@ -12657,7 +12686,8 @@
    "donna": "250g melanzane · 100g ricotta di bufala · 80g passata di pomodoro · 12g parmigiano · 40g pane integrale · 7g olio evo · basilico fresco",
    "bimbo": "150g melanzane · 60g ricotta di bufala · 50g passata di pomodoro · 8g parmigiano · 25g pane integrale · 4g olio evo · basilico fresco"
   },
-  "preparazione": "Svuota le melanzane, farcisci con ricotta, polpa e parmigiano, copri di passata; forno 190° per 35 min."
+  "preparazione": "Svuota le melanzane, farcisci con ricotta, polpa e parmigiano, copri di passata; forno 190° per 35 min.",
+  "prep": 50
  },
  {
   "id": "col_44",

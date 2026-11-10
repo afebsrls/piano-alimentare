@@ -1450,6 +1450,7 @@ export function App() {
           </div>
         )}
         <MenuDietaFoglio aperto={menuFoglio} stileAttuale={stileForWeek(menuDieta, weekIndexForDate(new Date()))} preselezione={menuDaLink}
+          ciSonoMinori={personas.some(p => Number.isFinite(+p.eta) && +p.eta < 18)}
           onChiudi={()=>{ setMenuFoglio(false); setMenuDaLink(null); }}
           onScegli={(st)=>{ setMenuFoglio(false); setMenuDaLink(null); setPage("piano"); regenerate(st); }} />
         {page==="spesa"&&<ShoppingPage planState={{baseSeed:seed, frozen, menu:menuDieta}} overrides={overrides} genArgs={{excludedIds:excluded, ricetteUtente, ricetteEscluseIds}} checks={spesaChecks[String(seed)]||{}} onToggle={handleToggleSpesa} onReset={handleResetSpesa} personas={personas} mealsLog={mealsLog} consumoAttivo={spesaConsumo} onToggleConsumo={toggleSpesaConsumo}/>}

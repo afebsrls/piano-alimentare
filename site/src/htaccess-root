@@ -33,6 +33,8 @@ DirectorySlash Off
     Header set Cache-Control "no-cache"
   </FilesMatch>
   Header set X-Content-Type-Options "nosniff"
+  # Solo HTTPS anche alle visite successive (il sito è già tutto in https)
+  Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 ErrorDocument 404 /404.html

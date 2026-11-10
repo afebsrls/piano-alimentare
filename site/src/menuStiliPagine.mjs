@@ -4,6 +4,7 @@
 import { STILI_MENU, STILE_BY_ID } from '../../src/core/menuStili.js';
 import { scegliSettimana, media, conteggio, ripartizione, htmlSettimana, htmlSpesa, PASTI, n0, esc } from './menuDieta.mjs';
 import { svgMenu } from './immagini.mjs';
+import { htmlFonti, htmlFirma, urlFonti, linkFonte } from './fonti.mjs';
 
 export const SITE = 'https://www.menudieta.it';
 export const imgStile = (s) => ({ file: `${s.slug}/${s.slug}-settimanale.webp`, url: `${SITE}/${s.slug}/${s.slug}-settimanale.webp`, og: `${s.slug}/${s.slug}-og.jpg` });
@@ -21,10 +22,10 @@ const T = {
     regole: ['Olio EVO a crudo, ogni giorno', 'Legumi 4 volte, pesce 3 a settimana', 'Cereali integrali a ogni pasto', 'Niente salumi né carne rossa', 'Porzioni su misura: menudieta.it'],
     corpo: (d) => `
 <h2>Che cos’è la dieta mediterranea</h2>
-<p>È il modo di mangiare tradizionale dei Paesi che si affacciano sul Mediterraneo, studiato dagli anni ’50 e riconosciuto dall’UNESCO nel 2010 come patrimonio culturale immateriale dell’umanità. Più che una dieta è un modello: tanti alimenti vegetali, l’olio extravergine d’oliva come grasso principale, pesce e legumi come fonti di proteine, porzioni moderate di formaggi, uova e carne bianca, carne rossa e dolci solo ogni tanto.</p>
+<p>È il modo di mangiare tradizionale dei Paesi che si affacciano sul Mediterraneo, studiato dagli anni ’50 e riconosciuto dall’${linkFonte('unesco', 'UNESCO nel 2010')} come patrimonio culturale immateriale dell’umanità. Più che una dieta è un modello: tanti alimenti vegetali, l’olio extravergine d’oliva come grasso principale, pesce e legumi come fonti di proteine, porzioni moderate di formaggi, uova e carne bianca, carne rossa e dolci solo ogni tanto.</p>
 <h2>Come è costruito questo menù mediterraneo</h2>
 <ul>
-  <li><strong>Proteine a rotazione.</strong> Sui 14 pasti principali: legumi ${d.c.legumi || 0}, pesce ${d.c.pesce || 0}, carne bianca ${d.c.carne || 0}, uova ${d.c.uova || 0}, formaggi ${d.c.formaggi || 0}${d.c.vegetale ? `, piatti unici vegetali ${d.c.vegetale}` : ''}. Le Linee guida CREA 2018 indicano almeno legumi 3 volte e pesce 2 volte a settimana: qui sono di più, come nella tradizione mediterranea.</li>
+  <li><strong>Proteine a rotazione.</strong> Sui 14 pasti principali: legumi ${d.c.legumi || 0}, pesce ${d.c.pesce || 0}, carne bianca ${d.c.carne || 0}, uova ${d.c.uova || 0}, formaggi ${d.c.formaggi || 0}${d.c.vegetale ? `, piatti unici vegetali ${d.c.vegetale}` : ''}. Le ${linkFonte('crea', 'Linee guida CREA 2018')} indicano almeno legumi 3 volte e pesce 2 volte a settimana: qui sono di più, come nella tradizione mediterranea.</li>
   <li><strong>Niente salumi né carne rossa.</strong> L’app esclude dal menù mediterraneo le ricette con salumi, manzo, maiale, agnello e salsiccia, e i dolci confezionati.</li>
   <li><strong>Calorie dai carboidrati complessi.</strong> In media il ${d.r.c}% delle calorie arriva dai carboidrati, il ${d.r.g}% dai grassi (soprattutto olio EVO e frutta secca) e il ${d.r.p}% dalle proteine.</li>
 </ul>`,
@@ -67,7 +68,7 @@ const T = {
     regole: ['Proteine: almeno 30% a pranzo e cena', 'Uova, pesce, legumi, latticini magri', 'Verdura a ogni pasto principale', 'Acqua: 1,5–2 litri al giorno', 'Porzioni su misura: menudieta.it'],
     corpo: (d) => `
 <h2>Quante proteine servono</h2>
-<p>Per un adulto i LARN (i livelli di riferimento italiani) indicano 0,9 g di proteine per chilo di peso al giorno. Chi sta dimagrendo o si allena spesso ne usa spesso di più, in genere tra 1,2 e 1,6 g per chilo, per conservare la massa muscolare e sentire meno fame. Questo menù arriva a circa ${d.r.gp} g al giorno nella porzione donna: per una donna di 65 kg sono circa ${(Math.round(d.r.gp / 65 * 10) / 10).toLocaleString('it-IT')} g per chilo.</p>
+<p>Per un adulto i ${linkFonte('larn', 'LARN')} (i livelli di riferimento italiani) indicano 0,9 g di proteine per chilo di peso al giorno. Chi sta dimagrendo o si allena spesso ne usa spesso di più, in genere tra 1,2 e 1,6 g per chilo, per conservare la massa muscolare e sentire meno fame. Questo menù arriva a circa ${d.r.gp} g al giorno nella porzione donna: per una donna di 65 kg sono circa ${(Math.round(d.r.gp / 65 * 10) / 10).toLocaleString('it-IT')} g per chilo.</p>
 <h2>Come è costruito questo menù proteico</h2>
 <ul>
   <li><strong>Colazioni proteiche.</strong> Uova, albumi, skyr, yogurt greco e fiocchi di latte: almeno il 25% delle calorie della colazione arriva dalle proteine.</li>
@@ -126,7 +127,8 @@ export function htmlAltriMenu(escludi, titolo = 'Scegli il tuo menù dieta') {
 <p class="note">Ognuno di questi menù si imposta con un tocco nell’app: il piano cambia stile, le porzioni restano calcolate per ogni persona di casa.</p>`;
 }
 
-export function paginaStile(id, { APP, cta }) {
+const FONTI_STILE = { mediterranea: ['crea', 'unesco', 'larn', 'tabelle'], lowcarb: ['larn', 'crea', 'tabelle'], proteica: ['larn', 'crea', 'tabelle'], vegetariana: ['crea', 'larn', 'tabelle'] };
+export function paginaStile(id, { APP, cta, dataIt = '' }) {
   const s = STILE_BY_ID[id], t = T[id], sett = SETT[id], img = imgStile(s);
   const { w: imgW, h: imgH } = infograficaStile(id);
   const d = { md: media('donna', sett), mu: media('uomo', sett), mb: media('bimbo', sett), r: ripartizione(sett), c: conteggio(sett) };
@@ -134,8 +136,17 @@ export function paginaStile(id, { APP, cta }) {
   const body = `
 <p class="crumb"><a href="/">Home</a> · <a href="/menu-dieta/">Menù dieta</a> · ${s.nome}</p>
 <h1>${t.h1}</h1>
+${htmlFirma(dataIt)}
 <p class="lead">${t.lead(d)}</p>
 <div class="btns" style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0"><a class="btn" href="${link}">Imposta questo menù nell’app →</a><a class="btn secondario" href="/${img.file}" download>Scarica l’immagine</a><button class="btn secondario" type="button" onclick="window.print()">Stampa</button></div>
+
+<div class="inbreve"><strong>In breve</strong><ul>
+<li><strong>Regola del menù</strong>: ${s.regola}.</li>
+<li><strong>Calorie</strong>: in media ${n0(d.md)} kcal al giorno per una donna, ${n0(d.mu)} per un uomo.</li>
+<li><strong>Macronutrienti</strong> (porzione donna): proteine ${d.r.gp} g (${d.r.p}%), carboidrati ${d.r.gc} g (${d.r.c}%), grassi ${d.r.gg} g (${d.r.g}%).</li>
+<li><strong>35 piatti</strong> con grammi e preparazione, lista della spesa, infografica.</li>
+<li><strong>Si imposta con un tocco</strong> nell’app gratuita, con le porzioni per ogni persona di casa.</li>
+</ul></div>
 
 <figure class="infografica"><img src="/${img.file}" width="${imgW}" height="${imgH}" alt="${esc(t.titoloImg)} settimanale: esempio di 7 giorni con colazione, spuntino, pranzo, merenda e cena" fetchpriority="high"><figcaption>L’infografica del ${t.nome} settimanale: salvala o stampala.</figcaption></figure>
 
@@ -158,6 +169,7 @@ ${htmlSpesa(sett)}
 <h2>Dal menù di esempio al tuo ${t.nome}</h2>
 <p>Nell’app <a href="${link}">MenuDieta</a> scegli “${s.nome}” nel riquadro Menù dieta della pagina Piano: il piano si rigenera con le ricette di questo stile, sempre diverse di settimana in settimana, con le porzioni per ogni persona di casa, la lista della spesa e il conteggio delle calorie. Per partire dal numero giusto calcola il tuo <a href="/calcolo-fabbisogno-calorico/">fabbisogno calorico</a>.</p>
 ${htmlAltriMenu(id, 'Gli altri menù dieta')}
+${htmlFonti(FONTI_STILE[id])}
 <p class="note">Questo menù è un esempio indicativo per adulti sani e non sostituisce il parere di un medico o di un nutrizionista.</p>`;
   const faq = t.faq(d);
   return {
@@ -170,6 +182,7 @@ ${htmlAltriMenu(id, 'Gli altri menù dieta')}
       author: { '@type': 'Organization', name: 'Redazione MenuDieta', url: `${SITE}/chi-siamo/` },
       publisher: { '@id': `${SITE}/#org` }, mainEntityOfPage: `${SITE}/${s.slug}/`,
       about: [t.nome, 'menù dieta', 'menù settimanale'],
+      citation: urlFonti(FONTI_STILE[id]),
     }, { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
       { '@type': 'ListItem', position: 2, name: 'Menù dieta', item: `${SITE}/menu-dieta/` },

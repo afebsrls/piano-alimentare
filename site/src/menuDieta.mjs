@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { RICETTE } from './generati.mjs';
 import { quantita, svgMenu } from './immagini.mjs';
 import { compatibileStile } from '../../src/core/menuStili.js';
+import { htmlFonti, htmlFirma, urlFonti, linkFonte } from './fonti.mjs';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ING = JSON.parse(fs.readFileSync(path.join(__dirname, '../../src/data/ingredients.json'), 'utf8'));
@@ -130,7 +131,7 @@ export const datiInfografica = () => ({
 });
 
 export const infografica = () => svgMenu(datiInfografica());
-export function paginaMenuDieta({ APP, cta, altriMenu = '' }) {
+export function paginaMenuDieta({ APP, cta, altriMenu = '', dataIt = '' }) {
   const { w: imgW, h: imgH } = infografica();
   const md = media('donna'), mu = media('uomo'), mb = media('bimbo');
   const c = conteggio();
@@ -140,8 +141,17 @@ export function paginaMenuDieta({ APP, cta, altriMenu = '' }) {
   const body = `
 <p class="crumb"><a href="/">Home</a> · Menù dieta</p>
 <h1>Menù dieta settimanale: esempio di 7 giorni da ${n0(KCAL)} kcal</h1>
+${htmlFirma(dataIt)}
 <p class="lead">Un menù dieta settimanale equilibrato divide le calorie in cinque pasti (colazione, spuntino, pranzo, merenda e cena) e alterna legumi, pesce, carne, uova e formaggi come indicano le linee guida CREA. Qui sotto trovi un esempio completo di 7 giorni da <strong>circa ${n0(tondo)} kcal al giorno</strong> nella porzione per una donna, con le stesse ricette in versione uomo (circa ${n0(Math.round(mu / 10) * 10)} kcal) e bambino, la lista della spesa e l’infografica da stampare.</p>
 <div class="btns" style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0"><a class="btn" href="${APP}">Crea il tuo menù dieta su misura →</a><a class="btn secondario" href="/${IMG.file}" download>Scarica l’immagine</a><button class="btn secondario" type="button" onclick="window.print()">Stampa</button></div>
+
+<div class="inbreve"><strong>In breve</strong><ul>
+<li><strong>5 pasti al giorno</strong>: colazione, spuntino, pranzo, merenda, cena.</li>
+<li><strong>Calorie</strong>: in media ${n0(md)} kcal al giorno per una donna, ${n0(mu)} per un uomo, ${n0(mb)} per un bambino (stesse ricette, porzioni diverse).</li>
+<li><strong>Ripartizione</strong>: colazione ${qCol}%, spuntini ${qSpu}%, pranzo ${qPra}%, cena ${qCen}% delle calorie.</li>
+<li><strong>Proteine a rotazione</strong> su 14 pasti principali: ${freq}.</li>
+<li><strong>35 piatti</strong> con ingredienti, grammi e preparazione, più la lista della spesa della settimana.</li>
+</ul></div>
 
 <figure class="infografica"><img src="/${IMG.file}" width="${imgW}" height="${imgH}" alt="Menù dieta settimanale: esempio di 7 giorni con colazione, spuntino, pranzo, merenda e cena, circa ${n0(tondo)} kcal al giorno" fetchpriority="high"><figcaption>L’infografica del menù dieta settimanale: salvala o stampala e attaccala al frigo.</figcaption></figure>
 
@@ -153,17 +163,17 @@ __ALTRI_MENU__
 ${SETTIMANA.map(g => `<section class="giorno"><h3>${g.nome} <span>${n0(g.donna)} kcal <small>(uomo ${n0(g.uomo)})</small></span></h3><ul>${PASTI.map(([k, et]) => { const r = g.pasti[k]; return `<li><b>${et}</b><a href="/ricette/${r.slug}/">${esc(r.nomeVis)}</a> <span class="note">${n0(r.donna.kcal)} kcal</span></li>`; }).join('')}</ul></section>`).join('\n')}
 </div>
 
-<h2>Calorie del menù per donna, uomo e bambino</h2>
+<h2>Quante calorie ha il menù dieta: donna, uomo e bambino</h2>
 <p>Stesse ricette, porzioni diverse: per questo il menù può essere seguito da tutta la famiglia, cucinando una volta sola.</p>
 <div class="scroll"><table class="tabella"><tr><th>Giorno</th><th>👩 Donna</th><th>👨 Uomo</th><th>🧒 Bambino</th></tr>
 ${SETTIMANA.map(g => `<tr><td>${g.nome}</td><td>${n0(g.donna)} kcal</td><td>${n0(g.uomo)} kcal</td><td>${n0(g.bimbo)} kcal</td></tr>`).join('')}
 <tr><td><strong>Media al giorno</strong></td><td><strong>${n0(md)} kcal</strong></td><td><strong>${n0(mu)} kcal</strong></td><td><strong>${n0(mb)} kcal</strong></td></tr></table></div>
 <p class="note">La porzione bambino è un riferimento medio: a un bambino in crescita le calorie vanno date in base all’età (vedi le <a href="/porzioni-bambini-per-eta/">porzioni per età</a>), non ridotte come in una dieta.</p>
 
-<h2>Come è costruito questo menù dieta</h2>
+<h2>Come si costruisce un menù dieta equilibrato</h2>
 <ul>
   <li><strong>Calorie distribuite su 5 pasti.</strong> In questa settimana la colazione vale in media il ${qCol}% delle calorie, i due spuntini insieme il ${qSpu}%, il pranzo il ${qPra}% e la cena il ${qCen}%: niente pasti saltati, niente arrivi affamati a cena.</li>
-  <li><strong>Fonti di proteine alternate.</strong> Sui 14 pasti principali: ${freq}. Il riferimento delle Linee guida CREA 2018 è legumi 3, carne 3, formaggi 3, pesce 2, uova 2, salumi 1.</li>
+  <li><strong>Fonti di proteine alternate.</strong> Sui 14 pasti principali: ${freq}. Il riferimento delle ${linkFonte('crea', 'Linee guida CREA 2018')} è legumi 3, carne 3, formaggi 3, pesce 2, uova 2, salumi 1.</li>
   <li><strong>Ricette vere, con i grammi.</strong> Ogni piatto è una ricetta del database di MenuDieta, con calorie e macronutrienti calcolati sugli ingredienti.</li>
   <li><strong>Ingredienti che trovi tutto l’anno.</strong> Il menù non dipende dalla stagione; nell’app il menù cambia invece mese per mese con <a href="/frutta-verdura-di-stagione/">frutta e verdura di stagione</a>.</li>
 </ul>
@@ -186,7 +196,9 @@ ${cta('Il tuo menù dieta, con le tue calorie')}
 </div>
 
 <h2>Dal menù di esempio al tuo menù dieta personalizzato</h2>
-<p>Un menù uguale per tutti è un punto di partenza. <a href="${APP}">MenuDieta</a> lo trasforma nel tuo: inserisci età, peso, altezza e attività di ogni persona di casa, togli ciò che non mangiate e l’app compone la settimana con le porzioni giuste per ciascuno, la <a href="/lista-della-spesa-automatica/">lista della spesa</a> e il conteggio delle calorie. Gratis e senza pubblicità. Vuoi capire il metodo? Leggi <a href="/blog/come-organizzare-menu-settimanale-famiglia/">come organizzare il menu settimanale</a> o il <a href="/blog/piano-alimentare-mantenimento/">piano alimentare di mantenimento</a>.</p>`;
+<p>Un menù uguale per tutti è un punto di partenza. <a href="${APP}">MenuDieta</a> lo trasforma nel tuo: inserisci età, peso, altezza e attività di ogni persona di casa, togli ciò che non mangiate e l’app compone la settimana con le porzioni giuste per ciascuno, la <a href="/lista-della-spesa-automatica/">lista della spesa</a> e il conteggio delle calorie. Gratis e senza pubblicità. Vuoi capire il metodo? Leggi <a href="/blog/come-organizzare-menu-settimanale-famiglia/">come organizzare il menu settimanale</a> o il <a href="/blog/piano-alimentare-mantenimento/">piano alimentare di mantenimento</a>.</p>
+${htmlFonti(['crea', 'larn', 'tabelle', 'efsa'])}
+<p class="note">Questo menù è un esempio indicativo per adulti sani e non sostituisce il parere di un medico o di un nutrizionista.</p>`;
 
   const faq = [
     ['Esistono menù dieta diversi (mediterranea, low carb, proteica, vegetariana)?', 'Sì: oltre al menù equilibrato di questa pagina trovi un esempio settimanale per la dieta mediterranea, low carb, proteica e vegetariana. Nell’app ognuno si imposta con un tocco e il piano usa solo ricette di quello stile, con le porzioni per ogni persona.'],
@@ -206,6 +218,7 @@ ${cta('Il tuo menù dieta, con le tue calorie')}
       author: { '@type': 'Organization', name: 'Redazione MenuDieta', url: 'https://www.menudieta.it/chi-siamo/' },
       publisher: { '@id': 'https://www.menudieta.it/#org' }, mainEntityOfPage: `https://www.menudieta.it/${SLUG}/`,
       about: ['menù dieta', 'menù settimanale', 'dieta 1500 calorie'],
+      citation: urlFonti(['crea', 'larn', 'tabelle', 'efsa']),
     }, { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.menudieta.it/' },
       { '@type': 'ListItem', position: 2, name: 'Menù dieta', item: `https://www.menudieta.it/${SLUG}/` }] }],

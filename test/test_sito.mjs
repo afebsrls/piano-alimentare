@@ -113,4 +113,20 @@ for (const [slug, fill, expect] of [
   }
 }
 
+// Fiducia e citabilità (E-E-A-T, AEO, GEO): fonti ufficiali con link, firma, riquadro "In breve", fatti in llms.txt
+{
+  const menu = ['menu-dieta', 'menu-dieta-mediterranea', 'menu-dieta-low-carb', 'menu-dieta-proteica', 'menu-dieta-vegetariana'].map(s => fs.readFileSync(`site/dist/${s}/index.html`, 'utf8'));
+  const ok1 = menu.every(h => /class="firma"/.test(h) && /class="inbreve"/.test(h) && /<h2>Fonti<\/h2>/.test(h) && h.includes('https://sinu.it/larn/') && h.includes('crea.gov.it') && /"citation":\[/.test(h));
+  const moz = fs.readFileSync('site/dist/alimenti/mozzarella/index.html', 'utf8');
+  const ok2 = moz.includes('alimentinutrizione.it') && /Tabelle di composizione degli alimenti<\/a> del CREA/.test(moz);
+  const ric = fs.readFileSync('site/dist/ricette/pasta-e-ceci/index.html', 'utf8');
+  const ok3 = /class="menu-adatti"/.test(ric) && ric.includes('href="/menu-dieta-vegetariana/"') && ric.includes('VegetarianDiet') && /"totalTime"/.test(ric);
+  const llms = fs.readFileSync('site/dist/llms.txt', 'utf8');
+  const ok4 = /Menù low carb di esempio/.test(llms) && /Fonti dei calcoli/.test(llms);
+  const home = fs.readFileSync('site/dist/index.html', 'utf8');
+  const ok5 = /<title>[^<]*menù dieta[^<]*<\/title>/.test(home) && /<h1>[^<]*menù dieta/.test(home) && !/content="[^"]*…"/.test(home.match(/<meta name="description"[^>]*>/)[0]);
+  const senzaTempo = fs.readdirSync('site/dist/ricette').filter(s => fs.existsSync(`site/dist/ricette/${s}/index.html`) && /"@type":"Recipe"/.test(fs.readFileSync(`site/dist/ricette/${s}/index.html`, 'utf8')) && !/"totalTime"/.test(fs.readFileSync(`site/dist/ricette/${s}/index.html`, 'utf8')));
+  for (const [ok, m] of [[ok1, 'pagine menù: firma, "In breve", fonti ufficiali con link e citation nello schema'], [ok2, 'alimenti: fonte CREA con link'], [ok3, 'ricette: menù adatti con link, VegetarianDiet, tempo'], [ok4, 'llms.txt: fatti sui menù e fonti'], [ok5, 'home: "menù dieta" in title e H1, description non troncata'], [senzaTempo.length === 0, `tutte le ricette hanno il tempo di preparazione (senza: ${senzaTempo.length})`]]) { console.log('  ' + (ok ? '✓' : '✗') + ' ' + m); if (!ok) process.exitCode = 1; }
+}
+
 console.log(process.exitCode ? '✗ TEST SITO FALLITO' : '✓ TEST SITO OK');
