@@ -35,7 +35,7 @@ export const PAGES = [
     intento: 'vogliono un esempio pronto di 7 giorni, con le calorie, da stampare o salvare (Google mostra un blocco Immagini con infografiche)',
     concorrenti: 'my-personaltrainer (menù settimanale con infografica), educazionenutrizionale, nutrizionista bio; in Immagini infografiche “Lunedì… colazione/spuntino/pranzo/cena”',
     title: 'Menù dieta settimanale: esempio di 7 giorni da stampare',
-    description: 'Menù dieta settimanale di esempio: 7 giorni con colazione, spuntini, pranzo e cena, circa 1500 kcal, versioni uomo e bambino, lista della spesa e infografica.',
+    description: 'Menù dieta settimanale di esempio: 7 giorni con 5 pasti al giorno, circa 1500 kcal, versioni uomo e bambino, lista della spesa e infografica.',
     tipo: 'menu', mod: '2026-11-10',
   },
   {
