@@ -12658,5 +12658,1496 @@
    "bimbo": "150g melanzane · 60g ricotta di bufala · 50g passata di pomodoro · 8g parmigiano · 25g pane integrale · 4g olio evo · basilico fresco"
   },
   "preparazione": "Svuota le melanzane, farcisci con ricotta, polpa e parmigiano, copri di passata; forno 190° per 35 min."
+ },
+ {
+  "id": "col_44",
+  "prep": 10,
+  "nome": "Uova strapazzate con spinaci, feta e pomodorini",
+  "ingredients": [
+   "db_uova_di_gallina_intero",
+   "db_spinaci_crudi",
+   "db_feta",
+   "db_pomodori_maturi",
+   "db_olio_di_oliva_extra_vergine"
+  ],
+  "porzioni": {
+   "uomo": "2.5 uova · 125g spinaci · 40g feta · 100g pomodorini · 7g olio EVO",
+   "donna": "2 uova · 100g spinaci · 30g feta · 80g pomodorini · 5g olio EVO",
+   "bimbo": "1 uovo · 60g spinaci · 18g feta · 50g pomodorini · 3g olio EVO"
+  },
+  "uomo": {
+   "kcal": 381,
+   "p": 27,
+   "c": 8,
+   "g": 27
+  },
+  "donna": {
+   "kcal": 294,
+   "p": 21,
+   "c": 6,
+   "g": 21
+  },
+  "bimbo": {
+   "kcal": 165,
+   "p": 12,
+   "c": 4,
+   "g": 11
+  },
+  "categoria": "colazione",
+  "quantita": {
+   "db_uova_di_gallina_intero": {
+    "uomo": 2.5,
+    "donna": 2,
+    "bimbo": 1.0,
+    "unit": "pz"
+   },
+   "db_spinaci_crudi": {
+    "uomo": 125,
+    "donna": 100,
+    "bimbo": 60,
+    "unit": "g"
+   },
+   "db_feta": {
+    "uomo": 40,
+    "donna": 30,
+    "bimbo": 18,
+    "unit": "g"
+   },
+   "db_pomodori_maturi": {
+    "uomo": 100,
+    "donna": 80,
+    "bimbo": 50,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Salta gli spinaci in padella con l'olio EVO per 2 minuti, finché appassiscono. Versa le uova sbattute con un pizzico di pepe e mescola a fuoco basso finché sono cremose. A fuoco spento aggiungi la feta sbriciolata e servi con i pomodorini tagliati a metà.",
+  "soloMenu": true
+ },
+ {
+  "id": "col_45",
+  "prep": 10,
+  "nome": "Omelette al prosciutto cotto e zucchine",
+  "ingredients": [
+   "db_uova_di_gallina_intero",
+   "db_prosciutto_cotto_magro",
+   "db_zucchine_crude",
+   "db_parmigiano",
+   "db_olio_di_oliva_extra_vergine"
+  ],
+  "porzioni": {
+   "uomo": "2.5 uova · 50g prosciutto cotto · 125g zucchine · 13g parmigiano · 7g olio EVO",
+   "donna": "2 uova · 40g prosciutto cotto · 100g zucchine · 10g parmigiano · 5g olio EVO",
+   "bimbo": "1 uovo · 25g prosciutto cotto · 60g zucchine · 6g parmigiano · 3g olio EVO"
+  },
+  "uomo": {
+   "kcal": 341,
+   "p": 30,
+   "c": 3,
+   "g": 24
+  },
+  "donna": {
+   "kcal": 266,
+   "p": 24,
+   "c": 2,
+   "g": 18
+  },
+  "bimbo": {
+   "kcal": 148,
+   "p": 13,
+   "c": 1,
+   "g": 10
+  },
+  "categoria": "colazione",
+  "quantita": {
+   "db_uova_di_gallina_intero": {
+    "uomo": 2.5,
+    "donna": 2,
+    "bimbo": 1.0,
+    "unit": "pz"
+   },
+   "db_prosciutto_cotto_magro": {
+    "uomo": 50,
+    "donna": 40,
+    "bimbo": 25,
+    "unit": "g"
+   },
+   "db_zucchine_crude": {
+    "uomo": 125,
+    "donna": 100,
+    "bimbo": 60,
+    "unit": "g"
+   },
+   "db_parmigiano": {
+    "uomo": 13,
+    "donna": 10,
+    "bimbo": 6,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Grattugia la zucchina e saltala in padella con l'olio EVO per 3 minuti. Sbatti le uova con il parmigiano, versale sulla zucchina e cuoci a fuoco basso finché il fondo si rapprende. Distribuisci il prosciutto cotto a striscioline su metà, chiudi a mezzaluna e cuoci un altro minuto.",
+  "soloMenu": true
+ },
+ {
+  "id": "col_46",
+  "prep": 3,
+  "nome": "Yogurt greco con noci e lamponi",
+  "ingredients": [
+   "db_yogurt_greco_da_latte_intero",
+   "db_noci_secche",
+   "db_lamponi",
+   "ing_cannella"
+  ],
+  "porzioni": {
+   "uomo": "215g yogurt greco · 19g noci · 100g lamponi · 2g cannella",
+   "donna": "170g yogurt greco · 15g noci · 80g lamponi · 1g cannella",
+   "bimbo": "100g yogurt greco · 9g noci · 50g lamponi · 1g cannella"
+  },
+  "uomo": {
+   "kcal": 413,
+   "p": 18,
+   "c": 12,
+   "g": 33
+  },
+  "donna": {
+   "kcal": 326,
+   "p": 14,
+   "c": 10,
+   "g": 26
+  },
+  "bimbo": {
+   "kcal": 194,
+   "p": 8,
+   "c": 6,
+   "g": 16
+  },
+  "categoria": "colazione",
+  "quantita": {
+   "db_yogurt_greco_da_latte_intero": {
+    "uomo": 215,
+    "donna": 170,
+    "bimbo": 100,
+    "unit": "g"
+   },
+   "db_noci_secche": {
+    "uomo": 19,
+    "donna": 15,
+    "bimbo": 9,
+    "unit": "g"
+   },
+   "db_lamponi": {
+    "uomo": 100,
+    "donna": 80,
+    "bimbo": 50,
+    "unit": "g"
+   },
+   "ing_cannella": {
+    "uomo": 2,
+    "donna": 1,
+    "bimbo": 1,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Versa lo yogurt greco in una ciotola. Aggiungi i lamponi e le noci spezzettate. Completa con una spolverata di cannella.",
+  "soloMenu": true
+ },
+ {
+  "id": "col_47",
+  "prep": 3,
+  "nome": "Skyr con mandorle, mirtilli e semi di chia",
+  "ingredients": [
+   "ing_skyr",
+   "db_mandorle_dolci_secche",
+   "db_mirtilli",
+   "ing_semi_di_chia"
+  ],
+  "porzioni": {
+   "uomo": "255g skyr · 19g mandorle · 75g mirtilli · 10g semi di chia",
+   "donna": "200g skyr · 15g mandorle · 60g mirtilli · 8g semi di chia",
+   "bimbo": "120g skyr · 9g mandorle · 35g mirtilli · 5g semi di chia"
+  },
+  "uomo": {
+   "kcal": 344,
+   "p": 35,
+   "c": 19,
+   "g": 14
+  },
+  "donna": {
+   "kcal": 270,
+   "p": 27,
+   "c": 15,
+   "g": 11
+  },
+  "bimbo": {
+   "kcal": 163,
+   "p": 16,
+   "c": 9,
+   "g": 7
+  },
+  "categoria": "colazione",
+  "quantita": {
+   "ing_skyr": {
+    "uomo": 255,
+    "donna": 200,
+    "bimbo": 120,
+    "unit": "g"
+   },
+   "db_mandorle_dolci_secche": {
+    "uomo": 19,
+    "donna": 15,
+    "bimbo": 9,
+    "unit": "g"
+   },
+   "db_mirtilli": {
+    "uomo": 75,
+    "donna": 60,
+    "bimbo": 35,
+    "unit": "g"
+   },
+   "ing_semi_di_chia": {
+    "uomo": 10,
+    "donna": 8,
+    "bimbo": 5,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Versa lo skyr in una ciotola e mescola i semi di chia. Lascia riposare 5 minuti, così la chia si gonfia. Completa con i mirtilli e le mandorle a lamelle.",
+  "soloMenu": true
+ },
+ {
+  "id": "col_48",
+  "prep": 3,
+  "nome": "Fiocchi di latte con frutti di bosco e noci",
+  "ingredients": [
+   "db_fiocchi_di_formaggio_magro",
+   "ing_bosco",
+   "db_noci_secche"
+  ],
+  "porzioni": {
+   "uomo": "255g fiocchi di latte · 100g frutti di bosco · 13g noci",
+   "donna": "200g fiocchi di latte · 80g frutti di bosco · 10g noci",
+   "bimbo": "120g fiocchi di latte · 50g frutti di bosco · 6g noci"
+  },
+  "uomo": {
+   "kcal": 417,
+   "p": 28,
+   "c": 15,
+   "g": 28
+  },
+  "donna": {
+   "kcal": 326,
+   "p": 22,
+   "c": 12,
+   "g": 22
+  },
+  "bimbo": {
+   "kcal": 196,
+   "p": 13,
+   "c": 7,
+   "g": 13
+  },
+  "categoria": "colazione",
+  "quantita": {
+   "db_fiocchi_di_formaggio_magro": {
+    "uomo": 255,
+    "donna": 200,
+    "bimbo": 120,
+    "unit": "g"
+   },
+   "ing_bosco": {
+    "uomo": 100,
+    "donna": 80,
+    "bimbo": 50,
+    "unit": "g"
+   },
+   "db_noci_secche": {
+    "uomo": 13,
+    "donna": 10,
+    "bimbo": 6,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Versa i fiocchi di latte in una ciotola. Aggiungi i frutti di bosco (se surgelati, lasciali scongelare qualche minuto). Completa con le noci spezzettate.",
+  "soloMenu": true
+ },
+ {
+  "id": "col_49",
+  "prep": 12,
+  "nome": "Uova sode con avocado e pomodorini",
+  "ingredients": [
+   "db_uova_di_gallina_intero",
+   "ing_avocado",
+   "db_pomodori_maturi",
+   "db_limoni_succo"
+  ],
+  "porzioni": {
+   "uomo": "2.5 uova · 65g avocado · 125g pomodorini · 7ml succo di limone",
+   "donna": "2 uova · 50g avocado · 100g pomodorini · 5ml succo di limone",
+   "bimbo": "1 uovo · 30g avocado · 60g pomodorini · 3ml succo di limone"
+  },
+  "uomo": {
+   "kcal": 334,
+   "p": 20,
+   "c": 6,
+   "g": 26
+  },
+  "donna": {
+   "kcal": 263,
+   "p": 16,
+   "c": 4,
+   "g": 20
+  },
+  "bimbo": {
+   "kcal": 144,
+   "p": 8,
+   "c": 3,
+   "g": 11
+  },
+  "categoria": "colazione",
+  "quantita": {
+   "db_uova_di_gallina_intero": {
+    "uomo": 2.5,
+    "donna": 2,
+    "bimbo": 1.0,
+    "unit": "pz"
+   },
+   "ing_avocado": {
+    "uomo": 65,
+    "donna": 50,
+    "bimbo": 30,
+    "unit": "g"
+   },
+   "db_pomodori_maturi": {
+    "uomo": 125,
+    "donna": 100,
+    "bimbo": 60,
+    "unit": "g"
+   },
+   "db_limoni_succo": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "ml"
+   }
+  },
+  "preparazione": "Immergi le uova in acqua bollente e cuocile 9 minuti, poi raffreddale e sgusciale. Taglia l'avocado a fette e bagnalo con il succo di limone. Servi le uova a spicchi con l'avocado, i pomodorini a metà e un pizzico di sale.",
+  "soloMenu": true
+ },
+ {
+  "id": "col_50",
+  "prep": 15,
+  "nome": "Pancake proteici di albumi, avena e skyr",
+  "ingredients": [
+   "db_uova_di_gallina_albume",
+   "db_fiocchi_d_avena",
+   "ing_skyr",
+   "db_mirtilli",
+   "db_miele"
+  ],
+  "porzioni": {
+   "uomo": "150g albumi · 40g fiocchi d'avena · 125g skyr · 65g mirtilli · 7g miele",
+   "donna": "120g albumi · 30g fiocchi d'avena · 100g skyr · 50g mirtilli · 5g miele",
+   "bimbo": "70g albumi · 18g fiocchi d'avena · 60g skyr · 30g mirtilli · 3g miele"
+  },
+  "uomo": {
+   "kcal": 329,
+   "p": 34,
+   "c": 43,
+   "g": 3
+  },
+  "donna": {
+   "kcal": 254,
+   "p": 27,
+   "c": 32,
+   "g": 3
+  },
+  "bimbo": {
+   "kcal": 152,
+   "p": 16,
+   "c": 19,
+   "g": 2
+  },
+  "categoria": "colazione",
+  "quantita": {
+   "db_uova_di_gallina_albume": {
+    "uomo": 150,
+    "donna": 120,
+    "bimbo": 70,
+    "unit": "g"
+   },
+   "db_fiocchi_d_avena": {
+    "uomo": 40,
+    "donna": 30,
+    "bimbo": 18,
+    "unit": "g"
+   },
+   "ing_skyr": {
+    "uomo": 125,
+    "donna": 100,
+    "bimbo": 60,
+    "unit": "g"
+   },
+   "db_mirtilli": {
+    "uomo": 65,
+    "donna": 50,
+    "bimbo": 30,
+    "unit": "g"
+   },
+   "db_miele": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Frulla gli albumi con i fiocchi d'avena fino a ottenere una pastella. Cuocila a cucchiaiate in una padella antiaderente calda, 2 minuti per lato. Servi i pancake con lo skyr, i mirtilli e un filo di miele.",
+  "soloMenu": true
+ },
+ {
+  "id": "col_51",
+  "prep": 10,
+  "nome": "Toast integrale con albumi strapazzati e bresaola",
+  "ingredients": [
+   "db_pane_di_tipo_integrale",
+   "db_uova_di_gallina_albume",
+   "db_bresaola",
+   "db_olio_di_oliva_extra_vergine"
+  ],
+  "porzioni": {
+   "uomo": "65g pane integrale · 150g albumi · 40g bresaola · 7g olio EVO",
+   "donna": "50g pane integrale · 120g albumi · 30g bresaola · 5g olio EVO",
+   "bimbo": "30g pane integrale · 70g albumi · 18g bresaola · 3g olio EVO"
+  },
+  "uomo": {
+   "kcal": 333,
+   "p": 34,
+   "c": 32,
+   "g": 9
+  },
+  "donna": {
+   "kcal": 254,
+   "p": 26,
+   "c": 24,
+   "g": 6
+  },
+  "bimbo": {
+   "kcal": 151,
+   "p": 16,
+   "c": 14,
+   "g": 4
+  },
+  "categoria": "colazione",
+  "quantita": {
+   "db_pane_di_tipo_integrale": {
+    "uomo": 65,
+    "donna": 50,
+    "bimbo": 30,
+    "unit": "g"
+   },
+   "db_uova_di_gallina_albume": {
+    "uomo": 150,
+    "donna": 120,
+    "bimbo": 70,
+    "unit": "g"
+   },
+   "db_bresaola": {
+    "uomo": 40,
+    "donna": 30,
+    "bimbo": 18,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Tosta il pane integrale. Cuoci gli albumi in padella con l'olio EVO e un pizzico di sale, mescolando, per 2-3 minuti. Servi sul pane con la bresaola.",
+  "soloMenu": true
+ },
+ {
+  "id": "col_52",
+  "prep": 15,
+  "nome": "Frittata di albumi con ricotta ed erbe",
+  "ingredients": [
+   "db_uova_di_gallina_albume",
+   "db_uova_di_gallina_intero",
+   "db_ricotta_di_vacca",
+   "db_prezzemolo",
+   "db_pomodori_maturi",
+   "db_olio_di_oliva_extra_vergine"
+  ],
+  "porzioni": {
+   "uomo": "190g albumi · 1.5 uova · 65g ricotta · 4g prezzemolo · 125g pomodorini · 7g olio EVO",
+   "donna": "150g albumi · 1 uovo · 50g ricotta · 3g prezzemolo · 100g pomodorini · 5g olio EVO",
+   "bimbo": "90g albumi · 0.5 uova · 30g ricotta · 2g prezzemolo · 60g pomodorini · 3g olio EVO"
+  },
+  "uomo": {
+   "kcal": 361,
+   "p": 37,
+   "c": 7,
+   "g": 21
+  },
+  "donna": {
+   "kcal": 266,
+   "p": 28,
+   "c": 5,
+   "g": 15
+  },
+  "bimbo": {
+   "kcal": 153,
+   "p": 16,
+   "c": 3,
+   "g": 9
+  },
+  "categoria": "colazione",
+  "quantita": {
+   "db_uova_di_gallina_albume": {
+    "uomo": 190,
+    "donna": 150,
+    "bimbo": 90,
+    "unit": "g"
+   },
+   "db_uova_di_gallina_intero": {
+    "uomo": 1.5,
+    "donna": 1,
+    "bimbo": 0.5,
+    "unit": "pz"
+   },
+   "db_ricotta_di_vacca": {
+    "uomo": 65,
+    "donna": 50,
+    "bimbo": 30,
+    "unit": "g"
+   },
+   "db_prezzemolo": {
+    "uomo": 4,
+    "donna": 3,
+    "bimbo": 2,
+    "unit": "g"
+   },
+   "db_pomodori_maturi": {
+    "uomo": 125,
+    "donna": 100,
+    "bimbo": 60,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Sbatti gli albumi con l'uovo, la ricotta, il prezzemolo tritato e un pizzico di sale. Versa in una padella antiaderente unta con l'olio EVO e cuoci coperto a fuoco basso 5 minuti, poi gira la frittata e cuoci altri 2 minuti. Servi con i pomodorini.",
+  "soloMenu": true
+ },
+ {
+  "id": "col_53",
+  "prep": 8,
+  "nome": "Uova strapazzate con salmone affumicato e avocado",
+  "ingredients": [
+   "db_uova_di_gallina_intero",
+   "db_salmone_affumicato",
+   "ing_avocado",
+   "db_limoni_succo"
+  ],
+  "porzioni": {
+   "uomo": "2.5 uova · 65g salmone affumicato · 50g avocado · 7ml succo di limone",
+   "donna": "2 uova · 50g salmone affumicato · 40g avocado · 5ml succo di limone",
+   "bimbo": "1 uovo · 30g salmone affumicato · 25g avocado · 3ml succo di limone"
+  },
+  "uomo": {
+   "kcal": 372,
+   "p": 34,
+   "c": 2,
+   "g": 25
+  },
+  "donna": {
+   "kcal": 294,
+   "p": 27,
+   "c": 1,
+   "g": 20
+  },
+  "bimbo": {
+   "kcal": 166,
+   "p": 15,
+   "c": 1,
+   "g": 11
+  },
+  "categoria": "colazione",
+  "quantita": {
+   "db_uova_di_gallina_intero": {
+    "uomo": 2.5,
+    "donna": 2,
+    "bimbo": 1.0,
+    "unit": "pz"
+   },
+   "db_salmone_affumicato": {
+    "uomo": 65,
+    "donna": 50,
+    "bimbo": 30,
+    "unit": "g"
+   },
+   "ing_avocado": {
+    "uomo": 50,
+    "donna": 40,
+    "bimbo": 25,
+    "unit": "g"
+   },
+   "db_limoni_succo": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "ml"
+   }
+  },
+  "preparazione": "Sbatti le uova e cuocile in una padella antiaderente a fuoco basso, mescolando, finché sono cremose. Servile con il salmone affumicato e l'avocado a fette bagnato con il succo di limone.",
+  "soloMenu": true
+ },
+ {
+  "id": "spu_43",
+  "prep": 3,
+  "nome": "Fiocchi di latte con cetrioli e pomodorini",
+  "ingredients": [
+   "db_fiocchi_di_formaggio_magro",
+   "db_cetrioli",
+   "db_pomodori_maturi"
+  ],
+  "porzioni": {
+   "uomo": "150g fiocchi di latte · 100g cetrioli · 75g pomodorini",
+   "donna": "120g fiocchi di latte · 80g cetrioli · 60g pomodorini",
+   "bimbo": "70g fiocchi di latte · 50g cetrioli · 35g pomodorini"
+  },
+  "uomo": {
+   "kcal": 200,
+   "p": 16,
+   "c": 9,
+   "g": 11
+  },
+  "donna": {
+   "kcal": 160,
+   "p": 13,
+   "c": 7,
+   "g": 9
+  },
+  "bimbo": {
+   "kcal": 94,
+   "p": 7,
+   "c": 4,
+   "g": 5
+  },
+  "categoria": "spuntino",
+  "quantita": {
+   "db_fiocchi_di_formaggio_magro": {
+    "uomo": 150,
+    "donna": 120,
+    "bimbo": 70,
+    "unit": "g"
+   },
+   "db_cetrioli": {
+    "uomo": 100,
+    "donna": 80,
+    "bimbo": 50,
+    "unit": "g"
+   },
+   "db_pomodori_maturi": {
+    "uomo": 75,
+    "donna": 60,
+    "bimbo": 35,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Taglia i cetrioli e i pomodorini a cubetti. Uniscili ai fiocchi di latte con un pizzico di sale e pepe.",
+  "soloMenu": true
+ },
+ {
+  "id": "spu_44",
+  "prep": 2,
+  "nome": "Skyr con noci e cannella",
+  "ingredients": [
+   "ing_skyr",
+   "db_noci_secche",
+   "ing_cannella"
+  ],
+  "porzioni": {
+   "uomo": "190g skyr · 10g noci · 2g cannella",
+   "donna": "150g skyr · 8g noci · 1g cannella",
+   "bimbo": "90g skyr · 5g noci · 1g cannella"
+  },
+  "uomo": {
+   "kcal": 190,
+   "p": 22,
+   "c": 8,
+   "g": 7
+  },
+  "donna": {
+   "kcal": 149,
+   "p": 18,
+   "c": 6,
+   "g": 6
+  },
+  "bimbo": {
+   "kcal": 91,
+   "p": 11,
+   "c": 4,
+   "g": 4
+  },
+  "categoria": "spuntino",
+  "quantita": {
+   "ing_skyr": {
+    "uomo": 190,
+    "donna": 150,
+    "bimbo": 90,
+    "unit": "g"
+   },
+   "db_noci_secche": {
+    "uomo": 10,
+    "donna": 8,
+    "bimbo": 5,
+    "unit": "g"
+   },
+   "ing_cannella": {
+    "uomo": 2,
+    "donna": 1,
+    "bimbo": 1,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Versa lo skyr in una coppetta. Completa con le noci spezzettate e una spolverata di cannella.",
+  "soloMenu": true
+ },
+ {
+  "id": "spu_45",
+  "prep": 3,
+  "nome": "Bresaola con rucola e grana",
+  "ingredients": [
+   "db_bresaola",
+   "db_rughetta_o_rucola",
+   "db_grana",
+   "db_limoni_succo"
+  ],
+  "porzioni": {
+   "uomo": "50g bresaola · 25g rucola · 13g grana · 4ml succo di limone",
+   "donna": "40g bresaola · 20g rucola · 10g grana · 3ml succo di limone",
+   "bimbo": "25g bresaola · 12g rucola · 6g grana · 2ml succo di limone"
+  },
+  "uomo": {
+   "kcal": 134,
+   "p": 21,
+   "c": 1,
+   "g": 5
+  },
+  "donna": {
+   "kcal": 105,
+   "p": 17,
+   "c": 1,
+   "g": 4
+  },
+  "bimbo": {
+   "kcal": 65,
+   "p": 10,
+   "c": 0,
+   "g": 2
+  },
+  "categoria": "spuntino",
+  "quantita": {
+   "db_bresaola": {
+    "uomo": 50,
+    "donna": 40,
+    "bimbo": 25,
+    "unit": "g"
+   },
+   "db_rughetta_o_rucola": {
+    "uomo": 25,
+    "donna": 20,
+    "bimbo": 12,
+    "unit": "g"
+   },
+   "db_grana": {
+    "uomo": 13,
+    "donna": 10,
+    "bimbo": 6,
+    "unit": "g"
+   },
+   "db_limoni_succo": {
+    "uomo": 4,
+    "donna": 3,
+    "bimbo": 2,
+    "unit": "ml"
+   }
+  },
+  "preparazione": "Disponi la bresaola nel piatto. Copri con la rucola e il grana a scaglie e condisci con qualche goccia di limone.",
+  "soloMenu": true
+ },
+ {
+  "id": "spu_46",
+  "prep": 10,
+  "nome": "Uovo sodo e mandorle",
+  "ingredients": [
+   "db_uova_di_gallina_intero",
+   "db_mandorle_dolci_secche"
+  ],
+  "porzioni": {
+   "uomo": "1.5 uova · 13g mandorle",
+   "donna": "1 uovo · 10g mandorle",
+   "bimbo": "0.5 uova · 6g mandorle"
+  },
+  "uomo": {
+   "kcal": 174,
+   "p": 12,
+   "c": 1,
+   "g": 14
+  },
+  "donna": {
+   "kcal": 124,
+   "p": 8,
+   "c": 0,
+   "g": 10
+  },
+  "bimbo": {
+   "kcal": 68,
+   "p": 4,
+   "c": 0,
+   "g": 6
+  },
+  "categoria": "spuntino",
+  "quantita": {
+   "db_uova_di_gallina_intero": {
+    "uomo": 1.5,
+    "donna": 1,
+    "bimbo": 0.5,
+    "unit": "pz"
+   },
+   "db_mandorle_dolci_secche": {
+    "uomo": 13,
+    "donna": 10,
+    "bimbo": 6,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Immergi l'uovo in acqua già in ebollizione e cuocilo 9 minuti. Raffreddalo sotto l'acqua fredda, sguscialo e servilo con le mandorle.",
+  "soloMenu": true
+ },
+ {
+  "id": "pra_56",
+  "prep": 20,
+  "nome": "Insalata di pollo, avocado e noci",
+  "ingredients": [
+   "db_pollo_petto_crudo",
+   "ing_avocado",
+   "db_lattuga",
+   "db_pomodori_maturi",
+   "db_noci_secche",
+   "db_olio_di_oliva_extra_vergine"
+  ],
+  "porzioni": {
+   "uomo": "190g petto di pollo · 65g avocado · 100g lattuga · 125g pomodorini · 13g noci · 10g olio EVO",
+   "donna": "150g petto di pollo · 50g avocado · 80g lattuga · 100g pomodorini · 10g noci · 8g olio EVO",
+   "bimbo": "90g petto di pollo · 30g avocado · 50g lattuga · 60g pomodorini · 6g noci · 5g olio EVO"
+  },
+  "uomo": {
+   "kcal": 563,
+   "p": 52,
+   "c": 8,
+   "g": 36
+  },
+  "donna": {
+   "kcal": 441,
+   "p": 41,
+   "c": 7,
+   "g": 28
+  },
+  "bimbo": {
+   "kcal": 266,
+   "p": 25,
+   "c": 4,
+   "g": 17
+  },
+  "categoria": "pranzo",
+  "quantita": {
+   "db_pollo_petto_crudo": {
+    "uomo": 190,
+    "donna": 150,
+    "bimbo": 90,
+    "unit": "g"
+   },
+   "ing_avocado": {
+    "uomo": 65,
+    "donna": 50,
+    "bimbo": 30,
+    "unit": "g"
+   },
+   "db_lattuga": {
+    "uomo": 100,
+    "donna": 80,
+    "bimbo": 50,
+    "unit": "g"
+   },
+   "db_pomodori_maturi": {
+    "uomo": 125,
+    "donna": 100,
+    "bimbo": 60,
+    "unit": "g"
+   },
+   "db_noci_secche": {
+    "uomo": 13,
+    "donna": 10,
+    "bimbo": 6,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 10,
+    "donna": 8,
+    "bimbo": 5,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Cuoci il petto di pollo su una piastra calda, 4-5 minuti per lato, e taglialo a striscioline. Lava la lattuga e spezzala in una ciotola. Aggiungi il pollo, l'avocado a cubetti, i pomodorini a metà e le noci. Condisci con l'olio EVO e un pizzico di sale.",
+  "soloMenu": true
+ },
+ {
+  "id": "pra_57",
+  "prep": 20,
+  "nome": "Insalata nizzarda con tonno, uova e fagiolini",
+  "ingredients": [
+   "db_tonno_in_salamoia_sgocciolato",
+   "db_uova_di_gallina_intero",
+   "db_fagiolini_freschi_crudi",
+   "db_pomodori_maturi",
+   "db_olive_nere",
+   "db_lattuga",
+   "db_olio_di_oliva_extra_vergine"
+  ],
+  "porzioni": {
+   "uomo": "150g tonno al naturale · 1.5 uova · 190g fagiolini · 125g pomodorini · 25g olive · 75g lattuga · 15g olio EVO",
+   "donna": "120g tonno al naturale · 1 uovo · 150g fagiolini · 100g pomodorini · 20g olive · 60g lattuga · 12g olio EVO",
+   "bimbo": "70g tonno al naturale · 0.5 uova · 90g fagiolini · 60g pomodorini · 12g olive · 35g lattuga · 7g olio EVO"
+  },
+  "uomo": {
+   "kcal": 516,
+   "p": 54,
+   "c": 11,
+   "g": 29
+  },
+  "donna": {
+   "kcal": 400,
+   "p": 42,
+   "c": 9,
+   "g": 22
+  },
+  "bimbo": {
+   "kcal": 229,
+   "p": 24,
+   "c": 5,
+   "g": 13
+  },
+  "categoria": "pranzo",
+  "quantita": {
+   "db_tonno_in_salamoia_sgocciolato": {
+    "uomo": 150,
+    "donna": 120,
+    "bimbo": 70,
+    "unit": "g"
+   },
+   "db_uova_di_gallina_intero": {
+    "uomo": 1.5,
+    "donna": 1,
+    "bimbo": 0.5,
+    "unit": "pz"
+   },
+   "db_fagiolini_freschi_crudi": {
+    "uomo": 190,
+    "donna": 150,
+    "bimbo": 90,
+    "unit": "g"
+   },
+   "db_pomodori_maturi": {
+    "uomo": 125,
+    "donna": 100,
+    "bimbo": 60,
+    "unit": "g"
+   },
+   "db_olive_nere": {
+    "uomo": 25,
+    "donna": 20,
+    "bimbo": 12,
+    "unit": "g"
+   },
+   "db_lattuga": {
+    "uomo": 75,
+    "donna": 60,
+    "bimbo": 35,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 15,
+    "donna": 12,
+    "bimbo": 7,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Lessa i fagiolini in acqua salata per 8 minuti e raffreddali. Cuoci l'uovo in acqua bollente per 9 minuti, poi sguscialo e taglialo a spicchi. Componi l'insalata con lattuga, fagiolini, pomodorini a metà, tonno sgocciolato, olive e uovo. Condisci con l'olio EVO e un pizzico di sale.",
+  "soloMenu": true
+ },
+ {
+  "id": "pra_58",
+  "prep": 15,
+  "nome": "Salmone alla piastra con zucchine e rucola",
+  "ingredients": [
+   "db_salmone_fresco",
+   "db_zucchine_crude",
+   "db_rughetta_o_rucola",
+   "db_olio_di_oliva_extra_vergine",
+   "db_limoni_succo"
+  ],
+  "porzioni": {
+   "uomo": "190g salmone fresco · 255g zucchine · 50g rucola · 10g olio EVO · 7ml succo di limone",
+   "donna": "150g salmone fresco · 200g zucchine · 40g rucola · 8g olio EVO · 5ml succo di limone",
+   "bimbo": "90g salmone fresco · 120g zucchine · 25g rucola · 5g olio EVO · 3ml succo di limone"
+  },
+  "uomo": {
+   "kcal": 484,
+   "p": 40,
+   "c": 8,
+   "g": 33
+  },
+  "donna": {
+   "kcal": 383,
+   "p": 31,
+   "c": 6,
+   "g": 26
+  },
+  "bimbo": {
+   "kcal": 231,
+   "p": 19,
+   "c": 4,
+   "g": 16
+  },
+  "categoria": "pranzo",
+  "quantita": {
+   "db_salmone_fresco": {
+    "uomo": 190,
+    "donna": 150,
+    "bimbo": 90,
+    "unit": "g"
+   },
+   "db_zucchine_crude": {
+    "uomo": 255,
+    "donna": 200,
+    "bimbo": 120,
+    "unit": "g"
+   },
+   "db_rughetta_o_rucola": {
+    "uomo": 50,
+    "donna": 40,
+    "bimbo": 25,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 10,
+    "donna": 8,
+    "bimbo": 5,
+    "unit": "g"
+   },
+   "db_limoni_succo": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "ml"
+   }
+  },
+  "preparazione": "Taglia le zucchine a fette nel senso della lunghezza e grigliale su una piastra calda, 2-3 minuti per lato. Cuoci il salmone sulla stessa piastra, 4 minuti dal lato della pelle e 2-3 dall'altro. Servi su un letto di rucola con l'olio EVO, il succo di limone e un pizzico di sale.",
+  "soloMenu": true
+ },
+ {
+  "id": "pra_59",
+  "prep": 20,
+  "nome": "Frittata di zucchine e feta con insalata",
+  "ingredients": [
+   "db_uova_di_gallina_intero",
+   "db_uova_di_gallina_albume",
+   "db_zucchine_crude",
+   "db_feta",
+   "db_lattuga",
+   "db_olio_di_oliva_extra_vergine"
+  ],
+  "porzioni": {
+   "uomo": "2.5 uova · 75g albumi · 190g zucchine · 50g feta · 75g lattuga · 10g olio EVO",
+   "donna": "2 uova · 60g albumi · 150g zucchine · 40g feta · 60g lattuga · 8g olio EVO",
+   "bimbo": "1 uovo · 35g albumi · 90g zucchine · 25g feta · 35g lattuga · 5g olio EVO"
+  },
+  "uomo": {
+   "kcal": 442,
+   "p": 35,
+   "c": 5,
+   "g": 32
+  },
+  "donna": {
+   "kcal": 353,
+   "p": 28,
+   "c": 4,
+   "g": 25
+  },
+  "bimbo": {
+   "kcal": 203,
+   "p": 16,
+   "c": 2,
+   "g": 14
+  },
+  "categoria": "pranzo",
+  "quantita": {
+   "db_uova_di_gallina_intero": {
+    "uomo": 2.5,
+    "donna": 2,
+    "bimbo": 1.0,
+    "unit": "pz"
+   },
+   "db_uova_di_gallina_albume": {
+    "uomo": 75,
+    "donna": 60,
+    "bimbo": 35,
+    "unit": "g"
+   },
+   "db_zucchine_crude": {
+    "uomo": 190,
+    "donna": 150,
+    "bimbo": 90,
+    "unit": "g"
+   },
+   "db_feta": {
+    "uomo": 50,
+    "donna": 40,
+    "bimbo": 25,
+    "unit": "g"
+   },
+   "db_lattuga": {
+    "uomo": 75,
+    "donna": 60,
+    "bimbo": 35,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 10,
+    "donna": 8,
+    "bimbo": 5,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Taglia le zucchine a rondelle sottili e saltale in padella con metà dell'olio EVO per 5 minuti. Sbatti le uova con gli albumi e la feta sbriciolata, versale sulle zucchine e cuoci coperto a fuoco basso 5 minuti; gira la frittata e cuoci altri 2-3 minuti. Servi con l'insalata condita con l'olio rimasto.",
+  "soloMenu": true
+ },
+ {
+  "id": "pra_60",
+  "prep": 15,
+  "nome": "Tagliata di pollo con rucola, pomodorini e grana",
+  "ingredients": [
+   "db_pollo_petto_crudo",
+   "db_rughetta_o_rucola",
+   "db_pomodori_maturi",
+   "db_grana",
+   "db_olio_di_oliva_extra_vergine"
+  ],
+  "porzioni": {
+   "uomo": "205g petto di pollo · 65g rucola · 190g pomodorini · 25g grana · 13g olio EVO",
+   "donna": "160g petto di pollo · 50g rucola · 150g pomodorini · 20g grana · 10g olio EVO",
+   "bimbo": "95g petto di pollo · 30g rucola · 90g pomodorini · 12g grana · 6g olio EVO"
+  },
+  "uomo": {
+   "kcal": 474,
+   "p": 60,
+   "c": 9,
+   "g": 22
+  },
+  "donna": {
+   "kcal": 370,
+   "p": 47,
+   "c": 7,
+   "g": 17
+  },
+  "bimbo": {
+   "kcal": 221,
+   "p": 28,
+   "c": 4,
+   "g": 10
+  },
+  "categoria": "pranzo",
+  "quantita": {
+   "db_pollo_petto_crudo": {
+    "uomo": 205,
+    "donna": 160,
+    "bimbo": 95,
+    "unit": "g"
+   },
+   "db_rughetta_o_rucola": {
+    "uomo": 65,
+    "donna": 50,
+    "bimbo": 30,
+    "unit": "g"
+   },
+   "db_pomodori_maturi": {
+    "uomo": 190,
+    "donna": 150,
+    "bimbo": 90,
+    "unit": "g"
+   },
+   "db_grana": {
+    "uomo": 25,
+    "donna": 20,
+    "bimbo": 12,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 13,
+    "donna": 10,
+    "bimbo": 6,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Cuoci il petto di pollo intero su una piastra caldissima, 5-6 minuti per lato, poi lascialo riposare 3 minuti e taglialo a fette. Disponilo su un letto di rucola con i pomodorini a metà e il grana a scaglie. Condisci con l'olio EVO e un pizzico di sale.",
+  "soloMenu": true
+ },
+ {
+  "id": "pra_61",
+  "prep": 30,
+  "nome": "Orata al forno con finocchi e olive",
+  "ingredients": [
+   "db_orata_fresca_filetti",
+   "db_finocchi_crudi",
+   "db_olive_nere",
+   "db_olio_di_oliva_extra_vergine",
+   "db_limoni_succo"
+  ],
+  "porzioni": {
+   "uomo": "255g orata · 255g finocchi · 19g olive · 13g olio EVO · 7ml succo di limone",
+   "donna": "200g orata · 200g finocchi · 15g olive · 10g olio EVO · 5ml succo di limone",
+   "bimbo": "120g orata · 120g finocchi · 9g olive · 6g olio EVO · 3ml succo di limone"
+  },
+  "uomo": {
+   "kcal": 494,
+   "p": 56,
+   "c": 5,
+   "g": 28
+  },
+  "donna": {
+   "kcal": 385,
+   "p": 44,
+   "c": 4,
+   "g": 21
+  },
+  "bimbo": {
+   "kcal": 231,
+   "p": 26,
+   "c": 2,
+   "g": 13
+  },
+  "categoria": "pranzo",
+  "quantita": {
+   "db_orata_fresca_filetti": {
+    "uomo": 255,
+    "donna": 200,
+    "bimbo": 120,
+    "unit": "g"
+   },
+   "db_finocchi_crudi": {
+    "uomo": 255,
+    "donna": 200,
+    "bimbo": 120,
+    "unit": "g"
+   },
+   "db_olive_nere": {
+    "uomo": 19,
+    "donna": 15,
+    "bimbo": 9,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 13,
+    "donna": 10,
+    "bimbo": 6,
+    "unit": "g"
+   },
+   "db_limoni_succo": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "ml"
+   }
+  },
+  "preparazione": "Accendi il forno a 200°C. Affetta i finocchi, condiscili con metà dell'olio EVO e un pizzico di sale e cuocili 15 minuti. Aggiungi l'orata e le olive e cuoci altri 12-15 minuti. Completa con il succo di limone e l'olio rimasto.",
+  "soloMenu": true
+ },
+ {
+  "id": "pra_62",
+  "prep": 15,
+  "nome": "Bowl di tofu, edamame, avocado e cetrioli",
+  "ingredients": [
+   "ing_tofu",
+   "ing_edamame",
+   "ing_avocado",
+   "db_cetrioli",
+   "db_soia_salsa",
+   "ing_sesamo",
+   "db_olio_di_oliva_extra_vergine"
+  ],
+  "porzioni": {
+   "uomo": "190g tofu · 75g edamame · 65g avocado · 125g cetrioli · 10ml salsa di soia · 7g semi di sesamo · 7g olio EVO",
+   "donna": "150g tofu · 60g edamame · 50g avocado · 100g cetrioli · 8ml salsa di soia · 5g semi di sesamo · 5g olio EVO",
+   "bimbo": "90g tofu · 35g edamame · 30g avocado · 60g cetrioli · 5ml salsa di soia · 3g semi di sesamo · 3g olio EVO"
+  },
+  "uomo": {
+   "kcal": 527,
+   "p": 29,
+   "c": 15,
+   "g": 36
+  },
+  "donna": {
+   "kcal": 405,
+   "p": 23,
+   "c": 12,
+   "g": 28
+  },
+  "bimbo": {
+   "kcal": 241,
+   "p": 13,
+   "c": 7,
+   "g": 16
+  },
+  "categoria": "pranzo",
+  "quantita": {
+   "ing_tofu": {
+    "uomo": 190,
+    "donna": 150,
+    "bimbo": 90,
+    "unit": "g"
+   },
+   "ing_edamame": {
+    "uomo": 75,
+    "donna": 60,
+    "bimbo": 35,
+    "unit": "g"
+   },
+   "ing_avocado": {
+    "uomo": 65,
+    "donna": 50,
+    "bimbo": 30,
+    "unit": "g"
+   },
+   "db_cetrioli": {
+    "uomo": 125,
+    "donna": 100,
+    "bimbo": 60,
+    "unit": "g"
+   },
+   "db_soia_salsa": {
+    "uomo": 10,
+    "donna": 8,
+    "bimbo": 5,
+    "unit": "ml"
+   },
+   "ing_sesamo": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 7,
+    "donna": 5,
+    "bimbo": 3,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Taglia il tofu a cubetti e rosolalo in padella con l'olio EVO per 5 minuti, finché è dorato. Lessa gli edamame per 4 minuti. Componi la bowl con tofu, edamame, avocado a fette e cetrioli a rondelle. Condisci con la salsa di soia e i semi di sesamo.",
+  "soloMenu": true
+ },
+ {
+  "id": "pra_63",
+  "prep": 15,
+  "nome": "Gamberi saltati con zucchine, pomodorini e avocado",
+  "ingredients": [
+   "db_gamberi_sgusciati_surgelati",
+   "db_zucchine_crude",
+   "db_pomodori_maturi",
+   "ing_avocado",
+   "db_aglio",
+   "db_olio_di_oliva_extra_vergine"
+  ],
+  "porzioni": {
+   "uomo": "230g gamberi · 255g zucchine · 125g pomodorini · 50g avocado · 3g aglio · 13g olio EVO",
+   "donna": "180g gamberi · 200g zucchine · 100g pomodorini · 40g avocado · 2g aglio · 10g olio EVO",
+   "bimbo": "110g gamberi · 120g zucchine · 60g pomodorini · 25g avocado · 1g aglio · 6g olio EVO"
+  },
+  "uomo": {
+   "kcal": 481,
+   "p": 45,
+   "c": 16,
+   "g": 27
+  },
+  "donna": {
+   "kcal": 377,
+   "p": 35,
+   "c": 12,
+   "g": 21
+  },
+  "bimbo": {
+   "kcal": 230,
+   "p": 22,
+   "c": 8,
+   "g": 13
+  },
+  "categoria": "pranzo",
+  "quantita": {
+   "db_gamberi_sgusciati_surgelati": {
+    "uomo": 230,
+    "donna": 180,
+    "bimbo": 110,
+    "unit": "g"
+   },
+   "db_zucchine_crude": {
+    "uomo": 255,
+    "donna": 200,
+    "bimbo": 120,
+    "unit": "g"
+   },
+   "db_pomodori_maturi": {
+    "uomo": 125,
+    "donna": 100,
+    "bimbo": 60,
+    "unit": "g"
+   },
+   "ing_avocado": {
+    "uomo": 50,
+    "donna": 40,
+    "bimbo": 25,
+    "unit": "g"
+   },
+   "db_aglio": {
+    "uomo": 3,
+    "donna": 2,
+    "bimbo": 1,
+    "unit": "g"
+   },
+   "db_olio_di_oliva_extra_vergine": {
+    "uomo": 13,
+    "donna": 10,
+    "bimbo": 6,
+    "unit": "g"
+   }
+  },
+  "preparazione": "Rosola l'aglio in padella con l'olio EVO, aggiungi le zucchine a dadini e cuoci 5 minuti. Unisci i gamberi e i pomodorini a metà e cuoci altri 3-4 minuti. Servi con l'avocado a cubetti.",
+  "soloMenu": true
  }
 ]

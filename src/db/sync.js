@@ -3,7 +3,7 @@
 // Regola unica: chi ha scritto per ultimo sul cloud ha ragione.
 
 import { SK_EXCL, SK_MEALS_LOG, SK_MISURE, SK_MY_PERSONA, SK_OVERRIDES,
-         SK_PERSONAS, SK_PREFS, SK_SEED, SK_SPESA, SK_TARGET_GIORNALIERO, SK_FROZEN } from '@/core/constants';
+         SK_PERSONAS, SK_PREFS, SK_SEED, SK_SPESA, SK_TARGET_GIORNALIERO, SK_FROZEN, SK_MENU } from '@/core/constants';
 import { calcTargetAdattivo } from '@/core/engine';
 import { dataNascitaToEta, etaToDataNascita, getSession, supabase } from './cloud';
 import { logSync } from './synclog';
@@ -265,12 +265,16 @@ async function pullPiano() {
     .eq("famiglia_id",me.famigliaId).eq("chiave","piano").maybeSingle();
   if (error) { logSync("error","Pull piano: errore",{error:error.message}); return; }
   if (!data?.valore) return;
-  const {seed,overrides,frozen}=data.valore;
+  const {seed,overrides,frozen,menu}=data.valore;
   if (!seed) return;
   const curSeed=await getLocalRaw(SK_SEED,null);
   const curOvr=await getLocalRaw(SK_OVERRIDES,"{}");
   const newOvr=JSON.stringify(overrides||{});
-  if (String(seed)===curSeed&&newOvr===curOvr) return;
+  // Menù dieta (mediterranea, low carb…): [{dal, stile}]. Un piano salvato da una
+  // versione precedente non ce l'ha: vale come "menù libero".
+  const menuCloud=Array.isArray(menu)?menu:[];
+  const curMenu=await getLocalRaw(SK_MENU,"[]");
+  if (String(seed)===curSeed&&newOvr===curOvr&&JSON.stringify(menuCloud)===curMenu) return;
   // Scarta gli echi "vecchi": se il seed dal cloud è numericamente più
   // vecchio di quello che ho appena pushato (o di quello locale), è un
   // evento realtime in coda che NON deve sovrascrivere la mia modifica.
@@ -299,8 +303,9 @@ async function pullPiano() {
   await setLocalQuiet(SK_SEED,String(seed));
   await setLocalQuiet(SK_OVERRIDES,newOvr);
   await setLocalQuiet(SK_FROZEN, JSON.stringify(frozen||{}));
-  logSync("pull","Piano aggiornato dal cloud",{seed:String(seed),seedPrecedente:curSeed});
-  emit("piano",{seed:String(seed),overrides:overrides||{},frozen:frozen||{}});
+  await setLocalQuiet(SK_MENU, JSON.stringify(menuCloud));
+  logSync("pull","Piano aggiornato dal cloud",{seed:String(seed),seedPrecedente:curSeed,menu:menuCloud.length?menuCloud[menuCloud.length-1].stile||"libero":"libero"});
+  emit("piano",{seed:String(seed),overrides:overrides||{},frozen:frozen||{},menu:menuCloud});
 }
 
 async function pullAltriDatiFamiglia() {
@@ -324,7 +329,9 @@ async function recomputePianoLocale() {
   try { overrides=JSON.parse(await getLocalRaw(SK_OVERRIDES,"{}"))||{}; } catch {}
   let frozen={};
   try { frozen=JSON.parse(await getLocalRaw(SK_FROZEN,"{}"))||{}; } catch {}
-  emit("piano",{seed:String(seed),overrides,frozen});
+  let menu=[];
+  try { const m=JSON.parse(await getLocalRaw(SK_MENU,"[]")); if (Array.isArray(m)) menu=m; } catch {}
+  emit("piano",{seed:String(seed),overrides,frozen,menu});
 }
 
 function pullSpesa() {
@@ -363,6 +370,7 @@ async function pushPianoConLock() {
   if (!seed) return;
   const overrides=await getLocal(SK_OVERRIDES,{});
   const frozen=await getLocal(SK_FROZEN,{});
+  const menu=await getLocal(SK_MENU,[]);
   // Registra subito il seed come "il più recente che conosco": anche se
   // un eco realtime arriva mentre l'upsert è ancora in volo, pullPiano lo
   // confronterà con questo valore e scarterà gli stati più vecchi.
@@ -371,7 +379,7 @@ async function pushPianoConLock() {
   pianoLock=true;
   clearTimeout(timers.__pianoLockRelease);
   try {
-    const {error}=await supabase.from("famiglia_dati").upsert({famiglia_id:me.famigliaId,chiave:"piano",valore:{seed:String(seed),overrides,frozen}},{onConflict:"famiglia_id,chiave"});
+    const {error}=await supabase.from("famiglia_dati").upsert({famiglia_id:me.famigliaId,chiave:"piano",valore:{seed:String(seed),overrides,frozen,menu:Array.isArray(menu)?menu:[]}},{onConflict:"famiglia_id,chiave"});
     if (error) logSync("error","Push piano: errore",{error:error.message});
     else { console.log("[sync] piano pushato:",seed); logSync("push","Piano caricato sul cloud",{seed:String(seed)}); }
   }
@@ -512,7 +520,7 @@ function hookStorage() {
   window.storage.set=async(key,value)=>{
     const r=await orig(key,value);
     if (!me||isApplying(key)) return r;
-    if (key===SK_SEED||key===SK_OVERRIDES) {
+    if (key===SK_SEED||key===SK_OVERRIDES||key===SK_MENU) {
       logSync("push-schedule","Push pianificato: piano");
       clearTimeout(timers.__pushPiano);
       timers.__pushPiano=setTimeout(async()=>{delete timers.__pushPiano;await pushPianoConLock();},2000);

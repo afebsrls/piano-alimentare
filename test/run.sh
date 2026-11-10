@@ -33,6 +33,12 @@ node ./.tcu.mjs || FAIL=1
 rm -f ./.tcu.mjs
 
 echo ""
+echo "▸ TEST 2m — Menù dieta (mediterranea, low carb, proteica, vegetariana)"
+"$EB" test/test_menu_dieta.mjs --bundle --format=esm --outfile=./.tmd.mjs "--alias:@=$ROOT/src" --loader:.json=json --packages=external --log-level=error
+node ./.tmd.mjs || FAIL=1
+rm -f ./.tmd.mjs
+
+echo ""
 echo "▸ TEST 2j — Stabilità piano vs variazioni DB (rendezvous)"
 "$EB" test/test_piano_stabile.mjs --bundle --format=esm --outfile=./.tps.mjs "--alias:@=$ROOT/src" --loader:.json=json --packages=external --log-level=error
 node ./.tps.mjs || FAIL=1

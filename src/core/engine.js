@@ -1,5 +1,6 @@
 // ── Motore: calcolo macro, scaling, piano, lista spesa ────────────
-import { DB, INGREDIENTS, ING_MAP, ING_QTY, PESO_PEZZO, PESO_PEZZO_RANGE, PESO_PEZZO_TARATO } from '@/data';
+import { compatibileStile, pesoStile, stileForWeek } from './menuStili';
+import { DB, poolLibero, INGREDIENTS, ING_MAP, ING_QTY, PESO_PEZZO, PESO_PEZZO_RANGE, PESO_PEZZO_TARATO } from '@/data';
 import { CONFIDENZA, DAYS, LAF_TAB_LARN, LAVORI, LIMITI_SCALING, MB_COEFF_LARN, MEAL_HOUR, MEAL_KEYS, MEAL_META, PERSONAS_KEYS, PREF_WEIGHTS, RICALCOLO_AUTO, STILE_LEGACY_ADULTI, STILE_LEGACY_BAMBINI, SWAP_CONTEXT_HOURS } from './constants';
 import { logCalc } from '@/db/synclog';
 
@@ -693,7 +694,13 @@ export function findAlternatives(mealKey, currentMeal, minPrep, maxPrep, exclude
     .map(r => { try { return ricettaUtenteToMealObj(r); } catch { return null; } })
     .filter(Boolean);
 
-  const tuttiCandidati = [...utenteConvertite, ...cats.flatMap(c => DB[c] || [])];
+  let tuttiCandidati = [...utenteConvertite, ...cats.flatMap(c => (DB[c] || []).map(r => ({ r, c })))].map(x => x.r ? x : { r: x, c: x.categoria });
+  // Menù dieta attivo: proponi solo piatti dello stesso stile (se ce ne sono abbastanza)
+  if (STILE_CORRENTE) {
+    const inStile = tuttiCandidati.filter(x => compatibileStile(STILE_CORRENTE, x.r, infoIngMotore, x.c || cats[0]));
+    if (inStile.length >= 3) tuttiCandidati = inStile;
+  }
+  tuttiCandidati = tuttiCandidati.map(x => x.r);
 
   let scartFascia = 0, scartEscl = 0, scartStag = 0, scartStessa = 0, ammessi = 0;
   for (const r of tuttiCandidati) {
@@ -815,9 +822,11 @@ export function seedForWeek(planState, weekIndex) {
 }
 
 // Genera il piano (7 giorni Lun→Dom) di una specifica settimana.
+// Il menù dieta (mediterranea, low carb…) è nello stato del piano, per settimana.
 export function planForWeek(planState, weekIndex, genArgs = {}) {
   const seed = seedForWeek(planState, weekIndex);
-  return generateWeekPlan(seed, genArgs.excludedIds || [], genArgs.mese, genArgs.ricetteUtente || [], genArgs.ricetteEscluseIds);
+  const stile = stileForWeek(planState && planState.menu, weekIndex);
+  return generateWeekPlan(seed, genArgs.excludedIds || [], genArgs.mese, genArgs.ricetteUtente || [], genArgs.ricetteEscluseIds, stile);
 }
 
 // Risolve un singolo giorno-data: { weekIndex, weekday, dateKey, week, day }.
@@ -1201,11 +1210,26 @@ export function ricettaUtenteToMealObj(ricetta) {
 // Le ricette utente hanno peso 3× nel sorteggio, così vengono favorite.
 // Le ricette escluse (esclusa=true) non entrano nel pool.
 // Registra anche ING_QTY per ogni ricetta utente (effetto collaterale idempotente).
-export function buildMergedPool(categoria, ricetteUtente, excludedIds, mese, ricetteEscluseIds) {
+// ── Menù dieta: ricette di partenza per categoria ────────────────────
+const infoIngMotore = (id) => ING_MAP[id];
+const MIN_POOL_STILE = 4;
+export function ricetteBaseStile(categoria, stile) {
+  if (!stile) return poolLibero(categoria);
+  const filtrate = (DB[categoria] || []).filter(r => compatibileStile(stile, r, infoIngMotore, categoria));
+  // Ripiego: se lo stile lascia troppo poco per questa categoria si usa il pool libero
+  return filtrate.length >= MIN_POOL_STILE ? filtrate : poolLibero(categoria);
+}
+// Stile del piano visualizzato (impostato dall'app): orienta le proposte di scambio
+let STILE_CORRENTE = null;
+export function impostaStileCorrente(stile) { STILE_CORRENTE = stile || null; }
+export function stileCorrente() { return STILE_CORRENTE; }
+
+export function buildMergedPool(categoria, ricetteUtente, excludedIds, mese, ricetteEscluseIds, stile) {
   const escl = ricetteEscluseIds instanceof Set ? ricetteEscluseIds : new Set(ricetteEscluseIds || []);
-  // Catalogo: filtra ingredienti esclusi E ricette escluse per id
-  const catalogoFiltrato = (DB[categoria] || []).filter(r => !escl.has(r.id));
-  const catalogo = buildWeightedPool(catalogoFiltrato, excludedIds, mese);
+  // Senza menù dieta: pool libero (poolLibero). Con un menù dieta: catalogo filtrato per stile.
+  const catalogoFiltrato = ricetteBaseStile(categoria, stile).filter(r => !escl.has(r.id));
+  let catalogo = buildWeightedPool(catalogoFiltrato, excludedIds, mese);
+  if (stile) catalogo = catalogo.flatMap(r => Array(pesoStile(stile, r, infoIngMotore)).fill(r));
   // Ricette utente della categoria: escludi quelle con flag esclusa o id escluso
   const utente = (ricetteUtente || [])
     .filter(r => r.categoria === categoria && !r.esclusa)
@@ -1214,7 +1238,8 @@ export function buildMergedPool(categoria, ricetteUtente, excludedIds, mese, ric
     })
     .filter(Boolean)
     .filter(r => !escl.has(r.id) && !escl.has(r._cloudId))
-    .filter(r => !r.ingredients.some(id => (excludedIds||[]).includes(id)));
+    .filter(r => !r.ingredients.some(id => (excludedIds||[]).includes(id)))
+    .filter(r => !stile || compatibileStile(stile, r, infoIngMotore, categoria));
 
   if (!utente.length) return catalogo;
 
@@ -1296,13 +1321,13 @@ function scegliStabile(seed, slotKey, candidati, vietati) {
   return best;
 }
 
-export function generateWeekPlan(seed, excludedIds = [], mese, ricetteUtente = [], ricetteEscluseIds) {
+export function generateWeekPlan(seed, excludedIds = [], mese, ricetteUtente = [], ricetteEscluseIds, stile = null) {
   const m = mese || meseCorrente();
   const escl = ricetteEscluseIds instanceof Set ? ricetteEscluseIds : new Set(ricetteEscluseIds || []);
 
   const diag = {};
   const analizzaCat = (cat) => {
-    const tutteDB = (DB[cat] || []).filter(r => !escl.has(r.id));
+    const tutteDB = ricetteBaseStile(cat, stile).filter(r => !escl.has(r.id));
     const tutteUtente = (ricetteUtente||[]).filter(r => r.categoria === cat && !r.esclusa);
     let perEsclusione = 0, perStagione = 0, ammesse = 0;
     for (const r of tutteDB) {
@@ -1314,8 +1339,8 @@ export function generateWeekPlan(seed, excludedIds = [], mese, ricetteUtente = [
   };
 
   const pickSeven = (cat) => {
-    const pool = buildMergedPool(cat, ricetteUtente, excludedIds, m, escl);
-    if (!pool.length) return (DB[cat]||[]).slice(0, 7);
+    const pool = buildMergedPool(cat, ricetteUtente, excludedIds, m, escl, stile);
+    if (!pool.length) return poolLibero(cat).slice(0, 7);
     const cand = candidatiPesati(pool);
     const picked = [], usedIds = new Set();
     for (let i = 0; i < 7; i++) {
@@ -1337,8 +1362,8 @@ export function generateWeekPlan(seed, excludedIds = [], mese, ricetteUtente = [
   const cene   = pickSeven("cena");
 
   // Spuntini: pool unificato, no due uguali consecutivi
-  const spPool = buildMergedPool("spuntino", ricetteUtente, excludedIds, m, escl);
-  const spFallback = buildMergedPool("spuntino", ricetteUtente, [], m, escl);
+  const spPool = buildMergedPool("spuntino", ricetteUtente, excludedIds, m, escl, stile);
+  const spFallback = buildMergedPool("spuntino", ricetteUtente, [], m, escl, stile);
   const spCand = candidatiPesati(spPool);
   const spCandFb = candidatiPesati(spFallback.length ? spFallback : spPool);
   const spuntini = [];
@@ -1352,8 +1377,8 @@ export function generateWeekPlan(seed, excludedIds = [], mese, ricetteUtente = [
 
   try {
     const uniche = (arr) => new Set(arr.map(x=>x.id)).size;
-    logCalc("plan", String(seed), `Generazione piano · seed ${seed} · mese ${m}`, {
-      seed: String(seed), mese: m,
+    logCalc("plan", String(seed), `Generazione piano · seed ${seed} · mese ${m}${stile ? ` · menù ${stile}` : ""}`, {
+      seed: String(seed), mese: m, menu: stile || "libero",
       esclusiIngredienti: excludedIds.length ? excludedIds : "nessuno",
       categorie: diag,
       ricetteUniche: { colazione: uniche(cols), pranzo: uniche(pranzi), cena: uniche(cene), spuntino: uniche(spuntini) },
@@ -1373,6 +1398,7 @@ export function generateWeekPlan(seed, excludedIds = [], mese, ricetteUtente = [
     spuntino_p: spuntini[i * 2 + 1],
     cena:       cene[i],
     mese:       m,
+    ...(stile ? { stile } : {}),
   }));
 }
 

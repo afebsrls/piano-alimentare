@@ -38,6 +38,14 @@ export const DB = recipesJson.reduce((acc, r) => {
   return acc;
 }, {});
 
+// poolLibero: le ricette da cui pesca il generatore del piano "libero". Le ricette
+// marcate soloMenu (aggiunte per i menù dieta: low carb, proteica…) stanno nel
+// catalogo (ricettario, scambi, sito) ma non qui: così aggiungerle non cambia i
+// piani già generati delle famiglie. Con un menù dieta attivo il generatore usa
+// tutto il DB filtrato per stile (vedi core/menuStili.js).
+// (Filtro calcolato a ogni chiamata: segue le eventuali modifiche a DB in memoria.)
+export const poolLibero = (categoria) => (DB[categoria] || []).filter(r => !r.soloMenu);
+
 // ING_QTY: { [idRicetta]: quantita } — oggetto MUTABILE (l'app lo modifica)
 export const ING_QTY = Object.fromEntries(
   recipesJson.filter(r => r.quantita).map(r => [r.id, r.quantita])
